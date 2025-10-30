@@ -113,8 +113,8 @@ async def create_order(
             str(order_dir),
             str(zip_path),
             order_number,
-            order_details_obj.contactInfo.dict(),
-            [p.dict() for p in order_details_obj.photoSettings],
+            order_details_obj.contactInfo.model_dump(),
+            [p.model_dump() for p in order_details_obj.photoSettings],
             total_photos
         )
         
@@ -127,7 +127,7 @@ async def create_order(
             totalPhotos=total_photos
         )
         
-        await db.orders.insert_one(order.dict())
+        await db.orders.insert_one(order.model_dump())
         
         return OrderResponse(
             success=True,
