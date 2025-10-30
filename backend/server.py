@@ -30,6 +30,12 @@ app = FastAPI()
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
+# Create directories for orders
+ORDERS_DIR = ROOT_DIR / "orders"
+ORDERS_ZIPS_DIR = ROOT_DIR / "orders_zips"
+ORDERS_DIR.mkdir(exist_ok=True)
+ORDERS_ZIPS_DIR.mkdir(exist_ok=True)
+
 
 # Define Models
 class StatusCheck(BaseModel):
