@@ -7,7 +7,7 @@ import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { toast } from './ui/use-toast';
+import { toast } from '../hooks/use-toast';
 
 const UploadPage = () => {
   const navigate = useNavigate();
