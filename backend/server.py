@@ -77,6 +77,81 @@ async def get_status_checks():
     
     return status_checks
 
+@api_router.post("/orders/create", response_model=OrderResponse)
+async def create_order(
+    photos: List[UploadFile] = File(...),
+    order_details: str = Form(...)
+):
+    try:
+        # Parse order details
+        order_data = json.loads(order_details)
+        order_details_obj = OrderDetails(**order_data)
+        
+        # Generate order number
+        order_number = generate_order_number()
+        
+        # Create order directory
+        order_dir = ORDERS_DIR / order_number
+        order_dir.mkdir(exist_ok=True)
+        
+        # Save photos
+        saved_files = []
+        for photo in photos:
+            file_path = order_dir / photo.filename
+            with open(file_path, "wb") as buffer:
+                shutil.copyfileobj(photo.file, buffer)
+            saved_files.append(photo.filename)
+        
+        # Calculate total photos
+        total_photos = sum(p.quantity for p in order_details_obj.photoSettings)
+        
+        # Create ZIP file
+        zip_file_name = f"order-{order_number}.zip"
+        zip_path = ORDERS_ZIPS_DIR / zip_file_name
+        
+        create_order_zip(
+            str(order_dir),
+            str(zip_path),
+            order_number,
+            order_details_obj.contactInfo.dict(),
+            [p.dict() for p in order_details_obj.photoSettings],
+            total_photos
+        )
+        
+        # Save to MongoDB
+        order = Order(
+            orderNumber=order_number,
+            contactInfo=order_details_obj.contactInfo,
+            photoSettings=order_details_obj.photoSettings,
+            zipFilePath=str(zip_path),
+            totalPhotos=total_photos
+        )
+        
+        await db.orders.insert_one(order.dict())
+        
+        return OrderResponse(
+            success=True,
+            orderNumber=order_number,
+            message="Order created successfully",
+            zipFilePath=str(zip_path)
+        )
+        
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=400, detail="Invalid order details format")
+    except Exception as e:
+        logging.error(f"Error creating order: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to create order: {str(e)}")
+
+@api_router.get("/orders/{order_number}")
+async def get_order(order_number: str):
+    order = await db.orders.find_one({"orderNumber": order_number})
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found")
+    
+    # Convert ObjectId to string for JSON serialization
+    order["_id"] = str(order["_id"])
+    return order
+
 # Include the router in the main app
 app.include_router(api_router)
 
