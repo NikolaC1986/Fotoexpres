@@ -61,7 +61,7 @@ const UploadPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (photos.length === 0) {
@@ -82,19 +82,57 @@ const UploadPage = () => {
       return;
     }
 
-    // Mock order submission
-    const orderNumber = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
-    toast({
-      title: "Order submitted!",
-      description: `Your order #${orderNumber} has been received. We'll contact you soon.`
-    });
+    try {
+      // Show loading toast
+      toast({
+        title: "Submitting order...",
+        description: "Please wait while we process your order"
+      });
 
-    // Store in localStorage for mock
-    localStorage.setItem('lastOrder', JSON.stringify({ orderNumber, photos, contactInfo }));
-    
-    setTimeout(() => {
-      navigate('/');
-    }, 2000);
+      // Create FormData
+      const formData = new FormData();
+
+      // Add photos
+      photos.forEach(photo => {
+        formData.append('photos', photo.file);
+      });
+
+      // Add order details
+      const orderDetails = {
+        contactInfo,
+        photoSettings: photos.map(p => ({
+          fileName: p.file.name,
+          format: p.format,
+          quantity: p.quantity,
+          finish: p.finish
+        }))
+      };
+      formData.append('order_details', JSON.stringify(orderDetails));
+
+      // API call
+      const response = await axios.post(`${API}/orders/create`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+
+      const { orderNumber } = response.data;
+      
+      toast({
+        title: "Order submitted!",
+        description: `Your order #${orderNumber} has been received. We'll contact you soon.`
+      });
+
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
+      
+    } catch (error) {
+      console.error('Order submission error:', error);
+      toast({
+        title: "Order failed",
+        description: error.response?.data?.detail || "Failed to submit order. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   const totalPhotos = photos.reduce((sum, photo) => sum + photo.quantity, 0);
