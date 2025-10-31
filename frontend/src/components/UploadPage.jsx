@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Upload, X, Plus, Minus, Image as ImageIcon } from 'lucide-react';
+import { Upload, X, Plus, Minus, Image as ImageIcon, CheckCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
@@ -83,21 +83,16 @@ const UploadPage = () => {
     }
 
     try {
-      // Show loading toast
       toast({
         title: "Submitting order...",
         description: "Please wait while we process your order"
       });
 
-      // Create FormData
       const formData = new FormData();
-
-      // Add photos
       photos.forEach(photo => {
         formData.append('photos', photo.file);
       });
 
-      // Add order details
       const orderDetails = {
         contactInfo,
         photoSettings: photos.map(p => ({
@@ -109,7 +104,6 @@ const UploadPage = () => {
       };
       formData.append('order_details', JSON.stringify(orderDetails));
 
-      // API call
       const response = await axios.post(`${API}/orders/create`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
@@ -138,15 +132,16 @@ const UploadPage = () => {
   const totalPhotos = photos.reduce((sum, photo) => sum + photo.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 py-16">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Upload Your Photos</h1>
-          <p className="text-gray-600">Select your photos, choose formats and quantities, then provide delivery details.</p>
+        {/* Header */}
+        <div className="mb-12 text-center">
+          <h1 className="text-5xl font-bold text-gray-900 mb-4">Upload Your Photos</h1>
+          <p className="text-xl text-gray-600">Select your photos, choose formats and quantities, then provide delivery details.</p>
         </div>
 
         {/* Upload Area */}
-        <Card className="p-8 mb-8 border-2 border-dashed border-gray-300 hover:border-[#FFB8BA] transition-all">
+        <Card className="p-12 mb-12 border-2 border-dashed border-gray-300 hover:border-blue-500 transition-all bg-white">
           <label className="cursor-pointer block">
             <input 
               type="file" 
@@ -155,32 +150,31 @@ const UploadPage = () => {
               onChange={handleFileUpload}
               className="hidden"
             />
-            <div className="text-center py-12">
-              <div className="bg-[#FFB8BA] w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Upload className="w-10 h-10 text-white" />
+            <div className="text-center py-16">
+              <div className="bg-blue-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Upload className="w-12 h-12 text-blue-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Click to upload photos</h3>
-              <p className="text-gray-500">or drag and drop your images here</p>
-              <p className="text-sm text-gray-400 mt-2">Supports: JPG, PNG, HEIC</p>
+              <h3 className="text-2xl font-bold mb-3 text-gray-900">Click to upload photos</h3>
+              <p className="text-gray-500 text-lg">or drag and drop your images here</p>
+              <p className="text-sm text-gray-400 mt-4">Supports: JPG, PNG, HEIC (Max 10MB per file)</p>
             </div>
           </label>
         </Card>
 
         {/* Photos Grid */}
         {photos.length > 0 && (
-          <div className="mb-8">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold">Your Photos ({photos.length})</h2>
-              <div className="bg-[#FFB8BA] px-6 py-3 rounded-lg">
-                <span className="text-gray-900 font-semibold">Total prints: {totalPhotos}</span>
+          <div className="mb-12">
+            <div className="flex justify-between items-center mb-8">
+              <h2 className="text-3xl font-bold text-gray-900">Your Photos ({photos.length})</h2>
+              <div className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold">
+                Total prints: {totalPhotos}
               </div>
             </div>
 
             <div className="grid gap-6">
               {photos.map(photo => (
-                <Card key={photo.id} className="p-6 hover:shadow-xl transition-shadow">
-                  <div className="grid md:grid-cols-5 gap-6 items-center">
-                    {/* Photo Preview */}
+                <Card key={photo.id} className="p-6 hover:shadow-xl transition-shadow bg-white border-2 border-gray-200">
+                  <div className="grid md:grid-cols-6 gap-6 items-center">
                     <div className="relative group">
                       <img 
                         src={photo.preview} 
@@ -189,17 +183,16 @@ const UploadPage = () => {
                       />
                       <button
                         onClick={() => removePhoto(photo.id)}
-                        className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-red-600"
                       >
-                        <X size={16} />
+                        <X size={18} />
                       </button>
                     </div>
 
-                    {/* Format Selection */}
                     <div>
-                      <Label className="text-sm font-semibold mb-2 block">Format</Label>
+                      <Label className="text-sm font-semibold mb-2 block text-gray-700">Format</Label>
                       <Select value={photo.format} onValueChange={(value) => updatePhoto(photo.id, 'format', value)}>
-                        <SelectTrigger>
+                        <SelectTrigger className="border-2">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -211,22 +204,23 @@ const UploadPage = () => {
                       </Select>
                     </div>
 
-                    {/* Quantity */}
                     <div>
-                      <Label className="text-sm font-semibold mb-2 block">Quantity</Label>
+                      <Label className="text-sm font-semibold mb-2 block text-gray-700">Quantity</Label>
                       <div className="flex items-center gap-2">
                         <Button 
                           size="sm" 
                           variant="outline"
+                          className="border-2"
                           onClick={() => updateQuantity(photo.id, -1)}
                           disabled={photo.quantity <= 1}
                         >
                           <Minus size={16} />
                         </Button>
-                        <span className="w-12 text-center font-semibold">{photo.quantity}</span>
+                        <span className="w-12 text-center font-bold text-lg">{photo.quantity}</span>
                         <Button 
                           size="sm" 
                           variant="outline"
+                          className="border-2"
                           onClick={() => updateQuantity(photo.id, 1)}
                         >
                           <Plus size={16} />
@@ -234,11 +228,10 @@ const UploadPage = () => {
                       </div>
                     </div>
 
-                    {/* Paper Finish */}
                     <div>
-                      <Label className="text-sm font-semibold mb-2 block">Paper Finish</Label>
+                      <Label className="text-sm font-semibold mb-2 block text-gray-700">Paper Finish</Label>
                       <Select value={photo.finish} onValueChange={(value) => updatePhoto(photo.id, 'finish', value)}>
-                        <SelectTrigger>
+                        <SelectTrigger className="border-2">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -248,10 +241,13 @@ const UploadPage = () => {
                       </Select>
                     </div>
 
-                    {/* Photo Info */}
-                    <div className="text-sm text-gray-600">
-                      <p className="font-semibold">{photo.file.name}</p>
-                      <p className="text-xs text-gray-400">{(photo.file.size / 1024 / 1024).toFixed(2)} MB</p>
+                    <div className="md:col-span-2">
+                      <p className="font-semibold text-gray-900">{photo.file.name}</p>
+                      <p className="text-sm text-gray-500">{(photo.file.size / 1024 / 1024).toFixed(2)} MB</p>
+                      <div className="flex items-center gap-2 mt-2 text-green-600">
+                        <CheckCircle size={16} />
+                        <span className="text-sm font-medium">Ready to print</span>
+                      </div>
                     </div>
                   </div>
                 </Card>
@@ -262,28 +258,30 @@ const UploadPage = () => {
 
         {/* Contact Form */}
         {photos.length > 0 && (
-          <Card className="p-8">
-            <h2 className="text-2xl font-bold mb-6">Delivery Information</h2>
+          <Card className="p-10 bg-white border-2 border-gray-200">
+            <h2 className="text-3xl font-bold mb-8 text-gray-900">Delivery Information</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <Label htmlFor="fullName">Full Name *</Label>
+                  <Label htmlFor="fullName" className="text-base font-semibold">Full Name *</Label>
                   <Input 
                     id="fullName"
                     value={contactInfo.fullName}
                     onChange={(e) => setContactInfo({...contactInfo, fullName: e.target.value})}
                     placeholder="John Doe"
+                    className="mt-2 border-2"
                     required
                   />
                 </div>
                 <div>
-                  <Label htmlFor="email">Email *</Label>
+                  <Label htmlFor="email" className="text-base font-semibold">Email *</Label>
                   <Input 
                     id="email"
                     type="email"
                     value={contactInfo.email}
                     onChange={(e) => setContactInfo({...contactInfo, email: e.target.value})}
                     placeholder="john@example.com"
+                    className="mt-2 border-2"
                     required
                   />
                 </div>
@@ -291,43 +289,46 @@ const UploadPage = () => {
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <Label htmlFor="phone">Phone Number *</Label>
+                  <Label htmlFor="phone" className="text-base font-semibold">Phone Number *</Label>
                   <Input 
                     id="phone"
                     value={contactInfo.phone}
                     onChange={(e) => setContactInfo({...contactInfo, phone: e.target.value})}
                     placeholder="+381 66 123 4567"
+                    className="mt-2 border-2"
                     required
                   />
                 </div>
                 <div>
-                  <Label htmlFor="address">Delivery Address *</Label>
+                  <Label htmlFor="address" className="text-base font-semibold">Delivery Address *</Label>
                   <Input 
                     id="address"
                     value={contactInfo.address}
                     onChange={(e) => setContactInfo({...contactInfo, address: e.target.value})}
                     placeholder="Street, City, Postal Code"
+                    className="mt-2 border-2"
                     required
                   />
                 </div>
               </div>
 
               <div>
-                <Label htmlFor="notes">Additional Notes (Optional)</Label>
+                <Label htmlFor="notes" className="text-base font-semibold">Additional Notes (Optional)</Label>
                 <Textarea 
                   id="notes"
                   value={contactInfo.notes}
                   onChange={(e) => setContactInfo({...contactInfo, notes: e.target.value})}
                   placeholder="Any special instructions or notes..."
                   rows={4}
+                  className="mt-2 border-2"
                 />
               </div>
 
-              <div className="flex justify-end gap-4 pt-6 border-t">
-                <Button type="button" variant="outline" onClick={() => navigate('/')}>
+              <div className="flex justify-end gap-4 pt-6 border-t-2">
+                <Button type="button" variant="outline" size="lg" onClick={() => navigate('/')} className="border-2">
                   Cancel
                 </Button>
-                <Button type="submit" size="lg" className="bg-[#FFB8BA] hover:bg-[#FF9B9D] text-gray-900 gap-2">
+                <Button type="submit" size="lg" className="bg-blue-600 hover:bg-blue-700 text-white gap-2 px-8">
                   <ImageIcon size={20} />
                   Submit Order ({totalPhotos} prints)
                 </Button>
