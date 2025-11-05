@@ -204,6 +204,42 @@ const UploadPage = () => {
               </div>
             </div>
 
+            {/* Bulk Format Selector */}
+            <Card className="p-6 mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-300">
+              <div className="flex items-center justify-between gap-6">
+                <div className="flex items-center gap-4">
+                  <div className="bg-blue-600 text-white p-3 rounded-lg">
+                    <ImageIcon size={24} />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900">Promeni Format za Sve Fotografije</h3>
+                    <p className="text-sm text-gray-600">Izaberite format koji želite primeniti na sve fotografije odjednom</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Select onValueChange={(value) => {
+                    setPhotos(photos.map(photo => ({ ...photo, format: value })));
+                    toast({
+                      title: "Format promenjen",
+                      description: `Sve fotografije su postavljene na ${value} cm format`
+                    });
+                  }}>
+                    <SelectTrigger className="w-64 border-2 border-blue-400 bg-white">
+                      <SelectValue placeholder="Izaberite format za sve" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="9x13">9x13 cm - 12 RSD</SelectItem>
+                      <SelectItem value="10x15">10x15 cm - 18 RSD</SelectItem>
+                      <SelectItem value="13x18">13x18 cm - 25 RSD</SelectItem>
+                      <SelectItem value="15x21">15x21 cm - 50 RSD</SelectItem>
+                      <SelectItem value="20x30">20x30 cm - 150 RSD</SelectItem>
+                      <SelectItem value="30x45">30x45 cm - 250 RSD</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </Card>
+
             <div className="grid gap-6">
               {photos.map(photo => {
                 const photoPrice = PRICE_MAP[photo.format] * photo.quantity;
