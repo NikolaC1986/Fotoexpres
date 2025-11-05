@@ -8,7 +8,7 @@ def generate_order_number():
     import random
     return f"ORD-{random.randint(100000, 999999)}"
 
-def create_order_details_txt(order_number, contact_info, photo_settings, total_photos):
+def create_order_details_txt(order_number, contact_info, photo_settings, total_photos, crop_option=False, fill_white_option=False):
     """Create formatted order details text file content"""
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
@@ -21,6 +21,10 @@ Email: {contact_info.get('email', '')}
 Phone: {contact_info.get('phone', '')}
 Address: {contact_info.get('address', '')}
 Notes: {contact_info.get('notes', 'N/A')}
+
+PHOTO PROCESSING OPTIONS:
+Kropovati fotografiju kako bi je prilagodili formatu: {"DA" if crop_option else "NE"}
+Popunite belim: {"DA" if fill_white_option else "NE"}
 
 PHOTO DETAILS:
 """
