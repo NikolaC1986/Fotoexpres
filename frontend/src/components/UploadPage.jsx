@@ -198,7 +198,7 @@ const UploadPage = () => {
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-3xl font-bold text-gray-900">Vaše Fotografije ({photos.length})</h2>
               <div className="flex gap-4">
-                <div className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold">
+                <div className="bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold">
                   Ukupno: {totalPhotos} komada
                 </div>
                 <div className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2">
