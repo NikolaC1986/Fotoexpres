@@ -48,8 +48,8 @@ const FAQPage = () => {
       <div className="max-w-5xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-            <HelpCircle className="w-10 h-10 text-blue-600" />
+          <div className="bg-orange-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <HelpCircle className="w-10 h-10 text-orange-600" />
           </div>
           <h1 className="text-5xl font-bold text-gray-900 mb-4">Često Postavljena Pitanja</h1>
           <p className="text-xl text-gray-600">Pronađite odgovore na najvažnija pitanja o našim uslugama</p>
@@ -61,7 +61,7 @@ const FAQPage = () => {
             <Card key={index} className="p-8 hover:shadow-xl transition-all border-2 border-gray-200">
               <div className="flex gap-6">
                 <div className="flex-shrink-0">
-                  <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center text-blue-600">
+                  <div className="bg-orange-100 w-12 h-12 rounded-full flex items-center justify-center text-orange-600">
                     {faq.icon}
                   </div>
                 </div>
@@ -75,17 +75,17 @@ const FAQPage = () => {
         </div>
 
         {/* Quick Links */}
-        <Card className="p-10 bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 text-center">
+        <Card className="p-10 bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-200 text-center">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Niste Pronašli Odgovor?</h2>
           <p className="text-xl text-gray-700 mb-8">
             Kontaktirajte nas telefonom ili pošaljite vašu porudžbinu
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
-            <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8">
+            <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white px-8">
               <a href="tel:066-21-66-21">Pozovite Nas</a>
             </Button>
             <Link to="/prices">
-              <Button size="lg" variant="outline" className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8">
+              <Button size="lg" variant="outline" className="border-2 border-orange-600 text-orange-600 hover:bg-orange-50 px-8">
                 Pogledaj Cenovnik
               </Button>
             </Link>
@@ -108,7 +108,7 @@ const FAQPage = () => {
               <strong>Radno vreme:</strong> Ponedeljak - Petak, 09:00 - 18:00
             </p>
             <p className="text-lg">
-              <strong>Email:</strong> info@photolia.rs
+              <strong>Email:</strong> info@fotoexpres.rs
             </p>
           </div>
         </div>

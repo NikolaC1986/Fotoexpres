@@ -59,16 +59,16 @@ const PricesPage = () => {
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           {prices.map((price, index) => (
             <Card key={index} className={`p-8 text-center hover:shadow-xl transition-all relative ${
-              price.popular ? 'border-2 border-blue-600 shadow-lg scale-105' : 'border-2 border-gray-200'
+              price.popular ? 'border-2 border-orange-600 shadow-lg scale-105' : 'border-2 border-gray-200'
             }`}>
               {price.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-bold uppercase">
+                  <span className="bg-orange-600 text-white px-4 py-1 rounded-full text-sm font-bold uppercase">
                     Popularno
                   </span>
                 </div>
               )}
-              <div className="text-3xl font-bold text-blue-600 mb-2">{price.format}</div>
+              <div className="text-3xl font-bold text-orange-600 mb-2">{price.format}</div>
               <div className="text-gray-600 mb-6">{price.description}</div>
               <div className="mb-6">
                 <span className="text-5xl font-bold text-gray-900">{price.price}</span>
@@ -92,7 +92,7 @@ const PricesPage = () => {
           <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Dostava</h2>
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold text-blue-600 mb-2">400 RSD</div>
+              <div className="text-4xl font-bold text-orange-600 mb-2">400 RSD</div>
               <div className="text-gray-600">Standardna dostava</div>
               <div className="text-sm text-gray-500 mt-2">2-7 radnih dana</div>
             </div>
@@ -125,19 +125,19 @@ const PricesPage = () => {
         </Card>
 
         {/* Additional Info */}
-        <Card className="p-10 bg-blue-50 border-2 border-blue-200">
+        <Card className="p-10 bg-orange-50 border-2 border-orange-200">
           <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Popusti za Veće Porudžbine</h2>
           <div className="grid md:grid-cols-3 gap-6 text-center">
             <div>
-              <div className="text-3xl font-bold text-blue-600 mb-2">10%</div>
+              <div className="text-3xl font-bold text-orange-600 mb-2">10%</div>
               <div className="text-gray-700">50+ fotografija</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-blue-600 mb-2">15%</div>
+              <div className="text-3xl font-bold text-orange-600 mb-2">15%</div>
               <div className="text-gray-700">100+ fotografija</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-blue-600 mb-2">20%</div>
+              <div className="text-3xl font-bold text-orange-600 mb-2">20%</div>
               <div className="text-gray-700">200+ fotografija</div>
             </div>
           </div>
@@ -148,7 +148,7 @@ const PricesPage = () => {
           <h3 className="text-3xl font-bold text-gray-900 mb-4">Spremni za Poručivanje?</h3>
           <p className="text-xl text-gray-600 mb-8">Pošaljite nam vaše fotografije već danas</p>
           <Link to="/upload">
-            <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg">
+            <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-6 text-lg">
               Pošalji Fotografije
             </Button>
           </Link>
