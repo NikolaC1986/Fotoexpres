@@ -382,7 +382,7 @@ const UploadPage = () => {
             </div>
 
             {/* Price Summary */}
-            <Card className="p-8 mt-8 bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-300">
+            <Card className="p-8 mt-8 bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-300">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">Pregled Cene</h3>
               <div className="space-y-3">
                 <div className="flex justify-between items-center text-lg">
