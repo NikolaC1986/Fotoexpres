@@ -50,27 +50,43 @@ const AdminDashboard = () => {
   const handleDownload = async (orderNumber, zipFilePath) => {
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await axios.get(`${API}/admin/orders/${orderNumber}/download`, {
+      
+      // Create download URL
+      const downloadUrl = `${API}/admin/orders/${orderNumber}/download`;
+      
+      // Create a temporary link and trigger download
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = `order-${orderNumber}.zip`;
+      
+      // Add authorization header via fetch and blob
+      const response = await axios.get(downloadUrl, {
         headers: { 'Authorization': `Bearer ${token}` },
         responseType: 'blob'
       });
       
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
+      // Create blob URL and download
+      const blob = new Blob([response.data], { type: 'application/zip' });
+      const url = window.URL.createObjectURL(blob);
       link.href = url;
-      link.setAttribute('download', `order-${orderNumber}.zip`);
       document.body.appendChild(link);
       link.click();
-      link.remove();
+      
+      // Cleanup
+      setTimeout(() => {
+        window.URL.revokeObjectURL(url);
+        link.remove();
+      }, 100);
       
       toast({
-        title: "Preuzimanje uspešno",
-        description: `Porudžbina ${orderNumber} je preuzeta`
+        title: "Preuzimanje započeto",
+        description: `Porudžbina ${orderNumber} se preuzima`
       });
     } catch (error) {
+      console.error('Download error:', error);
       toast({
         title: "Greška",
-        description: "Nije moguće preuzeti ZIP fajl",
+        description: error.response?.data?.detail || "Nije moguće preuzeti ZIP fajl. Proverite da li porudžbina postoji.",
         variant: "destructive"
       });
     }
