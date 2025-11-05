@@ -248,7 +248,7 @@ const UploadPage = () => {
             <Card className="p-6 mb-6 bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-300">
               <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
                 <ImageIcon size={20} className="text-purple-600" />
-                Opcije Obrade Fotografija
+                Opcije Obrade Fotografija (izaberite jednu)
               </h3>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
@@ -256,7 +256,12 @@ const UploadPage = () => {
                     type="checkbox"
                     id="cropOption"
                     checked={cropOption}
-                    onChange={(e) => setCropOption(e.target.checked)}
+                    onChange={(e) => {
+                      setCropOption(e.target.checked);
+                      if (e.target.checked) {
+                        setFillWhiteOption(false);
+                      }
+                    }}
                     className="mt-1 w-5 h-5 text-blue-600 border-2 border-gray-300 rounded focus:ring-blue-500"
                   />
                   <label htmlFor="cropOption" className="cursor-pointer">
@@ -269,7 +274,12 @@ const UploadPage = () => {
                     type="checkbox"
                     id="fillWhiteOption"
                     checked={fillWhiteOption}
-                    onChange={(e) => setFillWhiteOption(e.target.checked)}
+                    onChange={(e) => {
+                      setFillWhiteOption(e.target.checked);
+                      if (e.target.checked) {
+                        setCropOption(false);
+                      }
+                    }}
                     className="mt-1 w-5 h-5 text-blue-600 border-2 border-gray-300 rounded focus:ring-blue-500"
                   />
                   <label htmlFor="fillWhiteOption" className="cursor-pointer">
