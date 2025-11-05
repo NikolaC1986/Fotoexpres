@@ -91,7 +91,7 @@ const AdminLogin = () => {
 
           <Button 
             type="submit" 
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-6 text-lg font-semibold"
+            className="w-full bg-orange-600 hover:bg-orange-700 text-white py-6 text-lg font-semibold"
             disabled={loading}
           >
             {loading ? 'Prijavljivanje...' : 'Prijavi Se'}
