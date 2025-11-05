@@ -243,7 +243,7 @@ const AdminDashboard = () => {
                           <Button 
                             size="sm"
                             onClick={() => handleDownload(order.orderNumber, order.zipFilePath)}
-                            className="bg-blue-600 hover:bg-blue-700 text-white gap-1"
+                            className="bg-orange-600 hover:bg-orange-700 text-white gap-1"
                           >
                             <Download size={16} />
                             Preuzmi
