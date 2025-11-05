@@ -9,6 +9,7 @@ import FAQPage from './components/FAQPage';
 import AdminLogin from './components/AdminLogin';
 import AdminDashboard from './components/AdminDashboard';
 import AdminPrices from './components/AdminPrices';
+import AdminSettings from './components/AdminSettings';
 import { Toaster } from './components/ui/toaster';
 
 // Protected Route Component
@@ -43,6 +44,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <AdminPrices />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/admin/settings" 
+            element={
+              <ProtectedRoute>
+                <AdminSettings />
               </ProtectedRoute>
             } 
           />
