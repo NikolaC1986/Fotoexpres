@@ -49,8 +49,8 @@ const AdminLogin = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center py-12 px-6">
       <Card className="w-full max-w-md p-10 shadow-2xl">
         <div className="text-center mb-8">
-          <div className="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Lock className="w-10 h-10 text-blue-600" />
+          <div className="bg-orange-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Lock className="w-10 h-10 text-orange-600" />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Prijava</h1>
           <p className="text-gray-600">Prijavite se da upravljate porudžbinama</p>
