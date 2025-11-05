@@ -202,15 +202,14 @@ const HomePage = () => {
               <ul className="space-y-2 text-gray-400">
                 <li><Link to="/" className="hover:text-white">Početna</Link></li>
                 <li><Link to="/prices" className="hover:text-white">Cenovnik</Link></li>
-                <li><Link to="/gallery" className="hover:text-white">Galerija</Link></li>
+                <li><Link to="/upload" className="hover:text-white">Pošalji Fotografije</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Podrška</h4>
               <ul className="space-y-2 text-gray-400">
                 <li><Link to="/faq" className="hover:text-white">FAQ</Link></li>
-                <li><Link to="/contact" className="hover:text-white">Kontakt</Link></li>
-                <li><Link to="/terms" className="hover:text-white">Uslovi</Link></li>
+                <li><a href="tel:066-21-66-21" className="hover:text-white">Kontakt</a></li>
               </ul>
             </div>
             <div>
