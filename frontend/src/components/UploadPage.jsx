@@ -209,10 +209,10 @@ const UploadPage = () => {
             </div>
 
             {/* Bulk Format Selector */}
-            <Card className="p-6 mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-300">
+            <Card className="p-6 mb-6 bg-gradient-to-r from-orange-50 to-red-50 border-2 border-orange-300">
               <div className="flex items-center justify-between gap-6">
                 <div className="flex items-center gap-4">
-                  <div className="bg-blue-600 text-white p-3 rounded-lg">
+                  <div className="bg-orange-600 text-white p-3 rounded-lg">
                     <ImageIcon size={24} />
                   </div>
                   <div>
@@ -228,7 +228,7 @@ const UploadPage = () => {
                       description: `Sve fotografije su postavljene na ${value} cm format`
                     });
                   }}>
-                    <SelectTrigger className="w-64 border-2 border-blue-400 bg-white">
+                    <SelectTrigger className="w-64 border-2 border-orange-400 bg-white">
                       <SelectValue placeholder="Izaberite format za sve" />
                     </SelectTrigger>
                     <SelectContent>
