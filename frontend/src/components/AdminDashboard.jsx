@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Download, Package, CheckCircle, Clock, LogOut, RefreshCw } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
+import { Download, Package, CheckCircle, Clock, LogOut, RefreshCw, DollarSign } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { toast } from '../hooks/use-toast';
