@@ -172,7 +172,7 @@ const UploadPage = () => {
         </div>
 
         {/* Upload Area */}
-        <Card className="p-12 mb-12 border-2 border-dashed border-gray-300 hover:border-blue-500 transition-all bg-white">
+        <Card className="p-12 mb-12 border-2 border-dashed border-gray-300 hover:border-orange-500 transition-all bg-white">
           <label className="cursor-pointer block">
             <input 
               type="file" 
