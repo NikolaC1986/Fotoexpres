@@ -108,6 +108,10 @@ async def create_order(
         # Calculate total photos
         total_photos = sum(p.quantity for p in order_details_obj.photoSettings)
         
+        # Get processing options
+        crop_option = order_data.get('cropOption', False)
+        fill_white_option = order_data.get('fillWhiteOption', False)
+        
         # Create ZIP file
         zip_file_name = f"order-{order_number}.zip"
         zip_path = ORDERS_ZIPS_DIR / zip_file_name
@@ -118,7 +122,9 @@ async def create_order(
             order_number,
             order_details_obj.contactInfo.model_dump(),
             [p.model_dump() for p in order_details_obj.photoSettings],
-            total_photos
+            total_photos,
+            crop_option,
+            fill_white_option
         )
         
         # Save to MongoDB
