@@ -21,34 +21,37 @@ const Navbar = () => {
         </div>
       </div>
       
-      <nav className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+      <nav className="bg-white shadow-md sticky top-0 z-50 border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-6 py-3">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-3 group">
-              <div className="text-3xl font-bold text-gray-900 tracking-tight">
-                PHOTOLIA
-              </div>
+              <img 
+                src="https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/i8bseb70_Logo_Fotoexpres.png" 
+                alt="Fotoexpres Logo" 
+                className="h-12 w-auto"
+                style={{ filter: 'brightness(0) saturate(100%)' }}
+              />
             </Link>
 
             <div className="hidden md:flex items-center gap-8 text-gray-700 font-medium text-sm uppercase tracking-wide">
-              <Link to="/" className="hover:text-blue-600 transition-colors">Početna</Link>
-              <Link to="/prices" className="hover:text-blue-600 transition-colors">Cenovnik</Link>
-              <Link to="/faq" className="hover:text-blue-600 transition-colors">FAQ</Link>
+              <Link to="/" className="hover:text-orange-600 transition-colors">Početna</Link>
+              <Link to="/prices" className="hover:text-orange-600 transition-colors">Cenovnik</Link>
+              <Link to="/faq" className="hover:text-orange-600 transition-colors">FAQ</Link>
             </div>
 
             <div className="flex items-center gap-2">
               <Link to="/upload">
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white gap-2 font-medium">
+                <Button className="bg-orange-600 hover:bg-orange-700 text-white gap-2 font-medium">
                   <Upload size={18} />
                   Pošalji Fotografije
                 </Button>
               </Link>
               <Link to="/admin">
-                <Button variant="ghost" size="icon" className="text-gray-700 hover:text-blue-600">
+                <Button variant="ghost" size="icon" className="text-gray-700 hover:text-orange-600">
                   <User size={20} />
                 </Button>
               </Link>
-              <Button variant="ghost" size="icon" className="text-gray-700 hover:text-blue-600">
+              <Button variant="ghost" size="icon" className="text-gray-700 hover:text-orange-600">
                 <ShoppingCart size={20} />
               </Button>
             </div>

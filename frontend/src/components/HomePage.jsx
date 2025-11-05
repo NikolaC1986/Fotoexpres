@@ -24,7 +24,7 @@ const HomePage = () => {
     {
       icon: <Shield className="w-8 h-8" />,
       title: "Sigurno i Bezbedno",
-      description: "Vaše fotografije se pažljivo obrađuju i svi podaci su bezbedno šifrovani."
+      description: "Vaše fotografije se paželjivo obrađuju i svi podaci su bezbedno šifrovani."
     }
   ];
 
@@ -39,32 +39,32 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-gray-50 to-gray-100 py-24">
+      <section className="relative bg-gradient-to-br from-orange-50 to-orange-100 py-24">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
               <div className="inline-block">
-                <span className="bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wide">
+                <span className="bg-orange-100 text-orange-700 px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wide">
                   Profesionalna Štampa Fotografija
                 </span>
               </div>
               <h1 className="text-6xl md:text-7xl font-bold text-gray-900 leading-tight">
                 Odštampajte
                 <br />
-                <span className="text-blue-600">Uspomene</span>
+                <span className="text-orange-600">Uspomene</span>
               </h1>
               <p className="text-xl text-gray-600 leading-relaxed">
                 Pretvorite vaše digitalne fotografije u prelepe štampane slike. Profesionalan kvalitet, premium papir, dostava na vašu adresu.
               </p>
               <div className="flex gap-4">
                 <Link to="/upload">
-                  <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white gap-2 text-lg px-8 py-6 shadow-lg">
+                  <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white gap-2 text-lg px-8 py-6 shadow-lg">
                     <Upload size={22} />
                     Počni Štampu
                   </Button>
                 </Link>
                 <Link to="/prices">
-                  <Button size="lg" variant="outline" className="border-2 border-gray-300 hover:border-blue-600 hover:text-blue-600 text-lg px-8 py-6">
+                  <Button size="lg" variant="outline" className="border-2 border-gray-300 hover:border-orange-600 hover:text-orange-600 text-lg px-8 py-6">
                     Pogledaj Cenovnik
                   </Button>
                 </Link>
@@ -73,7 +73,7 @@ const HomePage = () => {
                 <div className="flex items-center gap-2">
                   <div className="flex -space-x-2">
                     {[1, 2, 3, 4].map(i => (
-                      <div key={i} className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-white"></div>
+                      <div key={i} className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 border-2 border-white"></div>
                     ))}
                   </div>
                   <div className="text-sm">
@@ -90,12 +90,12 @@ const HomePage = () => {
             <div className="relative">
               <div className="relative z-10">
                 <img 
-                  src="https://images.unsplash.com/photo-1606857521015-7f9fcf423740?w=700&h=700&fit=crop" 
+                  src="https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/1ogmpeji_8%20copy.jpg" 
                   alt="Štampane fotografije" 
                   className="rounded-2xl shadow-2xl"
                 />
               </div>
-              <div className="absolute -bottom-6 -right-6 w-64 h-64 bg-blue-200 rounded-2xl -z-10"></div>
+              <div className="absolute -bottom-6 -right-6 w-64 h-64 bg-orange-200 rounded-2xl -z-10"></div>
               <div className="absolute -top-6 -left-6 w-48 h-48 bg-yellow-200 rounded-2xl -z-10"></div>
             </div>
           </div>
@@ -113,8 +113,8 @@ const HomePage = () => {
           </div>
           <div className="grid md:grid-cols-4 gap-8">
             {services.map((service, index) => (
-              <Card key={index} className="p-8 text-center hover:shadow-xl transition-all border-2 border-transparent hover:border-blue-200 group">
-                <div className="bg-blue-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all">
+              <Card key={index} className="p-8 text-center hover:shadow-xl transition-all border-2 border-transparent hover:border-orange-200 group">
+                <div className="bg-orange-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition-all">
                   {service.icon}
                 </div>
                 <h3 className="text-xl font-bold mb-3 text-gray-900">{service.title}</h3>
@@ -134,15 +134,15 @@ const HomePage = () => {
           </div>
           <div className="grid md:grid-cols-5 gap-6">
             {formats.map((format, index) => (
-              <Card key={index} className="p-8 text-center hover:shadow-xl transition-all relative overflow-hidden group border-2 border-transparent hover:border-blue-600">
+              <Card key={index} className="p-8 text-center hover:shadow-xl transition-all relative overflow-hidden group border-2 border-transparent hover:border-orange-600">
                 {format.popular && (
                   <div className="absolute top-4 right-4 bg-yellow-400 text-gray-900 px-3 py-1 rounded-full text-xs font-bold uppercase">
                     Popularno
                   </div>
                 )}
-                <div className="text-4xl font-bold text-blue-600 mb-2">{format.size}</div>
+                <div className="text-4xl font-bold text-orange-600 mb-2">{format.size}</div>
                 <div className="text-gray-600 mb-4">Standardna Veličina</div>
-                <div className="w-full h-32 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg mb-4 group-hover:from-blue-50 group-hover:to-blue-100 transition-all"></div>
+                <div className="w-full h-32 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg mb-4 group-hover:from-orange-50 group-hover:to-orange-100 transition-all"></div>
                 <div className="text-sm text-gray-500">Sjajni ili Mat završetak</div>
               </Card>
             ))}
@@ -160,7 +160,7 @@ const HomePage = () => {
           <div className="grid md:grid-cols-4 gap-8">
             {['Pošaljite Fotografije', 'Izaberite Format', 'Unesite Podatke', 'Primite Fotografije'].map((step, index) => (
               <div key={index} className="text-center relative">
-                <div className="bg-blue-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg">
+                <div className="bg-orange-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-lg">
                   {index + 1}
                 </div>
                 <h3 className="text-xl font-bold mb-3 text-gray-900">{step}</h3>
@@ -175,14 +175,14 @@ const HomePage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-blue-600 text-white">
+      <section className="py-24 bg-orange-600 text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-5xl font-bold mb-6">Spremni da Odštampate Vaše Fotografije?</h2>
           <p className="text-xl mb-8 opacity-90">
             Pošaljite vaše fotografije sada i primite prelepe otiske dostavljene na vašu adresu
           </p>
           <Link to="/upload">
-            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 gap-2 text-lg px-8 py-6 shadow-xl">
+            <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100 gap-2 text-lg px-8 py-6 shadow-xl">
               <Upload size={22} />
               Započni Odmah
             </Button>
@@ -195,7 +195,11 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <h3 className="text-2xl font-bold mb-4">PHOTOLIA</h3>
+              <img 
+                src="https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/i8bseb70_Logo_Fotoexpres.png" 
+                alt="Fotoexpres Logo" 
+                className="h-10 w-auto mb-4"
+              />
               <p className="text-gray-400">Profesionalne usluge štampe fotografija sa premium kvalitetom i brzom dostavom.</p>
             </div>
             <div>
@@ -217,13 +221,13 @@ const HomePage = () => {
               <h4 className="font-semibold mb-4">Kontakt</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>066/21-66-21</li>
-                <li>info@photolia.rs</li>
+                <li>info@fotoexpres.rs</li>
                 <li>Pon - Pet: 09:00 - 18:00</li>
               </ul>
             </div>
           </div>
           <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 Photolia. Sva prava zadržana.</p>
+            <p>&copy; 2025 Fotoexpres. Sva prava zadržana.</p>
           </div>
         </div>
       </footer>
