@@ -216,7 +216,7 @@ const HomePage = () => {
               <h4 className="font-semibold mb-3 md:mb-4 text-sm md:text-base">Podrška</h4>
               <ul className="space-y-2 text-sm md:text-base text-gray-400">
                 <li><Link to="/faq" className="hover:text-white">FAQ</Link></li>
-                <li><a href="tel:066-21-66-21" className="hover:text-white">Kontakt</a></li>
+                <li><a href="tel:+381654600046" className="hover:text-white">Kontakt</a></li>
               </ul>
             </div>
             <div>
