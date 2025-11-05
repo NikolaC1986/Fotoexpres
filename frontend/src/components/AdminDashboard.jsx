@@ -149,6 +149,15 @@ const AdminDashboard = () => {
                 Upravljaj Cenama
               </Button>
             </Link>
+            <Link to="/admin/settings">
+              <Button 
+                variant="outline" 
+                className="gap-2 border-2 border-green-600 text-green-600 hover:bg-green-50"
+              >
+                <Settings size={18} />
+                Podešavanja
+              </Button>
+            </Link>
             <Button 
               onClick={handleLogout}
               variant="outline" 
