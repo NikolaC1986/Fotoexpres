@@ -25,11 +25,13 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-6 py-3">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-3 group">
-              <img 
-                src="https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/i8bseb70_Logo_Fotoexpres.png" 
-                alt="Fotoexpres Logo" 
-                className="h-12 w-auto"
-              />
+              <div className="bg-orange-600 px-3 py-1 rounded-lg">
+                <img 
+                  src="https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/i8bseb70_Logo_Fotoexpres.png" 
+                  alt="Fotoexpres Logo" 
+                  className="h-10 w-auto"
+                />
+              </div>
             </Link>
 
             <div className="hidden md:flex items-center gap-8 text-gray-700 font-medium text-sm uppercase tracking-wide">
