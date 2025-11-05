@@ -191,42 +191,42 @@ const HomePage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
+      <footer className="bg-gray-900 text-white py-8 md:py-12">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-6 md:mb-8">
             <div>
               <img 
                 src="https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/i8bseb70_Logo_Fotoexpres.png" 
                 alt="Fotoexpres Logo" 
-                className="h-10 w-auto mb-4"
+                className="h-8 md:h-10 w-auto mb-3 md:mb-4"
               />
-              <p className="text-gray-400">Profesionalne usluge štampe fotografija sa premium kvalitetom i brzom dostavom.</p>
+              <p className="text-sm md:text-base text-gray-400">Profesionalne usluge štampe fotografija sa premium kvalitetom i brzom dostavom.</p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Brzi Linkovi</h4>
-              <ul className="space-y-2 text-gray-400">
+              <h4 className="font-semibold mb-3 md:mb-4 text-sm md:text-base">Brzi Linkovi</h4>
+              <ul className="space-y-2 text-sm md:text-base text-gray-400">
                 <li><Link to="/" className="hover:text-white">Početna</Link></li>
                 <li><Link to="/prices" className="hover:text-white">Cenovnik</Link></li>
                 <li><Link to="/upload" className="hover:text-white">Pošalji Fotografije</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Podrška</h4>
-              <ul className="space-y-2 text-gray-400">
+              <h4 className="font-semibold mb-3 md:mb-4 text-sm md:text-base">Podrška</h4>
+              <ul className="space-y-2 text-sm md:text-base text-gray-400">
                 <li><Link to="/faq" className="hover:text-white">FAQ</Link></li>
                 <li><a href="tel:066-21-66-21" className="hover:text-white">Kontakt</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Kontakt</h4>
-              <ul className="space-y-2 text-gray-400">
+              <h4 className="font-semibold mb-3 md:mb-4 text-sm md:text-base">Kontakt</h4>
+              <ul className="space-y-2 text-sm md:text-base text-gray-400">
                 <li>066/21-66-21</li>
                 <li>info@fotoexpres.rs</li>
                 <li>Pon - Pet: 09:00 - 18:00</li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
+          <div className="border-t border-gray-800 pt-6 md:pt-8 text-center text-sm md:text-base text-gray-400">
             <p>&copy; 2025 Fotoexpres. Sva prava zadržana.</p>
           </div>
         </div>
