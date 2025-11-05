@@ -33,6 +33,8 @@ const UploadPage = () => {
     address: '',
     notes: ''
   });
+  const [cropOption, setCropOption] = useState(false);
+  const [fillWhiteOption, setFillWhiteOption] = useState(false);
 
   // Dinamički izračunaj totalnu cenu
   const totalPrice = useMemo(() => {
