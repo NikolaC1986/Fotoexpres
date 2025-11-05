@@ -132,7 +132,7 @@ const HomePage = () => {
             <h2 className="text-5xl font-bold text-gray-900 mb-4">Dostupni Formati</h2>
             <p className="text-xl text-gray-600">Izaberite iz našeg asortimana profesionalnih veličina</p>
           </div>
-          <div className="grid md:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-5 gap-6">
             {formats.map((format, index) => (
               <Card key={index} className="p-8 text-center hover:shadow-xl transition-all relative overflow-hidden group border-2 border-transparent hover:border-blue-600">
                 {format.popular && (
