@@ -222,8 +222,8 @@ const HomePage = () => {
             <div>
               <h4 className="font-semibold mb-3 md:mb-4 text-sm md:text-base">Kontakt</h4>
               <ul className="space-y-2 text-sm md:text-base text-gray-400">
-                <li>066/21-66-21</li>
-                <li>info@fotoexpres.rs</li>
+                <li>+381 65 46 000 46</li>
+                <li>konatkt@fotoexpres.rs</li>
                 <li>Pon - Pet: 09:00 - 18:00</li>
               </ul>
             </div>
