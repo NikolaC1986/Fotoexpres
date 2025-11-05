@@ -139,14 +139,25 @@ const AdminDashboard = () => {
             <h1 className="text-4xl font-bold text-gray-900">Admin Panel</h1>
             <p className="text-gray-600 mt-2">Upravljanje porudžbinama fotografija</p>
           </div>
-          <Button 
-            onClick={handleLogout}
-            variant="outline" 
-            className="gap-2 border-2"
-          >
-            <LogOut size={18} />
-            Odjavi Se
-          </Button>
+          <div className="flex gap-3">
+            <Link to="/admin/prices">
+              <Button 
+                variant="outline" 
+                className="gap-2 border-2 border-orange-600 text-orange-600 hover:bg-orange-50"
+              >
+                <DollarSign size={18} />
+                Upravljaj Cenama
+              </Button>
+            </Link>
+            <Button 
+              onClick={handleLogout}
+              variant="outline" 
+              className="gap-2 border-2"
+            >
+              <LogOut size={18} />
+              Odjavi Se
+            </Button>
+          </div>
         </div>
 
         {/* Stats Cards */}
