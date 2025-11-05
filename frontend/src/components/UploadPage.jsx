@@ -244,6 +244,42 @@ const UploadPage = () => {
               </div>
             </Card>
 
+            {/* Photo Processing Options */}
+            <Card className="p-6 mb-6 bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-300">
+              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <ImageIcon size={20} className="text-purple-600" />
+                Opcije Obrade Fotografija
+              </h3>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    id="cropOption"
+                    checked={cropOption}
+                    onChange={(e) => setCropOption(e.target.checked)}
+                    className="mt-1 w-5 h-5 text-blue-600 border-2 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label htmlFor="cropOption" className="cursor-pointer">
+                    <div className="font-semibold text-gray-900">Kropovati fotografiju kako bi je prilagodili formatu koji ste odabrali</div>
+                    <p className="text-sm text-gray-600">Fotografija će biti isečena da se uklopi u izabrani format bez belih ivica</p>
+                  </label>
+                </div>
+                <div className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    id="fillWhiteOption"
+                    checked={fillWhiteOption}
+                    onChange={(e) => setFillWhiteOption(e.target.checked)}
+                    className="mt-1 w-5 h-5 text-blue-600 border-2 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <label htmlFor="fillWhiteOption" className="cursor-pointer">
+                    <div className="font-semibold text-gray-900">Popunite belim</div>
+                    <p className="text-sm text-gray-600">Fotografija će biti centrirana a prazni prostor popunjen belom bojom</p>
+                  </label>
+                </div>
+              </div>
+            </Card>
+
             <div className="grid gap-6">
               {photos.map(photo => {
                 const photoPrice = PRICE_MAP[photo.format] * photo.quantity;
