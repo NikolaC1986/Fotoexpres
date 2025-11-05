@@ -29,7 +29,6 @@ const Navbar = () => {
                 src="https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/i8bseb70_Logo_Fotoexpres.png" 
                 alt="Fotoexpres Logo" 
                 className="h-12 w-auto"
-                style={{ filter: 'brightness(0) saturate(100%)' }}
               />
             </Link>
 
