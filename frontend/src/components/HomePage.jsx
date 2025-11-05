@@ -135,16 +135,18 @@ const HomePage = () => {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">
             {formats.map((format, index) => (
-              <Card key={index} className="p-4 md:p-6 text-center hover:shadow-xl transition-all relative overflow-hidden group border-2 border-transparent hover:border-orange-600">
-                {format.popular && (
-                  <div className="absolute top-1 right-1 md:top-2 md:right-2 bg-yellow-400 text-gray-900 px-1.5 py-0.5 md:px-2 md:py-1 rounded-full text-xs font-bold uppercase">
-                    Top
-                  </div>
-                )}
-                <div className="text-2xl md:text-3xl font-bold text-orange-600 mb-1 md:mb-2">{format.size}</div>
-                <div className="text-xs md:text-sm text-gray-600 mb-1 md:mb-2">Standardna Veličina</div>
-                <div className="text-xs text-gray-500">Sjajni ili Mat završetak</div>
-              </Card>
+              <Link to="/upload" key={index}>
+                <Card className="p-4 md:p-6 text-center hover:shadow-xl transition-all relative overflow-hidden group border-2 border-transparent hover:border-orange-600 cursor-pointer">
+                  {format.popular && (
+                    <div className="absolute top-1 right-1 md:top-2 md:right-2 bg-yellow-400 text-gray-900 px-1.5 py-0.5 md:px-2 md:py-1 rounded-full text-xs font-bold uppercase">
+                      Top
+                    </div>
+                  )}
+                  <div className="text-2xl md:text-3xl font-bold text-orange-600 mb-1 md:mb-2">{format.size}</div>
+                  <div className="text-xs md:text-sm text-gray-600 mb-1 md:mb-2">Standardna Veličina</div>
+                  <div className="text-xs text-gray-500">Sjajni ili Mat završetak</div>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>
