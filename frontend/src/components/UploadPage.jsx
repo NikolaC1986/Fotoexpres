@@ -404,10 +404,10 @@ const UploadPage = () => {
                     * Besplatna dostava za porudžbine preko 5000 RSD (još {5000 - totalPrice} RSD)
                   </p>
                 )}
-                <div className="border-t-2 border-blue-300 pt-3 mt-3">
+                <div className="border-t-2 border-orange-300 pt-3 mt-3">
                   <div className="flex justify-between items-center">
                     <span className="text-2xl font-bold text-gray-900">UKUPNO:</span>
-                    <span className="text-3xl font-bold text-blue-600">{grandTotal} RSD</span>
+                    <span className="text-3xl font-bold text-orange-600">{grandTotal} RSD</span>
                   </div>
                 </div>
               </div>
