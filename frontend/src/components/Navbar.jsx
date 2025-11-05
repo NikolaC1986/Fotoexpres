@@ -22,14 +22,14 @@ const Navbar = () => {
       </div>
       
       <nav className="bg-white shadow-md sticky top-0 z-50 border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 py-3">
+        <div className="max-w-7xl mx-auto px-4 py-2 md:py-3">
           <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-3 group">
-              <div className="bg-orange-600 px-3 py-1 rounded-lg">
+            <Link to="/" className="flex items-center gap-2 group">
+              <div className="bg-orange-600 px-2 py-1 md:px-3 md:py-1 rounded-lg">
                 <img 
                   src="https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/i8bseb70_Logo_Fotoexpres.png" 
                   alt="Fotoexpres Logo" 
-                  className="h-10 w-auto"
+                  className="h-8 md:h-10 w-auto"
                 />
               </div>
             </Link>
@@ -40,20 +40,20 @@ const Navbar = () => {
               <Link to="/faq" className="hover:text-orange-600 transition-colors">FAQ</Link>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 md:gap-2">
               <Link to="/upload">
-                <Button className="bg-orange-600 hover:bg-orange-700 text-white gap-2 font-medium">
-                  <Upload size={18} />
-                  Pošalji Fotografije
+                <Button className="bg-orange-600 hover:bg-orange-700 text-white gap-1 md:gap-2 font-medium text-xs md:text-sm px-3 md:px-4 py-2">
+                  <Upload size={16} className="md:w-[18px] md:h-[18px]" />
+                  <span className="hidden sm:inline">Pošalji</span>
                 </Button>
               </Link>
               <Link to="/admin">
-                <Button variant="ghost" size="icon" className="text-gray-700 hover:text-orange-600">
-                  <User size={20} />
+                <Button variant="ghost" size="icon" className="text-gray-700 hover:text-orange-600 w-8 h-8 md:w-10 md:h-10">
+                  <User size={18} className="md:w-[20px] md:h-[20px]" />
                 </Button>
               </Link>
-              <Button variant="ghost" size="icon" className="text-gray-700 hover:text-orange-600">
-                <ShoppingCart size={20} />
+              <Button variant="ghost" size="icon" className="text-gray-700 hover:text-orange-600 w-8 h-8 md:w-10 md:h-10">
+                <ShoppingCart size={18} className="md:w-[20px] md:h-[20px]" />
               </Button>
             </div>
           </div>
