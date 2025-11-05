@@ -169,6 +169,101 @@ async def get_order(order_number: str):
     order["_id"] = str(order["_id"])
     return order
 
+# Admin Authentication Helper
+async def verify_admin_token(authorization: Optional[str] = Header(None)):
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    token = authorization.split(" ")[1]
+    payload = verify_token(token)
+    
+    if not payload:
+        raise HTTPException(status_code=401, detail="Invalid or expired token")
+    
+    return payload
+
+# Admin Login
+@api_router.post("/admin/login", response_model=AdminToken)
+async def admin_login(credentials: AdminLogin):
+    if not verify_admin_credentials(credentials.username, credentials.password):
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    
+    token = create_access_token({"sub": credentials.username, "role": "admin"})
+    
+    return AdminToken(
+        success=True,
+        token=token,
+        message="Login successful"
+    )
+
+# Get All Orders (Admin Only)
+@api_router.get("/admin/orders")
+async def get_all_orders(admin = Depends(verify_admin_token)):
+    try:
+        orders = await db.orders.find().sort("createdAt", -1).to_list(1000)
+        
+        # Convert ObjectId to string
+        for order in orders:
+            order["_id"] = str(order["_id"])
+        
+        # Calculate stats
+        total = len(orders)
+        pending = sum(1 for order in orders if order.get("status") == "pending")
+        completed = sum(1 for order in orders if order.get("status") == "completed")
+        
+        return {
+            "orders": orders,
+            "stats": {
+                "total": total,
+                "pending": pending,
+                "completed": completed
+            }
+        }
+    except Exception as e:
+        logging.error(f"Error fetching orders: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch orders")
+
+# Download Order ZIP (Admin Only)
+@api_router.get("/admin/orders/{order_number}/download")
+async def download_order_zip(order_number: str, admin = Depends(verify_admin_token)):
+    order = await db.orders.find_one({"orderNumber": order_number})
+    
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found")
+    
+    zip_path = order.get("zipFilePath")
+    
+    if not zip_path or not os.path.exists(zip_path):
+        raise HTTPException(status_code=404, detail="ZIP file not found")
+    
+    return FileResponse(
+        path=zip_path,
+        filename=f"order-{order_number}.zip",
+        media_type="application/zip"
+    )
+
+# Update Order Status (Admin Only)
+@api_router.put("/admin/orders/{order_number}/status")
+async def update_order_status(
+    order_number: str, 
+    status_update: dict,
+    admin = Depends(verify_admin_token)
+):
+    new_status = status_update.get("status")
+    
+    if new_status not in ["pending", "processing", "completed"]:
+        raise HTTPException(status_code=400, detail="Invalid status")
+    
+    result = await db.orders.update_one(
+        {"orderNumber": order_number},
+        {"$set": {"status": new_status}}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Order not found")
+    
+    return {"success": True, "message": "Status updated"}
+
 # Include the router in the main app
 app.include_router(api_router)
 
