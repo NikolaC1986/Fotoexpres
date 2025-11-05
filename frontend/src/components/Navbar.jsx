@@ -33,9 +33,7 @@ const Navbar = () => {
             <div className="hidden md:flex items-center gap-8 text-gray-700 font-medium text-sm uppercase tracking-wide">
               <Link to="/" className="hover:text-blue-600 transition-colors">Početna</Link>
               <Link to="/prices" className="hover:text-blue-600 transition-colors">Cenovnik</Link>
-              <Link to="/gallery" className="hover:text-blue-600 transition-colors">Galerija</Link>
-              <Link to="/about" className="hover:text-blue-600 transition-colors">O Nama</Link>
-              <Link to="/contact" className="hover:text-blue-600 transition-colors">Kontakt</Link>
+              <Link to="/faq" className="hover:text-blue-600 transition-colors">FAQ</Link>
             </div>
 
             <div className="flex items-center gap-2">

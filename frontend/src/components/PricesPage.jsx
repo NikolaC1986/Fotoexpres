@@ -7,30 +7,42 @@ import { Link } from 'react-router-dom';
 const PricesPage = () => {
   const prices = [
     {
-      format: '10x15 cm',
-      price: '25',
-      description: 'Standardni format, idealan za albume',
+      format: '9x13 cm',
+      price: '12',
+      description: 'Mali format, idealan za male albume',
       features: ['Premium foto papir', 'Sjajni ili mat završetak', 'Brza izrada', 'Trajnost 100+ godina']
     },
     {
+      format: '10x15 cm',
+      price: '18',
+      description: 'Standardni format, idealan za albume',
+      features: ['Premium foto papir', 'Sjajni ili mat završetak', 'Brza izrada', 'Trajnost 100+ godina'],
+      popular: true
+    },
+    {
       format: '13x18 cm',
-      price: '40',
+      price: '25',
       description: 'Popularni format za okvire',
       features: ['Premium foto papir', 'Sjajni ili mat završetak', 'Brza izrada', 'Trajnost 100+ godina'],
       popular: true
     },
     {
       format: '15x21 cm',
-      price: '60',
+      price: '50',
       description: 'A5 format za zidne slike',
       features: ['Premium foto papir', 'Sjajni ili mat završetak', 'Brza izrada', 'Trajnost 100+ godina']
     },
     {
       format: '20x30 cm',
-      price: '120',
+      price: '150',
       description: 'Veliki format za posebne fotografije',
-      features: ['Premium foto papir', 'Sjajni ili mat završetak', 'Brza izrada', 'Trajnost 100+ godina'],
-      popular: true
+      features: ['Premium foto papir', 'Sjajni ili mat završetak', 'Brza izrada', 'Trajnost 100+ godina']
+    },
+    {
+      format: '30x45 cm',
+      price: '250',
+      description: 'Extra veliki format za poster',
+      features: ['Premium foto papir', 'Sjajni ili mat završetak', 'Brza izrada', 'Trajnost 100+ godina']
     }
   ];
 
@@ -44,7 +56,7 @@ const PricesPage = () => {
         </div>
 
         {/* Prices Grid */}
-        <div className="grid md:grid-cols-4 gap-8 mb-16">
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
           {prices.map((price, index) => (
             <Card key={index} className={`p-8 text-center hover:shadow-xl transition-all relative ${
               price.popular ? 'border-2 border-blue-600 shadow-lg scale-105' : 'border-2 border-gray-200'
@@ -80,9 +92,9 @@ const PricesPage = () => {
           <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Dostava</h2>
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold text-blue-600 mb-2">300 RSD</div>
+              <div className="text-4xl font-bold text-blue-600 mb-2">400 RSD</div>
               <div className="text-gray-600">Standardna dostava</div>
-              <div className="text-sm text-gray-500 mt-2">3-5 radnih dana</div>
+              <div className="text-sm text-gray-500 mt-2">2-7 radnih dana</div>
             </div>
             <div>
               <div className="text-4xl font-bold text-green-600 mb-2">BESPLATNO</div>
@@ -90,9 +102,9 @@ const PricesPage = () => {
               <div className="text-sm text-gray-500 mt-2">5000 RSD</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-purple-600 mb-2">500 RSD</div>
-              <div className="text-gray-600">Brza dostava</div>
-              <div className="text-sm text-gray-500 mt-2">1-2 radna dana</div>
+              <div className="text-4xl font-bold text-purple-600 mb-2">2-7</div>
+              <div className="text-gray-600">Radnih dana</div>
+              <div className="text-sm text-gray-500 mt-2">Rok dostave</div>
             </div>
           </div>
         </Card>
