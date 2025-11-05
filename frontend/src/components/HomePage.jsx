@@ -175,15 +175,15 @@ const HomePage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-orange-600 text-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-5xl font-bold mb-6">Spremni da Odštampate Vaše Fotografije?</h2>
-          <p className="text-xl mb-8 opacity-90">
+      <section className="py-12 md:py-24 bg-orange-600 text-white">
+        <div className="max-w-4xl mx-auto px-4 md:px-6 text-center">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6">Spremni da Odštampate Vaše Fotografije?</h2>
+          <p className="text-base md:text-xl mb-6 md:mb-8 opacity-90">
             Pošaljite vaše fotografije sada i primite prelepe otiske dostavljene na vašu adresu
           </p>
           <Link to="/upload">
-            <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100 gap-2 text-lg px-8 py-6 shadow-xl">
-              <Upload size={22} />
+            <Button size="lg" className="w-full sm:w-auto bg-white text-orange-600 hover:bg-gray-100 gap-2 text-base md:text-lg px-6 md:px-8 py-4 md:py-6 shadow-xl">
+              <Upload size={20} className="md:w-[22px] md:h-[22px]" />
               Započni Odmah
             </Button>
           </Link>
