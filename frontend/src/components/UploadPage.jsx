@@ -35,6 +35,25 @@ const UploadPage = () => {
   });
   const [cropOption, setCropOption] = useState(false);
   const [fillWhiteOption, setFillWhiteOption] = useState(false);
+  const [freeDeliveryLimit, setFreeDeliveryLimit] = useState(5000);
+
+  // Load settings on mount
+  useEffect(() => {
+    fetchSettings();
+  }, []);
+
+  const fetchSettings = async () => {
+    try {
+      const response = await axios.get(`${API}/settings`);
+      if (response.data.settings) {
+        setFreeDeliveryLimit(response.data.settings.freeDeliveryLimit);
+      }
+    } catch (error) {
+      console.error('Error fetching settings:', error);
+      // Use default if fetch fails
+      setFreeDeliveryLimit(5000);
+    }
+  };
 
   // Dinamički izračunaj totalnu cenu
   const totalPrice = useMemo(() => {
