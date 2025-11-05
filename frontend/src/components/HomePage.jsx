@@ -40,64 +40,64 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-orange-50 to-orange-100 py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="space-y-8">
+      <section className="relative bg-gradient-to-br from-orange-50 to-orange-100 py-12 md:py-24">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          <div className="flex flex-col md:grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+            <div className="space-y-4 md:space-y-8 text-center md:text-left">
               <div className="inline-block">
-                <span className="bg-orange-100 text-orange-700 px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wide">
+                <span className="bg-orange-100 text-orange-700 px-3 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-semibold uppercase tracking-wide">
                   Profesionalna Štampa Fotografija
                 </span>
               </div>
-              <h1 className="text-6xl md:text-7xl font-bold text-gray-900 leading-tight">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
                 Odštampajte
                 <br />
                 <span className="text-orange-600">Uspomene</span>
               </h1>
-              <p className="text-xl text-gray-600 leading-relaxed">
+              <p className="text-base md:text-xl text-gray-600 leading-relaxed">
                 Pretvorite vaše digitalne fotografije u prelepe štampane slike. Profesionalan kvalitet, premium papir, dostava na vašu adresu.
               </p>
-              <div className="flex gap-4">
-                <Link to="/upload">
-                  <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white gap-2 text-lg px-8 py-6 shadow-lg">
-                    <Upload size={22} />
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+                <Link to="/upload" className="w-full sm:w-auto">
+                  <Button size="lg" className="w-full sm:w-auto bg-orange-600 hover:bg-orange-700 text-white gap-2 text-base md:text-lg px-6 md:px-8 py-4 md:py-6 shadow-lg">
+                    <Upload size={20} className="md:w-[22px] md:h-[22px]" />
                     Počni Štampu
                   </Button>
                 </Link>
-                <Link to="/prices">
-                  <Button size="lg" variant="outline" className="border-2 border-gray-300 hover:border-orange-600 hover:text-orange-600 text-lg px-8 py-6">
+                <Link to="/prices" className="w-full sm:w-auto">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-gray-300 hover:border-orange-600 hover:text-orange-600 text-base md:text-lg px-6 md:px-8 py-4 md:py-6">
                     Pogledaj Cenovnik
                   </Button>
                 </Link>
               </div>
-              <div className="flex items-center gap-8 pt-4">
+              <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-8 pt-4">
                 <div className="flex items-center gap-2">
                   <div className="flex -space-x-2">
                     {[1, 2, 3, 4].map(i => (
-                      <div key={i} className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 border-2 border-white"></div>
+                      <div key={i} className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 border-2 border-white"></div>
                     ))}
                   </div>
-                  <div className="text-sm">
+                  <div className="text-xs md:text-sm">
                     <div className="font-semibold text-gray-900">10,000+</div>
                     <div className="text-gray-500">Zadovoljnih Kupaca</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-1 text-yellow-400">
-                  {[1, 2, 3, 4, 5].map(i => <Star key={i} size={20} fill="currentColor" />)}
-                  <span className="ml-2 text-gray-900 font-semibold">5.0 Ocena</span>
+                  {[1, 2, 3, 4, 5].map(i => <Star key={i} size={16} className="md:w-[20px] md:h-[20px]" fill="currentColor" />)}
+                  <span className="ml-2 text-gray-900 font-semibold text-sm md:text-base">5.0</span>
                 </div>
               </div>
             </div>
-            <div className="relative">
+            <div className="relative w-full">
               <div className="relative z-10">
                 <img 
                   src="https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/1ogmpeji_8%20copy.jpg" 
                   alt="Štampane fotografije" 
-                  className="rounded-2xl shadow-2xl"
+                  className="rounded-xl md:rounded-2xl shadow-2xl w-full h-auto"
                 />
               </div>
-              <div className="absolute -bottom-6 -right-6 w-64 h-64 bg-orange-200 rounded-2xl -z-10"></div>
-              <div className="absolute -top-6 -left-6 w-48 h-48 bg-yellow-200 rounded-2xl -z-10"></div>
+              <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-48 h-48 md:w-64 md:h-64 bg-orange-200 rounded-xl md:rounded-2xl -z-10"></div>
+              <div className="absolute -top-4 -left-4 md:-top-6 md:-left-6 w-32 h-32 md:w-48 md:h-48 bg-yellow-200 rounded-xl md:rounded-2xl -z-10"></div>
             </div>
           </div>
         </div>
