@@ -487,7 +487,7 @@ const UploadPage = () => {
                 <Button type="button" variant="outline" size="lg" onClick={() => navigate('/')} className="border-2">
                   Otkaži
                 </Button>
-                <Button type="submit" size="lg" className="bg-blue-600 hover:bg-blue-700 text-white gap-2 px-8">
+                <Button type="submit" size="lg" className="bg-orange-600 hover:bg-orange-700 text-white gap-2 px-8">
                   <ImageIcon size={20} />
                   Pošalji Porudžbinu - {grandTotal} RSD
                 </Button>
