@@ -1,4 +1,5 @@
-from fastapi import FastAPI, APIRouter, UploadFile, File, Form, HTTPException
+from fastapi import FastAPI, APIRouter, UploadFile, File, Form, HTTPException, Depends, Header
+from fastapi.responses import FileResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -6,14 +7,16 @@ import os
 import logging
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
 import json
 import shutil
 
 from models.order import Order, OrderDetails, OrderResponse
+from models.admin import AdminLogin, AdminToken, create_access_token, verify_token, verify_admin_credentials
 from utils.order_utils import generate_order_number, create_order_zip
+from utils.email_utils import send_order_notification
 
 
 ROOT_DIR = Path(__file__).parent
