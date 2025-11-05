@@ -318,6 +318,68 @@ async def update_prices(
         logging.error(f"Error updating prices: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to update prices")
 
+# Get Settings (Admin Only)
+@api_router.get("/admin/settings")
+async def get_settings(admin = Depends(verify_admin_token)):
+    try:
+        settings_doc = await db.settings.find_one({"_id": "site_settings"})
+        
+        # Default settings
+        default_settings = {
+            'freeDeliveryLimit': 5000
+        }
+        
+        if settings_doc:
+            return {"settings": settings_doc.get("settings", default_settings)}
+        else:
+            return {"settings": default_settings}
+    except Exception as e:
+        logging.error(f"Error fetching settings: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch settings")
+
+# Update Settings (Admin Only)
+@api_router.put("/admin/settings")
+async def update_settings(
+    settings_update: dict,
+    admin = Depends(verify_admin_token)
+):
+    try:
+        settings = settings_update.get("settings")
+        
+        if not settings:
+            raise HTTPException(status_code=400, detail="Settings object required")
+        
+        # Upsert settings document
+        await db.settings.update_one(
+            {"_id": "site_settings"},
+            {"$set": {"settings": settings}},
+            upsert=True
+        )
+        
+        return {"success": True, "message": "Settings updated"}
+    except Exception as e:
+        logging.error(f"Error updating settings: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to update settings")
+
+# Get Settings (Public - for frontend)
+@api_router.get("/settings")
+async def get_public_settings():
+    try:
+        settings_doc = await db.settings.find_one({"_id": "site_settings"})
+        
+        # Default settings
+        default_settings = {
+            'freeDeliveryLimit': 5000
+        }
+        
+        if settings_doc:
+            return {"settings": settings_doc.get("settings", default_settings)}
+        else:
+            return {"settings": default_settings}
+    except Exception as e:
+        logging.error(f"Error fetching settings: {str(e)}")
+        return {"settings": {'freeDeliveryLimit': 5000}}
+
 # Include the router in the main app
 app.include_router(api_router)
 
