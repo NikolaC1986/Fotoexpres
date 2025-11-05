@@ -131,7 +131,9 @@ const UploadPage = () => {
           quantity: p.quantity,
           finish: p.finish
         })),
-        totalPrice: grandTotal
+        totalPrice: grandTotal,
+        cropOption: cropOption,
+        fillWhiteOption: fillWhiteOption
       };
       formData.append('order_details', JSON.stringify(orderDetails));
 
