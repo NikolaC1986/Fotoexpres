@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
 import UploadPage from './components/UploadPage';
 import PricesPage from './components/PricesPage';
+import FAQPage from './components/FAQPage';
 import AdminLogin from './components/AdminLogin';
 import AdminDashboard from './components/AdminDashboard';
 import { Toaster } from './components/ui/toaster';
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<><Navbar /><HomePage /></>} />
           <Route path="/upload" element={<><Navbar /><UploadPage /></>} />
           <Route path="/prices" element={<><Navbar /><PricesPage /></>} />
+          <Route path="/faq" element={<><Navbar /><FAQPage /></>} />
           
           {/* Admin Routes without Navbar */}
           <Route path="/admin" element={<AdminLogin />} />
