@@ -104,22 +104,22 @@ const HomePage = () => {
       </section>
 
       {/* Services Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-gray-900 mb-4">Zašto Izabrati Nas</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+      <section className="py-12 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-2 md:mb-4">Zašto Izabrati Nas</h2>
+            <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">
               Iskusite razliku sa našim profesionalnim uslugama štampe fotografija
             </p>
           </div>
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             {services.map((service, index) => (
-              <Card key={index} className="p-8 text-center hover:shadow-xl transition-all border-2 border-transparent hover:border-orange-200 group">
-                <div className="bg-orange-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition-all">
-                  {service.icon}
+              <Card key={index} className="p-6 md:p-8 text-center hover:shadow-xl transition-all border-2 border-transparent hover:border-orange-200 group">
+                <div className="bg-orange-50 w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition-all">
+                  {React.cloneElement(service.icon, { className: 'w-6 h-6 md:w-8 md:h-8' })}
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-900">{service.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{service.description}</p>
+                <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 text-gray-900">{service.title}</h3>
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed">{service.description}</p>
               </Card>
             ))}
           </div>
