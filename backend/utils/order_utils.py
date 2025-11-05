@@ -40,11 +40,11 @@ Finish: {photo['finish'].capitalize()}
     content += f"\nTOTAL PHOTOS: {total_photos} prints\n"
     return content
 
-def create_order_zip(order_dir, zip_path, order_number, contact_info, photo_settings, total_photos):
+def create_order_zip(order_dir, zip_path, order_number, contact_info, photo_settings, total_photos, crop_option=False, fill_white_option=False):
     """Create ZIP file with photos and order details"""
     # Create order_details.txt
     order_details_content = create_order_details_txt(
-        order_number, contact_info, photo_settings, total_photos
+        order_number, contact_info, photo_settings, total_photos, crop_option, fill_white_option
     )
     
     order_details_path = os.path.join(order_dir, 'order_details.txt')
