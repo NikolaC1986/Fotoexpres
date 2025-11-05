@@ -270,6 +270,54 @@ async def update_order_status(
     
     return {"success": True, "message": "Status updated"}
 
+# Get Prices (Admin Only)
+@api_router.get("/admin/prices")
+async def get_prices(admin = Depends(verify_admin_token)):
+    try:
+        prices_doc = await db.prices.find_one({"_id": "default_prices"})
+        
+        # Default prices if not found
+        default_prices = {
+            '9x13': 12,
+            '10x15': 18,
+            '13x18': 25,
+            '15x21': 50,
+            '20x30': 150,
+            '30x45': 250
+        }
+        
+        if prices_doc:
+            return {"prices": prices_doc.get("prices", default_prices)}
+        else:
+            return {"prices": default_prices}
+    except Exception as e:
+        logging.error(f"Error fetching prices: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch prices")
+
+# Update Prices (Admin Only)
+@api_router.put("/admin/prices")
+async def update_prices(
+    price_update: dict,
+    admin = Depends(verify_admin_token)
+):
+    try:
+        prices = price_update.get("prices")
+        
+        if not prices:
+            raise HTTPException(status_code=400, detail="Prices object required")
+        
+        # Upsert prices document
+        await db.prices.update_one(
+            {"_id": "default_prices"},
+            {"$set": {"prices": prices}},
+            upsert=True
+        )
+        
+        return {"success": True, "message": "Prices updated"}
+    except Exception as e:
+        logging.error(f"Error updating prices: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to update prices")
+
 # Include the router in the main app
 app.include_router(api_router)
 
