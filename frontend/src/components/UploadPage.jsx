@@ -36,8 +36,8 @@ const UploadPage = () => {
     }));
     setPhotos([...photos, ...newPhotos]);
     toast({
-      title: "Photos uploaded",
-      description: `${files.length} photo(s) added successfully`
+      title: "Fotografije dodate",
+      description: `${files.length} fotografija uspešno dodato`
     });
   };
 
@@ -66,8 +66,8 @@ const UploadPage = () => {
     
     if (photos.length === 0) {
       toast({
-        title: "No photos",
-        description: "Please upload at least one photo",
+        title: "Nema fotografija",
+        description: "Molimo vas da dodate barem jednu fotografiju",
         variant: "destructive"
       });
       return;
@@ -75,8 +75,8 @@ const UploadPage = () => {
 
     if (!contactInfo.fullName || !contactInfo.email || !contactInfo.phone || !contactInfo.address) {
       toast({
-        title: "Missing information",
-        description: "Please fill in all contact details",
+        title: "Nedostaju informacije",
+        description: "Molimo vas da popunite sva obavezna polja",
         variant: "destructive"
       });
       return;
@@ -84,8 +84,8 @@ const UploadPage = () => {
 
     try {
       toast({
-        title: "Submitting order...",
-        description: "Please wait while we process your order"
+        title: "Slanje porudžbine...",
+        description: "Molimo sačekajte dok obrađujemo vašu porudžbinu"
       });
 
       const formData = new FormData();
@@ -111,8 +111,8 @@ const UploadPage = () => {
       const { orderNumber } = response.data;
       
       toast({
-        title: "Order submitted!",
-        description: `Your order #${orderNumber} has been received. We'll contact you soon.`
+        title: "Porudžbina poslata!",
+        description: `Vaša porudžbina #${orderNumber} je primljena. Uskoro ćemo vas kontaktirati.`
       });
 
       setTimeout(() => {
@@ -120,10 +120,10 @@ const UploadPage = () => {
       }, 2000);
       
     } catch (error) {
-      console.error('Order submission error:', error);
+      console.error('Greška pri slanju porudžbine:', error);
       toast({
-        title: "Order failed",
-        description: error.response?.data?.detail || "Failed to submit order. Please try again.",
+        title: "Porudžbina neuspešna",
+        description: error.response?.data?.detail || "Nije moguće poslati porudžbinu. Molimo pokušajte ponovo.",
         variant: "destructive"
       });
     }
@@ -136,8 +136,8 @@ const UploadPage = () => {
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="mb-12 text-center">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">Upload Your Photos</h1>
-          <p className="text-xl text-gray-600">Select your photos, choose formats and quantities, then provide delivery details.</p>
+          <h1 className="text-5xl font-bold text-gray-900 mb-4">Pošaljite Vaše Fotografije</h1>
+          <p className="text-xl text-gray-600">Izaberite fotografije, formate i količinu, zatim unesite podatke za dostavu.</p>
         </div>
 
         {/* Upload Area */}
@@ -154,9 +154,9 @@ const UploadPage = () => {
               <div className="bg-blue-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Upload className="w-12 h-12 text-blue-600" />
               </div>
-              <h3 className="text-2xl font-bold mb-3 text-gray-900">Click to upload photos</h3>
-              <p className="text-gray-500 text-lg">or drag and drop your images here</p>
-              <p className="text-sm text-gray-400 mt-4">Supports: JPG, PNG, HEIC (Max 10MB per file)</p>
+              <h3 className="text-2xl font-bold mb-3 text-gray-900">Kliknite za slanje fotografija</h3>
+              <p className="text-gray-500 text-lg">ili prevucite vaše slike ovde</p>
+              <p className="text-sm text-gray-400 mt-4">Podržani formati: JPG, PNG, HEIC (Maksimalno 10MB po fajlu)</p>
             </div>
           </label>
         </Card>
@@ -165,9 +165,9 @@ const UploadPage = () => {
         {photos.length > 0 && (
           <div className="mb-12">
             <div className="flex justify-between items-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-900">Your Photos ({photos.length})</h2>
+              <h2 className="text-3xl font-bold text-gray-900">Vaše Fotografije ({photos.length})</h2>
               <div className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold">
-                Total prints: {totalPhotos}
+                Ukupno: {totalPhotos} komada
               </div>
             </div>
 
@@ -178,7 +178,7 @@ const UploadPage = () => {
                     <div className="relative group">
                       <img 
                         src={photo.preview} 
-                        alt="Preview" 
+                        alt="Pregled" 
                         className="w-full h-32 object-cover rounded-lg"
                       />
                       <button
@@ -205,7 +205,7 @@ const UploadPage = () => {
                     </div>
 
                     <div>
-                      <Label className="text-sm font-semibold mb-2 block text-gray-700">Quantity</Label>
+                      <Label className="text-sm font-semibold mb-2 block text-gray-700">Količina</Label>
                       <div className="flex items-center gap-2">
                         <Button 
                           size="sm" 
@@ -229,14 +229,14 @@ const UploadPage = () => {
                     </div>
 
                     <div>
-                      <Label className="text-sm font-semibold mb-2 block text-gray-700">Paper Finish</Label>
+                      <Label className="text-sm font-semibold mb-2 block text-gray-700">Završetak Papira</Label>
                       <Select value={photo.finish} onValueChange={(value) => updatePhoto(photo.id, 'finish', value)}>
                         <SelectTrigger className="border-2">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="glossy">Glossy</SelectItem>
-                          <SelectItem value="matte">Matte</SelectItem>
+                          <SelectItem value="glossy">Sjajni</SelectItem>
+                          <SelectItem value="matte">Mat</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -246,7 +246,7 @@ const UploadPage = () => {
                       <p className="text-sm text-gray-500">{(photo.file.size / 1024 / 1024).toFixed(2)} MB</p>
                       <div className="flex items-center gap-2 mt-2 text-green-600">
                         <CheckCircle size={16} />
-                        <span className="text-sm font-medium">Ready to print</span>
+                        <span className="text-sm font-medium">Spremno za štampu</span>
                       </div>
                     </div>
                   </div>
@@ -259,16 +259,16 @@ const UploadPage = () => {
         {/* Contact Form */}
         {photos.length > 0 && (
           <Card className="p-10 bg-white border-2 border-gray-200">
-            <h2 className="text-3xl font-bold mb-8 text-gray-900">Delivery Information</h2>
+            <h2 className="text-3xl font-bold mb-8 text-gray-900">Informacije za Dostavu</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <Label htmlFor="fullName" className="text-base font-semibold">Full Name *</Label>
+                  <Label htmlFor="fullName" className="text-base font-semibold">Ime i Prezime *</Label>
                   <Input 
                     id="fullName"
                     value={contactInfo.fullName}
                     onChange={(e) => setContactInfo({...contactInfo, fullName: e.target.value})}
-                    placeholder="John Doe"
+                    placeholder="Petar Petrović"
                     className="mt-2 border-2"
                     required
                   />
@@ -280,7 +280,7 @@ const UploadPage = () => {
                     type="email"
                     value={contactInfo.email}
                     onChange={(e) => setContactInfo({...contactInfo, email: e.target.value})}
-                    placeholder="john@example.com"
+                    placeholder="petar@primer.com"
                     className="mt-2 border-2"
                     required
                   />
@@ -289,23 +289,23 @@ const UploadPage = () => {
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <Label htmlFor="phone" className="text-base font-semibold">Phone Number *</Label>
+                  <Label htmlFor="phone" className="text-base font-semibold">Broj Telefona *</Label>
                   <Input 
                     id="phone"
                     value={contactInfo.phone}
                     onChange={(e) => setContactInfo({...contactInfo, phone: e.target.value})}
-                    placeholder="+381 66 123 4567"
+                    placeholder="066 123 4567"
                     className="mt-2 border-2"
                     required
                   />
                 </div>
                 <div>
-                  <Label htmlFor="address" className="text-base font-semibold">Delivery Address *</Label>
+                  <Label htmlFor="address" className="text-base font-semibold">Adresa za Dostavu *</Label>
                   <Input 
                     id="address"
                     value={contactInfo.address}
                     onChange={(e) => setContactInfo({...contactInfo, address: e.target.value})}
-                    placeholder="Street, City, Postal Code"
+                    placeholder="Ulica, Grad, Poštanski Broj"
                     className="mt-2 border-2"
                     required
                   />
@@ -313,12 +313,12 @@ const UploadPage = () => {
               </div>
 
               <div>
-                <Label htmlFor="notes" className="text-base font-semibold">Additional Notes (Optional)</Label>
+                <Label htmlFor="notes" className="text-base font-semibold">Dodatne Napomene (Opciono)</Label>
                 <Textarea 
                   id="notes"
                   value={contactInfo.notes}
                   onChange={(e) => setContactInfo({...contactInfo, notes: e.target.value})}
-                  placeholder="Any special instructions or notes..."
+                  placeholder="Bilo kakve posebne napomene ili instrukcije..."
                   rows={4}
                   className="mt-2 border-2"
                 />
@@ -326,11 +326,11 @@ const UploadPage = () => {
 
               <div className="flex justify-end gap-4 pt-6 border-t-2">
                 <Button type="button" variant="outline" size="lg" onClick={() => navigate('/')} className="border-2">
-                  Cancel
+                  Otkaži
                 </Button>
                 <Button type="submit" size="lg" className="bg-blue-600 hover:bg-blue-700 text-white gap-2 px-8">
                   <ImageIcon size={20} />
-                  Submit Order ({totalPhotos} prints)
+                  Pošalji Porudžbinu ({totalPhotos} komada)
                 </Button>
               </div>
             </form>

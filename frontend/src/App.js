@@ -1,19 +1,40 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
 import UploadPage from './components/UploadPage';
+import PricesPage from './components/PricesPage';
+import AdminLogin from './components/AdminLogin';
+import AdminDashboard from './components/AdminDashboard';
 import { Toaster } from './components/ui/toaster';
+
+// Protected Route Component
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem('adminToken');
+  return token ? children : <Navigate to="/admin" />;
+};
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/upload" element={<UploadPage />} />
+          {/* Public Routes with Navbar */}
+          <Route path="/" element={<><Navbar /><HomePage /></>} />
+          <Route path="/upload" element={<><Navbar /><UploadPage /></>} />
+          <Route path="/prices" element={<><Navbar /><PricesPage /></>} />
+          
+          {/* Admin Routes without Navbar */}
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route 
+            path="/admin/dashboard" 
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            } 
+          />
         </Routes>
         <Toaster />
       </BrowserRouter>
