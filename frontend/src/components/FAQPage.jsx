@@ -102,13 +102,13 @@ const FAQPage = () => {
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Kontakt Informacije</h3>
           <div className="text-gray-700 space-y-2">
             <p className="text-lg">
-              <strong>Telefon:</strong> 066/21-66-21
+              <strong>Telefon:</strong> +381 65 46 000 46
             </p>
             <p className="text-lg">
               <strong>Radno vreme:</strong> Ponedeljak - Petak, 09:00 - 18:00
             </p>
             <p className="text-lg">
-              <strong>Email:</strong> info@fotoexpres.rs
+              <strong>Email:</strong> konatkt@fotoexpres.rs
             </p>
           </div>
         </div>
