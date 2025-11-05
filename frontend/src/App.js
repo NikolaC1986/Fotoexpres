@@ -8,6 +8,7 @@ import PricesPage from './components/PricesPage';
 import FAQPage from './components/FAQPage';
 import AdminLogin from './components/AdminLogin';
 import AdminDashboard from './components/AdminDashboard';
+import AdminPrices from './components/AdminPrices';
 import { Toaster } from './components/ui/toaster';
 
 // Protected Route Component
@@ -34,6 +35,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <AdminDashboard />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/admin/prices" 
+            element={
+              <ProtectedRoute>
+                <AdminPrices />
               </ProtectedRoute>
             } 
           />
