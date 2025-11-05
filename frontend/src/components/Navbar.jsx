@@ -13,10 +13,10 @@ const Navbar = () => {
               <Phone size={16} />
               <span>066/21-66-21</span>
             </div>
-            <span className="text-gray-400">Mon - Fri: 09:00 - 18:00</span>
+            <span className="text-gray-400">Pon - Pet: 09:00 - 18:00</span>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-gray-400">Free shipping on orders over $50</span>
+            <span className="text-gray-400">Besplatna dostava za porudžbine preko 5000 RSD</span>
           </div>
         </div>
       </div>
@@ -31,23 +31,25 @@ const Navbar = () => {
             </Link>
 
             <div className="hidden md:flex items-center gap-8 text-gray-700 font-medium text-sm uppercase tracking-wide">
-              <Link to="/" className="hover:text-blue-600 transition-colors">Home</Link>
-              <Link to="/services" className="hover:text-blue-600 transition-colors">Services</Link>
-              <Link to="/gallery" className="hover:text-blue-600 transition-colors">Gallery</Link>
-              <Link to="/about" className="hover:text-blue-600 transition-colors">About</Link>
-              <Link to="/contact" className="hover:text-blue-600 transition-colors">Contact</Link>
+              <Link to="/" className="hover:text-blue-600 transition-colors">Početna</Link>
+              <Link to="/prices" className="hover:text-blue-600 transition-colors">Cenovnik</Link>
+              <Link to="/gallery" className="hover:text-blue-600 transition-colors">Galerija</Link>
+              <Link to="/about" className="hover:text-blue-600 transition-colors">O Nama</Link>
+              <Link to="/contact" className="hover:text-blue-600 transition-colors">Kontakt</Link>
             </div>
 
             <div className="flex items-center gap-2">
               <Link to="/upload">
                 <Button className="bg-blue-600 hover:bg-blue-700 text-white gap-2 font-medium">
                   <Upload size={18} />
-                  Upload Photos
+                  Pošalji Fotografije
                 </Button>
               </Link>
-              <Button variant="ghost" size="icon" className="text-gray-700 hover:text-blue-600">
-                <User size={20} />
-              </Button>
+              <Link to="/admin">
+                <Button variant="ghost" size="icon" className="text-gray-700 hover:text-blue-600">
+                  <User size={20} />
+                </Button>
+              </Link>
               <Button variant="ghost" size="icon" className="text-gray-700 hover:text-blue-600">
                 <ShoppingCart size={20} />
               </Button>
