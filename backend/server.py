@@ -273,12 +273,14 @@ async def update_order_status(
 # Include the router in the main app
 app.include_router(api_router)
 
+# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["Content-Disposition"]
 )
 
 # Configure logging
