@@ -182,8 +182,8 @@ const UploadPage = () => {
               className="hidden"
             />
             <div className="text-center py-16">
-              <div className="bg-blue-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Upload className="w-12 h-12 text-blue-600" />
+              <div className="bg-orange-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Upload className="w-12 h-12 text-orange-600" />
               </div>
               <h3 className="text-2xl font-bold mb-3 text-gray-900">Kliknite za slanje fotografija</h3>
               <p className="text-gray-500 text-lg">ili prevucite vaše slike ovde</p>
