@@ -11,7 +11,7 @@ const Navbar = () => {
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <Phone size={16} />
-              <span>066/21-66-21</span>
+              <span>+381 65 46 000 46</span>
             </div>
             <span className="text-gray-400">Pon - Pet: 09:00 - 18:00</span>
           </div>
