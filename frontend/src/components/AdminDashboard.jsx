@@ -157,7 +157,7 @@ const AdminDashboard = () => {
                 <p className="text-gray-600 mb-1">Ukupno Porudžbina</p>
                 <p className="text-3xl font-bold text-gray-900">{stats.total}</p>
               </div>
-              <Package className="w-12 h-12 text-blue-600" />
+              <Package className="w-12 h-12 text-orange-600" />
             </div>
           </Card>
           <Card className="p-6 border-2 border-yellow-200 bg-yellow-50">
