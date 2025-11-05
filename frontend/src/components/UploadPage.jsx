@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Upload, X, Plus, Minus, Image as ImageIcon, CheckCircle } from 'lucide-react';
+import { Upload, X, Plus, Minus, Image as ImageIcon, CheckCircle, DollarSign } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
@@ -13,6 +13,16 @@ import axios from 'axios';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
+// Cene po formatima
+const PRICE_MAP = {
+  '9x13': 12,
+  '10x15': 18,
+  '13x18': 25,
+  '15x21': 50,
+  '20x30': 150,
+  '30x45': 250
+};
+
 const UploadPage = () => {
   const navigate = useNavigate();
   const [photos, setPhotos] = useState([]);
@@ -23,6 +33,24 @@ const UploadPage = () => {
     address: '',
     notes: ''
   });
+
+  // Dinamički izračunaj totalnu cenu
+  const totalPrice = useMemo(() => {
+    return photos.reduce((sum, photo) => {
+      const price = PRICE_MAP[photo.format] || 0;
+      return sum + (price * photo.quantity);
+    }, 0);
+  }, [photos]);
+
+  const totalPhotos = useMemo(() => {
+    return photos.reduce((sum, photo) => sum + photo.quantity, 0);
+  }, [photos]);
+
+  const deliveryFee = useMemo(() => {
+    return totalPrice >= 5000 ? 0 : 400;
+  }, [totalPrice]);
+
+  const grandTotal = totalPrice + deliveryFee;
 
   const handleFileUpload = (e) => {
     const files = Array.from(e.target.files);
@@ -100,7 +128,8 @@ const UploadPage = () => {
           format: p.format,
           quantity: p.quantity,
           finish: p.finish
-        }))
+        })),
+        totalPrice: grandTotal
       };
       formData.append('order_details', JSON.stringify(orderDetails));
 
@@ -128,8 +157,6 @@ const UploadPage = () => {
       });
     }
   };
-
-  const totalPhotos = photos.reduce((sum, photo) => sum + photo.quantity, 0);
 
   return (
     <div className="min-h-screen bg-gray-50 py-16">
@@ -166,93 +193,139 @@ const UploadPage = () => {
           <div className="mb-12">
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-3xl font-bold text-gray-900">Vaše Fotografije ({photos.length})</h2>
-              <div className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold">
-                Ukupno: {totalPhotos} komada
+              <div className="flex gap-4">
+                <div className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold">
+                  Ukupno: {totalPhotos} komada
+                </div>
+                <div className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2">
+                  <DollarSign size={20} />
+                  {totalPrice} RSD
+                </div>
               </div>
             </div>
 
             <div className="grid gap-6">
-              {photos.map(photo => (
-                <Card key={photo.id} className="p-6 hover:shadow-xl transition-shadow bg-white border-2 border-gray-200">
-                  <div className="grid md:grid-cols-6 gap-6 items-center">
-                    <div className="relative group">
-                      <img 
-                        src={photo.preview} 
-                        alt="Pregled" 
-                        className="w-full h-32 object-cover rounded-lg"
-                      />
-                      <button
-                        onClick={() => removePhoto(photo.id)}
-                        className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-red-600"
-                      >
-                        <X size={18} />
-                      </button>
-                    </div>
-
-                    <div>
-                      <Label className="text-sm font-semibold mb-2 block text-gray-700">Format</Label>
-                      <Select value={photo.format} onValueChange={(value) => updatePhoto(photo.id, 'format', value)}>
-                        <SelectTrigger className="border-2">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="10x15">10x15 cm</SelectItem>
-                          <SelectItem value="13x18">13x18 cm</SelectItem>
-                          <SelectItem value="15x21">15x21 cm</SelectItem>
-                          <SelectItem value="20x30">20x30 cm</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div>
-                      <Label className="text-sm font-semibold mb-2 block text-gray-700">Količina</Label>
-                      <div className="flex items-center gap-2">
-                        <Button 
-                          size="sm" 
-                          variant="outline"
-                          className="border-2"
-                          onClick={() => updateQuantity(photo.id, -1)}
-                          disabled={photo.quantity <= 1}
+              {photos.map(photo => {
+                const photoPrice = PRICE_MAP[photo.format] * photo.quantity;
+                return (
+                  <Card key={photo.id} className="p-6 hover:shadow-xl transition-shadow bg-white border-2 border-gray-200">
+                    <div className="grid md:grid-cols-6 gap-6 items-center">
+                      <div className="relative group">
+                        <img 
+                          src={photo.preview} 
+                          alt="Pregled" 
+                          className="w-full h-32 object-cover rounded-lg"
+                        />
+                        <button
+                          onClick={() => removePhoto(photo.id)}
+                          className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-red-600"
                         >
-                          <Minus size={16} />
-                        </Button>
-                        <span className="w-12 text-center font-bold text-lg">{photo.quantity}</span>
-                        <Button 
-                          size="sm" 
-                          variant="outline"
-                          className="border-2"
-                          onClick={() => updateQuantity(photo.id, 1)}
-                        >
-                          <Plus size={16} />
-                        </Button>
+                          <X size={18} />
+                        </button>
+                      </div>
+
+                      <div>
+                        <Label className="text-sm font-semibold mb-2 block text-gray-700">Format</Label>
+                        <Select value={photo.format} onValueChange={(value) => updatePhoto(photo.id, 'format', value)}>
+                          <SelectTrigger className="border-2">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="9x13">9x13 cm - 12 RSD</SelectItem>
+                            <SelectItem value="10x15">10x15 cm - 18 RSD</SelectItem>
+                            <SelectItem value="13x18">13x18 cm - 25 RSD</SelectItem>
+                            <SelectItem value="15x21">15x21 cm - 50 RSD</SelectItem>
+                            <SelectItem value="20x30">20x30 cm - 150 RSD</SelectItem>
+                            <SelectItem value="30x45">30x45 cm - 250 RSD</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div>
+                        <Label className="text-sm font-semibold mb-2 block text-gray-700">Količina</Label>
+                        <div className="flex items-center gap-2">
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            className="border-2"
+                            onClick={() => updateQuantity(photo.id, -1)}
+                            disabled={photo.quantity <= 1}
+                          >
+                            <Minus size={16} />
+                          </Button>
+                          <span className="w-12 text-center font-bold text-lg">{photo.quantity}</span>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            className="border-2"
+                            onClick={() => updateQuantity(photo.id, 1)}
+                          >
+                            <Plus size={16} />
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div>
+                        <Label className="text-sm font-semibold mb-2 block text-gray-700">Završetak Papira</Label>
+                        <Select value={photo.finish} onValueChange={(value) => updatePhoto(photo.id, 'finish', value)}>
+                          <SelectTrigger className="border-2">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="glossy">Sjajni</SelectItem>
+                            <SelectItem value="matte">Mat</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <p className="font-semibold text-gray-900">{photo.file.name}</p>
+                        <p className="text-sm text-gray-500">{(photo.file.size / 1024 / 1024).toFixed(2)} MB</p>
+                        <div className="flex items-center gap-2 mt-2">
+                          <CheckCircle size={16} className="text-green-600" />
+                          <span className="text-sm font-medium text-green-600">Spremno za štampu</span>
+                        </div>
+                        <div className="mt-2 text-lg font-bold text-blue-600">
+                          {photoPrice} RSD
+                        </div>
                       </div>
                     </div>
-
-                    <div>
-                      <Label className="text-sm font-semibold mb-2 block text-gray-700">Završetak Papira</Label>
-                      <Select value={photo.finish} onValueChange={(value) => updatePhoto(photo.id, 'finish', value)}>
-                        <SelectTrigger className="border-2">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="glossy">Sjajni</SelectItem>
-                          <SelectItem value="matte">Mat</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="md:col-span-2">
-                      <p className="font-semibold text-gray-900">{photo.file.name}</p>
-                      <p className="text-sm text-gray-500">{(photo.file.size / 1024 / 1024).toFixed(2)} MB</p>
-                      <div className="flex items-center gap-2 mt-2 text-green-600">
-                        <CheckCircle size={16} />
-                        <span className="text-sm font-medium">Spremno za štampu</span>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              ))}
+                  </Card>
+                );
+              })}
             </div>
+
+            {/* Price Summary */}
+            <Card className="p-8 mt-8 bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-300">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Pregled Cene</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center text-lg">
+                  <span className="text-gray-700">Fotografije ({totalPhotos} kom):</span>
+                  <span className="font-semibold">{totalPrice} RSD</span>
+                </div>
+                <div className="flex justify-between items-center text-lg">
+                  <span className="text-gray-700">Dostava:</span>
+                  <span className="font-semibold">
+                    {deliveryFee === 0 ? (
+                      <span className="text-green-600">BESPLATNO</span>
+                    ) : (
+                      `${deliveryFee} RSD`
+                    )}
+                  </span>
+                </div>
+                {totalPrice < 5000 && (
+                  <p className="text-sm text-gray-600 italic">
+                    * Besplatna dostava za porudžbine preko 5000 RSD (još {5000 - totalPrice} RSD)
+                  </p>
+                )}
+                <div className="border-t-2 border-blue-300 pt-3 mt-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-2xl font-bold text-gray-900">UKUPNO:</span>
+                    <span className="text-3xl font-bold text-blue-600">{grandTotal} RSD</span>
+                  </div>
+                </div>
+              </div>
+            </Card>
           </div>
         )}
 
@@ -280,7 +353,7 @@ const UploadPage = () => {
                     type="email"
                     value={contactInfo.email}
                     onChange={(e) => setContactInfo({...contactInfo, email: e.target.value})}
-                    placeholder="petar@primer.com"
+                    placeholder="petar@primer.rs"
                     className="mt-2 border-2"
                     required
                   />
@@ -330,7 +403,7 @@ const UploadPage = () => {
                 </Button>
                 <Button type="submit" size="lg" className="bg-blue-600 hover:bg-blue-700 text-white gap-2 px-8">
                   <ImageIcon size={20} />
-                  Pošalji Porudžbinu ({totalPhotos} komada)
+                  Pošalji Porudžbinu - {grandTotal} RSD
                 </Button>
               </div>
             </form>

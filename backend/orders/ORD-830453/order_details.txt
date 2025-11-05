@@ -1,0 +1,343 @@
+ORDER NUMBER: ORD-830453
+DATE: 2025-11-05 10:59:19
+
+CUSTOMER INFORMATION:
+Name: Budimir Dobric
+Email: budimirdobric@gmail.com
+Phone: 062266977
+Address: Rentgenova 1 vranje
+Notes: 
+
+PHOTO DETAILS:
+---
+Photo 1: 17353.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 2: 17354.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 3: 17355.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 4: 17351.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 5: 17352.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 6: 17350.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 7: 17342.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 8: 17341.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 9: 17340.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 10: 17338.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 11: 17336.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 12: 17334.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 13: 17322.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 14: 17324.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 15: 17325.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 16: 17319.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 17: 17320.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 18: 17321.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 19: 17316.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 20: 17317.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 21: 17318.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 22: 17312.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 23: 17315.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 24: 17314.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 25: 17310.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 26: 17311.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 27: 17313.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 28: 17309.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 29: 17307.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 30: 17308.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 31: 17304.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 32: 17305.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 33: 17306.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 34: 17300.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 35: 17299.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 36: 17303.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 37: 17298.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 38: 17302.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 39: 17301.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 40: 17293.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 41: 17297.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 42: 17296.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 43: 17289.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 44: 17295.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 45: 17294.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 46: 17292.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 47: 17291.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 48: 17290.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 49: 17286.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 50: 17287.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 51: 17288.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 52: 17274.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 53: 17273.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 54: 17281.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 55: 17277.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 56: 17276.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 57: 17275.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 58: 17280.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 59: 17279.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 60: 17278.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 61: 17259.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 62: 17272.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 63: 17271.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 64: 17262.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 65: 17261.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 66: 17260.jpg
+Format: 10x15 cm
+Quantity: 1
+Finish: Glossy
+
+TOTAL PHOTOS: 66 prints
