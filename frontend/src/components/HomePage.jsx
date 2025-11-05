@@ -132,18 +132,17 @@ const HomePage = () => {
             <h2 className="text-5xl font-bold text-gray-900 mb-4">Dostupni Formati</h2>
             <p className="text-xl text-gray-600">Izaberite iz našeg asortimana profesionalnih veličina</p>
           </div>
-          <div className="grid md:grid-cols-5 gap-6">
+          <div className="grid md:grid-cols-6 gap-4">
             {formats.map((format, index) => (
-              <Card key={index} className="p-8 text-center hover:shadow-xl transition-all relative overflow-hidden group border-2 border-transparent hover:border-orange-600">
+              <Card key={index} className="p-6 text-center hover:shadow-xl transition-all relative overflow-hidden group border-2 border-transparent hover:border-orange-600">
                 {format.popular && (
-                  <div className="absolute top-4 right-4 bg-yellow-400 text-gray-900 px-3 py-1 rounded-full text-xs font-bold uppercase">
-                    Popularno
+                  <div className="absolute top-2 right-2 bg-yellow-400 text-gray-900 px-2 py-1 rounded-full text-xs font-bold uppercase">
+                    Top
                   </div>
                 )}
-                <div className="text-4xl font-bold text-orange-600 mb-2">{format.size}</div>
-                <div className="text-gray-600 mb-4">Standardna Veličina</div>
-                <div className="w-full h-32 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg mb-4 group-hover:from-orange-50 group-hover:to-orange-100 transition-all"></div>
-                <div className="text-sm text-gray-500">Sjajni ili Mat završetak</div>
+                <div className="text-3xl font-bold text-orange-600 mb-2">{format.size}</div>
+                <div className="text-sm text-gray-600 mb-2">Standardna Veličina</div>
+                <div className="text-xs text-gray-500">Sjajni ili Mat završetak</div>
               </Card>
             ))}
           </div>
