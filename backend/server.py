@@ -132,6 +132,20 @@ async def create_order(
         
         await db.orders.insert_one(order.model_dump())
         
+        # Send email notification to admin
+        try:
+            send_order_notification(
+                order_number,
+                order_details_obj.contactInfo.model_dump(),
+                [p.model_dump() for p in order_details_obj.photoSettings],
+                total_photos,
+                str(zip_path)
+            )
+            logging.info(f"Email notification sent for order {order_number}")
+        except Exception as email_error:
+            logging.error(f"Failed to send email for order {order_number}: {str(email_error)}")
+            # Don't fail the order creation if email fails
+        
         return OrderResponse(
             success=True,
             orderNumber=order_number,
