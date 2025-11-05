@@ -127,22 +127,22 @@ const HomePage = () => {
       </section>
 
       {/* Available Formats */}
-      <section className="py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-gray-900 mb-4">Dostupni Formati</h2>
-            <p className="text-xl text-gray-600">Izaberite iz našeg asortimana profesionalnih veličina</p>
+      <section className="py-12 md:py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-2 md:mb-4">Dostupni Formati</h2>
+            <p className="text-base md:text-xl text-gray-600">Izaberite iz našeg asortimana profesionalnih veličina</p>
           </div>
-          <div className="grid md:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">
             {formats.map((format, index) => (
-              <Card key={index} className="p-6 text-center hover:shadow-xl transition-all relative overflow-hidden group border-2 border-transparent hover:border-orange-600">
+              <Card key={index} className="p-4 md:p-6 text-center hover:shadow-xl transition-all relative overflow-hidden group border-2 border-transparent hover:border-orange-600">
                 {format.popular && (
-                  <div className="absolute top-2 right-2 bg-yellow-400 text-gray-900 px-2 py-1 rounded-full text-xs font-bold uppercase">
+                  <div className="absolute top-1 right-1 md:top-2 md:right-2 bg-yellow-400 text-gray-900 px-1.5 py-0.5 md:px-2 md:py-1 rounded-full text-xs font-bold uppercase">
                     Top
                   </div>
                 )}
-                <div className="text-3xl font-bold text-orange-600 mb-2">{format.size}</div>
-                <div className="text-sm text-gray-600 mb-2">Standardna Veličina</div>
+                <div className="text-2xl md:text-3xl font-bold text-orange-600 mb-1 md:mb-2">{format.size}</div>
+                <div className="text-xs md:text-sm text-gray-600 mb-1 md:mb-2">Standardna Veličina</div>
                 <div className="text-xs text-gray-500">Sjajni ili Mat završetak</div>
               </Card>
             ))}
