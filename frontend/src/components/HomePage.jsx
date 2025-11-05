@@ -33,6 +33,7 @@ const HomePage = () => {
     { size: "10x15 cm", popular: true },
     { size: "13x18 cm", popular: false },
     { size: "15x21 cm", popular: false },
+    { size: "20x30 cm", popular: false },
     { size: "30x45 cm", popular: true }
   ];
 
