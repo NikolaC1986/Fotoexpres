@@ -426,11 +426,14 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Frontend testing completed successfully"
-    - "Full-stack integration verified"
+    - "Delete Order API (Admin)"
+    - "Upload Page - Auto Reset After Submission"
+    - "Upload Page - Progress Bar for Photo Upload"
+    - "Large File Upload Support"
+    - "Admin Panel - Delete Order Functionality"
   stuck_tasks: []
-  test_all: true
-  test_priority: "completed"
+  test_all: false
+  test_priority: "high_first"
 
 agent_communication:
     - agent: "testing"
