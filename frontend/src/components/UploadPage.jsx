@@ -600,9 +600,9 @@ const UploadPage = () => {
                     <span className="text-2xl font-bold text-gray-900">UKUPNO:</span>
                     <span className="text-3xl font-bold text-orange-600">{grandTotal} RSD</span>
                   </div>
-                  {discountAmount > 0 && (
+                  {totalDiscountAmount > 0 && (
                     <p className="text-right text-sm text-gray-600 mt-2">
-                      Uštedeli ste: <span className="font-bold text-green-600">{discountAmount} RSD</span> 🎉
+                      Uštedeli ste: <span className="font-bold text-green-600">{totalDiscountAmount} RSD</span> 🎉
                     </p>
                   )}
                 </div>
