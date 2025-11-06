@@ -112,6 +112,21 @@ const UploadPage = () => {
     }));
   };
 
+  const resetForm = () => {
+    setPhotos([]);
+    setContactInfo({
+      fullName: '',
+      email: '',
+      phone: '',
+      address: '',
+      notes: ''
+    });
+    setCropOption(false);
+    setFillWhiteOption(false);
+    setUploadProgress(0);
+    setIsUploading(false);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -134,6 +149,9 @@ const UploadPage = () => {
     }
 
     try {
+      setIsUploading(true);
+      setUploadProgress(0);
+
       toast({
         title: "Slanje porudžbine...",
         description: "Molimo sačekajte dok obrađujemo vašu porudžbinu"
@@ -159,22 +177,33 @@ const UploadPage = () => {
       formData.append('order_details', JSON.stringify(orderDetails));
 
       const response = await axios.post(`${API}/orders/create`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        headers: { 'Content-Type': 'multipart/form-data' },
+        timeout: 300000, // 5 minutes timeout for large uploads
+        onUploadProgress: (progressEvent) => {
+          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          setUploadProgress(percentCompleted);
+        }
       });
 
       const { orderNumber } = response.data;
       
       toast({
         title: "Porudžbina poslata!",
-        description: `Vaša porudžbina #${orderNumber} je primljena. Uskoro ćemo vas kontaktirati.`
+        description: `Vaša porudžbina #${orderNumber} je primljena. Uskoro ćemo vas kontaktirati.`,
+        duration: 3000
       });
 
+      // Reset form after successful submission
       setTimeout(() => {
-        navigate('/');
-      }, 2000);
+        resetForm();
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 1500);
       
     } catch (error) {
       console.error('Greška pri slanju porudžbine:', error);
+      setIsUploading(false);
+      setUploadProgress(0);
       toast({
         title: "Porudžbina neuspešna",
         description: error.response?.data?.detail || "Nije moguće poslati porudžbinu. Molimo pokušajte ponovo.",
