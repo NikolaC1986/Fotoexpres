@@ -11,7 +11,8 @@ const Navbar = () => {
       <PromotionBanner />
       
       <div className="bg-gray-900 text-white py-3 px-6">
-        <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
+        {/* Desktop Layout */}
+        <div className="hidden md:flex max-w-7xl mx-auto justify-between items-center text-sm">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <Phone size={16} />
@@ -22,6 +23,16 @@ const Navbar = () => {
           <div className="flex items-center gap-4">
             <span className="text-gray-400">Besplatna dostava za porudžbine preko 5000 RSD</span>
           </div>
+        </div>
+        
+        {/* Mobile Layout - Stacked */}
+        <div className="md:hidden flex flex-col gap-2 text-xs text-center">
+          <div className="flex items-center justify-center gap-2">
+            <Phone size={14} />
+            <span>+381 65 46 000 46</span>
+          </div>
+          <div className="text-gray-400">Pon - Pet: 09:00 - 18:00</div>
+          <div className="text-gray-400">Besplatna dostava preko 5000 RSD</div>
         </div>
       </div>
       
