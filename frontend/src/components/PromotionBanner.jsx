@@ -23,21 +23,14 @@ const PromotionBanner = () => {
       const response = await axios.get(`${API}/promotion`);
       const promo = response.data.promotion;
       
+      console.log('Fetched promotion:', promo); // Debug log
+      
       if (promo && promo.isActive) {
-        // Check if promotion is still valid
-        if (promo.validUntil) {
-          const validUntil = new Date(promo.validUntil);
-          const now = new Date();
-          
-          if (validUntil > now) {
-            setPromotion(promo);
-            setIsVisible(true);
-          }
-        } else {
-          // No expiry date, show it
-          setPromotion(promo);
-          setIsVisible(true);
-        }
+        console.log('Promotion is active, showing banner'); // Debug log
+        setPromotion(promo);
+        setIsVisible(true);
+      } else {
+        console.log('Promotion not active or not found'); // Debug log
       }
     } catch (error) {
       console.error('Error fetching promotion:', error);
