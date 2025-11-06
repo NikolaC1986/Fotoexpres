@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Upload, Phone } from 'lucide-react';
 import { Button } from './ui/button';
+import PromotionBanner from './PromotionBanner';
 
 const Navbar = () => {
   return (
