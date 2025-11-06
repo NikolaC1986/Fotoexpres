@@ -228,8 +228,16 @@ const HomePage = () => {
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 pt-6 md:pt-8 text-center text-sm md:text-base text-gray-400">
-            <p>&copy; 2025 Fotoexpres. Sva prava zadržana.</p>
+          <div className="border-t border-gray-800 pt-6 md:pt-8 text-center">
+            <p className="text-sm md:text-base text-gray-400 mb-4">&copy; 2025 Fotoexpres. Sva prava zadržana.</p>
+            {/* Admin Login Button */}
+            <div className="mt-4">
+              <Link to="/admin">
+                <button className="text-xs text-gray-500 hover:text-gray-400 transition-colors opacity-50 hover:opacity-100">
+                  Admin
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </footer>
