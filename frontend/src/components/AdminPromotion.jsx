@@ -217,31 +217,38 @@ const AdminPromotion = () => {
               <div className="mt-8 p-6 bg-gradient-to-r from-orange-100 to-red-100 rounded-lg border-2 border-orange-300">
                 <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <Bell size={20} />
-                  Pregled Pop-up Poruke:
+                  Pregled Notification Trake:
                 </h3>
-                <div className="bg-white p-6 rounded-lg shadow-lg border-2 border-orange-400">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="bg-orange-600 text-white px-6 py-2 rounded-full text-2xl font-bold">
-                      {promotion.discountPercent}% POPUST
+                <div className="bg-gradient-to-r from-orange-600 via-red-600 to-orange-600 text-white rounded-lg shadow-lg overflow-hidden">
+                  <div className="px-6 py-4">
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-4 flex-1">
+                        <div className="bg-white text-orange-600 px-4 py-2 rounded-full font-bold text-xl">
+                          {promotion.discountPercent}% OFF
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-lg font-bold">
+                            {promotion.message || 'Unesite poruku...'}
+                          </p>
+                          <div className="flex items-center gap-4 text-sm mt-1 opacity-90">
+                            <span>📌 {promotion.format === 'all' ? 'Svi formati' : `${promotion.format} cm`}</span>
+                            {promotion.validUntil && (
+                              <span>
+                                📅 Do: {new Date(promotion.validUntil).toLocaleDateString('sr-RS', {
+                                  day: 'numeric',
+                                  month: 'numeric',
+                                  year: 'numeric'
+                                })}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      <button className="bg-white text-orange-600 px-6 py-2 rounded-full font-bold">
+                        Iskoristi Sada!
+                      </button>
                     </div>
                   </div>
-                  <p className="text-xl font-semibold text-gray-900 mb-2">
-                    {promotion.message || 'Unesite poruku...'}
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    Format: {promotion.format === 'all' ? 'Svi formati' : `${promotion.format} cm`}
-                  </p>
-                  {promotion.validUntil && (
-                    <p className="text-sm text-gray-600">
-                      Važi do: {new Date(promotion.validUntil).toLocaleDateString('sr-RS', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                      })}
-                    </p>
-                  )}
                 </div>
               </div>
             )}
