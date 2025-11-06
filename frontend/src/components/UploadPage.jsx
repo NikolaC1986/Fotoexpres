@@ -145,7 +145,7 @@ const UploadPage = () => {
   // Total discount is the sum of both
   const totalDiscountAmount = quantityDiscountAmount + promotionDiscountAmount;
 
-  const priceAfterDiscount = totalPrice - discountAmount;
+  const priceAfterDiscount = totalPrice - totalDiscountAmount;
 
   const deliveryFee = useMemo(() => {
     return priceAfterDiscount >= freeDeliveryLimit ? 0 : 400;
