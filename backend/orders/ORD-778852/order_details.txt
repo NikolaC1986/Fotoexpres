@@ -1,0 +1,22 @@
+ORDER NUMBER: ORD-778852
+DATE: 2025-11-06 10:14:18
+
+CUSTOMER INFORMATION:
+Name: Large File Test User
+Email: largefile@example.com
+Phone: +381661234567
+Address: 123 Test Street, Belgrade, 11000
+Notes: Testing large file upload
+
+PHOTO PROCESSING OPTIONS:
+Kropovati fotografiju kako bi je prilagodili formatu: NE
+Popunite belim: NE
+
+PHOTO DETAILS:
+---
+Photo 1: large_photo.jpg
+Format: 20x30 cm
+Quantity: 1
+Finish: Glossy
+
+TOTAL PHOTOS: 1 prints

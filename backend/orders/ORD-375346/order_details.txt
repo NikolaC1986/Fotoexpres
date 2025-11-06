@@ -1,0 +1,32 @@
+ORDER NUMBER: ORD-375346
+DATE: 2025-11-06 10:14:18
+
+CUSTOMER INFORMATION:
+Name: Test User
+Email: test@example.com
+Phone: +381661234567
+Address: 123 Test Street, Belgrade, 11000
+Notes: Please handle with care
+
+PHOTO PROCESSING OPTIONS:
+Kropovati fotografiju kako bi je prilagodili formatu: NE
+Popunite belim: NE
+
+PHOTO DETAILS:
+---
+Photo 1: photo1.jpg
+Format: 10x15 cm
+Quantity: 2
+Finish: Glossy
+---
+Photo 2: photo2.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Matte
+---
+Photo 3: photo3.jpg
+Format: 20x30 cm
+Quantity: 3
+Finish: Glossy
+
+TOTAL PHOTOS: 6 prints
