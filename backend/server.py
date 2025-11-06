@@ -428,6 +428,149 @@ async def get_public_settings():
         logging.error(f"Error fetching settings: {str(e)}")
         return {"settings": {'freeDeliveryLimit': 5000}}
 
+# Get Quantity Discounts (Admin Only)
+@api_router.get("/admin/discounts")
+async def get_discounts(admin = Depends(verify_admin_token)):
+    try:
+        discounts_doc = await db.discounts.find_one({"_id": "quantity_discounts"})
+        
+        # Default discounts
+        default_discounts = {
+            '50': 5,   # 5% discount for 50+ photos
+            '100': 10, # 10% discount for 100+ photos
+            '200': 15  # 15% discount for 200+ photos
+        }
+        
+        if discounts_doc:
+            return {"discounts": discounts_doc.get("discounts", default_discounts)}
+        else:
+            return {"discounts": default_discounts}
+    except Exception as e:
+        logging.error(f"Error fetching discounts: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch discounts")
+
+# Update Quantity Discounts (Admin Only)
+@api_router.put("/admin/discounts")
+async def update_discounts(
+    discount_update: dict,
+    admin = Depends(verify_admin_token)
+):
+    try:
+        discounts = discount_update.get("discounts")
+        
+        if not discounts:
+            raise HTTPException(status_code=400, detail="Discounts object required")
+        
+        # Upsert discounts document
+        await db.discounts.update_one(
+            {"_id": "quantity_discounts"},
+            {"$set": {"discounts": discounts}},
+            upsert=True
+        )
+        
+        return {"success": True, "message": "Discounts updated"}
+    except Exception as e:
+        logging.error(f"Error updating discounts: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to update discounts")
+
+# Get Quantity Discounts (Public - for frontend)
+@api_router.get("/discounts")
+async def get_public_discounts():
+    try:
+        discounts_doc = await db.discounts.find_one({"_id": "quantity_discounts"})
+        
+        # Default discounts
+        default_discounts = {
+            '50': 5,
+            '100': 10,
+            '200': 15
+        }
+        
+        if discounts_doc:
+            return {"discounts": discounts_doc.get("discounts", default_discounts)}
+        else:
+            return {"discounts": default_discounts}
+    except Exception as e:
+        logging.error(f"Error fetching discounts: {str(e)}")
+        return {"discounts": {'50': 5, '100': 10, '200': 15}}
+
+# Get Promotion (Admin Only)
+@api_router.get("/admin/promotion")
+async def get_promotion(admin = Depends(verify_admin_token)):
+    try:
+        promotion_doc = await db.promotions.find_one({"_id": "active_promotion"})
+        
+        # Default promotion
+        default_promotion = {
+            'isActive': False,
+            'format': 'all',  # 'all' or specific format like '10x15'
+            'discountPercent': 10,
+            'validUntil': '',
+            'message': '10% popusta na sve porudžbine!'
+        }
+        
+        if promotion_doc:
+            return {"promotion": promotion_doc.get("promotion", default_promotion)}
+        else:
+            return {"promotion": default_promotion}
+    except Exception as e:
+        logging.error(f"Error fetching promotion: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch promotion")
+
+# Update Promotion (Admin Only)
+@api_router.put("/admin/promotion")
+async def update_promotion(
+    promotion_update: dict,
+    admin = Depends(verify_admin_token)
+):
+    try:
+        promotion = promotion_update.get("promotion")
+        
+        if not promotion:
+            raise HTTPException(status_code=400, detail="Promotion object required")
+        
+        # Upsert promotion document
+        await db.promotions.update_one(
+            {"_id": "active_promotion"},
+            {"$set": {"promotion": promotion}},
+            upsert=True
+        )
+        
+        return {"success": True, "message": "Promotion updated"}
+    except Exception as e:
+        logging.error(f"Error updating promotion: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to update promotion")
+
+# Get Promotion (Public - for frontend)
+@api_router.get("/promotion")
+async def get_public_promotion():
+    try:
+        promotion_doc = await db.promotions.find_one({"_id": "active_promotion"})
+        
+        # Default promotion
+        default_promotion = {
+            'isActive': False,
+            'format': 'all',
+            'discountPercent': 10,
+            'validUntil': '',
+            'message': '10% popusta na sve porudžbine!'
+        }
+        
+        if promotion_doc:
+            promotion = promotion_doc.get("promotion", default_promotion)
+            # Check if promotion is still valid
+            if promotion.get('isActive') and promotion.get('validUntil'):
+                from datetime import datetime
+                valid_until = datetime.fromisoformat(promotion['validUntil'].replace('Z', '+00:00'))
+                if valid_until < datetime.now(timezone.utc):
+                    promotion['isActive'] = False
+            return {"promotion": promotion}
+        else:
+            return {"promotion": default_promotion}
+    except Exception as e:
+        logging.error(f"Error fetching promotion: {str(e)}")
+        return {"promotion": {'isActive': False, 'format': 'all', 'discountPercent': 10, 'validUntil': '', 'message': ''}}
+
 # Include the router in the main app
 app.include_router(api_router)
 
