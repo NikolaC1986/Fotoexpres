@@ -270,6 +270,53 @@ async def update_order_status(
     
     return {"success": True, "message": "Status updated"}
 
+# Delete Order (Admin Only)
+@api_router.delete("/admin/orders/{order_number}")
+async def delete_order(
+    order_number: str,
+    admin = Depends(verify_admin_token)
+):
+    try:
+        # Find the order first to get file paths
+        order = await db.orders.find_one({"orderNumber": order_number})
+        
+        if not order:
+            raise HTTPException(status_code=404, detail="Order not found")
+        
+        # Delete the ZIP file if it exists
+        zip_path = order.get("zipFilePath")
+        if zip_path and os.path.exists(zip_path):
+            try:
+                os.remove(zip_path)
+                logging.info(f"Deleted ZIP file: {zip_path}")
+            except Exception as e:
+                logging.error(f"Error deleting ZIP file: {str(e)}")
+        
+        # Delete the order directory if it exists
+        order_dir = ORDERS_DIR / order_number
+        if order_dir.exists():
+            try:
+                shutil.rmtree(order_dir)
+                logging.info(f"Deleted order directory: {order_dir}")
+            except Exception as e:
+                logging.error(f"Error deleting order directory: {str(e)}")
+        
+        # Delete from database
+        result = await db.orders.delete_one({"orderNumber": order_number})
+        
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Order not found in database")
+        
+        return {
+            "success": True,
+            "message": f"Order {order_number} deleted successfully"
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Error deleting order: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to delete order: {str(e)}")
+
 # Get Prices (Admin Only)
 @api_router.get("/admin/prices")
 async def get_prices(admin = Depends(verify_admin_token)):
