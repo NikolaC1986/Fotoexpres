@@ -19,7 +19,7 @@ const AdminPromotion = () => {
     isActive: false,
     format: 'all',
     discountPercent: 10,
-    validUntil: '',
+    validUntil: '2025-12-31T23:59',
     message: '10% popusta na sve porudžbine!'
   });
   const [loading, setLoading] = useState(true);
