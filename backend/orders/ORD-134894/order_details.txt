@@ -1,0 +1,517 @@
+ORDER NUMBER: ORD-134894
+DATE: 2025-11-06 10:21:41
+
+CUSTOMER INFORMATION:
+Name: Jdjdh
+Email: jbdbs@gmail.com
+Phone: 06228484848
+Address: Rentgenova 1 vranje
+Notes: 
+
+PHOTO PROCESSING OPTIONS:
+Kropovati fotografiju kako bi je prilagodili formatu: NE
+Popunite belim: DA
+
+PHOTO DETAILS:
+---
+Photo 1: 17384.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 2: 17383.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 3: 17380.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 4: 17382.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 5: 17379.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 6: 17374.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 7: 17378.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 8: 17377.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 9: 17373.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 10: 17376.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 11: 17375.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 12: 17370.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 13: 17369.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 14: 17372.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 15: 17366.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 16: 17368.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 17: 17371.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 18: 17360.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 19: 17362.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 20: 17364.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 21: 17357.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 22: 17358.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 23: 17359.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 24: 17354.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 25: 17353.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 26: 17356.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 27: 17350.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 28: 17352.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 29: 17355.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 30: 17344.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 31: 17345.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 32: 17351.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 33: 17341.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 34: 17342.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 35: 17343.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 36: 17336.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 37: 17338.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 38: 17340.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 39: 17332.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 40: 17333.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 41: 17334.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 42: 17325.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 43: 17324.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 44: 17323.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 45: 17320.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 46: 17321.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 47: 17322.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 48: 17317.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 49: 17318.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 50: 17319.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 51: 17315.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 52: 17314.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 53: 17316.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 54: 17311.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 55: 17313.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 56: 17312.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 57: 17308.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 58: 17309.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 59: 17310.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 60: 17305.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 61: 17306.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 62: 17307.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 63: 17299.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 64: 17303.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 65: 17304.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 66: 17302.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 67: 17301.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 68: 17300.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 69: 17297.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 70: 17296.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 71: 17298.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 72: 17294.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 73: 17295.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 74: 17293.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 75: 17291.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 76: 17289.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 77: 17290.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 78: 17288.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 79: 17292.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 80: 17287.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 81: 17273.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 82: 17286.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 83: 17281.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 84: 17274.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 85: 17276.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 86: 17275.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 87: 17279.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 88: 17278.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 89: 17277.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 90: 17272.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 91: 17271.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 92: 17280.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 93: 17261.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 94: 17260.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 95: 17259.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 96: 17264.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 97: 17263.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 98: 17262.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 99: 17267.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+---
+Photo 100: 17266.jpg
+Format: 13x18 cm
+Quantity: 1
+Finish: Glossy
+
+TOTAL PHOTOS: 100 prints
