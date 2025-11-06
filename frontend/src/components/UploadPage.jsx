@@ -533,13 +533,47 @@ const UploadPage = () => {
                 />
               </div>
 
+              {isUploading && (
+                <div className="mb-6">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-semibold text-gray-700">Slanje fotografija...</span>
+                    <span className="text-sm font-bold text-orange-600">{uploadProgress}%</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                    <div 
+                      className="bg-gradient-to-r from-orange-500 to-orange-600 h-4 rounded-full transition-all duration-300 ease-out flex items-center justify-center"
+                      style={{ width: `${uploadProgress}%` }}
+                    >
+                      {uploadProgress > 10 && (
+                        <span className="text-xs text-white font-semibold">{uploadProgress}%</span>
+                      )}
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-2 text-center">
+                    Molimo ne zatvarajte stranicu dok se fotografije šalju
+                  </p>
+                </div>
+              )}
+
               <div className="flex justify-end gap-4 pt-6 border-t-2">
-                <Button type="button" variant="outline" size="lg" onClick={() => navigate('/')} className="border-2">
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  size="lg" 
+                  onClick={() => navigate('/')} 
+                  className="border-2"
+                  disabled={isUploading}
+                >
                   Otkaži
                 </Button>
-                <Button type="submit" size="lg" className="bg-orange-600 hover:bg-orange-700 text-white gap-2 px-8">
+                <Button 
+                  type="submit" 
+                  size="lg" 
+                  className="bg-orange-600 hover:bg-orange-700 text-white gap-2 px-8 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isUploading}
+                >
                   <ImageIcon size={20} />
-                  Pošalji Porudžbinu - {grandTotal} RSD
+                  {isUploading ? 'Slanje...' : `Pošalji Porudžbinu - ${grandTotal} RSD`}
                 </Button>
               </div>
             </form>
