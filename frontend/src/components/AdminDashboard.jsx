@@ -305,6 +305,15 @@ const AdminDashboard = () => {
                               Završi
                             </Button>
                           )}
+                          <Button 
+                            size="sm"
+                            variant="destructive"
+                            onClick={() => handleDelete(order.orderNumber)}
+                            className="gap-1 bg-red-600 hover:bg-red-700"
+                          >
+                            <Trash2 size={16} />
+                            Obriši
+                          </Button>
                         </div>
                       </td>
                     </tr>
