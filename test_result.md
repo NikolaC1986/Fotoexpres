@@ -225,6 +225,30 @@ backend:
           agent: "testing"
           comment: "✅ Backend API accessible at https://fotoshop-dash.preview.emergentagent.com/api. All routes properly prefixed with /api. Basic connectivity test passes."
 
+  - task: "Delete Order API (Admin)"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Added DELETE /api/admin/orders/{order_number} endpoint. Deletes order from MongoDB, removes ZIP file and order directory. Requires admin authentication. Needs testing."
+
+  - task: "Large File Upload Support"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Added support for large file uploads with increased timeout (300s) and upload progress tracking. Needs testing with 100+ photos."
+
 frontend:
   - task: "Homepage Navigation and UI Elements"
     implemented: true
