@@ -259,18 +259,18 @@ const UploadPage = () => {
             </div>
 
             {/* Bulk Format Selector */}
-            <Card className="p-6 mb-6 bg-gradient-to-r from-orange-50 to-red-50 border-2 border-orange-300">
-              <div className="flex items-center justify-between gap-6">
-                <div className="flex items-center gap-4">
-                  <div className="bg-orange-600 text-white p-3 rounded-lg">
-                    <ImageIcon size={24} />
+            <Card className="p-4 md:p-6 mb-6 bg-gradient-to-r from-orange-50 to-red-50 border-2 border-orange-300">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6">
+                <div className="flex items-center gap-3 md:gap-4">
+                  <div className="bg-orange-600 text-white p-2 md:p-3 rounded-lg flex-shrink-0">
+                    <ImageIcon size={20} className="md:w-6 md:h-6" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-gray-900">Promeni Format za Sve Fotografije</h3>
-                    <p className="text-sm text-gray-600">Izaberite format koji želite primeniti na sve fotografije odjednom</p>
+                    <h3 className="text-sm md:text-lg font-bold text-gray-900">Promeni Format za Sve Fotografije</h3>
+                    <p className="text-xs md:text-sm text-gray-600">Izaberite format za sve fotografije odjednom</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="w-full md:w-auto">
                   <Select onValueChange={(value) => {
                     setPhotos(photos.map(photo => ({ ...photo, format: value })));
                     toast({
@@ -278,7 +278,7 @@ const UploadPage = () => {
                       description: `Sve fotografije su postavljene na ${value} cm format`
                     });
                   }}>
-                    <SelectTrigger className="w-64 border-2 border-orange-400 bg-white">
+                    <SelectTrigger className="w-full md:w-64 border-2 border-orange-400 bg-white">
                       <SelectValue placeholder="Izaberite format za sve" />
                     </SelectTrigger>
                     <SelectContent>
@@ -288,6 +288,38 @@ const UploadPage = () => {
                       <SelectItem value="15x21">15x21 cm - 50 RSD</SelectItem>
                       <SelectItem value="20x30">20x30 cm - 150 RSD</SelectItem>
                       <SelectItem value="30x45">30x45 cm - 250 RSD</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </Card>
+
+            {/* Bulk Paper Type Selector */}
+            <Card className="p-4 md:p-6 mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-300">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6">
+                <div className="flex items-center gap-3 md:gap-4">
+                  <div className="bg-blue-600 text-white p-2 md:p-3 rounded-lg flex-shrink-0">
+                    <ImageIcon size={20} className="md:w-6 md:h-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm md:text-lg font-bold text-gray-900">Promeni Tip Papira za Sve Fotografije</h3>
+                    <p className="text-xs md:text-sm text-gray-600">Izaberite tip papira za sve fotografije odjednom</p>
+                  </div>
+                </div>
+                <div className="w-full md:w-auto">
+                  <Select onValueChange={(value) => {
+                    setPhotos(photos.map(photo => ({ ...photo, finish: value })));
+                    toast({
+                      title: "Tip papira promenjen",
+                      description: `Sve fotografije su postavljene na ${value === 'glossy' ? 'Sjajni' : 'Mat'} papir`
+                    });
+                  }}>
+                    <SelectTrigger className="w-full md:w-64 border-2 border-blue-400 bg-white">
+                      <SelectValue placeholder="Izaberite tip papira za sve" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="glossy">Sjajni</SelectItem>
+                      <SelectItem value="matte">Mat</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
