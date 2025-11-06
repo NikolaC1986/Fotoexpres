@@ -36,6 +36,8 @@ const UploadPage = () => {
   const [cropOption, setCropOption] = useState(false);
   const [fillWhiteOption, setFillWhiteOption] = useState(false);
   const [freeDeliveryLimit, setFreeDeliveryLimit] = useState(5000);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
 
   // Load settings on mount
   useEffect(() => {
