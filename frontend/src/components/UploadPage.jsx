@@ -103,11 +103,71 @@ const UploadPage = () => {
     return photos.reduce((sum, photo) => sum + photo.quantity, 0);
   }, [photos]);
 
-  const deliveryFee = useMemo(() => {
-    return totalPrice >= 5000 ? 0 : 400;
-  }, [totalPrice]);
+  // Calculate quantity discount
+  const quantityDiscount = useMemo(() => {
+    if (totalPhotos >= 200 && quantityDiscounts['200']) {
+      return quantityDiscounts['200'];
+    } else if (totalPhotos >= 100 && quantityDiscounts['100']) {
+      return quantityDiscounts['100'];
+    } else if (totalPhotos >= 50 && quantityDiscounts['50']) {
+      return quantityDiscounts['50'];
+    }
+    return 0;
+  }, [totalPhotos, quantityDiscounts]);
 
-  const grandTotal = totalPrice + deliveryFee;
+  // Calculate promotion discount
+  const promotionDiscount = useMemo(() => {
+    if (!promotion || !promotion.isActive) return 0;
+    
+    // Check if promotion applies to all formats or specific format
+    if (promotion.format === 'all') {
+      return promotion.discountPercent || 0;
+    } else {
+      // Check if any photo has the promotional format
+      const hasPromotionalFormat = photos.some(photo => photo.format === promotion.format);
+      if (hasPromotionalFormat) {
+        // Calculate discount only for promotional format photos
+        const promotionalPrice = photos.reduce((sum, photo) => {
+          if (photo.format === promotion.format) {
+            const price = PRICE_MAP[photo.format] || 0;
+            return sum + (price * photo.quantity);
+          }
+          return sum;
+        }, 0);
+        return { percent: promotion.discountPercent, appliesTo: promotionalPrice };
+      }
+    }
+    return 0;
+  }, [promotion, photos]);
+
+  // Calculate total discount amount
+  const discountAmount = useMemo(() => {
+    let discount = 0;
+    
+    // Apply quantity discount to total price
+    if (quantityDiscount > 0) {
+      discount += (totalPrice * quantityDiscount) / 100;
+    }
+    
+    // Apply promotion discount
+    if (typeof promotionDiscount === 'object' && promotionDiscount.appliesTo) {
+      // Promotion applies only to specific format
+      discount += (promotionDiscount.appliesTo * promotionDiscount.percent) / 100;
+    } else if (typeof promotionDiscount === 'number' && promotionDiscount > 0) {
+      // Promotion applies to all
+      discount += (totalPrice * promotionDiscount) / 100;
+    }
+    
+    return Math.round(discount);
+  }, [totalPrice, quantityDiscount, promotionDiscount]);
+
+  const priceAfterDiscount = totalPrice - discountAmount;
+
+  const deliveryFee = useMemo(() => {
+    return priceAfterDiscount >= freeDeliveryLimit ? 0 : 400;
+  }, [priceAfterDiscount, freeDeliveryLimit]);
+
+  const grandTotal = priceAfterDiscount + deliveryFee;
 
   const handleFileUpload = (e) => {
     const files = Array.from(e.target.files);
