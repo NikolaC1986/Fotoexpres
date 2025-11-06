@@ -371,7 +371,7 @@ const UploadPage = () => {
                       </div>
 
                       <div>
-                        <Label className="text-sm font-semibold mb-2 block text-gray-700">Završetak Papira</Label>
+                        <Label className="text-sm font-semibold mb-2 block text-gray-700">Tip Papira</Label>
                         <Select value={photo.finish} onValueChange={(value) => updatePhoto(photo.id, 'finish', value)}>
                           <SelectTrigger className="border-2">
                             <SelectValue />
