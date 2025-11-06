@@ -44,6 +44,8 @@ const UploadPage = () => {
   // Load settings on mount
   useEffect(() => {
     fetchSettings();
+    fetchDiscounts();
+    fetchPromotion();
   }, []);
 
   const fetchSettings = async () => {
@@ -54,8 +56,38 @@ const UploadPage = () => {
       }
     } catch (error) {
       console.error('Error fetching settings:', error);
-      // Use default if fetch fails
       setFreeDeliveryLimit(5000);
+    }
+  };
+
+  const fetchDiscounts = async () => {
+    try {
+      const response = await axios.get(`${API}/discounts`);
+      if (response.data.discounts) {
+        setQuantityDiscounts(response.data.discounts);
+      }
+    } catch (error) {
+      console.error('Error fetching discounts:', error);
+    }
+  };
+
+  const fetchPromotion = async () => {
+    try {
+      const response = await axios.get(`${API}/promotion`);
+      const promo = response.data.promotion;
+      
+      if (promo && promo.isActive && promo.validUntil) {
+        const validUntil = new Date(promo.validUntil);
+        const now = new Date();
+        
+        if (validUntil > now) {
+          setPromotion(promo);
+        }
+      } else if (promo && promo.isActive && !promo.validUntil) {
+        setPromotion(promo);
+      }
+    } catch (error) {
+      console.error('Error fetching promotion:', error);
     }
   };
 
