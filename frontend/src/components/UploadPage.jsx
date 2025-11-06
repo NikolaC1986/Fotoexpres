@@ -565,6 +565,37 @@ const UploadPage = () => {
                   <span className="text-gray-700">Fotografije ({totalPhotos} kom):</span>
                   <span className="font-semibold">{totalPrice} RSD</span>
                 </div>
+
+                {/* Quantity Discount */}
+                {quantityDiscount > 0 && (
+                  <div className="flex justify-between items-center text-lg bg-green-100 p-3 rounded-lg border-2 border-green-300">
+                    <span className="text-green-800 font-semibold flex items-center gap-2">
+                      🎉 Popust na količinu ({quantityDiscount}%):
+                    </span>
+                    <span className="font-bold text-green-700">-{Math.round((totalPrice * quantityDiscount) / 100)} RSD</span>
+                  </div>
+                )}
+
+                {/* Promotion Discount */}
+                {discountAmount > (quantityDiscount > 0 ? Math.round((totalPrice * quantityDiscount) / 100) : 0) && (
+                  <div className="flex justify-between items-center text-lg bg-purple-100 p-3 rounded-lg border-2 border-purple-300">
+                    <span className="text-purple-800 font-semibold flex items-center gap-2">
+                      🏷️ Akcijski popust:
+                    </span>
+                    <span className="font-bold text-purple-700">
+                      -{discountAmount - (quantityDiscount > 0 ? Math.round((totalPrice * quantityDiscount) / 100) : 0)} RSD
+                    </span>
+                  </div>
+                )}
+
+                {/* Total Discount */}
+                {discountAmount > 0 && (
+                  <div className="flex justify-between items-center text-lg">
+                    <span className="text-gray-700">Cena sa popustom:</span>
+                    <span className="font-bold text-green-600">{priceAfterDiscount} RSD</span>
+                  </div>
+                )}
+
                 <div className="flex justify-between items-center text-lg">
                   <span className="text-gray-700">Dostava:</span>
                   <span className="font-semibold">
@@ -575,9 +606,9 @@ const UploadPage = () => {
                     )}
                   </span>
                 </div>
-                {totalPrice < 5000 && (
+                {priceAfterDiscount < freeDeliveryLimit && (
                   <p className="text-sm text-gray-600 italic">
-                    * Besplatna dostava za porudžbine preko 5000 RSD (još {5000 - totalPrice} RSD)
+                    * Besplatna dostava za porudžbine preko {freeDeliveryLimit} RSD (još {freeDeliveryLimit - priceAfterDiscount} RSD)
                   </p>
                 )}
                 <div className="border-t-2 border-orange-300 pt-3 mt-3">
@@ -585,6 +616,11 @@ const UploadPage = () => {
                     <span className="text-2xl font-bold text-gray-900">UKUPNO:</span>
                     <span className="text-3xl font-bold text-orange-600">{grandTotal} RSD</span>
                   </div>
+                  {discountAmount > 0 && (
+                    <p className="text-right text-sm text-gray-600 mt-2">
+                      Uštedeli ste: <span className="font-bold text-green-600">{discountAmount} RSD</span> 🎉
+                    </p>
+                  )}
                 </div>
               </div>
             </Card>
