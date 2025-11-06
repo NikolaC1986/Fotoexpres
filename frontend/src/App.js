@@ -10,6 +10,8 @@ import AdminLogin from './components/AdminLogin';
 import AdminDashboard from './components/AdminDashboard';
 import AdminPrices from './components/AdminPrices';
 import AdminSettings from './components/AdminSettings';
+import AdminDiscounts from './components/AdminDiscounts';
+import AdminPromotion from './components/AdminPromotion';
 import { Toaster } from './components/ui/toaster';
 
 // Protected Route Component
