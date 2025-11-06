@@ -103,8 +103,8 @@ const UploadPage = () => {
     return photos.reduce((sum, photo) => sum + photo.quantity, 0);
   }, [photos]);
 
-  // Calculate quantity discount
-  const quantityDiscount = useMemo(() => {
+  // Calculate quantity discount percentage
+  const quantityDiscountPercent = useMemo(() => {
     if (totalPhotos >= 200 && quantityDiscounts['200']) {
       return quantityDiscounts['200'];
     } else if (totalPhotos >= 100 && quantityDiscounts['100']) {
@@ -115,51 +115,35 @@ const UploadPage = () => {
     return 0;
   }, [totalPhotos, quantityDiscounts]);
 
-  // Calculate promotion discount
-  const promotionDiscount = useMemo(() => {
+  // Calculate promotion discount percentage
+  const promotionDiscountPercent = useMemo(() => {
     if (!promotion || !promotion.isActive) return 0;
     
-    // Check if promotion applies to all formats or specific format
+    // For now, promotion applies to all if format is 'all'
     if (promotion.format === 'all') {
       return promotion.discountPercent || 0;
     } else {
       // Check if any photo has the promotional format
       const hasPromotionalFormat = photos.some(photo => photo.format === promotion.format);
       if (hasPromotionalFormat) {
-        // Calculate discount only for promotional format photos
-        const promotionalPrice = photos.reduce((sum, photo) => {
-          if (photo.format === promotion.format) {
-            const price = PRICE_MAP[photo.format] || 0;
-            return sum + (price * photo.quantity);
-          }
-          return sum;
-        }, 0);
-        return { percent: promotion.discountPercent, appliesTo: promotionalPrice };
+        return promotion.discountPercent || 0;
       }
     }
     return 0;
   }, [promotion, photos]);
 
-  // Calculate total discount amount
-  const discountAmount = useMemo(() => {
-    let discount = 0;
-    
-    // Apply quantity discount to total price
-    if (quantityDiscount > 0) {
-      discount += (totalPrice * quantityDiscount) / 100;
-    }
-    
-    // Apply promotion discount
-    if (typeof promotionDiscount === 'object' && promotionDiscount.appliesTo) {
-      // Promotion applies only to specific format
-      discount += (promotionDiscount.appliesTo * promotionDiscount.percent) / 100;
-    } else if (typeof promotionDiscount === 'number' && promotionDiscount > 0) {
-      // Promotion applies to all
-      discount += (totalPrice * promotionDiscount) / 100;
-    }
-    
-    return Math.round(discount);
-  }, [totalPrice, quantityDiscount, promotionDiscount]);
+  // Calculate discounts
+  const quantityDiscountAmount = useMemo(() => {
+    return Math.round((totalPrice * quantityDiscountPercent) / 100);
+  }, [totalPrice, quantityDiscountPercent]);
+
+  const promotionDiscountAmount = useMemo(() => {
+    // Apply promotion discount to original price (not after quantity discount)
+    return Math.round((totalPrice * promotionDiscountPercent) / 100);
+  }, [totalPrice, promotionDiscountPercent]);
+
+  // Total discount is the sum of both
+  const totalDiscountAmount = quantityDiscountAmount + promotionDiscountAmount;
 
   const priceAfterDiscount = totalPrice - discountAmount;
 
