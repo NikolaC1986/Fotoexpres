@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Upload, Camera, Award, Clock, Shield, ArrowRight, Star } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
+import PromotionPopup from './PromotionPopup';
 
 const HomePage = () => {
   const services = [
