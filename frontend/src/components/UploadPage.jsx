@@ -551,29 +551,29 @@ const UploadPage = () => {
                 </div>
 
                 {/* Quantity Discount */}
-                {quantityDiscount > 0 && (
+                {quantityDiscountAmount > 0 && (
                   <div className="flex justify-between items-center text-lg bg-green-100 p-3 rounded-lg border-2 border-green-300">
                     <span className="text-green-800 font-semibold flex items-center gap-2">
-                      🎉 Popust na količinu ({quantityDiscount}%):
+                      🎉 Popust na količinu ({quantityDiscountPercent}%):
                     </span>
-                    <span className="font-bold text-green-700">-{Math.round((totalPrice * quantityDiscount) / 100)} RSD</span>
+                    <span className="font-bold text-green-700">-{quantityDiscountAmount} RSD</span>
                   </div>
                 )}
 
                 {/* Promotion Discount */}
-                {discountAmount > (quantityDiscount > 0 ? Math.round((totalPrice * quantityDiscount) / 100) : 0) && (
+                {promotionDiscountAmount > 0 && (
                   <div className="flex justify-between items-center text-lg bg-purple-100 p-3 rounded-lg border-2 border-purple-300">
                     <span className="text-purple-800 font-semibold flex items-center gap-2">
-                      🏷️ Akcijski popust:
+                      🏷️ Akcijski popust ({promotionDiscountPercent}%):
                     </span>
                     <span className="font-bold text-purple-700">
-                      -{discountAmount - (quantityDiscount > 0 ? Math.round((totalPrice * quantityDiscount) / 100) : 0)} RSD
+                      -{promotionDiscountAmount} RSD
                     </span>
                   </div>
                 )}
 
                 {/* Total Discount */}
-                {discountAmount > 0 && (
+                {totalDiscountAmount > 0 && (
                   <div className="flex justify-between items-center text-lg">
                     <span className="text-gray-700">Cena sa popustom:</span>
                     <span className="font-bold text-green-600">{priceAfterDiscount} RSD</span>
