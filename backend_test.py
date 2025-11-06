@@ -20,6 +20,7 @@ class PhotoOrderTester:
     def __init__(self):
         self.backend_url = BACKEND_URL
         self.test_results = []
+        self.admin_token = None
         
     def log_result(self, test_name, success, message, details=None):
         """Log test result"""
