@@ -45,9 +45,6 @@ const Navbar = () => {
                   Pošalji Fotografije
                 </Button>
               </Link>
-              <Button variant="ghost" size="icon" className="text-gray-700 hover:text-orange-600 w-10 h-10">
-                <ShoppingCart size={20} />
-              </Button>
             </div>
           </div>
 
