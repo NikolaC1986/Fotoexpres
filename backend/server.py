@@ -552,18 +552,36 @@ async def get_public_promotion():
             'isActive': False,
             'format': 'all',
             'discountPercent': 10,
-            'validUntil': '',
+            'validUntil': '2025-12-31T23:59',
             'message': '10% popusta na sve porudžbine!'
         }
         
         if promotion_doc:
             promotion = promotion_doc.get("promotion", default_promotion)
+            
+            # Ensure message has a value
+            if not promotion.get('message'):
+                promotion['message'] = '10% popusta na sve porudžbine!'
+            
             # Check if promotion is still valid
             if promotion.get('isActive') and promotion.get('validUntil'):
-                from datetime import datetime
-                valid_until = datetime.fromisoformat(promotion['validUntil'].replace('Z', '+00:00'))
-                if valid_until < datetime.now(timezone.utc):
-                    promotion['isActive'] = False
+                try:
+                    # Handle both datetime string formats
+                    valid_until_str = promotion['validUntil']
+                    if 'T' in valid_until_str:
+                        valid_until = datetime.fromisoformat(valid_until_str.replace('Z', '+00:00').replace('+00:00', ''))
+                    else:
+                        valid_until = datetime.fromisoformat(valid_until_str)
+                    
+                    # Make timezone-aware if needed
+                    if valid_until.tzinfo is None:
+                        valid_until = valid_until.replace(tzinfo=timezone.utc)
+                    
+                    if valid_until < datetime.now(timezone.utc):
+                        promotion['isActive'] = False
+                except Exception as e:
+                    logging.error(f"Error parsing promotion date: {str(e)}")
+                    
             return {"promotion": promotion}
         else:
             return {"promotion": default_promotion}
