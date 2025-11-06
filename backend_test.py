@@ -479,6 +479,264 @@ class PhotoOrderTester:
                 f"Cannot connect to backend: {str(e)}"
             )
     
+    def admin_login(self):
+        """Login as admin and get token"""
+        print("\n=== Admin Login ===")
+        
+        try:
+            login_data = {
+                "username": "admin",
+                "password": "admin123"
+            }
+            
+            response = requests.post(f"{self.backend_url}/admin/login", json=login_data)
+            
+            if response.status_code == 200:
+                result = response.json()
+                if result.get('success') and result.get('token'):
+                    self.admin_token = result['token']
+                    self.log_result(
+                        "Admin Login", 
+                        True, 
+                        "Successfully logged in as admin"
+                    )
+                    return True
+                else:
+                    self.log_result(
+                        "Admin Login", 
+                        False, 
+                        "Login response missing success or token"
+                    )
+                    return False
+            else:
+                self.log_result(
+                    "Admin Login", 
+                    False, 
+                    f"HTTP {response.status_code}: {response.text}"
+                )
+                return False
+                
+        except Exception as e:
+            self.log_result(
+                "Admin Login", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+            return False
+    
+    def test_delete_order_success(self, order_number):
+        """Test NEW: Delete Order API - Success Case"""
+        print("\n=== Testing Delete Order API - Success Case ===")
+        
+        if not order_number:
+            self.log_result(
+                "Delete Order Success", 
+                False, 
+                "No order number provided (previous test failed)"
+            )
+            return
+        
+        if not self.admin_token:
+            self.log_result(
+                "Delete Order Success", 
+                False, 
+                "No admin token available (admin login failed)"
+            )
+            return
+        
+        try:
+            headers = {
+                "Authorization": f"Bearer {self.admin_token}"
+            }
+            
+            response = requests.delete(f"{self.backend_url}/admin/orders/{order_number}", headers=headers)
+            
+            if response.status_code == 200:
+                result = response.json()
+                if result.get('success'):
+                    self.log_result(
+                        "Delete Order Success", 
+                        True, 
+                        f"Successfully deleted order: {order_number}",
+                        {"message": result.get('message')}
+                    )
+                else:
+                    self.log_result(
+                        "Delete Order Success", 
+                        False, 
+                        "Delete response success flag is False"
+                    )
+            else:
+                self.log_result(
+                    "Delete Order Success", 
+                    False, 
+                    f"HTTP {response.status_code}: {response.text}"
+                )
+                
+        except Exception as e:
+            self.log_result(
+                "Delete Order Success", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+    
+    def test_delete_order_nonexistent(self):
+        """Test NEW: Delete Order API - Non-existent Order"""
+        print("\n=== Testing Delete Order API - Non-existent Order ===")
+        
+        if not self.admin_token:
+            self.log_result(
+                "Delete Order Non-existent", 
+                False, 
+                "No admin token available (admin login failed)"
+            )
+            return
+        
+        fake_order_number = "ORD-999999"
+        
+        try:
+            headers = {
+                "Authorization": f"Bearer {self.admin_token}"
+            }
+            
+            response = requests.delete(f"{self.backend_url}/admin/orders/{fake_order_number}", headers=headers)
+            
+            if response.status_code == 404:
+                self.log_result(
+                    "Delete Order Non-existent", 
+                    True, 
+                    "Correctly returned 404 for non-existent order"
+                )
+            else:
+                self.log_result(
+                    "Delete Order Non-existent", 
+                    False, 
+                    f"Expected 404, got {response.status_code}: {response.text}"
+                )
+                
+        except Exception as e:
+            self.log_result(
+                "Delete Order Non-existent", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+    
+    def test_delete_order_unauthorized(self):
+        """Test NEW: Delete Order API - Unauthorized Access"""
+        print("\n=== Testing Delete Order API - Unauthorized ===")
+        
+        fake_order_number = "ORD-123456"
+        
+        try:
+            # Try without authorization header
+            response = requests.delete(f"{self.backend_url}/admin/orders/{fake_order_number}")
+            
+            if response.status_code == 401:
+                self.log_result(
+                    "Delete Order Unauthorized", 
+                    True, 
+                    "Correctly returned 401 for unauthorized access"
+                )
+            else:
+                self.log_result(
+                    "Delete Order Unauthorized", 
+                    False, 
+                    f"Expected 401, got {response.status_code}: {response.text}"
+                )
+                
+        except Exception as e:
+            self.log_result(
+                "Delete Order Unauthorized", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+    
+    def test_large_file_upload_multiple_photos(self):
+        """Test NEW: Large File Upload Support - Multiple Photos (20-30 photos)"""
+        print("\n=== Testing Large File Upload - Multiple Photos (25 photos) ===")
+        
+        # Create order details for 25 photos
+        photo_settings = []
+        for i in range(25):
+            photo_settings.append({
+                "fileName": f"photo_{i+1:02d}.jpg",
+                "format": "10x15",
+                "quantity": 1,
+                "finish": "glossy" if i % 2 == 0 else "matte"
+            })
+        
+        order_details = {
+            "contactInfo": {
+                "fullName": "Large Upload Test User",
+                "email": "largeupload@example.com",
+                "phone": "+381661234567",
+                "address": "123 Test Street, Belgrade, 11000",
+                "notes": "Testing large upload with 25 photos"
+            },
+            "photoSettings": photo_settings
+        }
+        
+        try:
+            # Create 25 test images (smaller size to avoid timeout)
+            files = []
+            for i in range(25):
+                photo_data, _ = self.create_test_image(f"photo_{i+1:02d}.jpg", 1)  # 1MB each
+                files.append(('photos', (f'photo_{i+1:02d}.jpg', photo_data, 'image/jpeg')))
+            
+            data = {
+                'order_details': json.dumps(order_details)
+            }
+            
+            print("   Uploading 25 photos (25MB total)...")
+            
+            # Set longer timeout for large upload
+            response = requests.post(
+                f"{self.backend_url}/orders/create", 
+                files=files, 
+                data=data,
+                timeout=300  # 5 minute timeout
+            )
+            
+            if response.status_code == 200:
+                result = response.json()
+                if result.get('success'):
+                    self.log_result(
+                        "Large Upload Multiple Photos", 
+                        True, 
+                        f"Successfully uploaded 25 photos: {result['orderNumber']}",
+                        {"total_photos": 25, "total_size": "25MB"}
+                    )
+                    return result['orderNumber']
+                else:
+                    self.log_result(
+                        "Large Upload Multiple Photos", 
+                        False, 
+                        "Upload succeeded but success flag is False"
+                    )
+                    return None
+            else:
+                self.log_result(
+                    "Large Upload Multiple Photos", 
+                    False, 
+                    f"HTTP {response.status_code}: {response.text}"
+                )
+                return None
+                
+        except requests.exceptions.Timeout:
+            self.log_result(
+                "Large Upload Multiple Photos", 
+                False, 
+                "Upload timed out after 5 minutes"
+            )
+            return None
+        except Exception as e:
+            self.log_result(
+                "Large Upload Multiple Photos", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+            return None
+    
     def run_all_tests(self):
         """Run all tests in sequence"""
         print(f"Starting Photo Order Management System Tests")
