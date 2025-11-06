@@ -245,14 +245,14 @@ const UploadPage = () => {
         {/* Photos Grid */}
         {photos.length > 0 && (
           <div className="mb-12">
-            <div className="flex justify-between items-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-900">Vaše Fotografije ({photos.length})</h2>
-              <div className="flex gap-4">
-                <div className="bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Vaše Fotografije ({photos.length})</h2>
+              <div className="flex gap-3 md:gap-4">
+                <div className="bg-orange-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold text-sm md:text-base">
                   Ukupno: {totalPhotos} komada
                 </div>
-                <div className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2">
-                  <DollarSign size={20} />
+                <div className="bg-green-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold flex items-center gap-2 text-sm md:text-base">
+                  <DollarSign size={18} className="md:w-5 md:h-5" />
                   {totalPrice} RSD
                 </div>
               </div>
