@@ -432,11 +432,11 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Delete Order API (Admin)"
     - "Upload Page - Auto Reset After Submission"
     - "Upload Page - Progress Bar for Photo Upload"
-    - "Large File Upload Support"
     - "Admin Panel - Delete Order Functionality"
+    - "Upload Page - Text Change 'Završetak papira' to 'Tip papira'"
+    - "Homepage - Admin Login Button Moved to Footer"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
