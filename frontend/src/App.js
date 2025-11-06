@@ -57,6 +57,22 @@ function App() {
               </ProtectedRoute>
             } 
           />
+          <Route 
+            path="/admin/discounts" 
+            element={
+              <ProtectedRoute>
+                <AdminDiscounts />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/admin/promotion" 
+            element={
+              <ProtectedRoute>
+                <AdminPromotion />
+              </ProtectedRoute>
+            } 
+          />
         </Routes>
         <Toaster />
       </BrowserRouter>
