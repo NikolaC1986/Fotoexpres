@@ -92,7 +92,31 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleStatusUpdate = async (orderNumber, newStatus) => {
+  const handleDelete = async (orderNumber) => {
+    if (!window.confirm(`Da li ste sigurni da želite da obrišete porudžbinu ${orderNumber}?`)) {
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('adminToken');
+      await axios.delete(`${API}/admin/orders/${orderNumber}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      
+      toast({
+        title: "Porudžbina obrisana",
+        description: `Porudžbina ${orderNumber} je uspešno obrisana`
+      });
+      
+      fetchOrders();
+    } catch (error) {
+      toast({
+        title: "Greška",
+        description: "Nije moguće obrisati porudžbinu",
+        variant: "destructive"
+      });
+    }
+  };
     try {
       const token = localStorage.getItem('adminToken');
       await axios.put(`${API}/admin/orders/${orderNumber}/status`, 
