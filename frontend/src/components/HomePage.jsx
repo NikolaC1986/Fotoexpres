@@ -39,7 +39,6 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <PromotionPopup />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-orange-50 to-orange-100 py-12 md:py-24">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
