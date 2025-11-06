@@ -758,8 +758,25 @@ class PhotoOrderTester:
         self.test_order_retrieval_existing(order_number)
         self.test_order_retrieval_nonexistent()
         
-        # Test 4: Large file upload
+        # Test 4: Large file upload (original)
         self.test_large_file_upload()
+        
+        # NEW TESTS - Admin Authentication
+        admin_login_success = self.admin_login()
+        
+        # NEW TESTS - Delete Order API
+        if admin_login_success:
+            self.test_delete_order_unauthorized()  # Test without auth first
+            
+            # Create a new order for deletion test
+            delete_test_order = self.test_order_creation_success()
+            if delete_test_order:
+                self.test_delete_order_success(delete_test_order)
+            
+            self.test_delete_order_nonexistent()
+        
+        # NEW TESTS - Large File Upload Support (Multiple Photos)
+        large_upload_order = self.test_large_file_upload_multiple_photos()
         
         # Summary
         self.print_summary()
