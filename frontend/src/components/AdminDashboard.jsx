@@ -165,14 +165,32 @@ const AdminDashboard = () => {
             <h1 className="text-4xl font-bold text-gray-900">Admin Panel</h1>
             <p className="text-gray-600 mt-2">Upravljanje porudžbinama fotografija</p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3">
             <Link to="/admin/prices">
               <Button 
                 variant="outline" 
                 className="gap-2 border-2 border-orange-600 text-orange-600 hover:bg-orange-50"
               >
                 <DollarSign size={18} />
-                Upravljaj Cenama
+                Cene
+              </Button>
+            </Link>
+            <Link to="/admin/discounts">
+              <Button 
+                variant="outline" 
+                className="gap-2 border-2 border-purple-600 text-purple-600 hover:bg-purple-50"
+              >
+                <DollarSign size={18} />
+                Popusti
+              </Button>
+            </Link>
+            <Link to="/admin/promotion">
+              <Button 
+                variant="outline" 
+                className="gap-2 border-2 border-pink-600 text-pink-600 hover:bg-pink-50"
+              >
+                <DollarSign size={18} />
+                Promocija
               </Button>
             </Link>
             <Link to="/admin/settings">
