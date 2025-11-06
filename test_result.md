@@ -358,6 +358,66 @@ frontend:
           agent: "testing"
           comment: "✅ Frontend-backend API integration working correctly. Form submission makes POST request to https://fotoshop-dash.preview.emergentagent.com/api/orders/create. Backend responds with 200 status for valid submissions. FormData properly constructed with photos and order details. Environment variable REACT_APP_BACKEND_URL correctly configured and used. Network monitoring confirms successful API communication."
 
+  - task: "Admin Panel - Delete Order Functionality"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/AdminDashboard.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Added delete button with confirmation dialog in admin dashboard. Calls DELETE /api/admin/orders/{order_number} endpoint. Shows success/error toasts. Needs testing."
+
+  - task: "Upload Page - Auto Reset After Submission"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/UploadPage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Implemented resetForm() function that clears photos, contactInfo, cropOption, fillWhiteOption states. Called after successful order submission. Scrolls to top. Needs testing."
+
+  - task: "Upload Page - Progress Bar for Photo Upload"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/UploadPage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Added upload progress bar with percentage display. Uses axios onUploadProgress callback. Shows progress during upload. Disables buttons during upload. 5-minute timeout for large uploads. Needs testing with multiple photos."
+
+  - task: "Upload Page - Text Change 'Završetak papira' to 'Tip papira'"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/UploadPage.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Changed label from 'Završetak Papira' to 'Tip Papira' on line 374. Simple text change. Needs visual verification."
+
+  - task: "Homepage - Admin Login Button Moved to Footer"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/HomePage.jsx, /app/frontend/src/components/Navbar.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Removed admin user icon from Navbar. Added subtle 'Admin' text link at bottom of homepage footer with low opacity. Less visible for security. Needs visual verification."
+
 metadata:
   created_by: "testing_agent"
   version: "2.0"
