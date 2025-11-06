@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Upload, User, Phone } from 'lucide-react';
+import { Upload, Phone } from 'lucide-react';
 import { Button } from './ui/button';
 
 const Navbar = () => {
