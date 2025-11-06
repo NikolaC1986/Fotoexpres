@@ -117,6 +117,8 @@ const AdminDashboard = () => {
       });
     }
   };
+
+  const handleStatusUpdate = async (orderNumber, newStatus) => {
     try {
       const token = localStorage.getItem('adminToken');
       await axios.put(`${API}/admin/orders/${orderNumber}/status`, 
