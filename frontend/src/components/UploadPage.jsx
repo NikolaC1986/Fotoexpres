@@ -462,7 +462,7 @@ const UploadPage = () => {
 
             <div className="grid gap-6">
               {photos.map(photo => {
-                const photoPrice = PRICE_MAP[photo.format] * photo.quantity;
+                const photoPrice = priceMap[photo.format] * photo.quantity;
                 return (
                   <Card key={photo.id} className="p-6 hover:shadow-xl transition-shadow bg-white border-2 border-gray-200">
                     <div className="grid md:grid-cols-6 gap-6 items-center">
