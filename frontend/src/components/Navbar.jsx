@@ -61,7 +61,7 @@ const Navbar = () => {
             <span>{contactInfo.phone}</span>
           </div>
           <div className="text-gray-400">Pon - Pet: 09:00 - 18:00</div>
-          <div className="text-gray-400">Besplatna dostava preko 5000 RSD</div>
+          <div className="text-gray-400">Besplatna dostava preko {freeDeliveryLimit} RSD</div>
         </div>
       </div>
       
