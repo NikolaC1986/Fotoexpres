@@ -74,7 +74,7 @@ const Navbar = () => {
               <Link to="/" className="flex items-center">
                 <div className="bg-orange-600 px-2 py-1 rounded-lg">
                   <img 
-                    src="https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/i8bseb70_Logo_Fotoexpres.png" 
+                    src="/images/logo.png" 
                     alt="Fotoexpres Logo" 
                     className="h-8 w-auto"
                   />
