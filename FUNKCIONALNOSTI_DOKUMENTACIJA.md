@@ -1197,6 +1197,10 @@ DB_NAME=fotoexpres
 # JWT
 JWT_SECRET_KEY=generisi-random-string-ovde-minimum-32-karaktera
 
+# Admin Credentials (PROMENITE OVO U PRODUCTION!)
+ADMIN_USERNAME=Vlasnik
+ADMIN_PASSWORD=Fotoexpres2025!
+
 # Email (Gmail)
 EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
