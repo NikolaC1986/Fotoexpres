@@ -269,6 +269,201 @@ backend:
         - working: true
           agent: "main"
           comment: "✅ FIXED - Issue was that frontend AdminLogin.jsx was generating fake tokens instead of using backend JWT authentication. Backend credentials were 'admin/admin123' but user expected 'Vlasnik/Fotoexpres2025!'. Fixed by: 1) Updated backend credentials in /app/backend/models/admin.py to 'Vlasnik/Fotoexpres2025!' 2) Modified AdminLogin.jsx to call /api/admin/login endpoint and use real JWT tokens. Tested with curl and Playwright - login works, dashboard loads with orders correctly."
+        - working: true
+          agent: "testing"
+          comment: "✅ COMPREHENSIVE ADMIN PANEL TESTING COMPLETED - All 18 admin backend tests passed (100% success rate). Admin login with credentials 'Vlasnik/Fotoexpres2025!' working perfectly. JWT token authentication verified. Admin orders API returns proper response with orders list and stats (total, pending, completed). All authentication scenarios tested: valid token (200), missing token (401), invalid token (401). Order management APIs fully functional: download ZIP, update status, delete order. Settings APIs working: prices, settings, discounts, promotion (GET and PUT operations). Tested with existing orders ORD-869094 and ORD-888952 - both download and status update successful. Created and deleted test order ORD-505813 successfully. All admin panel backend functionality is production-ready."
+
+  - task: "Admin Login API - Correct Credentials"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py, /app/backend/models/admin.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Admin login with correct credentials (Vlasnik / Fotoexpres2025!) working perfectly. Returns JWT token with success=true and message='Login successful'. Token length: 147 characters. Authentication flow verified."
+
+  - task: "Admin Login API - Wrong Credentials"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py, /app/backend/models/admin.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Admin login correctly rejects wrong credentials with 401 Unauthorized and 'Invalid credentials' message. Security validation working properly."
+
+  - task: "Admin Orders API - With Valid Token"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ GET /api/admin/orders with valid JWT token working perfectly. Returns proper response structure with 'orders' array and 'stats' object containing total, pending, and completed counts. Currently 2 orders in system. All required fields present in response."
+
+  - task: "Admin Orders API - Without Token"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ GET /api/admin/orders without Authorization header correctly returns 401 Unauthorized. Authentication middleware working properly."
+
+  - task: "Admin Orders API - With Invalid Token"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ GET /api/admin/orders with invalid JWT token correctly returns 401 Unauthorized. Token verification working properly."
+
+  - task: "Admin Download Order ZIP"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ GET /api/admin/orders/{order_number}/download working perfectly. Successfully downloaded ZIP files for orders ORD-869094 (68.4MB) and ORD-888952 (650KB). Content-Type: application/zip. File download functionality verified."
+
+  - task: "Admin Update Order Status"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ PUT /api/admin/orders/{order_number}/status working perfectly. Successfully updated status for orders ORD-869094 and ORD-888952 to 'processing'. Returns success=true with message='Status updated'. Status management functional."
+
+  - task: "Admin Delete Order"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ DELETE /api/admin/orders/{order_number} working perfectly. Created test order ORD-505813 and successfully deleted it. Returns success=true with confirmation message. Order removed from database, ZIP file deleted, order directory cleaned up. Complete cleanup verified."
+
+  - task: "Admin Get Prices"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ GET /api/admin/prices working perfectly. Returns prices object with all formats: 9x13=12, 10x15=18, 13x18=25, 15x21=50, 20x30=150, 30x45=250. Response structure correct."
+
+  - task: "Admin Update Prices"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ PUT /api/admin/prices working perfectly. Successfully updated prices with new values. Returns success=true with message='Prices updated'. Price management functional."
+
+  - task: "Admin Get Settings"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ GET /api/admin/settings working perfectly. Returns settings object with freeDeliveryLimit=5000, contactEmail='podrska@fotoexpres.rs', contactPhone='+381 65 46 000 46', and heroImageUrl. Response structure correct."
+
+  - task: "Admin Update Settings"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ PUT /api/admin/settings working perfectly. Successfully updated settings with new values. Returns success=true with message='Settings updated'. Settings management functional."
+
+  - task: "Admin Get Discounts"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ GET /api/admin/discounts working perfectly. Returns discounts object with quantity tiers: 50=5%, 100=10%, 200=15%. Response structure correct."
+
+  - task: "Admin Update Discounts"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ PUT /api/admin/discounts working perfectly. Successfully updated discounts with new values. Returns success=true with message='Discounts updated'. Discount management functional."
+
+  - task: "Admin Get Promotion"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ GET /api/admin/promotion working perfectly. Returns promotion object with isActive=false, format='9x13', discountPercent=35, validUntil='2025-11-24T00:00', message='35% popusta na sve porudžbine 9x13 do 24. novembra!'. Response structure correct."
+
+  - task: "Admin Update Promotion"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ PUT /api/admin/promotion working perfectly. Successfully updated promotion with new values. Returns success=true with message='Promotion updated'. Promotion management functional."
 
 frontend:
   - task: "Homepage Navigation and UI Elements"
