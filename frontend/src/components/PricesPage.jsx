@@ -180,18 +180,18 @@ const PricesPage = () => {
 
         {/* Additional Info */}
         <Card className="p-10 bg-orange-50 border-2 border-orange-200">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Popusti za Veće Porudžbine</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Popusti za veće porudžbine</h2>
           <div className="grid md:grid-cols-3 gap-6 text-center">
             <div>
-              <div className="text-3xl font-bold text-orange-600 mb-2">10%</div>
+              <div className="text-3xl font-bold text-orange-600 mb-2">{quantityDiscounts['50']}%</div>
               <div className="text-gray-700">50+ fotografija</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-orange-600 mb-2">15%</div>
+              <div className="text-3xl font-bold text-orange-600 mb-2">{quantityDiscounts['100']}%</div>
               <div className="text-gray-700">100+ fotografija</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-orange-600 mb-2">20%</div>
+              <div className="text-3xl font-bold text-orange-600 mb-2">{quantityDiscounts['200']}%</div>
               <div className="text-gray-700">200+ fotografija</div>
             </div>
           </div>
