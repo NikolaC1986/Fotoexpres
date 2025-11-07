@@ -137,6 +137,7 @@ Dostava: BESPLATNO
     else:
         content += f"""
 Dostava: {delivery_fee} RSD
+   • Standardna dostava
 """
     
     grand_total = price_after_discount + delivery_fee
