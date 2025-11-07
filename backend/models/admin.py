@@ -44,3 +44,52 @@ def verify_token(token: str):
 
 def verify_admin_credentials(username: str, password: str):
     return username == ADMIN_USERNAME and password == ADMIN_PASSWORD
+
+def update_env_file(new_username: str = None, new_password: str = None):
+    """Update .env file with new credentials"""
+    from pathlib import Path
+    
+    env_path = Path(__file__).parent.parent / '.env'
+    
+    if not env_path.exists():
+        return False
+    
+    # Read current .env content
+    with open(env_path, 'r') as f:
+        lines = f.readlines()
+    
+    # Update lines
+    new_lines = []
+    username_found = False
+    password_found = False
+    
+    for line in lines:
+        if new_username and line.startswith('ADMIN_USERNAME='):
+            new_lines.append(f'ADMIN_USERNAME="{new_username}"\n')
+            username_found = True
+        elif new_password and line.startswith('ADMIN_PASSWORD='):
+            new_lines.append(f'ADMIN_PASSWORD="{new_password}"\n')
+            password_found = True
+        else:
+            new_lines.append(line)
+    
+    # Add if not found
+    if new_username and not username_found:
+        new_lines.append(f'\nADMIN_USERNAME="{new_username}"\n')
+    if new_password and not password_found:
+        new_lines.append(f'ADMIN_PASSWORD="{new_password}"\n')
+    
+    # Write back
+    with open(env_path, 'w') as f:
+        f.writelines(new_lines)
+    
+    # Update global variables
+    global ADMIN_USERNAME, ADMIN_PASSWORD
+    if new_username:
+        ADMIN_USERNAME = new_username
+        os.environ['ADMIN_USERNAME'] = new_username
+    if new_password:
+        ADMIN_PASSWORD = new_password
+        os.environ['ADMIN_PASSWORD'] = new_password
+    
+    return True
