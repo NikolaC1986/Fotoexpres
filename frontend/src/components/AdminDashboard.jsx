@@ -166,7 +166,7 @@ const AdminDashboard = () => {
             <p className="text-gray-600 mt-2">Upravljanje porudžbinama fotografija</p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Link to="/admin/prices">
+            <Link to="/logovanje/prices">
               <Button 
                 variant="outline" 
                 className="gap-2 border-2 border-orange-600 text-orange-600 hover:bg-orange-50"
@@ -175,7 +175,7 @@ const AdminDashboard = () => {
                 Cene
               </Button>
             </Link>
-            <Link to="/admin/discounts">
+            <Link to="/logovanje/discounts">
               <Button 
                 variant="outline" 
                 className="gap-2 border-2 border-purple-600 text-purple-600 hover:bg-purple-50"
@@ -184,7 +184,7 @@ const AdminDashboard = () => {
                 Popusti
               </Button>
             </Link>
-            <Link to="/admin/promotion">
+            <Link to="/logovanje/promotion">
               <Button 
                 variant="outline" 
                 className="gap-2 border-2 border-pink-600 text-pink-600 hover:bg-pink-50"
@@ -193,7 +193,7 @@ const AdminDashboard = () => {
                 Promocija
               </Button>
             </Link>
-            <Link to="/admin/settings">
+            <Link to="/logovanje/settings">
               <Button 
                 variant="outline" 
                 className="gap-2 border-2 border-green-600 text-green-600 hover:bg-green-50"
@@ -202,13 +202,22 @@ const AdminDashboard = () => {
                 Podešavanja
               </Button>
             </Link>
+            <Link to="/logovanje/password">
+              <Button 
+                variant="outline" 
+                className="gap-2 border-2 border-blue-600 text-blue-600 hover:bg-blue-50"
+              >
+                <Settings size={18} />
+                Lozinka
+              </Button>
+            </Link>
             <Button 
               onClick={handleLogout}
               variant="outline" 
               className="gap-2 border-2"
             >
               <LogOut size={18} />
-              Odjavi Se
+              Odjavi se
             </Button>
           </div>
         </div>
