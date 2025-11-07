@@ -32,9 +32,9 @@ function App() {
           <Route path="/faq" element={<><Navbar /><FAQPage /></>} />
           
           {/* Admin Routes without Navbar */}
-          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/logovanje" element={<AdminLogin />} />
           <Route 
-            path="/admin/dashboard" 
+            path="/logovanje/dashboard" 
             element={
               <ProtectedRoute>
                 <AdminDashboard />
@@ -42,7 +42,7 @@ function App() {
             } 
           />
           <Route 
-            path="/admin/prices" 
+            path="/logovanje/prices" 
             element={
               <ProtectedRoute>
                 <AdminPrices />
@@ -50,7 +50,7 @@ function App() {
             } 
           />
           <Route 
-            path="/admin/settings" 
+            path="/logovanje/settings" 
             element={
               <ProtectedRoute>
                 <AdminSettings />
@@ -58,7 +58,7 @@ function App() {
             } 
           />
           <Route 
-            path="/admin/discounts" 
+            path="/logovanje/discounts" 
             element={
               <ProtectedRoute>
                 <AdminDiscounts />
@@ -66,10 +66,18 @@ function App() {
             } 
           />
           <Route 
-            path="/admin/promotion" 
+            path="/logovanje/promotion" 
             element={
               <ProtectedRoute>
                 <AdminPromotion />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/logovanje/password" 
+            element={
+              <ProtectedRoute>
+                <AdminPassword />
               </ProtectedRoute>
             } 
           />
