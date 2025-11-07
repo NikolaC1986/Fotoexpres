@@ -13,6 +13,7 @@ const HomePage = () => {
     phone: '+381 65 46 000 46',
     email: 'kontakt@fotoexpres.rs'
   });
+  const [heroImageUrl, setHeroImageUrl] = useState('https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/1ogmpeji_8%20copy.jpg');
 
   useEffect(() => {
     fetchSettings();
@@ -26,6 +27,7 @@ const HomePage = () => {
           phone: response.data.settings.contactPhone || '+381 65 46 000 46',
           email: response.data.settings.contactEmail || 'kontakt@fotoexpres.rs'
         });
+        setHeroImageUrl(response.data.settings.heroImageUrl || 'https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/1ogmpeji_8%20copy.jpg');
       }
     } catch (error) {
       console.error('Error fetching settings:', error);
