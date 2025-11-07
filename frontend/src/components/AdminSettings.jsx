@@ -26,7 +26,7 @@ const AdminSettings = () => {
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
     if (!token) {
-      navigate('/admin');
+      navigate('/logovanje');
       return;
     }
     fetchSettings();
@@ -128,7 +128,7 @@ const AdminSettings = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
-    navigate('/admin');
+    navigate('/logovanje');
   };
 
   return (

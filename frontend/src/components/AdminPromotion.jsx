@@ -27,7 +27,7 @@ const AdminPromotion = () => {
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
     if (!token) {
-      navigate('/admin');
+      navigate('/logovanje');
       return;
     }
     fetchPromotion();

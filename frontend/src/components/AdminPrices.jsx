@@ -26,7 +26,7 @@ const AdminPrices = () => {
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
     if (!token) {
-      navigate('/admin');
+      navigate('/logovanje');
       return;
     }
     fetchPrices();
@@ -80,7 +80,7 @@ const AdminPrices = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
-    navigate('/admin');
+    navigate('/logovanje');
   };
 
   const formatLabels = {
