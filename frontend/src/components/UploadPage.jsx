@@ -267,6 +267,7 @@ const UploadPage = () => {
         quantityDiscountPercent: quantityDiscountPercent,
         promotionDiscountPercent: promotionDiscountPercent,
         deliveryFee: deliveryFee,
+        deliveryPrice: deliveryPrice,
         freeDeliveryLimit: freeDeliveryLimit,
         grandTotal: grandTotal,
         prices: priceMap,
