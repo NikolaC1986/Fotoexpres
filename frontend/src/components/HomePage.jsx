@@ -186,7 +186,7 @@ const HomePage = () => {
             <p className="text-base md:text-xl text-gray-600">Jednostavni koraci do štampanih fotografija</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-            {['Pošaljite Fotografije', 'Izaberite Format', 'Unesite Podatke', 'Primite Fotografije'].map((step, index) => (
+            {['Pošaljite fotografije', 'Izaberite format', 'Unesite podatke', 'Dobijete fotografije'].map((step, index) => (
               <div key={index} className="text-center relative">
                 <div className="bg-orange-600 text-white w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6 text-xl md:text-2xl font-bold shadow-lg">
                   {index + 1}
