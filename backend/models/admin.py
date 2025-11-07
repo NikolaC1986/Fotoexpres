@@ -21,6 +21,11 @@ class AdminToken(BaseModel):
     token: str
     message: str
 
+class ChangeCredentials(BaseModel):
+    currentPassword: str
+    newUsername: Optional[str] = None
+    newPassword: Optional[str] = None
+
 def create_access_token(data: dict):
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(hours=ACCESS_TOKEN_EXPIRE_HOURS)
