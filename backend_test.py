@@ -14,7 +14,7 @@ from PIL import Image
 import io
 
 # Configuration
-BACKEND_URL = "https://fotoshop-dash.preview.emergentagent.com/api"
+BACKEND_URL = "https://photo-print-app.preview.emergentagent.com/api"
 
 class PhotoOrderTester:
     def __init__(self):
