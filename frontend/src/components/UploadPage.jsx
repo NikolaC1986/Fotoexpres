@@ -104,10 +104,10 @@ const UploadPage = () => {
   // Dinamički izračunaj totalnu cenu
   const totalPrice = useMemo(() => {
     return photos.reduce((sum, photo) => {
-      const price = PRICE_MAP[photo.format] || 0;
+      const price = priceMap[photo.format] || 0;
       return sum + (price * photo.quantity);
     }, 0);
-  }, [photos]);
+  }, [photos, priceMap]);
 
   const totalPhotos = useMemo(() => {
     return photos.reduce((sum, photo) => sum + photo.quantity, 0);
