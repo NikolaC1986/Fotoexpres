@@ -32,11 +32,6 @@ const AdminPassword = () => {
       navigate('/logovanje');
       return;
     }
-    
-    // Load current username
-    const storedUsername = localStorage.getItem('adminUsername') || 'Vlasnik';
-    setUsername(storedUsername);
-    setNewUsername(storedUsername);
   }, [navigate]);
 
   const handleSavePassword = () => {
