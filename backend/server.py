@@ -123,6 +123,7 @@ async def create_order(
             'quantityDiscountPercent': order_data.get('quantityDiscountPercent', 0),
             'promotionDiscountPercent': order_data.get('promotionDiscountPercent', 0),
             'deliveryFee': order_data.get('deliveryFee', 400),
+            'deliveryPrice': order_data.get('deliveryPrice', 400),
             'freeDeliveryLimit': order_data.get('freeDeliveryLimit', 5000),
             'prices': order_data.get('prices', {})
         }
