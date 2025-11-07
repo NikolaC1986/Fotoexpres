@@ -87,7 +87,7 @@ const HomePage = () => {
                 <Link to="/upload" className="w-full sm:w-auto">
                   <Button size="lg" className="w-full sm:w-auto bg-orange-600 hover:bg-orange-700 text-white gap-2 text-base md:text-lg px-6 md:px-8 py-4 md:py-6 shadow-lg">
                     <Upload size={20} className="md:w-[22px] md:h-[22px]" />
-                    Počni Štampu
+                    Počni štampu
                   </Button>
                 </Link>
                 <Link to="/prices" className="w-full sm:w-auto">
