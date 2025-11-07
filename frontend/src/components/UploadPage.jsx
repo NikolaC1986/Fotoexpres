@@ -176,11 +176,27 @@ const UploadPage = () => {
       quantity: 1,
       finish: 'glossy'
     }));
-    setPhotos([...photos, ...newPhotos]);
-    toast({
-      title: "Fotografije dodate",
-      description: `${files.length} fotografija uspešno dodato`
-    });
+    
+    const updatedPhotos = [...photos, ...newPhotos];
+    setPhotos(updatedPhotos);
+    
+    // Show appropriate message based on number of photos
+    if (updatedPhotos.length > 100) {
+      toast({
+        title: "Fotografije dodate",
+        description: `${files.length} fotografija dodato. Ukupno: ${updatedPhotos.length}. Upload će biti podeljen u grupe za brže procesiranje.`
+      });
+    } else if (updatedPhotos.length > 50) {
+      toast({
+        title: "Fotografije dodate",
+        description: `${files.length} fotografija dodato. Ukupno: ${updatedPhotos.length}. Upload može potrajati nekoliko minuta.`
+      });
+    } else {
+      toast({
+        title: "Fotografije dodate",
+        description: `${files.length} fotografija uspešno dodato`
+      });
+    }
   };
 
   const removePhoto = (id) => {
