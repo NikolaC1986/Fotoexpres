@@ -102,6 +102,52 @@ const AdminSettings = () => {
           </Button>
         </div>
 
+        {/* Hero Image */}
+        <Card className="p-8 border-2 border-gray-200 mb-6">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center">
+              <Image className="w-6 h-6 text-purple-600" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">Naslovna fotografija</h2>
+              <p className="text-gray-600">Promenite glavnu fotografiju na naslovnoj strani</p>
+            </div>
+          </div>
+
+          <div className="space-y-6 max-w-2xl">
+            <div>
+              <Label htmlFor="heroImageUrl" className="text-base font-semibold mb-3 block">
+                URL naslovne fotografije
+              </Label>
+              <Input
+                id="heroImageUrl"
+                type="text"
+                value={settings.heroImageUrl}
+                onChange={(e) => setSettings({...settings, heroImageUrl: e.target.value})}
+                className="text-lg border-2"
+                placeholder="https://example.com/image.jpg"
+              />
+              <p className="text-sm text-gray-500 mt-2">
+                Unesite URL fotografije koja će se prikazati na naslovnoj strani
+              </p>
+            </div>
+            
+            {settings.heroImageUrl && (
+              <div className="border-2 border-gray-200 rounded-lg p-4">
+                <p className="text-sm font-semibold text-gray-700 mb-2">Pregled:</p>
+                <img 
+                  src={settings.heroImageUrl} 
+                  alt="Hero Preview" 
+                  className="w-full max-w-md rounded-lg shadow-md"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                  }}
+                />
+              </div>
+            )}
+          </div>
+        </Card>
+
         {/* Contact Information */}
         <Card className="p-8 border-2 border-gray-200 mb-6">
           <div className="flex items-center gap-3 mb-8">
@@ -109,7 +155,7 @@ const AdminSettings = () => {
               <Phone className="w-6 h-6 text-blue-600" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Kontakt Informacije</h2>
+              <h2 className="text-2xl font-bold text-gray-900">Kontakt informacije</h2>
               <p className="text-gray-600">Podesite telefon i email za kontakt</p>
             </div>
           </div>
