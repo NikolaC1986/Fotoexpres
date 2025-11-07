@@ -1,46 +1,100 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Check } from 'lucide-react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
 
 const PricesPage = () => {
+  const [priceMap, setPriceMap] = useState({
+    '9x13': 12,
+    '10x15': 18,
+    '13x18': 25,
+    '15x21': 50,
+    '20x30': 150,
+    '30x45': 250
+  });
+  const [freeDeliveryLimit, setFreeDeliveryLimit] = useState(5000);
+  const [quantityDiscounts, setQuantityDiscounts] = useState({ '50': 5, '100': 10, '200': 15 });
+
+  useEffect(() => {
+    fetchPrices();
+    fetchSettings();
+    fetchDiscounts();
+  }, []);
+
+  const fetchPrices = async () => {
+    try {
+      const response = await axios.get(`${API}/prices`);
+      if (response.data.prices) {
+        setPriceMap(response.data.prices);
+      }
+    } catch (error) {
+      console.error('Error fetching prices:', error);
+    }
+  };
+
+  const fetchSettings = async () => {
+    try {
+      const response = await axios.get(`${API}/settings`);
+      if (response.data.settings) {
+        setFreeDeliveryLimit(response.data.settings.freeDeliveryLimit || 5000);
+      }
+    } catch (error) {
+      console.error('Error fetching settings:', error);
+    }
+  };
+
+  const fetchDiscounts = async () => {
+    try {
+      const response = await axios.get(`${API}/discounts`);
+      if (response.data.discounts) {
+        setQuantityDiscounts(response.data.discounts);
+      }
+    } catch (error) {
+      console.error('Error fetching discounts:', error);
+    }
+  };
+
   const prices = [
     {
       format: '9x13 cm',
-      price: '12',
+      price: priceMap['9x13'],
       description: 'Mali format, idealan za male albume',
       features: ['Premium foto papir', 'Sjajni ili mat završetak', 'Brza izrada', 'Trajnost 100+ godina']
     },
     {
       format: '10x15 cm',
-      price: '18',
+      price: priceMap['10x15'],
       description: 'Standardni format, idealan za albume',
       features: ['Premium foto papir', 'Sjajni ili mat završetak', 'Brza izrada', 'Trajnost 100+ godina'],
       popular: true
     },
     {
       format: '13x18 cm',
-      price: '25',
+      price: priceMap['13x18'],
       description: 'Popularni format za okvire',
       features: ['Premium foto papir', 'Sjajni ili mat završetak', 'Brza izrada', 'Trajnost 100+ godina'],
       popular: true
     },
     {
       format: '15x21 cm',
-      price: '50',
+      price: priceMap['15x21'],
       description: 'A5 format za zidne slike',
       features: ['Premium foto papir', 'Sjajni ili mat završetak', 'Brza izrada', 'Trajnost 100+ godina']
     },
     {
       format: '20x30 cm',
-      price: '150',
+      price: priceMap['20x30'],
       description: 'Veliki format za posebne fotografije',
       features: ['Premium foto papir', 'Sjajni ili mat završetak', 'Brza izrada', 'Trajnost 100+ godina']
     },
     {
       format: '30x45 cm',
-      price: '250',
+      price: priceMap['30x45'],
       description: 'Extra veliki format za poster',
       features: ['Premium foto papir', 'Sjajni ili mat završetak', 'Brza izrada', 'Trajnost 100+ godina']
     }
