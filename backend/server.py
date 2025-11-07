@@ -502,6 +502,7 @@ async def get_public_settings():
         # Default settings
         default_settings = {
             'freeDeliveryLimit': 5000,
+            'deliveryPrice': 400,
             'contactPhone': '+381 65 46 000 46',
             'contactEmail': 'kontakt@fotoexpres.rs',
             'heroImageUrl': 'https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/1ogmpeji_8%20copy.jpg'
