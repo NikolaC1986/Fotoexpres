@@ -98,19 +98,14 @@ const HomePage = () => {
               </div>
               <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-8 pt-4">
                 <div className="flex items-center gap-2">
-                  <div className="flex -space-x-2">
-                    {[1, 2, 3, 4].map(i => (
-                      <div key={i} className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 border-2 border-white"></div>
-                    ))}
-                  </div>
                   <div className="text-xs md:text-sm">
-                    <div className="font-semibold text-gray-900">10,000+</div>
-                    <div className="text-gray-500">Zadovoljnih Kupaca</div>
+                    <div className="font-semibold text-gray-900 text-base md:text-lg">10,000+</div>
+                    <div className="text-gray-500">Zadovoljnih kupaca</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-1 text-yellow-400">
-                  {[1, 2, 3, 4, 5].map(i => <Star key={i} size={16} className="md:w-[20px] md:h-[20px]" fill="currentColor" />)}
-                  <span className="ml-2 text-gray-900 font-semibold text-sm md:text-base">5.0</span>
+                  {[1, 2, 3, 4, 5].map(i => <Star key={i} size={16} className="md:w-[20px] md:h-[20px]" fill={i <= 4 ? "currentColor" : "none"} stroke="currentColor" />)}
+                  <span className="ml-2 text-gray-900 font-semibold text-sm md:text-base">4.8</span>
                 </div>
               </div>
             </div>
