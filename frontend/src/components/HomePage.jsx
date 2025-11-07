@@ -133,7 +133,7 @@ const HomePage = () => {
       <section className="py-12 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           <div className="text-center mb-8 md:mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-2 md:mb-4">Zašto Izabrati Nas</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-2 md:mb-4">Zašto izabrati nas</h2>
             <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">
               Iskusite razliku sa našim profesionalnim uslugama štampe fotografija
             </p>
