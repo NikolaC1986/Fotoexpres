@@ -168,7 +168,7 @@ const PricesPage = () => {
           <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Način plaćanja</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="text-center p-6 bg-gray-50 rounded-lg">
-              <div className="text-2xl font-bold text-gray-900 mb-2">Plaćanje Pouzećem</div>
+              <div className="text-2xl font-bold text-gray-900 mb-2">Plaćanje pouzećem</div>
               <p className="text-gray-600">Plaćate kuriru prilikom preuzimanja paketa</p>
             </div>
             <div className="text-center p-6 bg-gray-50 rounded-lg">
