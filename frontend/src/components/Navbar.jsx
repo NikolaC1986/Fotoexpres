@@ -43,7 +43,7 @@ const Navbar = () => {
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <Phone size={16} />
-              <span>+381 65 46 000 46</span>
+              <span>{contactInfo.phone}</span>
             </div>
             <span className="text-gray-400">Pon - Pet: 09:00 - 18:00</span>
           </div>
@@ -56,7 +56,7 @@ const Navbar = () => {
         <div className="md:hidden flex flex-col gap-2 text-xs text-center">
           <div className="flex items-center justify-center gap-2">
             <Phone size={14} />
-            <span>+381 65 46 000 46</span>
+            <span>{contactInfo.phone}</span>
           </div>
           <div className="text-gray-400">Pon - Pet: 09:00 - 18:00</div>
           <div className="text-gray-400">Besplatna dostava preko 5000 RSD</div>
