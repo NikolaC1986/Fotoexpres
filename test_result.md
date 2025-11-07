@@ -255,6 +255,21 @@ backend:
           agent: "testing"
           comment: "✅ Large File Upload Support working correctly. Successfully tested with 25 photos (25MB total) with 5-minute timeout. Order ORD-189347 created successfully with all 25 photos processed. Backend handles multiple file uploads without timeout issues. ZIP file generation works for large batches. Timeout handling implemented correctly for large uploads."
 
+  - task: "Admin Login and Dashboard Authentication Fix"
+    implemented: true
+    working: true
+    file: "/app/backend/models/admin.py, /app/frontend/src/components/AdminLogin.jsx"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "user"
+          comment: "User reported: Cannot access admin panel. Getting error 'Nije moguće učitati porudžbine' (Unable to load orders). Admin login succeeds but dashboard fails to load."
+        - working: true
+          agent: "main"
+          comment: "✅ FIXED - Issue was that frontend AdminLogin.jsx was generating fake tokens instead of using backend JWT authentication. Backend credentials were 'admin/admin123' but user expected 'Vlasnik/Fotoexpres2025!'. Fixed by: 1) Updated backend credentials in /app/backend/models/admin.py to 'Vlasnik/Fotoexpres2025!' 2) Modified AdminLogin.jsx to call /api/admin/login endpoint and use real JWT tokens. Tested with curl and Playwright - login works, dashboard loads with orders correctly."
+
 frontend:
   - task: "Homepage Navigation and UI Elements"
     implemented: true
