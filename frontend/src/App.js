@@ -17,7 +17,7 @@ import { Toaster } from './components/ui/toaster';
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('adminToken');
-  return token ? children : <Navigate to="/admin" />;
+  return token ? children : <Navigate to="/logovanje" />;
 };
 
 function App() {
