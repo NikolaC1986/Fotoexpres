@@ -54,7 +54,7 @@ const AdminSettings = () => {
       
       toast({
         title: "Podešavanja ažurirana",
-        description: "Limit za besplatnu dostavu je uspešno sačuvan"
+        description: "Sve izmene su uspešno sačuvane i prikazuju se na sajtu"
       });
     } catch (error) {
       toast({
