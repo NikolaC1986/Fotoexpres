@@ -9,8 +9,8 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_HOURS = 24
 
 # Default admin credentials (change these in production!)
-ADMIN_USERNAME = "admin"
-ADMIN_PASSWORD = "admin123"
+ADMIN_USERNAME = "Vlasnik"
+ADMIN_PASSWORD = "Fotoexpres2025!"
 
 class AdminLogin(BaseModel):
     username: str
