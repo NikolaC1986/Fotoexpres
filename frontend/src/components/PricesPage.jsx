@@ -153,7 +153,7 @@ const PricesPage = () => {
             <div>
               <div className="text-4xl font-bold text-green-600 mb-2">BESPLATNO</div>
               <div className="text-gray-600">Za porudžbine preko</div>
-              <div className="text-sm text-gray-500 mt-2">5000 RSD</div>
+              <div className="text-sm text-gray-500 mt-2">{freeDeliveryLimit} RSD</div>
             </div>
             <div>
               <div className="text-4xl font-bold text-purple-600 mb-2">2-7</div>
