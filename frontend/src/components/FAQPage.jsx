@@ -10,6 +10,10 @@ const API = `${BACKEND_URL}/api`;
 
 const FAQPage = () => {
   const [freeDeliveryLimit, setFreeDeliveryLimit] = useState(5000);
+  const [contactInfo, setContactInfo] = useState({
+    phone: '+381 65 46 000 46',
+    email: 'kontakt@fotoexpres.rs'
+  });
 
   useEffect(() => {
     fetchSettings();
@@ -20,6 +24,10 @@ const FAQPage = () => {
       const response = await axios.get(`${API}/settings`);
       if (response.data.settings) {
         setFreeDeliveryLimit(response.data.settings.freeDeliveryLimit || 5000);
+        setContactInfo({
+          phone: response.data.settings.contactPhone || '+381 65 46 000 46',
+          email: response.data.settings.contactEmail || 'kontakt@fotoexpres.rs'
+        });
       }
     } catch (error) {
       console.error('Error fetching settings:', error);
