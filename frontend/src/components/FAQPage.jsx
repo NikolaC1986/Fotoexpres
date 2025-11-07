@@ -80,7 +80,7 @@ const FAQPage = () => {
           <div className="bg-orange-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
             <HelpCircle className="w-10 h-10 text-orange-600" />
           </div>
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">Često Postavljena Pitanja</h1>
+          <h1 className="text-5xl font-bold text-gray-900 mb-4">Često postavljena pitanja</h1>
           <p className="text-xl text-gray-600">Pronađite odgovore na najvažnija pitanja o našim uslugama</p>
         </div>
 
