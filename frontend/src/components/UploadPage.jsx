@@ -52,11 +52,13 @@ const UploadPage = () => {
     try {
       const response = await axios.get(`${API}/settings`);
       if (response.data.settings) {
-        setFreeDeliveryLimit(response.data.settings.freeDeliveryLimit);
+        setFreeDeliveryLimit(response.data.settings.freeDeliveryLimit || 5000);
+        setDeliveryPrice(response.data.settings.deliveryPrice || 400);
       }
     } catch (error) {
       console.error('Error fetching settings:', error);
       setFreeDeliveryLimit(5000);
+      setDeliveryPrice(400);
     }
   };
 
