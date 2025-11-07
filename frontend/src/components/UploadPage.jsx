@@ -44,6 +44,7 @@ const UploadPage = () => {
     fetchSettings();
     fetchDiscounts();
     fetchPromotion();
+    fetchPrices();
   }, []);
 
   const fetchSettings = async () => {
