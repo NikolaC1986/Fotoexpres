@@ -107,7 +107,7 @@ const AdminPassword = () => {
     }
   };
 
-  const handleSaveUsername = () => {
+  const handleSaveUsername = async () => {
     if (!newUsername || newUsername.trim() === '') {
       toast({
         title: "Greška",
@@ -117,13 +117,49 @@ const AdminPassword = () => {
       return;
     }
 
-    localStorage.setItem('adminUsername', newUsername);
-    setUsername(newUsername);
-    
-    toast({
-      title: "Uspešno",
-      description: "Korisničko ime je uspešno promenjeno"
-    });
+    if (!passwords.currentPassword) {
+      toast({
+        title: "Greška",
+        description: "Morate uneti trenutnu lozinku da biste promenili korisničko ime",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('adminToken');
+      const response = await axios.post(
+        `${API}/admin/change-credentials`,
+        {
+          currentPassword: passwords.currentPassword,
+          newUsername: newUsername
+        },
+        {
+          headers: { 'Authorization': `Bearer ${token}` }
+        }
+      );
+
+      if (response.data.success) {
+        setUsername(newUsername);
+        
+        toast({
+          title: "Uspešno",
+          description: "Korisničko ime je uspešno promenjeno. Molimo prijavite se ponovo."
+        });
+
+        // Logout after 2 seconds
+        setTimeout(() => {
+          localStorage.removeItem('adminToken');
+          navigate('/logovanje');
+        }, 2000);
+      }
+    } catch (error) {
+      toast({
+        title: "Greška",
+        description: error.response?.data?.detail || "Nije moguće promeniti korisničko ime",
+        variant: "destructive"
+      });
+    }
   };
 
   return (
