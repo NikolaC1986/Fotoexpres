@@ -366,6 +366,30 @@ async def update_prices(
         logging.error(f"Error updating prices: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to update prices")
 
+# Get Prices (Public - for frontend)
+@api_router.get("/prices")
+async def get_public_prices():
+    try:
+        prices_doc = await db.prices.find_one({"_id": "default_prices"})
+        
+        # Default prices
+        default_prices = {
+            '9x13': 12,
+            '10x15': 18,
+            '13x18': 25,
+            '15x21': 50,
+            '20x30': 150,
+            '30x45': 250
+        }
+        
+        if prices_doc:
+            return {"prices": prices_doc.get("prices", default_prices)}
+        else:
+            return {"prices": default_prices}
+    except Exception as e:
+        logging.error(f"Error fetching public prices: {str(e)}")
+        return {"prices": default_prices}
+
 # Get Settings (Admin Only)
 @api_router.get("/admin/settings")
 async def get_settings(admin = Depends(verify_admin_token)):
