@@ -45,6 +45,62 @@ const AdminSettings = () => {
     }
   };
 
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast({
+        title: "Greška",
+        description: "Molimo izaberite sliku (JPG, PNG, itd.)",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast({
+        title: "Greška",
+        description: "Slika je prevelika. Maksimalna veličina je 5MB",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    try {
+      setUploadingImage(true);
+      const token = localStorage.getItem('adminToken');
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await axios.post(`${API}/admin/upload-hero-image`, formData, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      if (response.data.success) {
+        const imageUrl = `${BACKEND_URL}${response.data.imageUrl}`;
+        setSettings({...settings, heroImageUrl: imageUrl});
+        toast({
+          title: "Slika uploadovana",
+          description: "Slika je uspešno uploadovana. Kliknite 'Sačuvaj' da primenite izmene."
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Greška",
+        description: "Nije moguće uploadovati sliku",
+        variant: "destructive"
+      });
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
   const handleSave = async () => {
     setLoading(true);
     try {
