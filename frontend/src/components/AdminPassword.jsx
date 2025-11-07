@@ -34,23 +34,12 @@ const AdminPassword = () => {
     }
   }, [navigate]);
 
-  const handleSavePassword = () => {
+  const handleSavePassword = async () => {
     // Validate inputs
     if (!passwords.currentPassword || !passwords.newPassword || !passwords.confirmPassword) {
       toast({
         title: "Greška",
         description: "Molimo popunite sva polja",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    // Check current password
-    const storedPassword = localStorage.getItem('adminPassword') || 'Fotoexpres2025!';
-    if (passwords.currentPassword !== storedPassword) {
-      toast({
-        title: "Greška",
-        description: "Trenutna lozinka nije tačna",
         variant: "destructive"
       });
       return;
@@ -76,20 +65,46 @@ const AdminPassword = () => {
       return;
     }
 
-    // Save new password
-    localStorage.setItem('adminPassword', passwords.newPassword);
-    
-    toast({
-      title: "Uspešno",
-      description: "Lozinka je uspešno promenjena"
-    });
+    try {
+      const token = localStorage.getItem('adminToken');
+      const response = await axios.post(
+        `${API}/admin/change-credentials`,
+        {
+          currentPassword: passwords.currentPassword,
+          newPassword: passwords.newPassword,
+          newUsername: newUsername || null
+        },
+        {
+          headers: { 'Authorization': `Bearer ${token}` }
+        }
+      );
 
-    // Clear form
-    setPasswords({
-      currentPassword: '',
-      newPassword: '',
-      confirmPassword: ''
-    });
+      if (response.data.success) {
+        toast({
+          title: "Uspešno",
+          description: "Kredencijali su uspešno promenjeni. Molimo prijavite se ponovo."
+        });
+
+        // Clear form
+        setPasswords({
+          currentPassword: '',
+          newPassword: '',
+          confirmPassword: ''
+        });
+
+        // Logout after 2 seconds
+        setTimeout(() => {
+          localStorage.removeItem('adminToken');
+          navigate('/logovanje');
+        }, 2000);
+      }
+    } catch (error) {
+      toast({
+        title: "Greška",
+        description: error.response?.data?.detail || "Nije moguće promeniti kredencijale",
+        variant: "destructive"
+      });
+    }
   };
 
   const handleSaveUsername = () => {
