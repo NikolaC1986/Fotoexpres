@@ -487,12 +487,12 @@ const UploadPage = () => {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="9x13">9x13 cm - 12 RSD</SelectItem>
-                            <SelectItem value="10x15">10x15 cm - 18 RSD</SelectItem>
-                            <SelectItem value="13x18">13x18 cm - 25 RSD</SelectItem>
-                            <SelectItem value="15x21">15x21 cm - 50 RSD</SelectItem>
-                            <SelectItem value="20x30">20x30 cm - 150 RSD</SelectItem>
-                            <SelectItem value="30x45">30x45 cm - 250 RSD</SelectItem>
+                            <SelectItem value="9x13">9x13 cm - {priceMap['9x13']} RSD</SelectItem>
+                            <SelectItem value="10x15">10x15 cm - {priceMap['10x15']} RSD</SelectItem>
+                            <SelectItem value="13x18">13x18 cm - {priceMap['13x18']} RSD</SelectItem>
+                            <SelectItem value="15x21">15x21 cm - {priceMap['15x21']} RSD</SelectItem>
+                            <SelectItem value="20x30">20x30 cm - {priceMap['20x30']} RSD</SelectItem>
+                            <SelectItem value="30x45">30x45 cm - {priceMap['30x45']} RSD</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
