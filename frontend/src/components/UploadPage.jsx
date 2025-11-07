@@ -243,62 +243,150 @@ const UploadPage = () => {
       setIsUploading(true);
       setUploadProgress(0);
 
-      toast({
-        title: "Slanje porudžbine...",
-        description: "Molimo sačekajte dok obrađujemo vašu porudžbinu"
-      });
-
-      const formData = new FormData();
-      photos.forEach(photo => {
-        formData.append('photos', photo.file);
-      });
-
-      const orderDetails = {
-        contactInfo,
-        photoSettings: photos.map(p => ({
-          fileName: p.file.name,
-          format: p.format,
-          quantity: p.quantity,
-          finish: p.finish
-        })),
-        totalPrice: totalPrice,
-        quantityDiscountAmount: quantityDiscountAmount,
-        promotionDiscountAmount: promotionDiscountAmount,
-        quantityDiscountPercent: quantityDiscountPercent,
-        promotionDiscountPercent: promotionDiscountPercent,
-        deliveryFee: deliveryFee,
-        deliveryPrice: deliveryPrice,
-        freeDeliveryLimit: freeDeliveryLimit,
-        grandTotal: grandTotal,
-        prices: priceMap,
-        cropOption: cropOption,
-        fillWhiteOption: fillWhiteOption
-      };
-      formData.append('order_details', JSON.stringify(orderDetails));
-
-      const response = await axios.post(`${API}/orders/create`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        timeout: 300000, // 5 minutes timeout for large uploads
-        onUploadProgress: (progressEvent) => {
-          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-          setUploadProgress(percentCompleted);
-        }
-      });
-
-      const { orderNumber } = response.data;
+      // For large uploads (>50 photos), use chunked upload
+      const CHUNK_SIZE = 50; // Upload 50 photos at a time
+      const totalPhotos = photos.length;
       
-      toast({
-        title: "Porudžbina poslata!",
-        description: `Vaša porudžbina #${orderNumber} je primljena. Uskoro ćemo vas kontaktirati.`,
-        duration: 3000
-      });
+      if (totalPhotos > CHUNK_SIZE) {
+        toast({
+          title: "Slanje porudžbine...",
+          description: `Uploadovanje ${totalPhotos} fotografija u grupama...`
+        });
 
-      // Reset form after successful submission
-      setTimeout(() => {
-        resetForm();
-        // Scroll to top
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 1500);
+        // Upload in chunks
+        const chunks = [];
+        for (let i = 0; i < photos.length; i += CHUNK_SIZE) {
+          chunks.push(photos.slice(i, i + CHUNK_SIZE));
+        }
+
+        let orderNumber = null;
+        
+        for (let i = 0; i < chunks.length; i++) {
+          const chunk = chunks[i];
+          const isLastChunk = i === chunks.length - 1;
+          
+          const formData = new FormData();
+          chunk.forEach(photo => {
+            formData.append('photos', photo.file);
+          });
+
+          const orderDetails = {
+            contactInfo,
+            photoSettings: photos.map(p => ({
+              fileName: p.file.name,
+              format: p.format,
+              quantity: p.quantity,
+              finish: p.finish
+            })),
+            totalPrice: totalPrice,
+            quantityDiscountAmount: quantityDiscountAmount,
+            promotionDiscountAmount: promotionDiscountAmount,
+            quantityDiscountPercent: quantityDiscountPercent,
+            promotionDiscountPercent: promotionDiscountPercent,
+            deliveryFee: deliveryFee,
+            deliveryPrice: deliveryPrice,
+            freeDeliveryLimit: freeDeliveryLimit,
+            grandTotal: grandTotal,
+            prices: priceMap,
+            cropOption: cropOption,
+            fillWhiteOption: fillWhiteOption,
+            chunkIndex: i,
+            totalChunks: chunks.length,
+            isLastChunk: isLastChunk,
+            orderNumber: orderNumber // Use existing order number for subsequent chunks
+          };
+          formData.append('order_details', JSON.stringify(orderDetails));
+
+          const response = await axios.post(`${API}/orders/create`, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+            timeout: 300000,
+            onUploadProgress: (progressEvent) => {
+              const chunkProgress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+              const overallProgress = Math.round(((i * 100) + chunkProgress) / chunks.length);
+              setUploadProgress(overallProgress);
+            }
+          });
+
+          if (!orderNumber && response.data.orderNumber) {
+            orderNumber = response.data.orderNumber;
+          }
+
+          // Small delay between chunks to avoid overwhelming server
+          if (!isLastChunk) {
+            await new Promise(resolve => setTimeout(resolve, 500));
+          }
+        }
+
+        toast({
+          title: "Porudžbina poslata!",
+          description: `Vaša porudžbina #${orderNumber} je primljena. Uskoro ćemo vas kontaktirati.`,
+          duration: 3000
+        });
+
+        // Reset form after successful submission
+        setTimeout(() => {
+          resetForm();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 1500);
+
+      } else {
+        // Standard upload for smaller batches
+        toast({
+          title: "Slanje porudžbine...",
+          description: "Molimo sačekajte dok obrađujemo vašu porudžbinu"
+        });
+
+        const formData = new FormData();
+        photos.forEach(photo => {
+          formData.append('photos', photo.file);
+        });
+
+        const orderDetails = {
+          contactInfo,
+          photoSettings: photos.map(p => ({
+            fileName: p.file.name,
+            format: p.format,
+            quantity: p.quantity,
+            finish: p.finish
+          })),
+          totalPrice: totalPrice,
+          quantityDiscountAmount: quantityDiscountAmount,
+          promotionDiscountAmount: promotionDiscountAmount,
+          quantityDiscountPercent: quantityDiscountPercent,
+          promotionDiscountPercent: promotionDiscountPercent,
+          deliveryFee: deliveryFee,
+          deliveryPrice: deliveryPrice,
+          freeDeliveryLimit: freeDeliveryLimit,
+          grandTotal: grandTotal,
+          prices: priceMap,
+          cropOption: cropOption,
+          fillWhiteOption: fillWhiteOption
+        };
+        formData.append('order_details', JSON.stringify(orderDetails));
+
+        const response = await axios.post(`${API}/orders/create`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+          timeout: 300000,
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            setUploadProgress(percentCompleted);
+          }
+        });
+
+        const { orderNumber } = response.data;
+        
+        toast({
+          title: "Porudžbina poslata!",
+          description: `Vaša porudžbina #${orderNumber} je primljena. Uskoro ćemo vas kontaktirati.`,
+          duration: 3000
+        });
+
+        // Reset form after successful submission
+        setTimeout(() => {
+          resetForm();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 1500);
+      }
       
     } catch (error) {
       console.error('Greška pri slanju porudžbine:', error);
