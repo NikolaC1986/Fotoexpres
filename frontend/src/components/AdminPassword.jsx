@@ -201,8 +201,20 @@ const AdminPassword = () => {
                 className="text-lg border-2"
                 placeholder="Unesite novo korisničko ime"
               />
+            </div>
+            <div>
+              <Label className="text-base font-semibold mb-3 block">
+                Trenutna lozinka (za potvrdu)
+              </Label>
+              <Input
+                type="password"
+                value={passwords.currentPassword}
+                onChange={(e) => setPasswords({...passwords, currentPassword: e.target.value})}
+                className="text-lg border-2"
+                placeholder="Unesite trenutnu lozinku"
+              />
               <p className="text-sm text-gray-500 mt-2">
-                Morate uneti trenutnu lozinku da biste promenili korisničko ime
+                Potrebna je trenutna lozinka za promenu korisničkog imena
               </p>
             </div>
             <Button
