@@ -105,7 +105,7 @@ const FAQPage = () => {
 
         {/* Quick Links */}
         <Card className="p-10 bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-200 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Niste Pronašli Odgovor?</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Niste pronašli odgovor?</h2>
           <p className="text-xl text-gray-700 mb-8">
             Kontaktirajte nas telefonom ili pošaljite vašu porudžbinu
           </p>
