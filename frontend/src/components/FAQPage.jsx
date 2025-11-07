@@ -110,9 +110,11 @@ const FAQPage = () => {
             Kontaktirajte nas telefonom ili pošaljite vašu porudžbinu
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
-            <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white px-8">
-              <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}>Pozovite nas</a>
-            </Button>
+            <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}>
+              <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white px-8">
+                Pozovite nas: {contactInfo.phone}
+              </Button>
+            </a>
             <Link to="/prices">
               <Button size="lg" variant="outline" className="border-2 border-orange-600 text-orange-600 hover:bg-orange-50 px-8">
                 Pogledaj cenovnik
