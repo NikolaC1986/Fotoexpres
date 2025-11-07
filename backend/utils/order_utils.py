@@ -115,14 +115,14 @@ AKCIJSKI POPUST ({promotion_discount_percent}%): -{promotion_discount_amount} RS
     
     total_discount = quantity_discount_amount + promotion_discount_amount
     if total_discount > 0:
-        price_after_discount = total_base_price - total_discount
+        price_after_discount = subtotal - total_discount
         content += f"""
 ──────────────────────────────
 Ukupan popust: -{total_discount} RSD
 Cena sa popustom: {price_after_discount} RSD
 """
     else:
-        price_after_discount = total_base_price
+        price_after_discount = subtotal
     
     # Delivery fee
     delivery_fee = price_info.get('deliveryFee', 400) if price_info else 400
