@@ -702,11 +702,17 @@ const handleHeroImageUpload = async (e) => {
 ### 7. Admin Lozinka (AdminPassword.jsx)
 
 **Funkcionalnosti:**
+- Promena admin korisničkog imena
 - Promena admin lozinke
 - Validacija trenutne lozinke
 - Potvrda nove lozinke
+- Backend integration - promene se čuvaju u .env fajlu
+- Auto logout nakon promene kredencijala
 
-**Napomena:** Backend endpoint za promenu lozinke može se implementirati u budućnosti.
+**Važno:**
+- Promene se primenjuju odmah na backend (ažurira .env fajl)
+- Admin mora da se ponovo prijavi posle promene
+- Hardcoded kredencijali su uklonjeni sa login stranice
 
 ---
 
