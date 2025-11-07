@@ -124,8 +124,9 @@ Cena sa popustom: {price_after_discount} RSD
     else:
         price_after_discount = subtotal
     
-    # Delivery fee
+    # Delivery fee - use from price_info or default to 400
     delivery_fee = price_info.get('deliveryFee', 400) if price_info else 400
+    delivery_price = price_info.get('deliveryPrice', 400) if price_info else 400
     free_delivery_limit = price_info.get('freeDeliveryLimit', 5000) if price_info else 5000
     
     if delivery_fee == 0:
