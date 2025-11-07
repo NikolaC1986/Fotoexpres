@@ -185,12 +185,21 @@ async def create_order(
         else:
             logging.info(f"Received chunk {chunk_index + 1}/{total_chunks} for order {order_number}")
         
-        return OrderResponse(
-            success=True,
-            orderNumber=order_number,
-            message="Order created successfully",
-            zipFilePath=str(zip_path)
-        )
+        # Return response
+        if is_last_chunk:
+            return OrderResponse(
+                success=True,
+                orderNumber=order_number,
+                message="Order created successfully",
+                zipFilePath=str(zip_path)
+            )
+        else:
+            return OrderResponse(
+                success=True,
+                orderNumber=order_number,
+                message=f"Chunk {chunk_index + 1}/{total_chunks} uploaded successfully",
+                zipFilePath=""
+            )
         
     except json.JSONDecodeError:
         raise HTTPException(status_code=400, detail="Invalid order details format")
