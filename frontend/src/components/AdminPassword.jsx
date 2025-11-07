@@ -192,7 +192,7 @@ const AdminPassword = () => {
           <div className="max-w-md space-y-4">
             <div>
               <Label className="text-base font-semibold mb-3 block">
-                Trenutno korisničko ime: <span className="text-orange-600">{username}</span>
+                Novo korisničko ime
               </Label>
               <Input
                 type="text"
@@ -201,6 +201,9 @@ const AdminPassword = () => {
                 className="text-lg border-2"
                 placeholder="Unesite novo korisničko ime"
               />
+              <p className="text-sm text-gray-500 mt-2">
+                Morate uneti trenutnu lozinku da biste promenili korisničko ime
+              </p>
             </div>
             <Button
               onClick={handleSaveUsername}
