@@ -10,6 +10,7 @@ const API = `${BACKEND_URL}/api`;
 
 const FAQPage = () => {
   const [freeDeliveryLimit, setFreeDeliveryLimit] = useState(5000);
+  const [deliveryPrice, setDeliveryPrice] = useState(400);
   const [contactInfo, setContactInfo] = useState({
     phone: '+381 65 46 000 46',
     email: 'kontakt@fotoexpres.rs'
