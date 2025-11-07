@@ -82,15 +82,14 @@ OBRAČUN CENE:
 ─────────────────────────
 """
     
-    # Calculate pricing details
-    total_base_price = subtotal
+    # Calculate pricing details - use subtotal (locally calculated) as base price
+    # This ensures we show the correct photo price before any discounts or delivery
     quantity_discount_amount = 0
     promotion_discount_amount = 0
     quantity_discount_percent = 0
     promotion_discount_percent = 0
     
     if price_info:
-        total_base_price = price_info.get('totalPrice', subtotal)
         quantity_discount_amount = price_info.get('quantityDiscountAmount', 0)
         promotion_discount_amount = price_info.get('promotionDiscountAmount', 0)
         quantity_discount_percent = price_info.get('quantityDiscountPercent', 0)
@@ -98,7 +97,7 @@ OBRAČUN CENE:
     
     content += f"""
 Ukupan broj fotografija: {total_photos} komada
-Osnovna cena fotografija: {total_base_price} RSD
+Osnovna cena fotografija: {subtotal} RSD
 """
     
     # Add discount details if applicable
