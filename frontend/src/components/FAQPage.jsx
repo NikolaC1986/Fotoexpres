@@ -29,17 +29,17 @@ const FAQPage = () => {
   const faqs = [
     {
       icon: <Package className="w-6 h-6" />,
-      question: "Da li je Moguće Dodati Fotografije na Prethodnu Porudžbinu?",
+      question: "Da li je moguće dodati fotografije na prethodnu porudžbinu?",
       answer: "Ne, na prethodno izvršenu porudžbinu nije moguće dodavati fotografije, ali možete napraviti dodatnu porudžbinu u toku istog ili sledećeg dana, ostavljajući iste kontakt podatke. Mi ćemo spojiti porudžbine i korigovati cenu."
     },
     {
       icon: <CreditCard className="w-6 h-6" />,
-      question: "Koje Su Cene Fotografija?",
+      question: "Koje su cene fotografija?",
       answer: "Cene fotografija možete pronaći na našem sajtu u odeljku 'Cenovnik' ili klikom na link ispod. Cene se kreću od 12 RSD za format 9x13 cm do 250 RSD za format 30x45 cm."
     },
     {
       icon: <MapPin className="w-6 h-6" />,
-      question: "Da li Se Fotografije Mogu Lično Preuzeti u Radnji?",
+      question: "Da li se fotografije mogu lično preuzeti u radnji?",
       answer: "Nažalost, lično preuzimanje fotografija nije moguće. Moguća je samo dostava na vašu kućnu adresu."
     },
     {
