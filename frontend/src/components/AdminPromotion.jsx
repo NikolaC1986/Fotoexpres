@@ -92,7 +92,7 @@ const AdminPromotion = () => {
       <div className="max-w-4xl mx-auto px-6">
         {/* Header */}
         <div className="mb-8">
-          <Link to="/admin/dashboard">
+          <Link to="/logovanje/dashboard">
             <Button variant="outline" className="mb-4 gap-2">
               <ArrowLeft size={18} />
               Nazad na Dashboard
