@@ -221,7 +221,7 @@ const HomePage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-6 md:mb-8">
             <div>
               <img 
-                src="https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/i8bseb70_Logo_Fotoexpres.png" 
+                src="/images/logo.png" 
                 alt="Fotoexpres Logo" 
                 className="h-8 md:h-10 w-auto mb-3 md:mb-4"
               />
