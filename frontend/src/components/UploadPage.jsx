@@ -161,8 +161,8 @@ const UploadPage = () => {
   const priceAfterDiscount = totalPrice - totalDiscountAmount;
 
   const deliveryFee = useMemo(() => {
-    return priceAfterDiscount >= freeDeliveryLimit ? 0 : 400;
-  }, [priceAfterDiscount, freeDeliveryLimit]);
+    return priceAfterDiscount >= freeDeliveryLimit ? 0 : deliveryPrice;
+  }, [priceAfterDiscount, freeDeliveryLimit, deliveryPrice]);
 
   const grandTotal = priceAfterDiscount + deliveryFee;
 
