@@ -172,7 +172,7 @@ const PricesPage = () => {
               <p className="text-gray-600">Plaćate kuriru prilikom preuzimanja paketa</p>
             </div>
             <div className="text-center p-6 bg-gray-50 rounded-lg">
-              <div className="text-2xl font-bold text-gray-900 mb-2">Unapred (Uskoro)</div>
+              <div className="text-2xl font-bold text-gray-900 mb-2">Unapred (uskoro)</div>
               <p className="text-gray-600">Platite karticom pre slanja</p>
             </div>
           </div>
