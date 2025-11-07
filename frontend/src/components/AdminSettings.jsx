@@ -293,31 +293,62 @@ const AdminSettings = () => {
               <Truck className="w-6 h-6 text-green-600" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Besplatna Dostava</h2>
-              <p className="text-gray-600">Podesite minimum za besplatnu dostavu</p>
+              <h2 className="text-2xl font-bold text-gray-900">Podešavanja dostave</h2>
+              <p className="text-gray-600">Podesite cenu i limit za besplatnu dostavu</p>
             </div>
           </div>
 
-          <div className="max-w-md">
-            <Label htmlFor="freeDeliveryLimit" className="text-base font-semibold mb-3 block">
-              Limit za Besplatnu Dostavu
-            </Label>
-            <div className="flex items-center gap-3">
-              <Input
-                id="freeDeliveryLimit"
-                type="number"
-                value={settings.freeDeliveryLimit}
-                onChange={(e) => setSettings({...settings, freeDeliveryLimit: parseInt(e.target.value) || 0})}
-                className="text-xl font-bold border-2"
-                min="0"
-                step="100"
-              />
-              <span className="text-lg font-semibold text-gray-600">RSD</span>
+          <div className="space-y-6 max-w-2xl">
+            <div>
+              <Label htmlFor="deliveryPrice" className="text-base font-semibold mb-3 block">
+                Cena dostave
+              </Label>
+              <div className="flex items-center gap-3">
+                <Input
+                  id="deliveryPrice"
+                  type="number"
+                  value={settings.deliveryPrice}
+                  onChange={(e) => setSettings({...settings, deliveryPrice: parseInt(e.target.value) || 0})}
+                  className="text-xl font-bold border-2 w-40"
+                  min="0"
+                  step="50"
+                />
+                <span className="text-lg font-semibold text-gray-600">RSD</span>
+              </div>
+              <p className="text-sm text-gray-500 mt-2">
+                Ova cena se primenjuje na sve porudžbine ispod limita za besplatnu dostavu
+              </p>
             </div>
-            <p className="text-sm text-gray-500 mt-3">
-              Porudžbine iznad ovog iznosa imaju besplatnu dostavu. Trenutno: 
-              <span className="font-semibold text-gray-900"> {settings.freeDeliveryLimit} RSD</span>
-            </p>
+
+            <div>
+              <Label htmlFor="freeDeliveryLimit" className="text-base font-semibold mb-3 block">
+                Limit za besplatnu dostavu
+              </Label>
+              <div className="flex items-center gap-3">
+                <Input
+                  id="freeDeliveryLimit"
+                  type="number"
+                  value={settings.freeDeliveryLimit}
+                  onChange={(e) => setSettings({...settings, freeDeliveryLimit: parseInt(e.target.value) || 0})}
+                  className="text-xl font-bold border-2 w-40"
+                  min="0"
+                  step="100"
+                />
+                <span className="text-lg font-semibold text-gray-600">RSD</span>
+              </div>
+              <p className="text-sm text-gray-500 mt-2">
+                Porudžbine iznad ovog iznosa imaju besplatnu dostavu
+              </p>
+            </div>
+
+            <div className="p-4 bg-blue-50 rounded-lg border-2 border-blue-200">
+              <p className="text-sm text-blue-900">
+                <strong>Primer:</strong> Ako postavite cenu dostave na <strong>{settings.deliveryPrice} RSD</strong> i 
+                limit na <strong>{settings.freeDeliveryLimit} RSD</strong>, kupci će platiti {settings.deliveryPrice} RSD 
+                dostave za porudžbine ispod {settings.freeDeliveryLimit} RSD, dok će porudžbine preko {settings.freeDeliveryLimit} RSD 
+                imati besplatnu dostavu.
+              </p>
+            </div>
           </div>
         </Card>
 
