@@ -18,6 +18,7 @@ const PricesPage = () => {
     '30x45': 250
   });
   const [freeDeliveryLimit, setFreeDeliveryLimit] = useState(5000);
+  const [deliveryPrice, setDeliveryPrice] = useState(400);
   const [quantityDiscounts, setQuantityDiscounts] = useState({ '50': 5, '100': 10, '200': 15 });
 
   useEffect(() => {
