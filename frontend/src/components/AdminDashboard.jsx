@@ -142,7 +142,7 @@ const AdminDashboard = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
-    navigate('/admin');
+    navigate('/logovanje');
   };
 
   if (loading) {
