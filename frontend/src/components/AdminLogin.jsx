@@ -24,20 +24,32 @@ const AdminLogin = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${API}/admin/login`, credentials);
+      // Check credentials from localStorage or default
+      const storedUsername = localStorage.getItem('adminUsername') || 'Vlasnik';
+      const storedPassword = localStorage.getItem('adminPassword') || 'Fotoexpres2025!';
       
-      if (response.data.success) {
-        localStorage.setItem('adminToken', response.data.token);
+      if (credentials.username === storedUsername && credentials.password === storedPassword) {
+        // Generate a simple token
+        const token = 'admin-token-' + Date.now();
+        localStorage.setItem('adminToken', token);
+        
         toast({
-          title: "Prijava uspešna",
+          title: "Uspešno prijavljivanje",
           description: "Dobrodošli u admin panel"
         });
-        navigate('/admin/dashboard');
+        
+        navigate('/logovanje/dashboard');
+      } else {
+        toast({
+          title: "Greška",
+          description: "Pogrešno korisničko ime ili lozinka",
+          variant: "destructive"
+        });
       }
     } catch (error) {
       toast({
         title: "Greška pri prijavi",
-        description: error.response?.data?.detail || "Pogrešno korisničko ime ili lozinka",
+        description: "Neočekivana greška",
         variant: "destructive"
       });
     } finally {
