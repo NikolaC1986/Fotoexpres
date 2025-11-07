@@ -30,6 +30,7 @@ const UploadPage = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [quantityDiscounts, setQuantityDiscounts] = useState({ '50': 5, '100': 10, '200': 15 });
   const [promotion, setPromotion] = useState(null);
+  const [deliveryPrice, setDeliveryPrice] = useState(400);
   const [priceMap, setPriceMap] = useState({
     '9x13': 12,
     '10x15': 18,
