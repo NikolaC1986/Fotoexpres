@@ -112,8 +112,8 @@ const AdminLogin = () => {
 
         <div className="mt-6 p-4 bg-blue-50 rounded-lg">
           <p className="text-sm text-gray-700">
-            <strong>Napomena:</strong> Korisničko ime: <code className="bg-white px-2 py-1 rounded">admin</code><br />
-            Lozinka: <code className="bg-white px-2 py-1 rounded">admin123</code>
+            <strong>Napomena:</strong> Korisničko ime: <code className="bg-white px-2 py-1 rounded">Vlasnik</code><br />
+            Lozinka: <code className="bg-white px-2 py-1 rounded">Fotoexpres2025!</code>
           </p>
         </div>
       </Card>
