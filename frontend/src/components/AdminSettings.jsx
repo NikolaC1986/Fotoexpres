@@ -101,6 +101,61 @@ const AdminSettings = () => {
           </Button>
         </div>
 
+        {/* Contact Information */}
+        <Card className="p-8 border-2 border-gray-200 mb-6">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center">
+              <Phone className="w-6 h-6 text-blue-600" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">Kontakt Informacije</h2>
+              <p className="text-gray-600">Podesite telefon i email za kontakt</p>
+            </div>
+          </div>
+
+          <div className="space-y-6 max-w-2xl">
+            <div>
+              <Label htmlFor="contactPhone" className="text-base font-semibold mb-3 block">
+                Kontakt Telefon
+              </Label>
+              <div className="flex items-center gap-3">
+                <Phone size={20} className="text-gray-400" />
+                <Input
+                  id="contactPhone"
+                  type="text"
+                  value={settings.contactPhone}
+                  onChange={(e) => setSettings({...settings, contactPhone: e.target.value})}
+                  className="text-lg border-2"
+                  placeholder="+381 65 46 000 46"
+                />
+              </div>
+              <p className="text-sm text-gray-500 mt-2">
+                Ovaj broj će biti prikazan u header-u sajta
+              </p>
+            </div>
+
+            <div>
+              <Label htmlFor="contactEmail" className="text-base font-semibold mb-3 block">
+                Kontakt Email
+              </Label>
+              <div className="flex items-center gap-3">
+                <Mail size={20} className="text-gray-400" />
+                <Input
+                  id="contactEmail"
+                  type="email"
+                  value={settings.contactEmail}
+                  onChange={(e) => setSettings({...settings, contactEmail: e.target.value})}
+                  className="text-lg border-2"
+                  placeholder="kontakt@fotoexpres.rs"
+                />
+              </div>
+              <p className="text-sm text-gray-500 mt-2">
+                Ovaj email će biti prikazan u footer-u sajta
+              </p>
+            </div>
+          </div>
+        </Card>
+
         {/* Delivery Settings */}
         <Card className="p-8 border-2 border-gray-200 mb-6">
           <div className="flex items-center gap-3 mb-8">
