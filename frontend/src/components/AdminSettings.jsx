@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Truck, Save, LogOut, ArrowLeft, Phone, Mail } from 'lucide-react';
+import { Truck, Save, LogOut, ArrowLeft, Phone, Mail, Image } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
