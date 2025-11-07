@@ -49,17 +49,17 @@ const FAQPage = () => {
     },
     {
       icon: <Truck className="w-6 h-6" />,
-      question: "Koji Je Rok Dostave?",
+      question: "Koji je rok dostave?",
       answer: "Rok dostave je od 2 do 7 radnih dana, ali ćete svakako biti kontaktirani pre same dostave."
     },
     {
       icon: <MapPin className="w-6 h-6" />,
-      question: "Da li Je Moguća Dostava na Području Kosova i Metohije?",
+      question: "Da li je moguća dostava na području Kosova i Metohije?",
       answer: "Da, vršimo dostavu na području Kosova i Metohije putem kurirske službe PostExpress, sa produženim vremenom isporuke."
     },
     {
       icon: <Globe className="w-6 h-6" />,
-      question: "Da li Je Moguća Dostava u Inostranstvo?",
+      question: "Da li je moguća dostava u inostranstvo?",
       answer: "Nažalost, ne vršimo dostavu u inostranstvo, već samo na teritoriji Srbije."
     }
   ];
