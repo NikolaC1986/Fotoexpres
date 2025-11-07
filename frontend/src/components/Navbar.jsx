@@ -50,7 +50,7 @@ const Navbar = () => {
             <span className="text-gray-400">Pon - Pet: 09:00 - 18:00</span>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-gray-400">Besplatna dostava za porudžbine preko 5000 RSD</span>
+            <span className="text-gray-400">Besplatna dostava za porudžbine preko {freeDeliveryLimit} RSD</span>
           </div>
         </div>
         
