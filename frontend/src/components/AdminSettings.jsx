@@ -14,7 +14,9 @@ const API = `${BACKEND_URL}/api`;
 const AdminSettings = () => {
   const navigate = useNavigate();
   const [settings, setSettings] = useState({
-    freeDeliveryLimit: 5000
+    freeDeliveryLimit: 5000,
+    contactPhone: '+381 65 46 000 46',
+    contactEmail: 'kontakt@fotoexpres.rs'
   });
   const [loading, setLoading] = useState(false);
 
