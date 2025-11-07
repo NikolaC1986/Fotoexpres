@@ -13,7 +13,7 @@ const HomePage = () => {
     phone: '+381 65 46 000 46',
     email: 'kontakt@fotoexpres.rs'
   });
-  const [heroImageUrl, setHeroImageUrl] = useState('https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/1ogmpeji_8%20copy.jpg');
+  const [heroImageUrl, setHeroImageUrl] = useState('/images/hero-default.jpg');
 
   useEffect(() => {
     fetchSettings();
