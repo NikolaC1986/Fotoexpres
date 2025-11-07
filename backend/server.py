@@ -115,6 +115,18 @@ async def create_order(
         crop_option = order_data.get('cropOption', False)
         fill_white_option = order_data.get('fillWhiteOption', False)
         
+        # Get price information from order details
+        price_info = {
+            'totalPrice': order_data.get('totalPrice', 0),
+            'quantityDiscountAmount': order_data.get('quantityDiscountAmount', 0),
+            'promotionDiscountAmount': order_data.get('promotionDiscountAmount', 0),
+            'quantityDiscountPercent': order_data.get('quantityDiscountPercent', 0),
+            'promotionDiscountPercent': order_data.get('promotionDiscountPercent', 0),
+            'deliveryFee': order_data.get('deliveryFee', 400),
+            'freeDeliveryLimit': order_data.get('freeDeliveryLimit', 5000),
+            'prices': order_data.get('prices', {})
+        }
+        
         # Create ZIP file
         zip_file_name = f"order-{order_number}.zip"
         zip_path = ORDERS_ZIPS_DIR / zip_file_name
@@ -127,7 +139,8 @@ async def create_order(
             [p.model_dump() for p in order_details_obj.photoSettings],
             total_photos,
             crop_option,
-            fill_white_option
+            fill_white_option,
+            price_info
         )
         
         # Save to MongoDB
