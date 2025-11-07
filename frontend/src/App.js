@@ -12,6 +12,7 @@ import AdminPrices from './components/AdminPrices';
 import AdminSettings from './components/AdminSettings';
 import AdminDiscounts from './components/AdminDiscounts';
 import AdminPromotion from './components/AdminPromotion';
+import AdminPassword from './components/AdminPassword';
 import { Toaster } from './components/ui/toaster';
 
 // Protected Route Component
