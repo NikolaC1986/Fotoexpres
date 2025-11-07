@@ -114,7 +114,7 @@ const HomePage = () => {
             <div className="relative w-full">
               <div className="relative z-10">
                 <img 
-                  src="https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/1ogmpeji_8%20copy.jpg" 
+                  src={heroImageUrl}
                   alt="Štampane fotografije" 
                   className="rounded-xl md:rounded-2xl shadow-2xl w-full h-auto"
                 />
