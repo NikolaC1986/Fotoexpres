@@ -219,6 +219,60 @@ async def admin_login(credentials: AdminLogin):
         message="Login successful"
     )
 
+# Change Admin Credentials (Admin Only)
+@api_router.post("/admin/change-credentials")
+async def change_admin_credentials(
+    credentials: ChangeCredentials,
+    admin = Depends(verify_admin_token)
+):
+    """Change admin username and/or password"""
+    try:
+        # Verify current password
+        current_username = os.environ.get('ADMIN_USERNAME', 'Vlasnik')
+        current_password = os.environ.get('ADMIN_PASSWORD', 'Fotoexpres2025!')
+        
+        if credentials.currentPassword != current_password:
+            raise HTTPException(status_code=401, detail="Current password is incorrect")
+        
+        # Validate new credentials
+        if credentials.newPassword and len(credentials.newPassword) < 8:
+            raise HTTPException(status_code=400, detail="New password must be at least 8 characters")
+        
+        if credentials.newUsername and len(credentials.newUsername.strip()) == 0:
+            raise HTTPException(status_code=400, detail="Username cannot be empty")
+        
+        # Update .env file
+        success = update_env_file(
+            new_username=credentials.newUsername,
+            new_password=credentials.newPassword
+        )
+        
+        if not success:
+            raise HTTPException(status_code=500, detail="Failed to update credentials")
+        
+        # Save to MongoDB settings collection for backup
+        await db.admin_settings.update_one(
+            {"_id": "admin_credentials"},
+            {
+                "$set": {
+                    "username": credentials.newUsername or current_username,
+                    "updatedAt": datetime.now(timezone.utc).isoformat()
+                }
+            },
+            upsert=True
+        )
+        
+        return {
+            "success": True,
+            "message": "Credentials updated successfully"
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Error changing credentials: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to change credentials: {str(e)}")
+
 # Get All Orders (Admin Only)
 @api_router.get("/admin/orders")
 async def get_all_orders(admin = Depends(verify_admin_token)):
