@@ -25,6 +25,7 @@ const FAQPage = () => {
       const response = await axios.get(`${API}/settings`);
       if (response.data.settings) {
         setFreeDeliveryLimit(response.data.settings.freeDeliveryLimit || 5000);
+        setDeliveryPrice(response.data.settings.deliveryPrice || 400);
         setContactInfo({
           phone: response.data.settings.contactPhone || '+381 65 46 000 46',
           email: response.data.settings.contactEmail || 'kontakt@fotoexpres.rs'
