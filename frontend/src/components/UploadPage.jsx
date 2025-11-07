@@ -90,6 +90,17 @@ const UploadPage = () => {
     }
   };
 
+  const fetchPrices = async () => {
+    try {
+      const response = await axios.get(`${API}/prices`);
+      if (response.data.prices) {
+        setPriceMap(response.data.prices);
+      }
+    } catch (error) {
+      console.error('Error fetching prices:', error);
+    }
+  };
+
   // Dinamički izračunaj totalnu cenu
   const totalPrice = useMemo(() => {
     return photos.reduce((sum, photo) => {
