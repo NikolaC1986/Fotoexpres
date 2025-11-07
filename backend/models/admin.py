@@ -8,9 +8,9 @@ SECRET_KEY = os.environ.get('JWT_SECRET_KEY', 'your-secret-key-change-this-in-pr
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_HOURS = 24
 
-# Default admin credentials (change these in production!)
-ADMIN_USERNAME = "Vlasnik"
-ADMIN_PASSWORD = "Fotoexpres2025!"
+# Admin credentials from environment variables
+ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'Vlasnik')
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'Fotoexpres2025!')
 
 class AdminLogin(BaseModel):
     username: str
