@@ -182,7 +182,7 @@ const HomePage = () => {
       <section className="py-12 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           <div className="text-center mb-8 md:mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-2 md:mb-4">Kako Funkcioniše</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-2 md:mb-4">Kako funkcioniše</h2>
             <p className="text-base md:text-xl text-gray-600">Jednostavni koraci do štampanih fotografija</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
