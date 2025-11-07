@@ -13,16 +13,6 @@ import axios from 'axios';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-// Cene po formatima
-const PRICE_MAP = {
-  '9x13': 12,
-  '10x15': 18,
-  '13x18': 25,
-  '15x21': 50,
-  '20x30': 150,
-  '30x45': 250
-};
-
 const UploadPage = () => {
   const navigate = useNavigate();
   const [photos, setPhotos] = useState([]);
