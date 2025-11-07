@@ -93,8 +93,18 @@ async def create_order(
         order_data = json.loads(order_details)
         order_details_obj = OrderDetails(**order_data)
         
-        # Generate order number
-        order_number = generate_order_number()
+        # Check if this is a chunked upload
+        is_chunked = 'chunkIndex' in order_data
+        chunk_index = order_data.get('chunkIndex', 0)
+        total_chunks = order_data.get('totalChunks', 1)
+        is_last_chunk = order_data.get('isLastChunk', True)
+        existing_order_number = order_data.get('orderNumber')
+        
+        # Generate or use existing order number
+        if existing_order_number:
+            order_number = existing_order_number
+        else:
+            order_number = generate_order_number()
         
         # Create order directory
         order_dir = ORDERS_DIR / order_number
