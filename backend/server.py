@@ -374,7 +374,9 @@ async def get_settings(admin = Depends(verify_admin_token)):
         
         # Default settings
         default_settings = {
-            'freeDeliveryLimit': 5000
+            'freeDeliveryLimit': 5000,
+            'contactPhone': '+381 65 46 000 46',
+            'contactEmail': 'kontakt@fotoexpres.rs'
         }
         
         if settings_doc:
