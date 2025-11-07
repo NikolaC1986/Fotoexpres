@@ -111,13 +111,6 @@ const AdminLogin = () => {
             {loading ? 'Prijavljivanje...' : 'Prijavi Se'}
           </Button>
         </form>
-
-        <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-          <p className="text-sm text-gray-700">
-            <strong>Napomena:</strong> Korisničko ime: <code className="bg-white px-2 py-1 rounded">Vlasnik</code><br />
-            Lozinka: <code className="bg-white px-2 py-1 rounded">Fotoexpres2025!</code>
-          </p>
-        </div>
       </Card>
     </div>
   );
