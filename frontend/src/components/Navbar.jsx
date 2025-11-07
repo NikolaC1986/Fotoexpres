@@ -13,6 +13,7 @@ const Navbar = () => {
     phone: '+381 65 46 000 46',
     email: 'kontakt@fotoexpres.rs'
   });
+  const [freeDeliveryLimit, setFreeDeliveryLimit] = useState(5000);
 
   useEffect(() => {
     fetchSettings();
@@ -26,6 +27,7 @@ const Navbar = () => {
           phone: response.data.settings.contactPhone || '+381 65 46 000 46',
           email: response.data.settings.contactEmail || 'kontakt@fotoexpres.rs'
         });
+        setFreeDeliveryLimit(response.data.settings.freeDeliveryLimit || 5000);
       }
     } catch (error) {
       console.error('Error fetching settings:', error);
