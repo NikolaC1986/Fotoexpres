@@ -109,12 +109,19 @@ Ovaj vodič vam pokazuje kako da postavite Fotoexpres sajt online korak po korak
      MONGO_URL=mongodb+srv://...
      DB_NAME=fotoexpres
      JWT_SECRET_KEY=GENERISI_RANDOM_STRING_OVDE
+     ADMIN_USERNAME=Vlasnik
+     ADMIN_PASSWORD=Fotoexpres2025!
      EMAIL_HOST=smtp.gmail.com
      EMAIL_PORT=587
      EMAIL_USER=vas.email@gmail.com
      EMAIL_PASSWORD=aplikacijska_lozinka
      REACT_APP_BACKEND_URL=https://vasa-aplikacija.vercel.app
      ```
+     
+   **VAŽNO ZA SIGURNOST:**
+   - Promenite `ADMIN_PASSWORD` na jaku lozinku za production!
+   - Možete promeniti i `ADMIN_USERNAME` ako želite
+   - Generišite random string za `JWT_SECRET_KEY` (minimum 32 karaktera)
 
 6. **Deploy**
    - Kliknite "Deploy"
