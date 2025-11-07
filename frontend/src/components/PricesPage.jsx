@@ -165,7 +165,7 @@ const PricesPage = () => {
 
         {/* Payment Methods */}
         <Card className="p-10 bg-white border-2 border-gray-200 mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Način Plaćanja</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Način plaćanja</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="text-center p-6 bg-gray-50 rounded-lg">
               <div className="text-2xl font-bold text-gray-900 mb-2">Plaćanje Pouzećem</div>
