@@ -115,12 +115,12 @@ const FAQPage = () => {
             </Button>
             <Link to="/prices">
               <Button size="lg" variant="outline" className="border-2 border-orange-600 text-orange-600 hover:bg-orange-50 px-8">
-                Pogledaj Cenovnik
+                Pogledaj cenovnik
               </Button>
             </Link>
             <Link to="/upload">
               <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8">
-                Pošalji Fotografije
+                Pošalji fotografije
               </Button>
             </Link>
           </div>
