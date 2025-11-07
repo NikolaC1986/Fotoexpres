@@ -1,0 +1,222 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                    FOTOEXPRES - DETALJI PORUDŽBINE                ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+BROJ PORUDŽBINE: ORD-869094
+DATUM: 2025-11-07 11:32:56
+
+═══════════════════════════════════════════════════════════════════
+
+INFORMACIJE O KLIJENTU:
+─────────────────────────
+Ime i prezime: Test1
+Email: test@gmail.com
+Telefon: 123456
+Adresa: asdfg
+Napomene: 
+
+═══════════════════════════════════════════════════════════════════
+
+OPCIJE OBRADE FOTOGRAFIJA:
+───────────────────────────
+• Kropovati fotografiju kako bi je prilagodili formatu: NE
+• Popuniti belim: DA
+
+═══════════════════════════════════════════════════════════════════
+
+SPECIFIKACIJA FOTOGRAFIJA:
+───────────────────────────
+
+1. IMG_9024.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 1 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 12 RSD
+   ───────────────────────────
+
+2. IMG_9025.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 1 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 12 RSD
+   ───────────────────────────
+
+3. IMG_9026.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 1 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 12 RSD
+   ───────────────────────────
+
+4. IMG_9027.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 1 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 12 RSD
+   ───────────────────────────
+
+5. IMG_9028.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 1 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 12 RSD
+   ───────────────────────────
+
+6. IMG_9029.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 1 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 12 RSD
+   ───────────────────────────
+
+7. IMG_9030.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 1 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 12 RSD
+   ───────────────────────────
+
+8. IMG_9031.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 1 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 12 RSD
+   ───────────────────────────
+
+9. IMG_9032.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 1 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 12 RSD
+   ───────────────────────────
+
+10. IMG_9033.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 3 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 36 RSD
+   ───────────────────────────
+
+11. IMG_9034.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 1 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 12 RSD
+   ───────────────────────────
+
+12. IMG_9035.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 4 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 48 RSD
+   ───────────────────────────
+
+13. IMG_9036.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 1 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 12 RSD
+   ───────────────────────────
+
+14. IMG_9037.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 1 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 12 RSD
+   ───────────────────────────
+
+15. IMG_9041.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 1 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 12 RSD
+   ───────────────────────────
+
+16. IMG_9042.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 1 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 12 RSD
+   ───────────────────────────
+
+17. IMG_9043.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 4 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 48 RSD
+   ───────────────────────────
+
+18. IMG_9044.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 1 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 12 RSD
+   ───────────────────────────
+
+19. IMG_9047.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 2 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 24 RSD
+   ───────────────────────────
+
+20. IMG_9048.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 1 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 12 RSD
+   ───────────────────────────
+
+21. IMG_9051.JPG
+   Format: 9x13 cm
+   Tip papira: Matte
+   Količina: 1 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 12 RSD
+   ───────────────────────────
+
+═══════════════════════════════════════════════════════════════════
+
+OBRAČUN CENE:
+─────────────────────────
+
+Ukupan broj fotografija: 30 komada
+Osnovna cena fotografija: 360 RSD
+
+Dostava: 400 RSD
+   • Standardna dostava
+
+──────────────────────────────
+UKUPNO ZA NAPLATU: 760 RSD
+
+═══════════════════════════════════════════════════════════════════
+
+NAČIN PLAĆANJA: Plaćanje pouzećem (kuriru prilikom isporuke)
+ROK DOSTAVE: 2-7 radnih dana
+
+═══════════════════════════════════════════════════════════════════
+
+Hvala vam što ste odabrali Fotoexpres!
+Za sva pitanja kontaktirajte nas na: kontakt@fotoexpres.rs
+
+═══════════════════════════════════════════════════════════════════
