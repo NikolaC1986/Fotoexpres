@@ -138,46 +138,52 @@ async def create_order(
             'prices': order_data.get('prices', {})
         }
         
-        # Create ZIP file
-        zip_file_name = f"order-{order_number}.zip"
-        zip_path = ORDERS_ZIPS_DIR / zip_file_name
-        
-        create_order_zip(
-            str(order_dir),
-            str(zip_path),
-            order_number,
-            order_details_obj.contactInfo.model_dump(),
-            [p.model_dump() for p in order_details_obj.photoSettings],
-            total_photos,
-            crop_option,
-            fill_white_option,
-            price_info
-        )
-        
-        # Save to MongoDB
-        order = Order(
-            orderNumber=order_number,
-            contactInfo=order_details_obj.contactInfo,
-            photoSettings=order_details_obj.photoSettings,
-            zipFilePath=str(zip_path),
-            totalPhotos=total_photos
-        )
-        
-        await db.orders.insert_one(order.model_dump())
-        
-        # Send email notification to admin
-        try:
-            send_order_notification(
+        # Only create ZIP and save to MongoDB on last chunk (or if not chunked)
+        if is_last_chunk:
+            # Create ZIP file
+            zip_file_name = f"order-{order_number}.zip"
+            zip_path = ORDERS_ZIPS_DIR / zip_file_name
+            
+            create_order_zip(
+                str(order_dir),
+                str(zip_path),
                 order_number,
                 order_details_obj.contactInfo.model_dump(),
                 [p.model_dump() for p in order_details_obj.photoSettings],
                 total_photos,
-                str(zip_path)
+                crop_option,
+                fill_white_option,
+                price_info
             )
-            logging.info(f"Email notification sent for order {order_number}")
-        except Exception as email_error:
-            logging.error(f"Failed to send email for order {order_number}: {str(email_error)}")
-            # Don't fail the order creation if email fails
+            
+            # Save to MongoDB only if not already exists
+            existing_order = await db.orders.find_one({"orderNumber": order_number})
+            if not existing_order:
+                order = Order(
+                    orderNumber=order_number,
+                    contactInfo=order_details_obj.contactInfo,
+                    photoSettings=order_details_obj.photoSettings,
+                    zipFilePath=str(zip_path),
+                    totalPhotos=total_photos
+                )
+                
+                await db.orders.insert_one(order.model_dump())
+            
+            # Send email notification to admin
+            try:
+                send_order_notification(
+                    order_number,
+                    order_details_obj.contactInfo.model_dump(),
+                    [p.model_dump() for p in order_details_obj.photoSettings],
+                    total_photos,
+                    str(zip_path)
+                )
+                logging.info(f"Email notification sent for order {order_number}")
+            except Exception as email_error:
+                logging.error(f"Failed to send email for order {order_number}: {str(email_error)}")
+                # Don't fail the order creation if email fails
+        else:
+            logging.info(f"Received chunk {chunk_index + 1}/{total_chunks} for order {order_number}")
         
         return OrderResponse(
             success=True,
