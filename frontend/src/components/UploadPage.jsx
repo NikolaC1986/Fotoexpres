@@ -258,7 +258,15 @@ const UploadPage = () => {
           quantity: p.quantity,
           finish: p.finish
         })),
-        totalPrice: grandTotal,
+        totalPrice: totalPrice,
+        quantityDiscountAmount: quantityDiscountAmount,
+        promotionDiscountAmount: promotionDiscountAmount,
+        quantityDiscountPercent: quantityDiscountPercent,
+        promotionDiscountPercent: promotionDiscountPercent,
+        deliveryFee: deliveryFee,
+        freeDeliveryLimit: freeDeliveryLimit,
+        grandTotal: grandTotal,
+        prices: priceMap,
         cropOption: cropOption,
         fillWhiteOption: fillWhiteOption
       };
