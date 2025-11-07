@@ -55,7 +55,7 @@ const FAQPage = () => {
     {
       icon: <Truck className="w-6 h-6" />,
       question: "Koja je cena dostave?",
-      answer: `Dostava se naplaćuje 400 dinara za porudžbine ispod ${freeDeliveryLimit} dinara. Za porudžbine veće od ${freeDeliveryLimit} dinara, dostava je besplatna.`
+      answer: `Dostava se naplaćuje ${deliveryPrice} dinara za porudžbine ispod ${freeDeliveryLimit} dinara. Za porudžbine veće od ${freeDeliveryLimit} dinara, dostava je besplatna.`
     },
     {
       icon: <Truck className="w-6 h-6" />,
