@@ -78,7 +78,7 @@ const AdminLogin = () => {
                 type="text"
                 value={credentials.username}
                 onChange={(e) => setCredentials({...credentials, username: e.target.value})}
-                placeholder="admin"
+                placeholder="Vlasnik"
                 className="pl-10 border-2"
                 required
               />
