@@ -1,10 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Upload, Phone } from 'lucide-react';
 import { Button } from './ui/button';
 import PromotionBanner from './PromotionBanner';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
 
 const Navbar = () => {
+  const [contactInfo, setContactInfo] = useState({
+    phone: '+381 65 46 000 46',
+    email: 'kontakt@fotoexpres.rs'
+  });
+
+  useEffect(() => {
+    fetchSettings();
+  }, []);
+
+  const fetchSettings = async () => {
+    try {
+      const response = await axios.get(`${API}/settings`);
+      if (response.data.settings) {
+        setContactInfo({
+          phone: response.data.settings.contactPhone || '+381 65 46 000 46',
+          email: response.data.settings.contactEmail || 'kontakt@fotoexpres.rs'
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching settings:', error);
+    }
+  };
+
   return (
     <>
       {/* Promotion Banner - Above everything */}
