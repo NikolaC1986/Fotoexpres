@@ -16,7 +16,8 @@ const AdminSettings = () => {
   const [settings, setSettings] = useState({
     freeDeliveryLimit: 5000,
     contactPhone: '+381 65 46 000 46',
-    contactEmail: 'kontakt@fotoexpres.rs'
+    contactEmail: 'kontakt@fotoexpres.rs',
+    heroImageUrl: 'https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/1ogmpeji_8%20copy.jpg'
   });
   const [loading, setLoading] = useState(false);
 
