@@ -173,33 +173,58 @@ const AdminSettings = () => {
 
           <div className="space-y-6 max-w-2xl">
             <div>
-              <Label htmlFor="heroImageUrl" className="text-base font-semibold mb-3 block">
-                URL naslovne fotografije
+              <Label htmlFor="heroImageFile" className="text-base font-semibold mb-3 block">
+                Uploaduj novu naslovnu fotografiju
+              </Label>
+              <div className="flex items-center gap-3">
+                <Input
+                  id="heroImageFile"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="text-lg border-2"
+                  disabled={uploadingImage}
+                />
+                {uploadingImage && (
+                  <span className="text-sm text-gray-500">Uploadujem...</span>
+                )}
+              </div>
+              <p className="text-sm text-gray-500 mt-2">
+                Izaberite sliku (JPG, PNG, itd.) - maksimalno 5MB
+              </p>
+            </div>
+
+            <div className="pt-4 border-t">
+              <Label className="text-sm font-semibold text-gray-600 mb-2 block">
+                Trenutna URL adresa slike:
               </Label>
               <Input
-                id="heroImageUrl"
                 type="text"
                 value={settings.heroImageUrl}
                 onChange={(e) => setSettings({...settings, heroImageUrl: e.target.value})}
-                className="text-lg border-2"
+                className="text-sm border-2"
                 placeholder="https://example.com/image.jpg"
               />
-              <p className="text-sm text-gray-500 mt-2">
-                Unesite URL fotografije koja će se prikazati na naslovnoj strani
+              <p className="text-xs text-gray-500 mt-1">
+                Ili unesite eksterni URL (opciono)
               </p>
             </div>
             
             {settings.heroImageUrl && (
-              <div className="border-2 border-gray-200 rounded-lg p-4">
-                <p className="text-sm font-semibold text-gray-700 mb-2">Pregled:</p>
+              <div className="border-2 border-gray-200 rounded-lg p-4 bg-gray-50">
+                <p className="text-sm font-semibold text-gray-700 mb-3">Pregled naslovne fotografije:</p>
                 <img 
                   src={settings.heroImageUrl} 
                   alt="Hero Preview" 
-                  className="w-full max-w-md rounded-lg shadow-md"
+                  className="w-full max-w-md rounded-lg shadow-lg"
                   onError={(e) => {
                     e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'block';
                   }}
                 />
+                <p className="text-xs text-red-500 mt-2" style={{display: 'none'}}>
+                  Slika nije mogla biti učitana. Proverite URL.
+                </p>
               </div>
             )}
           </div>
