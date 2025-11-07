@@ -24,14 +24,15 @@ const AdminLogin = () => {
     setLoading(true);
 
     try {
-      // Check credentials from localStorage or default
-      const storedUsername = localStorage.getItem('adminUsername') || 'Vlasnik';
-      const storedPassword = localStorage.getItem('adminPassword') || 'Fotoexpres2025!';
+      // Call backend login API
+      const response = await axios.post(`${API}/admin/login`, {
+        username: credentials.username,
+        password: credentials.password
+      });
       
-      if (credentials.username === storedUsername && credentials.password === storedPassword) {
-        // Generate a simple token
-        const token = 'admin-token-' + Date.now();
-        localStorage.setItem('adminToken', token);
+      if (response.data.success && response.data.token) {
+        // Store the JWT token from backend
+        localStorage.setItem('adminToken', response.data.token);
         
         toast({
           title: "Uspešno prijavljivanje",
@@ -47,9 +48,10 @@ const AdminLogin = () => {
         });
       }
     } catch (error) {
+      console.error('Login error:', error);
       toast({
         title: "Greška pri prijavi",
-        description: "Neočekivana greška",
+        description: error.response?.data?.detail || "Pogrešno korisničko ime ili lozinka",
         variant: "destructive"
       });
     } finally {
