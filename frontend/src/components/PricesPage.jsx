@@ -148,7 +148,7 @@ const PricesPage = () => {
           <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Dostava</h2>
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold text-orange-600 mb-2">400 RSD</div>
+              <div className="text-4xl font-bold text-orange-600 mb-2">{deliveryPrice} RSD</div>
               <div className="text-gray-600">Standardna dostava</div>
               <div className="text-sm text-gray-500 mt-2">2-7 radnih dana</div>
             </div>
