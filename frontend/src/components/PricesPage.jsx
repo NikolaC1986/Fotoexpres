@@ -199,7 +199,7 @@ const PricesPage = () => {
 
         {/* CTA */}
         <div className="text-center mt-16">
-          <h3 className="text-3xl font-bold text-gray-900 mb-4">Spremni za Poručivanje?</h3>
+          <h3 className="text-3xl font-bold text-gray-900 mb-4">Spremni za poručivanje?</h3>
           <p className="text-xl text-gray-600 mb-8">Pošaljite nam vaše fotografije već danas</p>
           <Link to="/upload">
             <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-6 text-lg">
