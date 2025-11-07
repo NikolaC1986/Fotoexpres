@@ -99,7 +99,7 @@ const AdminPrices = () => {
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center gap-4">
             <Button 
-              onClick={() => navigate('/admin/dashboard')}
+              onClick={() => navigate('/logovanje/dashboard')}
               variant="outline" 
               className="gap-2 border-2"
             >
