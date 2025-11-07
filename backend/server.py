@@ -414,6 +414,47 @@ async def get_settings(admin = Depends(verify_admin_token)):
         logging.error(f"Error fetching settings: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to fetch settings")
 
+# Upload Hero Image (Admin Only)
+@api_router.post("/admin/upload-hero-image")
+async def upload_hero_image(
+    file: UploadFile = File(...),
+    admin = Depends(verify_admin_token)
+):
+    try:
+        # Validate file type
+        if not file.content_type.startswith('image/'):
+            raise HTTPException(status_code=400, detail="File must be an image")
+        
+        # Generate unique filename
+        file_extension = file.filename.split('.')[-1]
+        unique_filename = f"hero_{uuid.uuid4()}.{file_extension}"
+        file_path = UPLOADS_DIR / unique_filename
+        
+        # Save file
+        with open(file_path, "wb") as buffer:
+            content = await file.read()
+            buffer.write(content)
+        
+        # Return the URL path
+        image_url = f"/api/uploads/{unique_filename}"
+        
+        return {
+            "success": True,
+            "imageUrl": image_url,
+            "filename": unique_filename
+        }
+    except Exception as e:
+        logging.error(f"Error uploading hero image: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to upload image: {str(e)}")
+
+# Serve Uploaded Images
+@api_router.get("/uploads/{filename}")
+async def get_uploaded_image(filename: str):
+    file_path = UPLOADS_DIR / filename
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail="Image not found")
+    return FileResponse(file_path)
+
 # Update Settings (Admin Only)
 @api_router.put("/admin/settings")
 async def update_settings(
