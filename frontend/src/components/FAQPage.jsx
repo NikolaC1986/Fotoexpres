@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { HelpCircle, Package, CreditCard, Truck, MapPin, Globe } from 'lucide-react';
 import { Card } from './ui/card';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
 
 const FAQPage = () => {
+  const [freeDeliveryLimit, setFreeDeliveryLimit] = useState(5000);
+
+  useEffect(() => {
+    fetchSettings();
+  }, []);
+
+  const fetchSettings = async () => {
+    try {
+      const response = await axios.get(`${API}/settings`);
+      if (response.data.settings) {
+        setFreeDeliveryLimit(response.data.settings.freeDeliveryLimit || 5000);
+      }
+    } catch (error) {
+      console.error('Error fetching settings:', error);
+    }
+  };
+
   const faqs = [
     {
       icon: <Package className="w-6 h-6" />,
