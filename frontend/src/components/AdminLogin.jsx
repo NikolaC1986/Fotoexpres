@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lock, User } from 'lucide-react';
 import { Button } from './ui/button';
@@ -18,6 +18,10 @@ const AdminLogin = () => {
     password: ''
   });
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    document.title = 'Prijava | Fotoexpres';
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
