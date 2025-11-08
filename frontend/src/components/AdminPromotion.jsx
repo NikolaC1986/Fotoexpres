@@ -25,6 +25,7 @@ const AdminPromotion = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = 'Promocija | Fotoexpres';
     const token = localStorage.getItem('adminToken');
     if (!token) {
       navigate('/logovanje');
