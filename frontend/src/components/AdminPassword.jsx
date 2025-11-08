@@ -27,6 +27,7 @@ const AdminPassword = () => {
   const [newUsername, setNewUsername] = useState('');
 
   useEffect(() => {
+    document.title = 'Promena Lozinke | Fotoexpres';
     const token = localStorage.getItem('adminToken');
     if (!token) {
       navigate('/logovanje');
