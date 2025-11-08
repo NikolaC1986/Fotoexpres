@@ -16,6 +16,7 @@ const AdminDashboard = () => {
   const [stats, setStats] = useState({ total: 0, pending: 0, completed: 0 });
 
   useEffect(() => {
+    document.title = 'Produkcija | Fotoexpres';
     const token = localStorage.getItem('adminToken');
     if (!token) {
       navigate('/logovanje');
