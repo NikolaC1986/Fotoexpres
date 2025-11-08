@@ -42,6 +42,7 @@ const UploadPage = () => {
 
   // Load settings on mount
   useEffect(() => {
+    document.title = 'Pošalji Fotografije | Fotoexpres';
     fetchSettings();
     fetchDiscounts();
     fetchPromotion();
