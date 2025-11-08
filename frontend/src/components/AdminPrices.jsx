@@ -24,6 +24,7 @@ const AdminPrices = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    document.title = 'Cenovnik | Fotoexpres';
     const token = localStorage.getItem('adminToken');
     if (!token) {
       navigate('/logovanje');
