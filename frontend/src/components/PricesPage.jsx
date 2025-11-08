@@ -22,6 +22,7 @@ const PricesPage = () => {
   const [quantityDiscounts, setQuantityDiscounts] = useState({ '50': 5, '100': 10, '200': 15 });
 
   useEffect(() => {
+    document.title = 'Cenovnik | Fotoexpres';
     fetchPrices();
     fetchSettings();
     fetchDiscounts();
