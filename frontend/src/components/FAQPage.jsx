@@ -17,6 +17,7 @@ const FAQPage = () => {
   });
 
   useEffect(() => {
+    document.title = 'Često Postavljana Pitanja | Fotoexpres';
     fetchSettings();
   }, []);
 
