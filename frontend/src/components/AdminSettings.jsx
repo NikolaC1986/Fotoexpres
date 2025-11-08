@@ -24,6 +24,7 @@ const AdminSettings = () => {
   const [uploadingImage, setUploadingImage] = useState(false);
 
   useEffect(() => {
+    document.title = 'Podešavanja | Fotoexpres';
     const token = localStorage.getItem('adminToken');
     if (!token) {
       navigate('/logovanje');
