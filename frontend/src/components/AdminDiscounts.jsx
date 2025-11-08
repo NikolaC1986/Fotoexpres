@@ -21,6 +21,7 @@ const AdminDiscounts = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = 'Popusti | Fotoexpres';
     const token = localStorage.getItem('adminToken');
     if (!token) {
       navigate('/logovanje');
