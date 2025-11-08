@@ -16,6 +16,7 @@ const HomePage = () => {
   const [heroImageUrl, setHeroImageUrl] = useState('/images/hero-default.jpg');
 
   useEffect(() => {
+    document.title = 'Online izrada fotografija | Fotoexpres';
     fetchSettings();
   }, []);
 
