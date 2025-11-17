@@ -56,36 +56,32 @@ class PhotoOrderTester:
         return img_bytes.getvalue(), filename
     
     def test_order_creation_success(self):
-        """Test 1: Order Creation - Success Case"""
-        print("\n=== Testing Order Creation - Success Case ===")
+        """Test 1: Order Creation - Success Case with NEW ADDRESS FIELDS"""
+        print("\n=== Testing Order Creation - Success Case with New Address Fields ===")
         
-        # Test data as specified in review request
+        # Test data with NEW ADDRESS STRUCTURE as specified in review request
         order_details = {
             "contactInfo": {
-                "fullName": "Test User",
+                "fullName": "Test Korisnik",
                 "email": "test@example.com",
-                "phone": "+381661234567",
-                "address": "123 Test Street, Belgrade, 11000",
-                "notes": "Please handle with care"
+                "phone": "0641234567",
+                "street": "Kralja Petra 15",
+                "postalCode": "11000", 
+                "city": "Beograd",
+                "notes": "Test napomena"
             },
             "photoSettings": [
                 {
-                    "fileName": "photo1.jpg",
-                    "format": "10x15",
+                    "fileName": "test1.jpg",
+                    "format": "9x13",
                     "quantity": 2,
-                    "finish": "glossy"
+                    "finish": "sjajni"
                 },
                 {
-                    "fileName": "photo2.jpg",
-                    "format": "13x18",
-                    "quantity": 1,
-                    "finish": "matte"
-                },
-                {
-                    "fileName": "photo3.jpg",
-                    "format": "20x30",
+                    "fileName": "test2.jpg",
+                    "format": "10x15",
                     "quantity": 3,
-                    "finish": "glossy"
+                    "finish": "mat"
                 }
             ]
         }
