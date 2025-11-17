@@ -88,15 +88,13 @@ class PhotoOrderTester:
         
         try:
             # Create test images
-            photo1_data, _ = self.create_test_image("photo1.jpg", 2)
-            photo2_data, _ = self.create_test_image("photo2.jpg", 3)
-            photo3_data, _ = self.create_test_image("photo3.jpg", 5)
+            photo1_data, _ = self.create_test_image("test1.jpg", 2)
+            photo2_data, _ = self.create_test_image("test2.jpg", 3)
             
             # Prepare multipart form data
             files = [
-                ('photos', ('photo1.jpg', photo1_data, 'image/jpeg')),
-                ('photos', ('photo2.jpg', photo2_data, 'image/jpeg')),
-                ('photos', ('photo3.jpg', photo3_data, 'image/jpeg'))
+                ('photos', ('test1.jpg', photo1_data, 'image/jpeg')),
+                ('photos', ('test2.jpg', photo2_data, 'image/jpeg'))
             ]
             
             data = {
