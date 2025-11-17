@@ -27,7 +27,9 @@ INFORMACIJE O KLIJENTU:
 Ime i prezime: {contact_info.get('fullName', '')}
 Email: {contact_info.get('email', '')}
 Telefon: {contact_info.get('phone', '')}
-Adresa: {contact_info.get('address', '')}
+Ulica i broj: {contact_info.get('street', '')}
+Poštanski broj: {contact_info.get('postalCode', '')}
+Grad: {contact_info.get('city', '')}
 Napomene: {contact_info.get('notes', 'Nema napomena')}
 
 ═══════════════════════════════════════════════════════════════════
