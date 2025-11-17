@@ -574,7 +574,9 @@ class PhotoOrderTester:
                 "fullName": "Large File Test User",
                 "email": "largefile@example.com",
                 "phone": "+381661234567",
-                "address": "123 Test Street, Belgrade, 11000",
+                "street": "123 Test Street",
+                "postalCode": "11000", 
+                "city": "Belgrade",
                 "notes": "Testing large file upload"
             },
             "photoSettings": [
@@ -582,7 +584,7 @@ class PhotoOrderTester:
                     "fileName": "large_photo.jpg",
                     "format": "20x30",
                     "quantity": 1,
-                    "finish": "glossy"
+                    "finish": "sjajni"
                 }
             ]
         }
