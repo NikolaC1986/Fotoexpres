@@ -20,7 +20,9 @@ const UploadPage = () => {
     fullName: '',
     email: '',
     phone: '',
-    address: '',
+    street: '',
+    postalCode: '',
+    city: '',
     notes: ''
   });
   const [cropOption, setCropOption] = useState(false);
