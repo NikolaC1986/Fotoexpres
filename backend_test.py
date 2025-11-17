@@ -850,7 +850,7 @@ class PhotoOrderTester:
                 "fileName": f"photo_{i+1:02d}.jpg",
                 "format": "10x15",
                 "quantity": 1,
-                "finish": "glossy" if i % 2 == 0 else "matte"
+                "finish": "sjajni" if i % 2 == 0 else "mat"
             })
         
         order_details = {
