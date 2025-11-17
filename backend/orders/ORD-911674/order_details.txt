@@ -1,0 +1,268 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                    FOTOEXPRES - DETALJI PORUDŽBINE                ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+BROJ PORUDŽBINE: ORD-911674
+DATUM: 2025-11-17 15:29:28
+
+═══════════════════════════════════════════════════════════════════
+
+INFORMACIJE O KLIJENTU:
+─────────────────────────
+Ime i prezime: Large Upload Test User
+Email: largeupload@example.com
+Telefon: +381661234567
+Ulica i broj: 123 Test Street
+Poštanski broj: 11000
+Grad: Belgrade
+Napomene: Testing large upload with 25 photos
+
+═══════════════════════════════════════════════════════════════════
+
+OPCIJE OBRADE FOTOGRAFIJA:
+───────────────────────────
+• Kropovati fotografiju kako bi je prilagodili formatu: NE
+• Popuniti belim: NE
+
+═══════════════════════════════════════════════════════════════════
+
+SPECIFIKACIJA FOTOGRAFIJA:
+───────────────────────────
+
+1. photo_01.jpg
+   Format: 10x15 cm
+   Tip papira: Sjajni
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+2. photo_02.jpg
+   Format: 10x15 cm
+   Tip papira: Mat
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+3. photo_03.jpg
+   Format: 10x15 cm
+   Tip papira: Sjajni
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+4. photo_04.jpg
+   Format: 10x15 cm
+   Tip papira: Mat
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+5. photo_05.jpg
+   Format: 10x15 cm
+   Tip papira: Sjajni
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+6. photo_06.jpg
+   Format: 10x15 cm
+   Tip papira: Mat
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+7. photo_07.jpg
+   Format: 10x15 cm
+   Tip papira: Sjajni
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+8. photo_08.jpg
+   Format: 10x15 cm
+   Tip papira: Mat
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+9. photo_09.jpg
+   Format: 10x15 cm
+   Tip papira: Sjajni
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+10. photo_10.jpg
+   Format: 10x15 cm
+   Tip papira: Mat
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+11. photo_11.jpg
+   Format: 10x15 cm
+   Tip papira: Sjajni
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+12. photo_12.jpg
+   Format: 10x15 cm
+   Tip papira: Mat
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+13. photo_13.jpg
+   Format: 10x15 cm
+   Tip papira: Sjajni
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+14. photo_14.jpg
+   Format: 10x15 cm
+   Tip papira: Mat
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+15. photo_15.jpg
+   Format: 10x15 cm
+   Tip papira: Sjajni
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+16. photo_16.jpg
+   Format: 10x15 cm
+   Tip papira: Mat
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+17. photo_17.jpg
+   Format: 10x15 cm
+   Tip papira: Sjajni
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+18. photo_18.jpg
+   Format: 10x15 cm
+   Tip papira: Mat
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+19. photo_19.jpg
+   Format: 10x15 cm
+   Tip papira: Sjajni
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+20. photo_20.jpg
+   Format: 10x15 cm
+   Tip papira: Mat
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+21. photo_21.jpg
+   Format: 10x15 cm
+   Tip papira: Sjajni
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+22. photo_22.jpg
+   Format: 10x15 cm
+   Tip papira: Mat
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+23. photo_23.jpg
+   Format: 10x15 cm
+   Tip papira: Sjajni
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+24. photo_24.jpg
+   Format: 10x15 cm
+   Tip papira: Mat
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+25. photo_25.jpg
+   Format: 10x15 cm
+   Tip papira: Sjajni
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+═══════════════════════════════════════════════════════════════════
+
+OBRAČUN CENE:
+─────────────────────────
+
+Ukupan broj fotografija: 25 komada
+Osnovna cena fotografija: 450 RSD
+
+Dostava: 400 RSD
+   • Standardna dostava
+
+──────────────────────────────
+UKUPNO ZA NAPLATU: 850 RSD
+
+═══════════════════════════════════════════════════════════════════
+
+NAČIN PLAĆANJA: Plaćanje pouzećem (kuriru prilikom isporuke)
+ROK DOSTAVE: 2-7 radnih dana
+
+═══════════════════════════════════════════════════════════════════
+
+Hvala vam što ste odabrali Fotoexpres!
+Za sva pitanja kontaktirajte nas na: kontakt@fotoexpres.rs
+
+═══════════════════════════════════════════════════════════════════
+
+
+═══════════════════════════════════════════════════════════════════
+
+REKAPITULACIJA PO FORMATIMA:
+─────────────────────────────
+Format 10x15 cm: 25 fotografija
+
+──────────────────────────────
+UKUPNO: 25 fotografija
+
+═══════════════════════════════════════════════════════════════════

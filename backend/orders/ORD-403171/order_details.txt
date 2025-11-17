@@ -1,0 +1,85 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                    FOTOEXPRES - DETALJI PORUDŽBINE                ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+BROJ PORUDŽBINE: ORD-403171
+DATUM: 2025-11-17 15:29:24
+
+═══════════════════════════════════════════════════════════════════
+
+INFORMACIJE O KLIJENTU:
+─────────────────────────
+Ime i prezime: Test Korisnik
+Email: test@example.com
+Telefon: 0641234567
+Ulica i broj: Kralja Petra 15
+Poštanski broj: 11000
+Grad: Beograd
+Napomene: Test napomena
+
+═══════════════════════════════════════════════════════════════════
+
+OPCIJE OBRADE FOTOGRAFIJA:
+───────────────────────────
+• Kropovati fotografiju kako bi je prilagodili formatu: NE
+• Popuniti belim: NE
+
+═══════════════════════════════════════════════════════════════════
+
+SPECIFIKACIJA FOTOGRAFIJA:
+───────────────────────────
+
+1. test1.jpg
+   Format: 9x13 cm
+   Tip papira: Sjajni
+   Količina: 2 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 24 RSD
+   ───────────────────────────
+
+2. test2.jpg
+   Format: 10x15 cm
+   Tip papira: Mat
+   Količina: 3 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 54 RSD
+   ───────────────────────────
+
+═══════════════════════════════════════════════════════════════════
+
+OBRAČUN CENE:
+─────────────────────────
+
+Ukupan broj fotografija: 5 komada
+Osnovna cena fotografija: 78 RSD
+
+Dostava: 400 RSD
+   • Standardna dostava
+
+──────────────────────────────
+UKUPNO ZA NAPLATU: 478 RSD
+
+═══════════════════════════════════════════════════════════════════
+
+NAČIN PLAĆANJA: Plaćanje pouzećem (kuriru prilikom isporuke)
+ROK DOSTAVE: 2-7 radnih dana
+
+═══════════════════════════════════════════════════════════════════
+
+Hvala vam što ste odabrali Fotoexpres!
+Za sva pitanja kontaktirajte nas na: kontakt@fotoexpres.rs
+
+═══════════════════════════════════════════════════════════════════
+
+
+═══════════════════════════════════════════════════════════════════
+
+REKAPITULACIJA PO FORMATIMA:
+─────────────────────────────
+Format 10x15 cm: 3 fotografija
+Format 9x13 cm: 2 fotografija
+
+──────────────────────────────
+UKUPNO: 5 fotografija
+
+═══════════════════════════════════════════════════════════════════
