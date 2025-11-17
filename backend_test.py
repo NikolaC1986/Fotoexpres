@@ -250,14 +250,14 @@ class PhotoOrderTester:
         order_details = {
             "contactInfo": {
                 "fullName": "Test User"
-                # Missing required fields: email, phone, address
+                # Missing required fields: email, phone, street, postalCode, city
             },
             "photoSettings": [
                 {
                     "fileName": "photo1.jpg",
                     "format": "10x15",
                     "quantity": 1,
-                    "finish": "glossy"
+                    "finish": "sjajni"
                 }
             ]
         }
@@ -291,6 +291,195 @@ class PhotoOrderTester:
         except Exception as e:
             self.log_result(
                 "Order Creation Missing Fields", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+    
+    def test_new_zip_structure_and_address_fields(self):
+        """Test NEW: ZIP Structure and Address Fields as per Review Request"""
+        print("\n=== Testing NEW ZIP Structure and Address Fields ===")
+        
+        # Test data exactly as specified in review request
+        order_details = {
+            "contactInfo": {
+                "fullName": "Test Korisnik",
+                "email": "test@example.com",
+                "phone": "0641234567",
+                "street": "Kralja Petra 15",
+                "postalCode": "11000",
+                "city": "Beograd",
+                "notes": "Test napomena"
+            },
+            "photoSettings": [
+                {
+                    "fileName": "test1.jpg",
+                    "format": "9x13",
+                    "quantity": 2,
+                    "finish": "sjajni"
+                },
+                {
+                    "fileName": "test2.jpg",
+                    "format": "10x15",
+                    "quantity": 3,
+                    "finish": "mat"
+                }
+            ]
+        }
+        
+        try:
+            # Create test images
+            photo1_data, _ = self.create_test_image("test1.jpg", 2)
+            photo2_data, _ = self.create_test_image("test2.jpg", 3)
+            
+            # Prepare multipart form data
+            files = [
+                ('photos', ('test1.jpg', photo1_data, 'image/jpeg')),
+                ('photos', ('test2.jpg', photo2_data, 'image/jpeg'))
+            ]
+            
+            data = {
+                'order_details': json.dumps(order_details)
+            }
+            
+            # Create order
+            response = requests.post(f"{self.backend_url}/orders/create", files=files, data=data)
+            
+            if response.status_code != 200:
+                self.log_result(
+                    "ZIP Structure Test", 
+                    False, 
+                    f"Order creation failed: HTTP {response.status_code}: {response.text}"
+                )
+                return
+            
+            result = response.json()
+            if not result.get('success'):
+                self.log_result(
+                    "ZIP Structure Test", 
+                    False, 
+                    "Order creation success flag is False"
+                )
+                return
+            
+            order_number = result['orderNumber']
+            
+            # Now test admin login and download ZIP to verify structure
+            if not self.admin_token:
+                login_success = self.admin_login()
+                if not login_success:
+                    self.log_result(
+                        "ZIP Structure Test", 
+                        False, 
+                        "Cannot test ZIP structure - admin login failed"
+                    )
+                    return
+            
+            # Download ZIP file
+            headers = {"Authorization": f"Bearer {self.admin_token}"}
+            zip_response = requests.get(f"{self.backend_url}/admin/orders/{order_number}/download", headers=headers)
+            
+            if zip_response.status_code != 200:
+                self.log_result(
+                    "ZIP Structure Test", 
+                    False, 
+                    f"ZIP download failed: HTTP {zip_response.status_code}"
+                )
+                return
+            
+            # Save ZIP to temporary file and analyze structure
+            with tempfile.NamedTemporaryFile(suffix='.zip', delete=False) as temp_zip:
+                temp_zip.write(zip_response.content)
+                temp_zip_path = temp_zip.name
+            
+            try:
+                # Analyze ZIP structure
+                with zipfile.ZipFile(temp_zip_path, 'r') as zipf:
+                    file_list = zipf.namelist()
+                    
+                    # Expected structure:
+                    # order_details.txt
+                    # 9x13/sjajni/test1.jpg
+                    # 10x15/mat/test2.jpg
+                    
+                    expected_files = [
+                        'order_details.txt',
+                        '9x13/sjajni/test1.jpg',
+                        '10x15/mat/test2.jpg'
+                    ]
+                    
+                    structure_correct = True
+                    missing_files = []
+                    
+                    for expected_file in expected_files:
+                        if expected_file not in file_list:
+                            missing_files.append(expected_file)
+                            structure_correct = False
+                    
+                    if not structure_correct:
+                        self.log_result(
+                            "ZIP Structure Test", 
+                            False, 
+                            f"ZIP structure incorrect. Missing files: {missing_files}",
+                            {"actual_files": file_list, "expected_files": expected_files}
+                        )
+                        return
+                    
+                    # Test order_details.txt content for new address format
+                    order_details_content = zipf.read('order_details.txt').decode('utf-8')
+                    
+                    # Check for new address fields in separate lines
+                    address_checks = [
+                        "Ulica i broj: Kralja Petra 15",
+                        "Poštanski broj: 11000", 
+                        "Grad: Beograd"
+                    ]
+                    
+                    address_format_correct = True
+                    missing_address_lines = []
+                    
+                    for address_line in address_checks:
+                        if address_line not in order_details_content:
+                            missing_address_lines.append(address_line)
+                            address_format_correct = False
+                    
+                    # Check for rekapitulacija section
+                    rekapitulacija_present = "REKAPITULACIJA PO FORMATIMA:" in order_details_content
+                    format_counts_present = "Format 9x13 cm: 2 fotografija" in order_details_content and "Format 10x15 cm: 3 fotografija" in order_details_content
+                    
+                    if not address_format_correct:
+                        self.log_result(
+                            "ZIP Structure Test", 
+                            False, 
+                            f"Address format incorrect. Missing lines: {missing_address_lines}"
+                        )
+                        return
+                    
+                    if not rekapitulacija_present or not format_counts_present:
+                        self.log_result(
+                            "ZIP Structure Test", 
+                            False, 
+                            "Rekapitulacija section missing or incorrect format counts"
+                        )
+                        return
+                    
+                    self.log_result(
+                        "ZIP Structure Test", 
+                        True, 
+                        f"✅ ZIP structure and address fields correct for order {order_number}",
+                        {
+                            "zip_files": file_list,
+                            "address_format": "3 separate fields verified",
+                            "rekapitulacija": "Present with correct counts"
+                        }
+                    )
+                    
+            finally:
+                # Clean up temp file
+                os.unlink(temp_zip_path)
+                
+        except Exception as e:
+            self.log_result(
+                "ZIP Structure Test", 
                 False, 
                 f"Exception occurred: {str(e)}"
             )
