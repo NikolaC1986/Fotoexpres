@@ -930,7 +930,7 @@ class PhotoOrderTester:
         # Test 0: Basic connectivity
         self.test_api_connectivity()
         
-        # Test 1: Order creation success case
+        # Test 1: Order creation success case with new address fields
         order_number = self.test_order_creation_success()
         
         # Test 2: Order creation validation
@@ -947,6 +947,10 @@ class PhotoOrderTester:
         
         # NEW TESTS - Admin Authentication
         admin_login_success = self.admin_login()
+        
+        # NEW TEST - ZIP Structure and Address Fields (PRIORITY TEST)
+        if admin_login_success:
+            self.test_new_zip_structure_and_address_fields()
         
         # NEW TESTS - Delete Order API
         if admin_login_success:
