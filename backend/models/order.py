@@ -6,7 +6,9 @@ class ContactInfo(BaseModel):
     fullName: str
     email: str
     phone: str
-    address: str
+    street: str
+    postalCode: str
+    city: str
     notes: Optional[str] = ""
 
 class PhotoSetting(BaseModel):
