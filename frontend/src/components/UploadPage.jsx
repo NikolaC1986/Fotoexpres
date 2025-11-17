@@ -854,6 +854,13 @@ const UploadPage = () => {
                 </div>
               )}
 
+              {/* Info napomena - PRIJE dugmeta */}
+              <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <p className="text-sm text-blue-800 text-center">
+                  ℹ️ <strong>Napomena:</strong> Bićete kontaktirani radi potvrde porudžbine pre slanja.
+                </p>
+              </div>
+
               <div className="flex justify-end gap-4 pt-6 border-t-2">
                 <Button 
                   type="button" 
@@ -874,13 +881,6 @@ const UploadPage = () => {
                   <ImageIcon size={20} />
                   {isUploading ? 'Slanje...' : `Pošalji Porudžbinu - ${grandTotal} RSD`}
                 </Button>
-              </div>
-              
-              {/* Info napomena */}
-              <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <p className="text-sm text-blue-800 text-center">
-                  ℹ️ <strong>Napomena:</strong> Bićete kontaktirani radi potvrde porudžbine pre slanja.
-                </p>
               </div>
             </form>
           </Card>
