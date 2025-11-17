@@ -786,12 +786,34 @@ const UploadPage = () => {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="address" className="text-base font-semibold">Adresa za Dostavu *</Label>
+                  <Label htmlFor="street" className="text-base font-semibold">Ulica i Broj *</Label>
                   <Input 
-                    id="address"
-                    value={contactInfo.address}
-                    onChange={(e) => setContactInfo({...contactInfo, address: e.target.value})}
-                    placeholder="Ulica, Grad, Poštanski Broj"
+                    id="street"
+                    value={contactInfo.street}
+                    onChange={(e) => setContactInfo({...contactInfo, street: e.target.value})}
+                    placeholder="Kralja Petra 15"
+                    className="mt-2 border-2"
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="postalCode" className="text-base font-semibold">Poštanski Broj *</Label>
+                  <Input 
+                    id="postalCode"
+                    value={contactInfo.postalCode}
+                    onChange={(e) => setContactInfo({...contactInfo, postalCode: e.target.value})}
+                    placeholder="11000"
+                    className="mt-2 border-2"
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="city" className="text-base font-semibold">Grad *</Label>
+                  <Input 
+                    id="city"
+                    value={contactInfo.city}
+                    onChange={(e) => setContactInfo({...contactInfo, city: e.target.value})}
+                    placeholder="Beograd"
                     className="mt-2 border-2"
                     required
                   />
