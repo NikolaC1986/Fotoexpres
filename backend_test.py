@@ -141,8 +141,8 @@ class PhotoOrderTester:
                 self.log_result(
                     "Order Creation Success", 
                     True, 
-                    f"Order created successfully: {result['orderNumber']}",
-                    {"total_photos_expected": 6, "zip_path": result['zipFilePath']}
+                    f"Order created successfully with new address fields: {result['orderNumber']}",
+                    {"total_photos_expected": 5, "zip_path": result['zipFilePath']}
                 )
                 return result['orderNumber']
                 
