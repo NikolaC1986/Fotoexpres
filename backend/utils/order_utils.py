@@ -170,25 +170,48 @@ Za sva pitanja kontaktirajte nas na: kontakt@fotoexpres.rs
     return content
 
 def create_order_zip(order_dir, zip_path, order_number, contact_info, photo_settings, total_photos, crop_option=False, fill_white_option=False, price_info=None):
-    """Create ZIP file with photos and order details"""
-    # Create order_details.txt
+    """Create ZIP file with photos organized by format and paper type"""
+    
+    # Create order_details.txt with summary
     order_details_content = create_order_details_txt(
         order_number, contact_info, photo_settings, total_photos, crop_option, fill_white_option, price_info
     )
+    
+    # Add photo count summary by format
+    format_counts = {}
+    for photo in photo_settings:
+        photo_format = photo['format']
+        format_counts[photo_format] = format_counts.get(photo_format, 0) + photo['quantity']
+    
+    summary = "\n\n═══════════════════════════════════════════════════════════════════\n\n"
+    summary += "REKAPITULACIJA PO FORMATIMA:\n"
+    summary += "─────────────────────────────\n"
+    for fmt, count in sorted(format_counts.items()):
+        summary += f"Format {fmt} cm: {count} fotografija\n"
+    summary += f"\n──────────────────────────────\n"
+    summary += f"UKUPNO: {total_photos} fotografija\n"
+    summary += "\n═══════════════════════════════════════════════════════════════════\n"
+    
+    order_details_content += summary
     
     order_details_path = os.path.join(order_dir, 'order_details.txt')
     with open(order_details_path, 'w', encoding='utf-8') as f:
         f.write(order_details_content)
     
-    # Create ZIP file
+    # Create ZIP file with organized structure
     with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
-        # Add order_details.txt
+        # Add order_details.txt to root
         zipf.write(order_details_path, 'order_details.txt')
         
-        # Add all photos
+        # Organize photos by format and paper type
         for photo_setting in photo_settings:
             photo_path = os.path.join(order_dir, photo_setting['fileName'])
             if os.path.exists(photo_path):
-                zipf.write(photo_path, photo_setting['fileName'])
+                photo_format = photo_setting['format']
+                paper_type = photo_setting['finish'].lower()  # 'sjajni' or 'mat'
+                
+                # Create folder structure: format/paper_type/photo.jpg
+                archive_path = f"{photo_format}/{paper_type}/{photo_setting['fileName']}"
+                zipf.write(photo_path, archive_path)
     
     return zip_path
