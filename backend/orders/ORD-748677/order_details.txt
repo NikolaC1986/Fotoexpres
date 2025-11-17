@@ -1,0 +1,76 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                    FOTOEXPRES - DETALJI PORUDŽBINE                ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+BROJ PORUDŽBINE: ORD-748677
+DATUM: 2025-11-17 15:28:46
+
+═══════════════════════════════════════════════════════════════════
+
+INFORMACIJE O KLIJENTU:
+─────────────────────────
+Ime i prezime: Large File Test User
+Email: largefile@example.com
+Telefon: +381661234567
+Ulica i broj: 123 Test Street
+Poštanski broj: 11000
+Grad: Belgrade
+Napomene: Testing large file upload
+
+═══════════════════════════════════════════════════════════════════
+
+OPCIJE OBRADE FOTOGRAFIJA:
+───────────────────────────
+• Kropovati fotografiju kako bi je prilagodili formatu: NE
+• Popuniti belim: NE
+
+═══════════════════════════════════════════════════════════════════
+
+SPECIFIKACIJA FOTOGRAFIJA:
+───────────────────────────
+
+1. large_photo.jpg
+   Format: 20x30 cm
+   Tip papira: Sjajni
+   Količina: 1 kom
+   Cena po komadu: 150 RSD
+   Ukupno za ovu fotografiju: 150 RSD
+   ───────────────────────────
+
+═══════════════════════════════════════════════════════════════════
+
+OBRAČUN CENE:
+─────────────────────────
+
+Ukupan broj fotografija: 1 komada
+Osnovna cena fotografija: 150 RSD
+
+Dostava: 400 RSD
+   • Standardna dostava
+
+──────────────────────────────
+UKUPNO ZA NAPLATU: 550 RSD
+
+═══════════════════════════════════════════════════════════════════
+
+NAČIN PLAĆANJA: Plaćanje pouzećem (kuriru prilikom isporuke)
+ROK DOSTAVE: 2-7 radnih dana
+
+═══════════════════════════════════════════════════════════════════
+
+Hvala vam što ste odabrali Fotoexpres!
+Za sva pitanja kontaktirajte nas na: kontakt@fotoexpres.rs
+
+═══════════════════════════════════════════════════════════════════
+
+
+═══════════════════════════════════════════════════════════════════
+
+REKAPITULACIJA PO FORMATIMA:
+─────────────────────────────
+Format 20x30 cm: 1 fotografija
+
+──────────────────────────────
+UKUPNO: 1 fotografija
+
+═══════════════════════════════════════════════════════════════════
