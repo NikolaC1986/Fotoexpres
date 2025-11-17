@@ -858,7 +858,9 @@ class PhotoOrderTester:
                 "fullName": "Large Upload Test User",
                 "email": "largeupload@example.com",
                 "phone": "+381661234567",
-                "address": "123 Test Street, Belgrade, 11000",
+                "street": "123 Test Street",
+                "postalCode": "11000",
+                "city": "Belgrade", 
                 "notes": "Testing large upload with 25 photos"
             },
             "photoSettings": photo_settings
