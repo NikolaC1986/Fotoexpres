@@ -171,7 +171,9 @@ class PhotoOrderTester:
                 "fullName": "Test User",
                 "email": "test@example.com",
                 "phone": "+381661234567",
-                "address": "123 Test Street, Belgrade, 11000",
+                "street": "123 Test Street",
+                "postalCode": "11000",
+                "city": "Belgrade",
                 "notes": "Please handle with care"
             },
             "photoSettings": []
