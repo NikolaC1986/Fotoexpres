@@ -251,7 +251,7 @@ const UploadPage = () => {
       return;
     }
 
-    if (!contactInfo.fullName || !contactInfo.email || !contactInfo.phone || !contactInfo.address) {
+    if (!contactInfo.fullName || !contactInfo.email || !contactInfo.phone || !contactInfo.street || !contactInfo.postalCode || !contactInfo.city) {
       toast({
         title: "Nedostaju informacije",
         description: "Molimo vas da popunite sva obavezna polja",
