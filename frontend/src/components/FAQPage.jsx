@@ -46,7 +46,15 @@ const FAQPage = () => {
     {
       icon: <CreditCard className="w-6 h-6" />,
       question: "Koje su cene fotografija?",
-      answer: "Cene fotografija možete pronaći na našem sajtu u odeljku 'Cenovnik' ili klikom na link ispod. Cene se kreću od 12 RSD za format 9x13 cm do 250 RSD za format 30x45 cm."
+      answer: (
+        <span>
+          Cene fotografija možete pronaći na našoj stranici{' '}
+          <Link to="/prices" className="text-orange-600 font-semibold hover:underline">
+            Cenovnik
+          </Link>
+          .
+        </span>
+      )
     },
     {
       icon: <MapPin className="w-6 h-6" />,
