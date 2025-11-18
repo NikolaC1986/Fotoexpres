@@ -170,51 +170,55 @@ const AdminDashboard = () => {
             <p className="text-gray-600 mt-2">Upravljanje porudžbinama fotografija</p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Link to="/logovanje/prices">
-              <Button 
-                variant="outline" 
-                className="gap-2 border-2 border-orange-600 text-orange-600 hover:bg-orange-50"
-              >
-                <DollarSign size={18} />
-                Cene
-              </Button>
-            </Link>
-            <Link to="/logovanje/discounts">
-              <Button 
-                variant="outline" 
-                className="gap-2 border-2 border-purple-600 text-purple-600 hover:bg-purple-50"
-              >
-                <DollarSign size={18} />
-                Popusti
-              </Button>
-            </Link>
-            <Link to="/logovanje/promotion">
-              <Button 
-                variant="outline" 
-                className="gap-2 border-2 border-pink-600 text-pink-600 hover:bg-pink-50"
-              >
-                <DollarSign size={18} />
-                Promocija
-              </Button>
-            </Link>
-            <Link to="/logovanje/settings">
-              <Button 
-                variant="outline" 
-                className="gap-2 border-2 border-green-600 text-green-600 hover:bg-green-50"
-              >
-                <Settings size={18} />
-                Podešavanja
-              </Button>
-            </Link>
-            <Link to="/logovanje/password">
-              <Button 
-                variant="outline" 
-                className="gap-2 border-2 border-blue-600 text-blue-600 hover:bg-blue-50"
-              >
-                <Settings size={18} />
-                Lozinka
-              </Button>
-            </Link>
+            {userRole === 'admin' && (
+              <>
+                <Link to="/logovanje/prices">
+                  <Button 
+                    variant="outline" 
+                    className="gap-2 border-2 border-orange-600 text-orange-600 hover:bg-orange-50"
+                  >
+                    <DollarSign size={18} />
+                    Cene
+                  </Button>
+                </Link>
+                <Link to="/logovanje/discounts">
+                  <Button 
+                    variant="outline" 
+                    className="gap-2 border-2 border-purple-600 text-purple-600 hover:bg-purple-50"
+                  >
+                    <DollarSign size={18} />
+                    Popusti
+                  </Button>
+                </Link>
+                <Link to="/logovanje/promotion">
+                  <Button 
+                    variant="outline" 
+                    className="gap-2 border-2 border-pink-600 text-pink-600 hover:bg-pink-50"
+                  >
+                    <DollarSign size={18} />
+                    Promocija
+                  </Button>
+                </Link>
+                <Link to="/logovanje/settings">
+                  <Button 
+                    variant="outline" 
+                    className="gap-2 border-2 border-green-600 text-green-600 hover:bg-green-50"
+                  >
+                    <Settings size={18} />
+                    Podešavanja
+                  </Button>
+                </Link>
+                <Link to="/logovanje/password">
+                  <Button 
+                    variant="outline" 
+                    className="gap-2 border-2 border-blue-600 text-blue-600 hover:bg-blue-50"
+                  >
+                    <Settings size={18} />
+                    Lozinka
+                  </Button>
+                </Link>
+              </>
+            )}
             <Button 
               onClick={handleLogout}
               variant="outline" 
