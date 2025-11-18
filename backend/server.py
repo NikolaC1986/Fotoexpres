@@ -233,15 +233,17 @@ async def verify_admin_token(authorization: Optional[str] = Header(None)):
 # Admin Login
 @api_router.post("/admin/login", response_model=AdminToken)
 async def admin_login(credentials: AdminLogin):
-    if not verify_admin_credentials(credentials.username, credentials.password):
+    role = verify_admin_credentials(credentials.username, credentials.password)
+    if not role:
         raise HTTPException(status_code=401, detail="Invalid credentials")
     
-    token = create_access_token({"sub": credentials.username, "role": "admin"})
+    token = create_access_token({"sub": credentials.username, "role": role})
     
     return AdminToken(
         success=True,
         token=token,
-        message="Login successful"
+        message="Login successful",
+        role=role
     )
 
 # Change Admin Credentials (Admin Only)
