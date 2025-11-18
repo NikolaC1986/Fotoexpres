@@ -14,10 +14,13 @@ const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({ total: 0, pending: 0, completed: 0 });
+  const [userRole, setUserRole] = useState('admin');
 
   useEffect(() => {
     document.title = 'Produkcija | Fotoexpres';
     const token = localStorage.getItem('adminToken');
+    const role = localStorage.getItem('adminRole') || 'admin';
+    setUserRole(role);
     if (!token) {
       navigate('/logovanje');
       return;
