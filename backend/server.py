@@ -276,7 +276,8 @@ async def verify_admin_token(authorization: Optional[str] = Header(None)):
 
 # Admin Login
 @api_router.post("/admin/login", response_model=AdminToken)
-async def admin_login(credentials: AdminLogin):
+@limiter.limit("5/minute")  # SECURITY: Max 5 login attempts per minute
+async def admin_login(request: Request, credentials: AdminLogin):
     role = verify_admin_credentials(credentials.username, credentials.password)
     if not role:
         raise HTTPException(status_code=401, detail="Invalid credentials")
