@@ -10,7 +10,7 @@ ACCESS_TOKEN_EXPIRE_HOURS = 24
 
 # Admin credentials from environment variables
 ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'Vlasnik')
-ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'Fotoexpres2025!')
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', '$ta$Graca25')
 
 # Viewer credentials (read-only access)
 VIEWER_USERNAME = os.environ.get('VIEWER_USERNAME', 'Menadzer')
