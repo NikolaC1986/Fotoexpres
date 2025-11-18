@@ -278,6 +278,7 @@ const AdminDashboard = () => {
                 <thead>
                   <tr className="border-b-2 border-gray-200">
                     <th className="text-left py-4 px-4 font-semibold text-gray-700">Broj Porudžbine</th>
+                    <th className="text-left py-4 px-4 font-semibold text-gray-700">Datum i Vreme</th>
                     <th className="text-left py-4 px-4 font-semibold text-gray-700">Kupac</th>
                     <th className="text-left py-4 px-4 font-semibold text-gray-700">Kontakt</th>
                     <th className="text-left py-4 px-4 font-semibold text-gray-700">Fotografija</th>
@@ -289,10 +290,19 @@ const AdminDashboard = () => {
                   {orders.map((order) => (
                     <tr key={order.orderNumber} className="border-b border-gray-200 hover:bg-gray-50">
                       <td className="py-4 px-4 font-mono font-semibold text-blue-600">{order.orderNumber}</td>
+                      <td className="py-4 px-4 text-sm text-gray-600">
+                        {new Date(order.createdAt).toLocaleString('sr-RS', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}
+                      </td>
                       <td className="py-4 px-4">
                         <div>
                           <div className="font-semibold">{order.contactInfo.fullName}</div>
-                          <div className="text-sm text-gray-500">{order.contactInfo.address}</div>
+                          <div className="text-sm text-gray-500">{order.contactInfo.street || order.contactInfo.address}</div>
                         </div>
                       </td>
                       <td className="py-4 px-4">
