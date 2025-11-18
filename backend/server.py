@@ -762,12 +762,21 @@ async def get_public_promotion():
 # Include the router in the main app
 app.include_router(api_router)
 
-# Add CORS middleware
+# Add CORS middleware - SECURE: Only allow your domain
+cors_origins = os.environ.get('CORS_ORIGINS', '*').split(',')
+if cors_origins == ['*']:
+    # Production: restrict to your domain only
+    cors_origins = [
+        "https://fotoexpres.rs",
+        "https://www.fotoexpres.rs",
+        "http://localhost:3000"  # Development only
+    ]
+
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=["*"],
-    allow_methods=["*"],
+    allow_origins=cors_origins,
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["*"],
     expose_headers=["Content-Disposition"]
 )
