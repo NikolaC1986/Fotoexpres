@@ -12,6 +12,10 @@ ACCESS_TOKEN_EXPIRE_HOURS = 24
 ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'Vlasnik')
 ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'Fotoexpres2025!')
 
+# Viewer credentials (read-only access)
+VIEWER_USERNAME = os.environ.get('VIEWER_USERNAME', 'Menadzer')
+VIEWER_PASSWORD = os.environ.get('VIEWER_PASSWORD', 'Menadzer2025!')
+
 class AdminLogin(BaseModel):
     username: str
     password: str
@@ -20,6 +24,7 @@ class AdminToken(BaseModel):
     success: bool
     token: str
     message: str
+    role: str  # "admin" or "viewer"
 
 class ChangeCredentials(BaseModel):
     currentPassword: str
@@ -43,7 +48,12 @@ def verify_token(token: str):
         return None
 
 def verify_admin_credentials(username: str, password: str):
-    return username == ADMIN_USERNAME and password == ADMIN_PASSWORD
+    """Verify credentials and return role"""
+    if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+        return "admin"
+    elif username == VIEWER_USERNAME and password == VIEWER_PASSWORD:
+        return "viewer"
+    return None
 
 def update_env_file(new_username: str = None, new_password: str = None):
     """Update .env file with new credentials"""
