@@ -35,12 +35,13 @@ const AdminLogin = () => {
       });
       
       if (response.data.success && response.data.token) {
-        // Store the JWT token from backend
+        // Store the JWT token and role from backend
         localStorage.setItem('adminToken', response.data.token);
+        localStorage.setItem('adminRole', response.data.role);
         
         toast({
           title: "Uspešno prijavljivanje",
-          description: "Dobrodošli u admin panel"
+          description: `Dobrodošli u admin panel${response.data.role === 'viewer' ? ' (pregled)' : ''}`
         });
         
         navigate('/logovanje/dashboard');
