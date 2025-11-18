@@ -89,6 +89,42 @@ async def create_order(
     order_details: str = Form(...)
 ):
     try:
+        # SECURITY: Validate file uploads
+        ALLOWED_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.heic', '.heif'}
+        ALLOWED_MIME_TYPES = {
+            'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 
+            'image/bmp', 'image/webp', 'image/heic', 'image/heif'
+        }
+        MAX_FILE_SIZE = 50 * 1024 * 1024  # 50MB per file
+        
+        for photo in photos:
+            # Check file extension
+            file_ext = os.path.splitext(photo.filename)[1].lower()
+            if file_ext not in ALLOWED_EXTENSIONS:
+                raise HTTPException(
+                    status_code=400, 
+                    detail=f"Nedozvoljen tip fajla: {file_ext}. Dozvoljeni: {', '.join(ALLOWED_EXTENSIONS)}"
+                )
+            
+            # Check MIME type
+            if photo.content_type not in ALLOWED_MIME_TYPES:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Nedozvoljen MIME tip: {photo.content_type}"
+                )
+            
+            # Check file size (read first chunk to verify it's not empty)
+            content = await photo.read(MAX_FILE_SIZE + 1)
+            if len(content) == 0:
+                raise HTTPException(status_code=400, detail=f"Fajl je prazan: {photo.filename}")
+            if len(content) > MAX_FILE_SIZE:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Fajl je prevelik: {photo.filename} (max 50MB)"
+                )
+            # Reset file pointer
+            await photo.seek(0)
+        
         # Parse order details
         order_data = json.loads(order_details)
         order_details_obj = OrderDetails(**order_data)
