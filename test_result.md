@@ -489,6 +489,42 @@ backend:
           agent: "testing"
           comment: "✅ ROLE-BASED AUTHENTICATION TESTING COMPLETE - All 6 authentication tests passed (100% success rate). ADMIN LOGIN: Successfully tested with credentials 'Vlasnik' / '$ta$Graca25' - returns JWT token with role='admin', success=true, proper message. VIEWER LOGIN: Successfully tested with credentials 'Menadzer' / 'Menadzer2025!' - returns JWT token with role='viewer', success=true, proper message. INVALID CREDENTIALS: Correctly rejects invalid credentials with 401 Unauthorized. JWT TOKEN VERIFICATION: Both admin and viewer tokens correctly contain role information in payload - admin token has role='admin', viewer token has role='viewer'. ENDPOINT ACCESS: Both admin and viewer roles can access protected endpoints (/admin/orders, /admin/settings) with valid tokens. Unauthorized access (no token) correctly returns 401. Role-based authentication system fully functional and production-ready."
 
+  - task: "ZIP Structure with Quantity Folders"
+    implemented: true
+    working: true
+    file: "/app/backend/utils/order_utils.py, /app/backend/server.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ ZIP STRUCTURE WITH QUANTITY FOLDERS WORKING - Successfully tested order creation with mixed quantities as specified in review request. Created test order with 2 photos quantity 5, 3 photos quantity 10, 1 photo quantity 1. ZIP structure correctly organized as format/finish/quantity/photo.jpg pattern. Verified structure: 9x13/sjajni/5/photo1.jpg, 9x13/sjajni/10/photo2.jpg, 10x15/mat/1/photo3.jpg. Order ORD-691280 created and ZIP downloaded successfully. Structure matches expected format/finish/quantity/photo.jpg exactly as requested."
+
+  - task: "Change Viewer Password Endpoint"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py, /app/backend/models/admin.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ CHANGE VIEWER PASSWORD ENDPOINT WORKING - POST /api/admin/change-viewer-password fully functional. Tested 3 scenarios: 1) Admin token successfully changes viewer password (200 OK, success=true, message='Viewer password updated successfully'). 2) Viewer token correctly forbidden from changing password (403 Forbidden). 3) Password validation enforces minimum 8 characters (400 Bad Request with validation message). Viewer password successfully changed from 'Menadzer2025!' to 'NovaŠifra123!' and persisted in .env file. All authentication and authorization working correctly."
+
+  - task: "Working Hours in Settings"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ WORKING HOURS IN SETTINGS WORKING - All 3 endpoints functional: 1) GET /api/settings returns workingHours field in public settings after initial setup. 2) GET /api/admin/settings returns workingHours field in admin settings. 3) PUT /api/admin/settings successfully updates and persists workingHours field. Tested with example data 'Pon-Pet: 08:00-17:00, Sub: 09:00-14:00' - update successful, data persisted in MongoDB, available in both public and admin endpoints. Working hours functionality fully implemented and production-ready."
+
 frontend:
   - task: "Homepage Navigation and UI Elements"
     implemented: true
