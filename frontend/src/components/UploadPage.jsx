@@ -30,6 +30,7 @@ const UploadPage = () => {
   const [freeDeliveryLimit, setFreeDeliveryLimit] = useState(5000);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const [quantityDiscounts, setQuantityDiscounts] = useState({ '50': 5, '100': 10, '200': 15 });
   const [promotion, setPromotion] = useState(null);
   const [deliveryPrice, setDeliveryPrice] = useState(400);
