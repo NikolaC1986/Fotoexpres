@@ -250,7 +250,7 @@ const HomePage = () => {
               <ul className="space-y-2 text-sm md:text-base text-gray-400">
                 <li>{contactInfo.phone}</li>
                 <li>{contactInfo.email}</li>
-                <li>Pon - Pet: 09:00 - 18:00</li>
+                <li>{contactInfo.workingHours}</li>
               </ul>
             </div>
           </div>
