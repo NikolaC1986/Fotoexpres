@@ -588,11 +588,13 @@ const UploadPage = () => {
                   <Card key={photo.id} className="p-6 hover:shadow-xl transition-shadow bg-white border-2 border-gray-200">
                     <div className="grid md:grid-cols-6 gap-6 items-center">
                       <div className="relative group">
-                        <img 
-                          src={photo.preview} 
-                          alt="Pregled" 
-                          className="w-full h-32 object-cover rounded-lg"
-                        />
+                        <div className="w-full h-32 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                          <img 
+                            src={photo.preview} 
+                            alt="Pregled" 
+                            className="max-w-full max-h-full object-contain"
+                          />
+                        </div>
                         <button
                           onClick={() => removePhoto(photo.id)}
                           className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-red-600"
