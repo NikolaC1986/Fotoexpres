@@ -120,3 +120,11 @@ backend/orders_zips/order-ORD-643449.zip
 # Environment files
 *.env
 *.env.*
+-e 
+# Environment files
+*.env
+*.env.*
+-e 
+# Environment files
+*.env
+*.env.*
