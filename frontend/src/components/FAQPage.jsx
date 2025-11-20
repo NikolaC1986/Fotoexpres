@@ -13,7 +13,8 @@ const FAQPage = () => {
   const [deliveryPrice, setDeliveryPrice] = useState(400);
   const [contactInfo, setContactInfo] = useState({
     phone: '+381 65 46 000 46',
-    email: 'kontakt@fotoexpres.rs'
+    email: 'kontakt@fotoexpres.rs',
+    workingHours: 'Pon-Pet: 08:00-17:00, Sub: 09:00-14:00'
   });
 
   useEffect(() => {
@@ -29,7 +30,8 @@ const FAQPage = () => {
         setDeliveryPrice(response.data.settings.deliveryPrice || 400);
         setContactInfo({
           phone: response.data.settings.contactPhone || '+381 65 46 000 46',
-          email: response.data.settings.contactEmail || 'kontakt@fotoexpres.rs'
+          email: response.data.settings.contactEmail || 'kontakt@fotoexpres.rs',
+          workingHours: response.data.settings.workingHours || 'Pon-Pet: 08:00-17:00, Sub: 09:00-14:00'
         });
       }
     } catch (error) {
