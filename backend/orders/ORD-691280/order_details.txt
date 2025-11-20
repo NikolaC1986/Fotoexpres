@@ -1,0 +1,93 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                    FOTOEXPRES - DETALJI PORUDŽBINE                ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+BROJ PORUDŽBINE: ORD-691280
+DATUM: 2025-11-20 15:43:35
+
+═══════════════════════════════════════════════════════════════════
+
+INFORMACIJE O KLIJENTU:
+─────────────────────────
+Ime i prezime: Marko Petrović
+Email: marko@example.com
+Telefon: 0641234567
+Ulica i broj: Knez Mihailova 42
+Poštanski broj: 11000
+Grad: Beograd
+Napomene: Test ZIP strukture sa količinama
+
+═══════════════════════════════════════════════════════════════════
+
+OPCIJE OBRADE FOTOGRAFIJA:
+───────────────────────────
+• Kropovati fotografiju kako bi je prilagodili formatu: NE
+• Popuniti belim: NE
+
+═══════════════════════════════════════════════════════════════════
+
+SPECIFIKACIJA FOTOGRAFIJA:
+───────────────────────────
+
+1. photo1.jpg
+   Format: 9x13 cm
+   Tip papira: Sjajni
+   Količina: 5 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 60 RSD
+   ───────────────────────────
+
+2. photo2.jpg
+   Format: 9x13 cm
+   Tip papira: Sjajni
+   Količina: 10 kom
+   Cena po komadu: 12 RSD
+   Ukupno za ovu fotografiju: 120 RSD
+   ───────────────────────────
+
+3. photo3.jpg
+   Format: 10x15 cm
+   Tip papira: Mat
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+═══════════════════════════════════════════════════════════════════
+
+OBRAČUN CENE:
+─────────────────────────
+
+Ukupan broj fotografija: 16 komada
+Osnovna cena fotografija: 198 RSD
+
+Dostava: 400 RSD
+   • Standardna dostava
+
+──────────────────────────────
+UKUPNO ZA NAPLATU: 598 RSD
+
+═══════════════════════════════════════════════════════════════════
+
+NAČIN PLAĆANJA: Plaćanje pouzećem (kuriru prilikom isporuke)
+ROK DOSTAVE: 2-7 radnih dana
+
+═══════════════════════════════════════════════════════════════════
+
+Hvala vam što ste odabrali Fotoexpres!
+Za sva pitanja kontaktirajte nas na: kontakt@fotoexpres.rs
+
+═══════════════════════════════════════════════════════════════════
+
+
+═══════════════════════════════════════════════════════════════════
+
+REKAPITULACIJA PO FORMATIMA:
+─────────────────────────────
+Format 10x15 cm: 1 fotografija
+Format 9x13 cm: 15 fotografija
+
+──────────────────────────────
+UKUPNO: 16 fotografija
+
+═══════════════════════════════════════════════════════════════════
