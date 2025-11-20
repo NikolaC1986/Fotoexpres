@@ -901,6 +901,17 @@ const UploadPage = () => {
           </Card>
         )}
       </div>
+
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-8 right-8 bg-orange-600 hover:bg-orange-700 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 z-50"
+          aria-label="Nazad na vrh"
+        >
+          <ArrowUp size={24} />
+        </button>
+      )}
     </div>
   );
 };
