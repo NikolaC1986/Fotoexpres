@@ -50,6 +50,18 @@ const UploadPage = () => {
     fetchDiscounts();
     fetchPromotion();
     fetchPrices();
+    
+    // Back to Top button visibility
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowBackToTop(true);
+      } else {
+        setShowBackToTop(false);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const fetchSettings = async () => {
