@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Save, Key, Eye, EyeOff } from 'lucide-react';
+import { ArrowLeft, Save, Key, Eye, EyeOff, UserCog } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
@@ -13,22 +13,27 @@ const API = `${BACKEND_URL}/api`;
 
 const AdminPassword = () => {
   const navigate = useNavigate();
+  const [userRole, setUserRole] = useState('admin');
   const [showPasswords, setShowPasswords] = useState({
     current: false,
     new: false,
-    confirm: false
+    confirm: false,
+    viewerNew: false
   });
   const [passwords, setPasswords] = useState({
     currentPassword: '',
     newPassword: '',
     confirmPassword: ''
   });
+  const [viewerPassword, setViewerPassword] = useState('');
   const [username, setUsername] = useState('');
   const [newUsername, setNewUsername] = useState('');
 
   useEffect(() => {
     document.title = 'Promena Lozinke | Fotoexpres';
     const token = localStorage.getItem('adminToken');
+    const role = localStorage.getItem('adminRole') || 'admin';
+    setUserRole(role);
     if (!token) {
       navigate('/logovanje');
       return;
@@ -36,7 +41,6 @@ const AdminPassword = () => {
   }, [navigate]);
 
   const handleSavePassword = async () => {
-    // Validate inputs
     if (!passwords.currentPassword || !passwords.newPassword || !passwords.confirmPassword) {
       toast({
         title: "Greška",
@@ -46,7 +50,6 @@ const AdminPassword = () => {
       return;
     }
 
-    // Check if new passwords match
     if (passwords.newPassword !== passwords.confirmPassword) {
       toast({
         title: "Greška",
@@ -56,7 +59,6 @@ const AdminPassword = () => {
       return;
     }
 
-    // Check password strength
     if (passwords.newPassword.length < 8) {
       toast({
         title: "Greška",
@@ -86,16 +88,15 @@ const AdminPassword = () => {
           description: "Kredencijali su uspešno promenjeni. Molimo prijavite se ponovo."
         });
 
-        // Clear form
         setPasswords({
           currentPassword: '',
           newPassword: '',
           confirmPassword: ''
         });
 
-        // Logout after 2 seconds
         setTimeout(() => {
           localStorage.removeItem('adminToken');
+          localStorage.removeItem('adminRole');
           navigate('/logovanje');
         }, 2000);
       }
@@ -108,20 +109,20 @@ const AdminPassword = () => {
     }
   };
 
-  const handleSaveUsername = async () => {
-    if (!newUsername || newUsername.trim() === '') {
+  const handleChangeViewerPassword = async () => {
+    if (!viewerPassword || viewerPassword.trim() === '') {
       toast({
         title: "Greška",
-        description: "Korisničko ime ne može biti prazno",
+        description: "Molimo unesite novu lozinku za Menadžer nalog",
         variant: "destructive"
       });
       return;
     }
 
-    if (!passwords.currentPassword) {
+    if (viewerPassword.length < 8) {
       toast({
         title: "Greška",
-        description: "Morate uneti trenutnu lozinku da biste promenili korisničko ime",
+        description: "Lozinka mora imati najmanje 8 karaktera",
         variant: "destructive"
       });
       return;
@@ -130,10 +131,9 @@ const AdminPassword = () => {
     try {
       const token = localStorage.getItem('adminToken');
       const response = await axios.post(
-        `${API}/admin/change-credentials`,
+        `${API}/admin/change-viewer-password`,
         {
-          currentPassword: passwords.currentPassword,
-          newUsername: newUsername
+          newViewerPassword: viewerPassword
         },
         {
           headers: { 'Authorization': `Bearer ${token}` }
@@ -141,23 +141,17 @@ const AdminPassword = () => {
       );
 
       if (response.data.success) {
-        setUsername(newUsername);
-        
         toast({
           title: "Uspešno",
-          description: "Korisničko ime je uspešno promenjeno. Molimo prijavite se ponovo."
+          description: "Lozinka za Menadžer nalog je uspešno promenjena."
         });
 
-        // Logout after 2 seconds
-        setTimeout(() => {
-          localStorage.removeItem('adminToken');
-          navigate('/logovanje');
-        }, 2000);
+        setViewerPassword('');
       }
     } catch (error) {
       toast({
         title: "Greška",
-        description: error.response?.data?.detail || "Nije moguće promeniti korisničko ime",
+        description: error.response?.data?.detail || "Nije moguće promeniti lozinku za Menadžer",
         variant: "destructive"
       });
     }
@@ -175,7 +169,7 @@ const AdminPassword = () => {
             </Button>
           </Link>
           <h1 className="text-4xl font-bold text-gray-900">Sigurnost i pristup</h1>
-          <p className="text-gray-600 mt-2">Promenite korisničko ime i lozinku za admin panel</p>
+          <p className="text-gray-600 mt-2">Promenite korisničko ime i lozinku</p>
         </div>
 
         {/* Username Section */}
@@ -214,12 +208,9 @@ const AdminPassword = () => {
                 className="text-lg border-2"
                 placeholder="Unesite trenutnu lozinku"
               />
-              <p className="text-sm text-gray-500 mt-2">
-                Potrebna je trenutna lozinka za promenu korisničkog imena
-              </p>
             </div>
             <Button
-              onClick={handleSaveUsername}
+              onClick={handleSavePassword}
               className="bg-blue-600 hover:bg-blue-700 text-white gap-2"
             >
               <Save size={18} />
@@ -235,13 +226,12 @@ const AdminPassword = () => {
               <Key className="w-6 h-6 text-orange-600" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Promena lozinke</h2>
-              <p className="text-gray-600">Promenite lozinku za admin panel</p>
+              <h2 className="text-2xl font-bold text-gray-900">Promena lozinke (Vlasnik)</h2>
+              <p className="text-gray-600">Promenite svoju admin lozinku</p>
             </div>
           </div>
 
           <div className="max-w-md space-y-6">
-            {/* Current Password */}
             <div>
               <Label className="text-base font-semibold mb-3 block">
                 Trenutna lozinka
@@ -251,20 +241,19 @@ const AdminPassword = () => {
                   type={showPasswords.current ? "text" : "password"}
                   value={passwords.currentPassword}
                   onChange={(e) => setPasswords({...passwords, currentPassword: e.target.value})}
-                  className="text-lg border-2 pr-10"
-                  placeholder="Unesite trenutnu lozinku"
+                  className="text-lg border-2 pr-12"
+                  placeholder="Trenutna lozinka"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPasswords({...showPasswords, current: !showPasswords.current})}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2"
                 >
                   {showPasswords.current ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
             </div>
 
-            {/* New Password */}
             <div>
               <Label className="text-base font-semibold mb-3 block">
                 Nova lozinka
@@ -274,39 +263,35 @@ const AdminPassword = () => {
                   type={showPasswords.new ? "text" : "password"}
                   value={passwords.newPassword}
                   onChange={(e) => setPasswords({...passwords, newPassword: e.target.value})}
-                  className="text-lg border-2 pr-10"
-                  placeholder="Unesite novu lozinku"
+                  className="text-lg border-2 pr-12"
+                  placeholder="Nova lozinka (min 8 karaktera)"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPasswords({...showPasswords, new: !showPasswords.new})}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2"
                 >
                   {showPasswords.new ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
-              <p className="text-sm text-gray-500 mt-2">
-                Lozinka mora imati najmanje 8 karaktera
-              </p>
             </div>
 
-            {/* Confirm Password */}
             <div>
               <Label className="text-base font-semibold mb-3 block">
-                Potvrdite novu lozinku
+                Potvrda nove lozinke
               </Label>
               <div className="relative">
                 <Input
                   type={showPasswords.confirm ? "text" : "password"}
                   value={passwords.confirmPassword}
                   onChange={(e) => setPasswords({...passwords, confirmPassword: e.target.value})}
-                  className="text-lg border-2 pr-10"
-                  placeholder="Ponovite novu lozinku"
+                  className="text-lg border-2 pr-12"
+                  placeholder="Potvrdite novu lozinku"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPasswords({...showPasswords, confirm: !showPasswords.confirm})}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2"
                 >
                   {showPasswords.confirm ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
@@ -315,26 +300,63 @@ const AdminPassword = () => {
 
             <Button
               onClick={handleSavePassword}
-              size="lg"
-              className="w-full bg-orange-600 hover:bg-orange-700 text-white gap-2"
+              className="bg-orange-600 hover:bg-orange-700 text-white gap-2 w-full"
             >
-              <Save size={20} />
-              Sačuvaj lozinku
+              <Save size={18} />
+              Sačuvaj novu lozinku
             </Button>
           </div>
         </Card>
 
-        {/* Important Notice */}
-        <Card className="p-6 bg-red-50 border-2 border-red-200">
-          <h3 className="text-lg font-bold text-red-900 mb-3">⚠️ Važno</h3>
-          <ul className="text-sm text-red-800 space-y-2 list-disc list-inside">
-            <li>Čuvajte korisničko ime i lozinku na sigurnom mestu</li>
-            <li>Ne delite pristupne podatke ni sa kim</li>
-            <li>Koristite jaku lozinku sa kombinacijom slova, brojeva i specijalnih karaktera</li>
-            <li>Redovno menjajte lozinku (preporučeno svakih 3-6 meseci)</li>
-            <li>Link za pristup admin panelu je: <code className="bg-white px-2 py-1 rounded">/logovanje</code></li>
-          </ul>
-        </Card>
+        {/* Viewer Password Section - Only for Admin */}
+        {userRole === 'admin' && (
+          <Card className="p-8 border-2 border-green-200 bg-green-50">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="bg-green-600 w-12 h-12 rounded-full flex items-center justify-center">
+                <UserCog className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900">Promena lozinke - Menadžer nalog</h2>
+                <p className="text-gray-600">Promenite lozinku za Menadžer (Viewer) nalog</p>
+              </div>
+            </div>
+
+            <div className="max-w-md space-y-4">
+              <div>
+                <Label className="text-base font-semibold mb-3 block">
+                  Nova lozinka za Menadžer
+                </Label>
+                <div className="relative">
+                  <Input
+                    type={showPasswords.viewerNew ? "text" : "password"}
+                    value={viewerPassword}
+                    onChange={(e) => setViewerPassword(e.target.value)}
+                    className="text-lg border-2 pr-12"
+                    placeholder="Nova lozinka za Menadžer (min 8 karaktera)"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPasswords({...showPasswords, viewerNew: !showPasswords.viewerNew})}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                  >
+                    {showPasswords.viewerNew ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
+                <p className="text-sm text-gray-600 mt-2">
+                  ℹ️ Samo admin (Vlasnik) može promeniti lozinku za Menadžer nalog
+                </p>
+              </div>
+
+              <Button
+                onClick={handleChangeViewerPassword}
+                className="bg-green-600 hover:bg-green-700 text-white gap-2"
+              >
+                <Save size={18} />
+                Sačuvaj Menadžer lozinku
+              </Button>
+            </div>
+          </Card>
+        )}
       </div>
     </div>
   );
