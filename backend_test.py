@@ -927,6 +927,486 @@ class PhotoOrderTester:
             )
             return None
     
+    def test_zip_structure_with_quantity_folders(self):
+        """Test NEW FEATURE 1: ZIP Structure with Quantity Folders"""
+        print("\n=== Testing ZIP Structure with Quantity Folders ===")
+        
+        # Test data with mixed quantities as specified in review request
+        order_details = {
+            "contactInfo": {
+                "fullName": "Marko Petrović",
+                "email": "marko@example.com",
+                "phone": "0641234567",
+                "street": "Knez Mihailova 42",
+                "postalCode": "11000",
+                "city": "Beograd",
+                "notes": "Test ZIP strukture sa količinama"
+            },
+            "photoSettings": [
+                {
+                    "fileName": "photo1.jpg",
+                    "format": "9x13",
+                    "quantity": 5,
+                    "finish": "sjajni"
+                },
+                {
+                    "fileName": "photo2.jpg",
+                    "format": "9x13", 
+                    "quantity": 10,
+                    "finish": "sjajni"
+                },
+                {
+                    "fileName": "photo3.jpg",
+                    "format": "10x15",
+                    "quantity": 1,
+                    "finish": "mat"
+                }
+            ]
+        }
+        
+        try:
+            # Create test images
+            photo1_data, _ = self.create_test_image("photo1.jpg", 2)
+            photo2_data, _ = self.create_test_image("photo2.jpg", 2)
+            photo3_data, _ = self.create_test_image("photo3.jpg", 2)
+            
+            files = [
+                ('photos', ('photo1.jpg', photo1_data, 'image/jpeg')),
+                ('photos', ('photo2.jpg', photo2_data, 'image/jpeg')),
+                ('photos', ('photo3.jpg', photo3_data, 'image/jpeg'))
+            ]
+            
+            data = {
+                'order_details': json.dumps(order_details)
+            }
+            
+            # Create order
+            response = requests.post(f"{self.backend_url}/orders/create", files=files, data=data)
+            
+            if response.status_code != 200:
+                self.log_result(
+                    "ZIP Structure with Quantity Folders", 
+                    False, 
+                    f"Order creation failed: HTTP {response.status_code}: {response.text}"
+                )
+                return
+            
+            result = response.json()
+            if not result.get('success'):
+                self.log_result(
+                    "ZIP Structure with Quantity Folders", 
+                    False, 
+                    "Order creation success flag is False"
+                )
+                return
+            
+            order_number = result['orderNumber']
+            
+            # Login as admin to download ZIP
+            if not self.admin_token:
+                login_success = self.admin_login()
+                if not login_success:
+                    self.log_result(
+                        "ZIP Structure with Quantity Folders", 
+                        False, 
+                        "Cannot test ZIP structure - admin login failed"
+                    )
+                    return
+            
+            # Download ZIP file
+            headers = {"Authorization": f"Bearer {self.admin_token}"}
+            zip_response = requests.get(f"{self.backend_url}/admin/orders/{order_number}/download", headers=headers)
+            
+            if zip_response.status_code != 200:
+                self.log_result(
+                    "ZIP Structure with Quantity Folders", 
+                    False, 
+                    f"ZIP download failed: HTTP {zip_response.status_code}"
+                )
+                return
+            
+            # Save ZIP to temporary file and analyze structure
+            with tempfile.NamedTemporaryFile(suffix='.zip', delete=False) as temp_zip:
+                temp_zip.write(zip_response.content)
+                temp_zip_path = temp_zip.name
+            
+            try:
+                # Analyze ZIP structure
+                with zipfile.ZipFile(temp_zip_path, 'r') as zipf:
+                    file_list = zipf.namelist()
+                    
+                    # Expected structure: format/finish/quantity/photo.jpg
+                    expected_files = [
+                        'order_details.txt',
+                        '9x13/sjajni/5/photo1.jpg',
+                        '9x13/sjajni/10/photo2.jpg', 
+                        '10x15/mat/1/photo3.jpg'
+                    ]
+                    
+                    structure_correct = True
+                    missing_files = []
+                    
+                    for expected_file in expected_files:
+                        if expected_file not in file_list:
+                            missing_files.append(expected_file)
+                            structure_correct = False
+                    
+                    if not structure_correct:
+                        self.log_result(
+                            "ZIP Structure with Quantity Folders", 
+                            False, 
+                            f"ZIP structure incorrect. Missing files: {missing_files}",
+                            {"actual_files": file_list, "expected_files": expected_files}
+                        )
+                        return
+                    
+                    self.log_result(
+                        "ZIP Structure with Quantity Folders", 
+                        True, 
+                        f"✅ ZIP structure with quantity folders correct for order {order_number}",
+                        {
+                            "zip_files": file_list,
+                            "structure": "format/finish/quantity/photo.jpg verified",
+                            "example": "9x13/sjajni/5/photo1.jpg, 10x15/mat/1/photo3.jpg"
+                        }
+                    )
+                    
+            finally:
+                # Clean up temp file
+                os.unlink(temp_zip_path)
+                
+        except Exception as e:
+            self.log_result(
+                "ZIP Structure with Quantity Folders", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+    
+    def test_change_viewer_password_admin_success(self):
+        """Test NEW FEATURE 2a: Change Viewer Password - Admin Success"""
+        print("\n=== Testing Change Viewer Password - Admin Success ===")
+        
+        if not self.admin_token:
+            login_success = self.admin_login()
+            if not login_success:
+                self.log_result(
+                    "Change Viewer Password Admin Success", 
+                    False, 
+                    "Cannot test - admin login failed"
+                )
+                return
+        
+        try:
+            headers = {"Authorization": f"Bearer {self.admin_token}"}
+            data = {
+                "newViewerPassword": "NovaŠifra123!"
+            }
+            
+            response = requests.post(f"{self.backend_url}/admin/change-viewer-password", json=data, headers=headers)
+            
+            if response.status_code == 200:
+                result = response.json()
+                if result.get('success'):
+                    self.log_result(
+                        "Change Viewer Password Admin Success", 
+                        True, 
+                        "Admin successfully changed viewer password",
+                        {"message": result.get('message')}
+                    )
+                else:
+                    self.log_result(
+                        "Change Viewer Password Admin Success", 
+                        False, 
+                        "Response success flag is False"
+                    )
+            else:
+                self.log_result(
+                    "Change Viewer Password Admin Success", 
+                    False, 
+                    f"HTTP {response.status_code}: {response.text}"
+                )
+                
+        except Exception as e:
+            self.log_result(
+                "Change Viewer Password Admin Success", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+    
+    def test_change_viewer_password_viewer_forbidden(self):
+        """Test NEW FEATURE 2b: Change Viewer Password - Viewer Forbidden"""
+        print("\n=== Testing Change Viewer Password - Viewer Forbidden ===")
+        
+        # First login as viewer
+        try:
+            login_data = {
+                "username": "Menadzer",
+                "password": "Menadzer2025!"
+            }
+            
+            response = requests.post(f"{self.backend_url}/admin/login", json=login_data)
+            
+            if response.status_code != 200:
+                self.log_result(
+                    "Change Viewer Password Viewer Forbidden", 
+                    False, 
+                    f"Viewer login failed: HTTP {response.status_code}: {response.text}"
+                )
+                return
+            
+            result = response.json()
+            if not result.get('success') or not result.get('token'):
+                self.log_result(
+                    "Change Viewer Password Viewer Forbidden", 
+                    False, 
+                    "Viewer login response missing success or token"
+                )
+                return
+            
+            viewer_token = result['token']
+            
+            # Now try to change viewer password with viewer token (should fail)
+            headers = {"Authorization": f"Bearer {viewer_token}"}
+            data = {
+                "newViewerPassword": "NovaŠifra123!"
+            }
+            
+            response = requests.post(f"{self.backend_url}/admin/change-viewer-password", json=data, headers=headers)
+            
+            if response.status_code == 403:
+                self.log_result(
+                    "Change Viewer Password Viewer Forbidden", 
+                    True, 
+                    "Correctly rejected viewer attempt to change password (403)"
+                )
+            else:
+                self.log_result(
+                    "Change Viewer Password Viewer Forbidden", 
+                    False, 
+                    f"Expected 403, got {response.status_code}: {response.text}"
+                )
+                
+        except Exception as e:
+            self.log_result(
+                "Change Viewer Password Viewer Forbidden", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+    
+    def test_change_viewer_password_validation(self):
+        """Test NEW FEATURE 2c: Change Viewer Password - Validation"""
+        print("\n=== Testing Change Viewer Password - Validation ===")
+        
+        if not self.admin_token:
+            login_success = self.admin_login()
+            if not login_success:
+                self.log_result(
+                    "Change Viewer Password Validation", 
+                    False, 
+                    "Cannot test - admin login failed"
+                )
+                return
+        
+        try:
+            headers = {"Authorization": f"Bearer {self.admin_token}"}
+            data = {
+                "newViewerPassword": "short"  # Less than 8 characters
+            }
+            
+            response = requests.post(f"{self.backend_url}/admin/change-viewer-password", json=data, headers=headers)
+            
+            if response.status_code == 400 and "must be at least 8 characters" in response.text:
+                self.log_result(
+                    "Change Viewer Password Validation", 
+                    True, 
+                    "Correctly rejected short password (400)"
+                )
+            else:
+                self.log_result(
+                    "Change Viewer Password Validation", 
+                    False, 
+                    f"Expected 400 with validation message, got {response.status_code}: {response.text}"
+                )
+                
+        except Exception as e:
+            self.log_result(
+                "Change Viewer Password Validation", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+    
+    def test_working_hours_get_settings(self):
+        """Test NEW FEATURE 3a: Working Hours in GET /api/settings"""
+        print("\n=== Testing Working Hours in GET /api/settings ===")
+        
+        try:
+            response = requests.get(f"{self.backend_url}/settings")
+            
+            if response.status_code == 200:
+                result = response.json()
+                settings = result.get('settings', {})
+                working_hours = settings.get('workingHours')
+                
+                if working_hours:
+                    self.log_result(
+                        "Working Hours GET Settings", 
+                        True, 
+                        f"Working hours found in public settings: {working_hours}"
+                    )
+                else:
+                    self.log_result(
+                        "Working Hours GET Settings", 
+                        False, 
+                        "Working hours field missing from settings"
+                    )
+            else:
+                self.log_result(
+                    "Working Hours GET Settings", 
+                    False, 
+                    f"HTTP {response.status_code}: {response.text}"
+                )
+                
+        except Exception as e:
+            self.log_result(
+                "Working Hours GET Settings", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+    
+    def test_working_hours_get_admin_settings(self):
+        """Test NEW FEATURE 3b: Working Hours in GET /api/admin/settings"""
+        print("\n=== Testing Working Hours in GET /api/admin/settings ===")
+        
+        if not self.admin_token:
+            login_success = self.admin_login()
+            if not login_success:
+                self.log_result(
+                    "Working Hours GET Admin Settings", 
+                    False, 
+                    "Cannot test - admin login failed"
+                )
+                return
+        
+        try:
+            headers = {"Authorization": f"Bearer {self.admin_token}"}
+            response = requests.get(f"{self.backend_url}/admin/settings", headers=headers)
+            
+            if response.status_code == 200:
+                result = response.json()
+                settings = result.get('settings', {})
+                working_hours = settings.get('workingHours')
+                
+                if working_hours:
+                    self.log_result(
+                        "Working Hours GET Admin Settings", 
+                        True, 
+                        f"Working hours found in admin settings: {working_hours}"
+                    )
+                else:
+                    self.log_result(
+                        "Working Hours GET Admin Settings", 
+                        False, 
+                        "Working hours field missing from admin settings"
+                    )
+            else:
+                self.log_result(
+                    "Working Hours GET Admin Settings", 
+                    False, 
+                    f"HTTP {response.status_code}: {response.text}"
+                )
+                
+        except Exception as e:
+            self.log_result(
+                "Working Hours GET Admin Settings", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+    
+    def test_working_hours_update_admin_settings(self):
+        """Test NEW FEATURE 3c: Working Hours in PUT /api/admin/settings"""
+        print("\n=== Testing Working Hours in PUT /api/admin/settings ===")
+        
+        if not self.admin_token:
+            login_success = self.admin_login()
+            if not login_success:
+                self.log_result(
+                    "Working Hours PUT Admin Settings", 
+                    False, 
+                    "Cannot test - admin login failed"
+                )
+                return
+        
+        try:
+            # First get current settings
+            headers = {"Authorization": f"Bearer {self.admin_token}"}
+            get_response = requests.get(f"{self.backend_url}/admin/settings", headers=headers)
+            
+            if get_response.status_code != 200:
+                self.log_result(
+                    "Working Hours PUT Admin Settings", 
+                    False, 
+                    f"Cannot get current settings: HTTP {get_response.status_code}"
+                )
+                return
+            
+            current_settings = get_response.json().get('settings', {})
+            
+            # Update working hours
+            new_working_hours = "Pon-Pet: 08:00-17:00, Sub: 09:00-14:00"
+            updated_settings = current_settings.copy()
+            updated_settings['workingHours'] = new_working_hours
+            
+            data = {
+                "settings": updated_settings
+            }
+            
+            put_response = requests.put(f"{self.backend_url}/admin/settings", json=data, headers=headers)
+            
+            if put_response.status_code == 200:
+                result = put_response.json()
+                if result.get('success'):
+                    # Verify the update by getting settings again
+                    verify_response = requests.get(f"{self.backend_url}/admin/settings", headers=headers)
+                    if verify_response.status_code == 200:
+                        verify_settings = verify_response.json().get('settings', {})
+                        if verify_settings.get('workingHours') == new_working_hours:
+                            self.log_result(
+                                "Working Hours PUT Admin Settings", 
+                                True, 
+                                f"Working hours successfully updated and persisted: {new_working_hours}"
+                            )
+                        else:
+                            self.log_result(
+                                "Working Hours PUT Admin Settings", 
+                                False, 
+                                "Working hours update not persisted correctly"
+                            )
+                    else:
+                        self.log_result(
+                            "Working Hours PUT Admin Settings", 
+                            False, 
+                            "Cannot verify update - verification request failed"
+                        )
+                else:
+                    self.log_result(
+                        "Working Hours PUT Admin Settings", 
+                        False, 
+                        "Update response success flag is False"
+                    )
+            else:
+                self.log_result(
+                    "Working Hours PUT Admin Settings", 
+                    False, 
+                    f"HTTP {put_response.status_code}: {put_response.text}"
+                )
+                
+        except Exception as e:
+            self.log_result(
+                "Working Hours PUT Admin Settings", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+    
     def run_all_tests(self):
         """Run all tests in sequence"""
         print(f"Starting Photo Order Management System Tests")
@@ -935,6 +1415,35 @@ class PhotoOrderTester:
         
         # Test 0: Basic connectivity
         self.test_api_connectivity()
+        
+        # NEW TESTS - Admin Authentication (needed for other tests)
+        admin_login_success = self.admin_login()
+        
+        # ===== NEW FEATURES TESTING (PRIORITY) =====
+        print("\n" + "=" * 60)
+        print("TESTING NEW FEATURES FROM REVIEW REQUEST")
+        print("=" * 60)
+        
+        # NEW FEATURE 1: ZIP Structure with Quantity Folders
+        if admin_login_success:
+            self.test_zip_structure_with_quantity_folders()
+        
+        # NEW FEATURE 2: Change Viewer Password Endpoint
+        if admin_login_success:
+            self.test_change_viewer_password_admin_success()
+            self.test_change_viewer_password_viewer_forbidden()
+            self.test_change_viewer_password_validation()
+        
+        # NEW FEATURE 3: Working Hours in Settings
+        self.test_working_hours_get_settings()
+        if admin_login_success:
+            self.test_working_hours_get_admin_settings()
+            self.test_working_hours_update_admin_settings()
+        
+        # ===== EXISTING TESTS (LOWER PRIORITY) =====
+        print("\n" + "=" * 60)
+        print("RUNNING EXISTING TESTS FOR REGRESSION")
+        print("=" * 60)
         
         # Test 1: Order creation success case with new address fields
         order_number = self.test_order_creation_success()
@@ -950,9 +1459,6 @@ class PhotoOrderTester:
         
         # Test 4: Large file upload (original)
         self.test_large_file_upload()
-        
-        # NEW TESTS - Admin Authentication
-        admin_login_success = self.admin_login()
         
         # NEW TEST - ZIP Structure and Address Fields (PRIORITY TEST)
         if admin_login_success:
