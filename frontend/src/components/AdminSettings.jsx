@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Truck, Save, LogOut, ArrowLeft, Phone, Mail, Image } from 'lucide-react';
+import { Truck, Save, LogOut, ArrowLeft, Phone, Mail, Image, Clock } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
@@ -18,6 +18,7 @@ const AdminSettings = () => {
     deliveryPrice: 400,
     contactPhone: '+381 65 46 000 46',
     contactEmail: 'kontakt@fotoexpres.rs',
+    workingHours: 'Pon-Pet: 08:00-17:00, Sub: 09:00-14:00',
     heroImageUrl: '/images/hero-default.jpg'
   });
   const [loading, setLoading] = useState(false);
@@ -51,7 +52,6 @@ const AdminSettings = () => {
     const file = event.target.files[0];
     if (!file) return;
 
-    // Validate file type
     if (!file.type.startsWith('image/')) {
       toast({
         title: "Greška",
@@ -61,7 +61,6 @@ const AdminSettings = () => {
       return;
     }
 
-    // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       toast({
         title: "Greška",
@@ -103,19 +102,22 @@ const AdminSettings = () => {
     }
   };
 
-  const handleSave = async () => {
-    setLoading(true);
+  const handleSaveSettings = async () => {
     try {
+      setLoading(true);
       const token = localStorage.getItem('adminToken');
-      await axios.put(`${API}/admin/settings`, 
+      const response = await axios.put(
+        `${API}/admin/settings`,
         { settings },
-        { headers: { 'Authorization': `Bearer ${token}` }}
+        { headers: { 'Authorization': `Bearer ${token}` } }
       );
-      
-      toast({
-        title: "Podešavanja ažurirana",
-        description: "Sve izmene su uspešno sačuvane i prikazuju se na sajtu"
-      });
+
+      if (response.data.success) {
+        toast({
+          title: "Sačuvano",
+          description: "Podešavanja su uspešno sačuvana"
+        });
+      }
     } catch (error) {
       toast({
         title: "Greška",
@@ -129,247 +131,194 @@ const AdminSettings = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
+    localStorage.removeItem('adminRole');
     navigate('/logovanje');
   };
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-6">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <div className="flex items-center gap-4">
-            <Button 
-              onClick={() => navigate('/logovanje/dashboard')}
-              variant="outline" 
-              className="gap-2 border-2"
-            >
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <Button variant="outline" onClick={() => navigate('/logovanje/dashboard')} className="mb-4 gap-2">
               <ArrowLeft size={18} />
-              Nazad
+              Nazad na Dashboard
             </Button>
-            <div>
-              <h1 className="text-4xl font-bold text-gray-900">Podešavanja</h1>
-              <p className="text-gray-600 mt-2">Upravljajte opcijama dostave i porudžbina</p>
-            </div>
+            <h1 className="text-4xl font-bold text-gray-900">Podešavanja</h1>
+            <p className="text-gray-600 mt-2">Upravljanje osnovnim podešavanjima sajta</p>
           </div>
-          <Button 
-            onClick={handleLogout}
-            variant="outline" 
-            className="gap-2 border-2"
-          >
+          <Button onClick={handleLogout} variant="outline" className="gap-2">
             <LogOut size={18} />
-            Odjavi Se
+            Odjavi se
           </Button>
         </div>
-
-        {/* Hero Image */}
-        <Card className="p-8 border-2 border-gray-200 mb-6">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center">
-              <Image className="w-6 h-6 text-purple-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900">Naslovna fotografija</h2>
-              <p className="text-gray-600">Promenite glavnu fotografiju na naslovnoj strani</p>
-            </div>
-          </div>
-
-          <div className="space-y-6 max-w-2xl">
-            <div>
-              <Label htmlFor="heroImageFile" className="text-base font-semibold mb-3 block">
-                Uploaduj novu naslovnu fotografiju
-              </Label>
-              <div className="flex items-center gap-3">
-                <Input
-                  id="heroImageFile"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  className="text-lg border-2"
-                  disabled={uploadingImage}
-                />
-                {uploadingImage && (
-                  <span className="text-sm text-gray-500">Uploadujem...</span>
-                )}
-              </div>
-              <p className="text-sm text-gray-500 mt-2">
-                Izaberite sliku (JPG, PNG, itd.) - maksimalno 5MB
-              </p>
-            </div>
-
-            <div className="pt-4 border-t">
-              <Label className="text-sm font-semibold text-gray-600 mb-2 block">
-                Trenutna URL adresa slike:
-              </Label>
-              <Input
-                type="text"
-                value={settings.heroImageUrl}
-                onChange={(e) => setSettings({...settings, heroImageUrl: e.target.value})}
-                className="text-sm border-2"
-                placeholder="https://example.com/image.jpg"
-              />
-              <p className="text-xs text-gray-500 mt-1">
-                Ili unesite eksterni URL (opciono)
-              </p>
-            </div>
-            
-            {settings.heroImageUrl && (
-              <div className="border-2 border-gray-200 rounded-lg p-4 bg-gray-50">
-                <p className="text-sm font-semibold text-gray-700 mb-3">Pregled naslovne fotografije:</p>
-                <img 
-                  src={settings.heroImageUrl} 
-                  alt="Hero Preview" 
-                  className="w-full max-w-md rounded-lg shadow-lg"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'block';
-                  }}
-                />
-                <p className="text-xs text-red-500 mt-2" style={{display: 'none'}}>
-                  Slika nije mogla biti učitana. Proverite URL.
-                </p>
-              </div>
-            )}
-          </div>
-        </Card>
-
-        {/* Contact Information */}
-        <Card className="p-8 border-2 border-gray-200 mb-6">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center">
-              <Phone className="w-6 h-6 text-blue-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900">Kontakt informacije</h2>
-              <p className="text-gray-600">Podesite telefon i email za kontakt</p>
-            </div>
-          </div>
-
-          <div className="space-y-6 max-w-2xl">
-            <div>
-              <Label htmlFor="contactPhone" className="text-base font-semibold mb-3 block">
-                Kontakt Telefon
-              </Label>
-              <div className="flex items-center gap-3">
-                <Phone size={20} className="text-gray-400" />
-                <Input
-                  id="contactPhone"
-                  type="text"
-                  value={settings.contactPhone}
-                  onChange={(e) => setSettings({...settings, contactPhone: e.target.value})}
-                  className="text-lg border-2"
-                  placeholder="+381 65 46 000 46"
-                />
-              </div>
-              <p className="text-sm text-gray-500 mt-2">
-                Ovaj broj će biti prikazan u header-u sajta
-              </p>
-            </div>
-
-            <div>
-              <Label htmlFor="contactEmail" className="text-base font-semibold mb-3 block">
-                Kontakt Email
-              </Label>
-              <div className="flex items-center gap-3">
-                <Mail size={20} className="text-gray-400" />
-                <Input
-                  id="contactEmail"
-                  type="email"
-                  value={settings.contactEmail}
-                  onChange={(e) => setSettings({...settings, contactEmail: e.target.value})}
-                  className="text-lg border-2"
-                  placeholder="kontakt@fotoexpres.rs"
-                />
-              </div>
-              <p className="text-sm text-gray-500 mt-2">
-                Ovaj email će biti prikazan u footer-u sajta
-              </p>
-            </div>
-          </div>
-        </Card>
 
         {/* Delivery Settings */}
         <Card className="p-8 border-2 border-gray-200 mb-6">
           <div className="flex items-center gap-3 mb-8">
-            <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center">
-              <Truck className="w-6 h-6 text-green-600" />
+            <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center">
+              <Truck className="w-6 h-6 text-blue-600" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Podešavanja dostave</h2>
-              <p className="text-gray-600">Podesite cenu i limit za besplatnu dostavu</p>
+              <h2 className="text-2xl font-bold text-gray-900">Dostava</h2>
+              <p className="text-gray-600">Podešavanja za besplatnu dostavu i cenu dostave</p>
             </div>
           </div>
 
-          <div className="space-y-6 max-w-2xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl">
             <div>
-              <Label htmlFor="deliveryPrice" className="text-base font-semibold mb-3 block">
-                Cena dostave
+              <Label className="text-base font-semibold mb-3 block">
+                Limit za besplatnu dostavu (RSD)
               </Label>
-              <div className="flex items-center gap-3">
-                <Input
-                  id="deliveryPrice"
-                  type="number"
-                  value={settings.deliveryPrice}
-                  onChange={(e) => setSettings({...settings, deliveryPrice: parseInt(e.target.value) || 0})}
-                  className="text-xl font-bold border-2 w-40"
-                  min="0"
-                  step="50"
-                />
-                <span className="text-lg font-semibold text-gray-600">RSD</span>
-              </div>
-              <p className="text-sm text-gray-500 mt-2">
-                Ova cena se primenjuje na sve porudžbine ispod limita za besplatnu dostavu
-              </p>
-            </div>
-
-            <div>
-              <Label htmlFor="freeDeliveryLimit" className="text-base font-semibold mb-3 block">
-                Limit za besplatnu dostavu
-              </Label>
-              <div className="flex items-center gap-3">
-                <Input
-                  id="freeDeliveryLimit"
-                  type="number"
-                  value={settings.freeDeliveryLimit}
-                  onChange={(e) => setSettings({...settings, freeDeliveryLimit: parseInt(e.target.value) || 0})}
-                  className="text-xl font-bold border-2 w-40"
-                  min="0"
-                  step="100"
-                />
-                <span className="text-lg font-semibold text-gray-600">RSD</span>
-              </div>
+              <Input
+                type="number"
+                value={settings.freeDeliveryLimit}
+                onChange={(e) => setSettings({...settings, freeDeliveryLimit: parseInt(e.target.value)})}
+                className="text-lg border-2"
+              />
               <p className="text-sm text-gray-500 mt-2">
                 Porudžbine iznad ovog iznosa imaju besplatnu dostavu
               </p>
             </div>
 
-            <div className="p-4 bg-blue-50 rounded-lg border-2 border-blue-200">
-              <p className="text-sm text-blue-900">
-                <strong>Primer:</strong> Ako postavite cenu dostave na <strong>{settings.deliveryPrice} RSD</strong> i 
-                limit na <strong>{settings.freeDeliveryLimit} RSD</strong>, kupci će platiti {settings.deliveryPrice} RSD 
-                dostave za porudžbine ispod {settings.freeDeliveryLimit} RSD, dok će porudžbine preko {settings.freeDeliveryLimit} RSD 
-                imati besplatnu dostavu.
+            <div>
+              <Label className="text-base font-semibold mb-3 block">
+                Cena dostave (RSD)
+              </Label>
+              <Input
+                type="number"
+                value={settings.deliveryPrice}
+                onChange={(e) => setSettings({...settings, deliveryPrice: parseInt(e.target.value)})}
+                className="text-lg border-2"
+              />
+              <p className="text-sm text-gray-500 mt-2">
+                Cena dostave za porudžbine ispod limita
               </p>
             </div>
           </div>
         </Card>
 
-        {/* Info Card */}
-        <Card className="p-6 bg-blue-50 border-2 border-blue-200 mb-6">
-          <h3 className="text-lg font-bold text-gray-900 mb-2">Napomena</h3>
-          <ul className="text-gray-700 space-y-2 text-sm">
-            <li>• Promena će biti odmah vidljiva kupcima nakon čuvanja</li>
-            <li>• Limit se prikazuje na početnoj strani i u korpi</li>
-            <li>• Porudžbine ispod limita naplaćuju 400 RSD dostave</li>
-          </ul>
+        {/* Contact Settings */}
+        <Card className="p-8 border-2 border-gray-200 mb-6">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center">
+              <Phone className="w-6 h-6 text-green-600" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">Kontakt Informacije</h2>
+              <p className="text-gray-600">Telefon i email za kontakt</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl">
+            <div>
+              <Label className="text-base font-semibold mb-3 block">
+                Kontakt telefon
+              </Label>
+              <Input
+                type="text"
+                value={settings.contactPhone}
+                onChange={(e) => setSettings({...settings, contactPhone: e.target.value})}
+                className="text-lg border-2"
+                placeholder="+381 XX XXX XXXX"
+              />
+            </div>
+
+            <div>
+              <Label className="text-base font-semibold mb-3 block">
+                Kontakt email
+              </Label>
+              <Input
+                type="email"
+                value={settings.contactEmail}
+                onChange={(e) => setSettings({...settings, contactEmail: e.target.value})}
+                className="text-lg border-2"
+                placeholder="kontakt@example.com"
+              />
+            </div>
+          </div>
+        </Card>
+
+        {/* Working Hours Settings */}
+        <Card className="p-8 border-2 border-gray-200 mb-6">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center">
+              <Clock className="w-6 h-6 text-purple-600" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">Radno Vreme</h2>
+              <p className="text-gray-600">Prikazivaće se na headeru, footeru i FAQ stranici</p>
+            </div>
+          </div>
+
+          <div className="max-w-3xl">
+            <Label className="text-base font-semibold mb-3 block">
+              Radno vreme
+            </Label>
+            <Input
+              type="text"
+              value={settings.workingHours || ''}
+              onChange={(e) => setSettings({...settings, workingHours: e.target.value})}
+              className="text-lg border-2"
+              placeholder="Pon-Pet: 08:00-17:00, Sub: 09:00-14:00"
+            />
+            <p className="text-sm text-gray-500 mt-2">
+              Primer: "Pon-Pet: 08:00-17:00, Sub: 09:00-14:00" ili "Radimo 24/7"
+            </p>
+          </div>
+        </Card>
+
+        {/* Hero Image Settings */}
+        <Card className="p-8 border-2 border-gray-200 mb-6">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="bg-orange-100 w-12 h-12 rounded-full flex items-center justify-center">
+              <Image className="w-6 h-6 text-orange-600" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">Hero Slika</h2>
+              <p className="text-gray-600">Slika na početnoj stranici</p>
+            </div>
+          </div>
+
+          <div className="max-w-3xl">
+            <div className="mb-4">
+              <img 
+                src={settings.heroImageUrl || '/images/hero-default.jpg'} 
+                alt="Hero" 
+                className="w-full h-64 object-cover rounded-lg border-2 border-gray-300"
+              />
+            </div>
+
+            <div>
+              <Label className="text-base font-semibold mb-3 block">
+                Upload nova slika
+              </Label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="block w-full text-sm text-gray-500
+                  file:mr-4 file:py-2 file:px-4
+                  file:rounded-full file:border-0
+                  file:text-sm file:font-semibold
+                  file:bg-orange-50 file:text-orange-700
+                  hover:file:bg-orange-100
+                  cursor-pointer"
+                disabled={uploadingImage}
+              />
+              <p className="text-sm text-gray-500 mt-2">
+                Maksimalna veličina: 5MB. Preporučene dimenzije: 1920x800px
+              </p>
+            </div>
+          </div>
         </Card>
 
         {/* Save Button */}
-        <div className="flex justify-end">
-          <Button 
-            onClick={handleSave}
+        <div className="flex justify-end gap-4">
+          <Button
+            onClick={handleSaveSettings}
             disabled={loading}
-            size="lg"
-            className="bg-orange-600 hover:bg-orange-700 text-white gap-2 px-8"
+            className="bg-blue-600 hover:bg-blue-700 text-white gap-2 px-8 text-lg"
           >
             <Save size={20} />
             {loading ? 'Čuvanje...' : 'Sačuvaj Podešavanja'}
