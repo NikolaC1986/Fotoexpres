@@ -49,7 +49,7 @@ const Navbar = () => {
               <Phone size={16} />
               <span>{contactInfo.phone}</span>
             </div>
-            <span className="text-gray-400">Pon - Pet: 09:00 - 18:00</span>
+            <span className="text-gray-400">{contactInfo.workingHours}</span>
           </div>
           <div className="flex items-center gap-4">
             <span className="text-gray-400">Besplatna dostava za porudžbine preko {freeDeliveryLimit} RSD</span>
@@ -62,7 +62,7 @@ const Navbar = () => {
             <Phone size={14} />
             <span>{contactInfo.phone}</span>
           </div>
-          <div className="text-gray-400">Pon - Pet: 09:00 - 18:00</div>
+          <div className="text-gray-400">{contactInfo.workingHours}</div>
           <div className="text-gray-400">Besplatna dostava preko {freeDeliveryLimit} RSD</div>
         </div>
       </div>
