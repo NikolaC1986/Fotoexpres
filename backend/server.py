@@ -598,6 +598,7 @@ async def get_settings(admin = Depends(verify_admin_token)):
             'deliveryPrice': 400,
             'contactPhone': '+381 65 46 000 46',
             'contactEmail': 'kontakt@fotoexpres.rs',
+            'workingHours': 'Pon-Pet: 08:00-17:00, Sub: 09:00-14:00',
             'heroImageUrl': 'https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/1ogmpeji_8%20copy.jpg'
         }
         
