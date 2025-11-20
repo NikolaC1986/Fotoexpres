@@ -205,15 +205,16 @@ def create_order_zip(order_dir, zip_path, order_number, contact_info, photo_sett
         # Add order_details.txt to root
         zipf.write(order_details_path, 'order_details.txt')
         
-        # Organize photos by format and paper type
+        # Organize photos by format, paper type, and quantity
         for photo_setting in photo_settings:
             photo_path = os.path.join(order_dir, photo_setting['fileName'])
             if os.path.exists(photo_path):
                 photo_format = photo_setting['format']
                 paper_type = photo_setting['finish'].lower()  # 'sjajni' or 'mat'
+                quantity = photo_setting['quantity']  # broj primeraka
                 
-                # Create folder structure: format/paper_type/photo.jpg
-                archive_path = f"{photo_format}/{paper_type}/{photo_setting['fileName']}"
+                # Create folder structure: format/paper_type/quantity/photo.jpg
+                archive_path = f"{photo_format}/{paper_type}/{quantity}/{photo_setting['fileName']}"
                 zipf.write(photo_path, archive_path)
     
     return zip_path
