@@ -710,6 +710,10 @@ test_plan:
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
+  completed_new_features:
+    - "ZIP Structure with Quantity Folders"
+    - "Change Viewer Password Endpoint"
+    - "Working Hours in Settings"
 
 agent_communication:
     - agent: "testing"
