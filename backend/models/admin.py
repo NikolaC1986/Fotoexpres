@@ -31,6 +31,10 @@ class ChangeCredentials(BaseModel):
     newUsername: Optional[str] = None
     newPassword: Optional[str] = None
 
+class ChangeViewerPassword(BaseModel):
+    """Model for admin changing viewer password"""
+    newViewerPassword: str
+
 def create_access_token(data: dict):
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(hours=ACCESS_TOKEN_EXPIRE_HOURS)
