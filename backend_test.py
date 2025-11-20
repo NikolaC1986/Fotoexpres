@@ -674,7 +674,7 @@ class PhotoOrderTester:
         try:
             login_data = {
                 "username": "Vlasnik",
-                "password": "Fotoexpres2025!"
+                "password": "$ta$Graca25"
             }
             
             response = requests.post(f"{self.backend_url}/admin/login", json=login_data)
