@@ -328,7 +328,7 @@ async def change_admin_credentials(
             {
                 "$set": {
                     "username": credentials.newUsername or current_username,
-                    "updatedAt": datetime.now(timezone.utc).isoformat()
+                    "lastUpdated": datetime.now(timezone.utc).isoformat()
                 }
             },
             upsert=True
@@ -344,6 +344,60 @@ async def change_admin_credentials(
     except Exception as e:
         logging.error(f"Error changing credentials: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to change credentials: {str(e)}")
+
+# Change Viewer Password (Admin Only)
+@api_router.post("/admin/change-viewer-password")
+async def change_viewer_password(
+    request: ChangeViewerPassword,
+    admin = Depends(verify_admin_token)
+):
+    """Admin can change viewer (Menadzer) password"""
+    try:
+        # Check if user is admin (not viewer)
+        if admin.get('role') != 'admin':
+            raise HTTPException(status_code=403, detail="Only admin can change viewer password")
+        
+        # Validate new password
+        if len(request.newViewerPassword) < 8:
+            raise HTTPException(status_code=400, detail="New password must be at least 8 characters")
+        
+        # Update .env file for viewer password
+        env_path = os.path.join(os.path.dirname(__file__), '.env')
+        
+        with open(env_path, 'r') as file:
+            lines = file.readlines()
+        
+        with open(env_path, 'w') as file:
+            for line in lines:
+                if line.startswith('VIEWER_PASSWORD='):
+                    file.write(f'VIEWER_PASSWORD={request.newViewerPassword}\n')
+                else:
+                    file.write(line)
+        
+        # Update environment variable
+        os.environ['VIEWER_PASSWORD'] = request.newViewerPassword
+        
+        # Save to MongoDB for backup
+        await db.admin_settings.update_one(
+            {"_id": "viewer_credentials"},
+            {
+                "$set": {
+                    "lastUpdated": datetime.now(timezone.utc).isoformat()
+                }
+            },
+            upsert=True
+        )
+        
+        return {
+            "success": True,
+            "message": "Viewer password updated successfully"
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Error changing viewer password: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to change viewer password: {str(e)}")
 
 # Get All Orders (Admin Only)
 @api_router.get("/admin/orders")
