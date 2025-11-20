@@ -11,7 +11,8 @@ const API = `${BACKEND_URL}/api`;
 const HomePage = () => {
   const [contactInfo, setContactInfo] = useState({
     phone: '+381 65 46 000 46',
-    email: 'kontakt@fotoexpres.rs'
+    email: 'kontakt@fotoexpres.rs',
+    workingHours: 'Pon-Pet: 09:00-18:00'
   });
   const [heroImageUrl, setHeroImageUrl] = useState('/images/hero-default.jpg');
 
@@ -26,7 +27,8 @@ const HomePage = () => {
       if (response.data.settings) {
         setContactInfo({
           phone: response.data.settings.contactPhone || '+381 65 46 000 46',
-          email: response.data.settings.contactEmail || 'kontakt@fotoexpres.rs'
+          email: response.data.settings.contactEmail || 'kontakt@fotoexpres.rs',
+          workingHours: response.data.settings.workingHours || 'Pon-Pet: 09:00-18:00'
         });
         setHeroImageUrl(response.data.settings.heroImageUrl || '/images/hero-default.jpg');
       }
