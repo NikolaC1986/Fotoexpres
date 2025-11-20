@@ -687,6 +687,7 @@ async def get_public_settings():
             'deliveryPrice': 400,
             'contactPhone': '+381 65 46 000 46',
             'contactEmail': 'kontakt@fotoexpres.rs',
+            'workingHours': 'Pon-Pet: 08:00-17:00, Sub: 09:00-14:00',
             'heroImageUrl': 'https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/1ogmpeji_8%20copy.jpg'
         }
         
@@ -696,7 +697,7 @@ async def get_public_settings():
             return {"settings": default_settings}
     except Exception as e:
         logging.error(f"Error fetching settings: {str(e)}")
-        return {"settings": {'freeDeliveryLimit': 5000}}
+        return {"settings": {'freeDeliveryLimit': 5000, 'workingHours': 'Pon-Pet: 08:00-17:00, Sub: 09:00-14:00'}}
 
 # Get Quantity Discounts (Admin Only)
 @api_router.get("/admin/discounts")
