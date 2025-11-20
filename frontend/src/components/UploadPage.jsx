@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Upload, X, Plus, Minus, Image as ImageIcon, CheckCircle, DollarSign } from 'lucide-react';
+import { Upload, X, Plus, Minus, Image as ImageIcon, CheckCircle, DollarSign, ArrowUp } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
