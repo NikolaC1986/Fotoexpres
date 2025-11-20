@@ -18,7 +18,7 @@ import shutil
 import asyncio
 
 from models.order import Order, OrderDetails, OrderResponse
-from models.admin import AdminLogin, AdminToken, ChangeCredentials, create_access_token, verify_token, verify_admin_credentials, update_env_file
+from models.admin import AdminLogin, AdminToken, ChangeCredentials, ChangeViewerPassword, create_access_token, verify_token, verify_admin_credentials, update_env_file
 from utils.order_utils import generate_order_number, create_order_zip
 from utils.email_utils import send_order_notification
 
