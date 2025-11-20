@@ -149,7 +149,7 @@ const FAQPage = () => {
               <strong>Telefon:</strong> {contactInfo.phone}
             </p>
             <p className="text-lg">
-              <strong>Radno vreme:</strong> Ponedeljak - Petak, 09:00 - 18:00
+              <strong>Radno vreme:</strong> {contactInfo.workingHours}
             </p>
             <p className="text-lg">
               <strong>Email:</strong> {contactInfo.email}
