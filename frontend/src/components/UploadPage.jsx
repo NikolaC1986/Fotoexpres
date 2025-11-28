@@ -433,13 +433,22 @@ const UploadPage = () => {
           }
         });
         
-        // Verify response
-        if (!response.data.success || !response.data.orderNumber) {
-          throw new Error(response.data.message || 'Order creation failed');
+        // CRITICAL: Triple verification before showing success
+        if (!response.data.success) {
+          throw new Error(response.data.message || 'Porudžbina nije uspešno kreirana');
+        }
+        
+        if (!response.data.orderNumber) {
+          throw new Error('Porudžbina nije kreirana - order number nije dobijen');
+        }
+        
+        if (!response.data.zipFilePath || response.data.zipFilePath === '') {
+          throw new Error('Porudžbina nije potpuno procesirana - ZIP fajl nije kreiran');
         }
 
         const { orderNumber } = response.data;
         
+        // All checks passed - show success
         toast({
           title: "Porudžbina poslata!",
           description: `Vaša porudžbina #${orderNumber} je primljena. Uskoro ćemo vas kontaktirati.`,
