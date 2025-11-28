@@ -275,6 +275,16 @@ const AdminDashboard = () => {
                 </Link>
               </>
             )}
+            {userRole === 'admin' && (
+              <Button 
+                onClick={handleDownloadLogs}
+                variant="outline" 
+                className="gap-2 border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50"
+              >
+                <FileText size={18} />
+                Preuzmi Logove
+              </Button>
+            )}
             <Button 
               onClick={handleLogout}
               variant="outline" 
