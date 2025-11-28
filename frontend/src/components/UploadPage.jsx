@@ -344,11 +344,21 @@ const UploadPage = () => {
           if (!orderNumber && response.data.orderNumber) {
             orderNumber = response.data.orderNumber;
           }
+          
+          // Verify response success
+          if (!response.data.success) {
+            throw new Error(response.data.message || 'Upload failed');
+          }
 
           // Small delay between chunks to avoid overwhelming server
           if (!isLastChunk) {
             await new Promise(resolve => setTimeout(resolve, 500));
           }
+        }
+        
+        // Final verification - only show success if we have orderNumber
+        if (!orderNumber) {
+          throw new Error('Order was not created properly');
         }
 
         toast({
