@@ -416,6 +416,11 @@ const UploadPage = () => {
             setUploadProgress(percentCompleted);
           }
         });
+        
+        // Verify response
+        if (!response.data.success || !response.data.orderNumber) {
+          throw new Error(response.data.message || 'Order creation failed');
+        }
 
         const { orderNumber } = response.data;
         
