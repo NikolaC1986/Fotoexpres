@@ -294,6 +294,7 @@ const UploadPage = () => {
         }
 
         let orderNumber = null;
+        let finalResponse = null;
         
         for (let i = 0; i < chunks.length; i++) {
           const chunk = chunks[i];
@@ -341,6 +342,7 @@ const UploadPage = () => {
             }
           });
 
+          // Store order number from first chunk
           if (!orderNumber && response.data.orderNumber) {
             orderNumber = response.data.orderNumber;
           }
@@ -350,17 +352,31 @@ const UploadPage = () => {
             throw new Error(response.data.message || 'Upload failed');
           }
 
+          // Store final chunk response
+          if (isLastChunk) {
+            finalResponse = response.data;
+          }
+
           // Small delay between chunks to avoid overwhelming server
           if (!isLastChunk) {
             await new Promise(resolve => setTimeout(resolve, 500));
           }
         }
         
-        // Final verification - only show success if we have orderNumber
+        // CRITICAL: Triple verification before showing success
         if (!orderNumber) {
-          throw new Error('Order was not created properly');
+          throw new Error('Porudžbina nije kreirana - order number nije dobijen');
+        }
+        
+        if (!finalResponse || !finalResponse.success) {
+          throw new Error('Porudžbina nije potvrđena od strane servera');
+        }
+        
+        if (!finalResponse.orderNumber || finalResponse.orderNumber !== orderNumber) {
+          throw new Error('Greška u potvrdi porudžbine - neslaganje order number-a');
         }
 
+        // All checks passed - show success
         toast({
           title: "Porudžbina poslata!",
           description: `Vaša porudžbina #${orderNumber} je primljena. Uskoro ćemo vas kontaktirati.`,
