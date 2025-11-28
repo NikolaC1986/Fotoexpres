@@ -700,7 +700,14 @@ async def download_logs(admin = Depends(verify_admin_token)):
         report_lines.append("")
         
         if all_orders:
-            for order in sorted(all_orders, key=lambda x: x.get('createdAt', ''), reverse=True):
+            # Sort by createdAt (handle both datetime and string formats)
+            def get_sort_key(order):
+                created_at = order.get('createdAt', '')
+                if isinstance(created_at, str):
+                    return created_at
+                return created_at.isoformat() if hasattr(created_at, 'isoformat') else ''
+            
+            for order in sorted(all_orders, key=get_sort_key, reverse=True):
                 order_num = order.get('orderNumber', 'N/A')
                 created_at = order.get('createdAt', 'N/A')
                 status = order.get('status', 'N/A')
