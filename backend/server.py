@@ -50,6 +50,21 @@ ORDERS_DIR.mkdir(exist_ok=True)
 ORDERS_ZIPS_DIR.mkdir(exist_ok=True)
 UPLOADS_DIR.mkdir(exist_ok=True)
 
+# Initialize database indexes on startup
+async def init_db_indexes():
+    """Create unique index on orderNumber to prevent duplicates"""
+    try:
+        await db.orders.create_index("orderNumber", unique=True)
+        logging.info("✅ Database index created: orderNumber (unique)")
+    except Exception as e:
+        logging.error(f"Failed to create database index: {str(e)}")
+
+# Will be called on startup
+@app.on_event("startup")
+async def startup_event():
+    await init_db_indexes()
+    logging.info("🚀 Backend server started successfully")
+
 
 # Define Models
 class StatusCheck(BaseModel):
