@@ -1,0 +1,116 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                    FOTOEXPRES - DETALJI PORUDŽBINE                ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+BROJ PORUDŽBINE: ORD-923276
+DATUM: 2025-11-28 16:36:04
+
+═══════════════════════════════════════════════════════════════════
+
+INFORMACIJE O KLIJENTU:
+─────────────────────────
+Ime i prezime: Chunked Test Korisnik
+Email: chunked@example.com
+Telefon: 065 999 8888
+Ulica i broj: Chunk Street 123
+Poštanski broj: 11000
+Grad: Beograd
+Napomene: Test chunked upload za Ghost Orders bug fix
+
+═══════════════════════════════════════════════════════════════════
+
+OPCIJE OBRADE FOTOGRAFIJA:
+───────────────────────────
+• Kropovati fotografiju kako bi je prilagodili formatu: NE
+• Popuniti belim: NE
+
+═══════════════════════════════════════════════════════════════════
+
+SPECIFIKACIJA FOTOGRAFIJA:
+───────────────────────────
+
+1. chunk_photo_1.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+2. chunk_photo_2.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+3. chunk_photo_3.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+4. chunk_photo_4.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+5. chunk_photo_5.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+6. chunk_photo_6.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+═══════════════════════════════════════════════════════════════════
+
+OBRAČUN CENE:
+─────────────────────────
+
+Ukupan broj fotografija: 6 komada
+Osnovna cena fotografija: 108 RSD
+
+Dostava: 400 RSD
+   • Standardna dostava
+
+──────────────────────────────
+UKUPNO ZA NAPLATU: 508 RSD
+
+═══════════════════════════════════════════════════════════════════
+
+NAČIN PLAĆANJA: Plaćanje pouzećem (kuriru prilikom isporuke)
+ROK DOSTAVE: 2-7 radnih dana
+
+═══════════════════════════════════════════════════════════════════
+
+Hvala vam što ste odabrali Fotoexpres!
+Za sva pitanja kontaktirajte nas na: kontakt@fotoexpres.rs
+
+═══════════════════════════════════════════════════════════════════
+
+
+═══════════════════════════════════════════════════════════════════
+
+REKAPITULACIJA PO FORMATIMA:
+─────────────────────────────
+Format 10x15 cm: 6 fotografija
+
+──────────────────────────────
+UKUPNO: 6 fotografija
+
+═══════════════════════════════════════════════════════════════════
