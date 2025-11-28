@@ -655,6 +655,197 @@ async def delete_order(
         logging.error(f"Error deleting order: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to delete order: {str(e)}")
 
+# Download System Logs and Statistics (Admin Only)
+@api_router.get("/admin/download-logs")
+async def download_logs(admin = Depends(verify_admin_token)):
+    """
+    Generate and download a comprehensive log report including:
+    - Statistics (total orders, total photos, success/failure rates)
+    - Successful orders from database
+    - Failed order attempts from backend logs
+    """
+    try:
+        from datetime import datetime
+        import re
+        
+        logging.info("Generating system logs report for admin download...")
+        
+        # === SECTION 1: STATISTICS ===
+        report_lines = []
+        report_lines.append("=" * 80)
+        report_lines.append("FOTOEXPRES - SISTEM IZVEŠTAJ O PORUDŽBINAMA")
+        report_lines.append("=" * 80)
+        report_lines.append(f"Datum generisanja: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}")
+        report_lines.append("")
+        
+        # Get all orders from database
+        all_orders = await db.orders.find({}, {"_id": 0}).to_list(10000)
+        
+        total_orders = len(all_orders)
+        completed_orders = len([o for o in all_orders if o.get('status') == 'completed'])
+        processing_orders = len([o for o in all_orders if o.get('status') == 'processing'])
+        total_photos = sum(o.get('totalPhotos', 0) for o in all_orders)
+        
+        report_lines.append("--- STATISTIKA ---")
+        report_lines.append(f"Ukupan broj porudžbina u bazi: {total_orders}")
+        report_lines.append(f"  - Završene (completed): {completed_orders}")
+        report_lines.append(f"  - U obradi (processing): {processing_orders}")
+        report_lines.append(f"Ukupan broj fotografija: {total_photos}")
+        report_lines.append("")
+        
+        # === SECTION 2: SUCCESSFUL ORDERS ===
+        report_lines.append("=" * 80)
+        report_lines.append("USPEŠNE PORUDŽBINE")
+        report_lines.append("=" * 80)
+        report_lines.append("")
+        
+        if all_orders:
+            for order in sorted(all_orders, key=lambda x: x.get('createdAt', ''), reverse=True):
+                order_num = order.get('orderNumber', 'N/A')
+                created_at = order.get('createdAt', 'N/A')
+                status = order.get('status', 'N/A')
+                contact = order.get('contactInfo', {})
+                customer_name = contact.get('fullName', 'N/A')
+                customer_email = contact.get('email', 'N/A')
+                customer_phone = contact.get('phone', 'N/A')
+                total_photos_order = order.get('totalPhotos', 0)
+                
+                report_lines.append(f"Porudžbina: {order_num}")
+                report_lines.append(f"  Datum: {created_at}")
+                report_lines.append(f"  Status: {status}")
+                report_lines.append(f"  Kupac: {customer_name}")
+                report_lines.append(f"  Email: {customer_email}")
+                report_lines.append(f"  Telefon: {customer_phone}")
+                report_lines.append(f"  Broj fotografija: {total_photos_order}")
+                report_lines.append("")
+        else:
+            report_lines.append("Nema porudžbina u bazi podataka.")
+            report_lines.append("")
+        
+        # === SECTION 3: FAILED ORDER ATTEMPTS ===
+        report_lines.append("=" * 80)
+        report_lines.append("NEUSPEŠNI POKUŠAJI KREIRANJA PORUDŽBINA")
+        report_lines.append("=" * 80)
+        report_lines.append("")
+        
+        # Parse backend logs for failed attempts
+        log_file_path = "/var/log/supervisor/backend.err.log"
+        failed_attempts = []
+        
+        try:
+            if os.path.exists(log_file_path):
+                with open(log_file_path, 'r', encoding='utf-8', errors='ignore') as log_file:
+                    log_content = log_file.read()
+                    
+                    # Find all order processing that started but didn't complete
+                    # Pattern: "NEW ORDER REQUEST RECEIVED" followed by errors
+                    order_starts = re.finditer(r'NEW ORDER REQUEST RECEIVED - Timestamp: (.*?)$', log_content, re.MULTILINE)
+                    completed_orders_from_log = re.findall(r'ORDER (ORD-\d+) COMPLETED SUCCESSFULLY', log_content)
+                    
+                    # Find errors with order numbers
+                    error_patterns = [
+                        r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}).*?(ERROR|CRITICAL).*?(ORD-\d+)?.*?:(.*?)$',
+                        r'Step \d[A-Z]?: ❌.*?(ORD-\d+)?.*?-(.*?)$'
+                    ]
+                    
+                    for pattern in error_patterns:
+                        errors = re.finditer(pattern, log_content, re.MULTILINE)
+                        for error_match in errors:
+                            groups = error_match.groups()
+                            if len(groups) >= 3:
+                                timestamp = groups[0] if len(groups[0]) > 5 else "N/A"
+                                order_num = groups[2] if len(groups) > 2 and groups[2] else "Unknown"
+                                error_msg = groups[-1].strip() if groups[-1] else "Unknown error"
+                                
+                                # Skip if this order was completed successfully
+                                if order_num != "Unknown" and order_num in completed_orders_from_log:
+                                    continue
+                                
+                                failed_attempts.append({
+                                    'timestamp': timestamp,
+                                    'order_number': order_num,
+                                    'error': error_msg
+                                })
+                
+                if failed_attempts:
+                    report_lines.append(f"Pronađeno neuspešnih pokušaja: {len(failed_attempts)}")
+                    report_lines.append("")
+                    
+                    # Group by order number
+                    from collections import defaultdict
+                    errors_by_order = defaultdict(list)
+                    for attempt in failed_attempts:
+                        errors_by_order[attempt['order_number']].append(attempt)
+                    
+                    for order_num, errors in errors_by_order.items():
+                        report_lines.append(f"Order: {order_num}")
+                        for error in errors[:5]:  # Max 5 errors per order
+                            report_lines.append(f"  [{error['timestamp']}] {error['error']}")
+                        if len(errors) > 5:
+                            report_lines.append(f"  ... i još {len(errors) - 5} grešaka")
+                        report_lines.append("")
+                else:
+                    report_lines.append("Nema zabeleženih neuspešnih pokušaja u logovima.")
+                    report_lines.append("")
+            else:
+                report_lines.append(f"Log fajl ne postoji: {log_file_path}")
+                report_lines.append("")
+                
+        except Exception as log_error:
+            report_lines.append(f"Greška pri čitanju log fajla: {str(log_error)}")
+            report_lines.append("")
+        
+        # === SECTION 4: RECENT BACKEND ERRORS ===
+        report_lines.append("=" * 80)
+        report_lines.append("NEDAVNE BACKEND GREŠKE (Poslednjih 50)")
+        report_lines.append("=" * 80)
+        report_lines.append("")
+        
+        try:
+            if os.path.exists(log_file_path):
+                with open(log_file_path, 'r', encoding='utf-8', errors='ignore') as log_file:
+                    lines = log_file.readlines()
+                    error_lines = [line for line in lines if 'ERROR' in line or 'CRITICAL' in line or '❌' in line]
+                    recent_errors = error_lines[-50:] if len(error_lines) > 50 else error_lines
+                    
+                    if recent_errors:
+                        for error_line in recent_errors:
+                            report_lines.append(error_line.strip())
+                    else:
+                        report_lines.append("Nema zabeleženih grešaka.")
+            else:
+                report_lines.append("Log fajl nije dostupan.")
+        except Exception as e:
+            report_lines.append(f"Greška pri čitanju grešaka: {str(e)}")
+        
+        report_lines.append("")
+        report_lines.append("=" * 80)
+        report_lines.append("KRAJ IZVEŠTAJA")
+        report_lines.append("=" * 80)
+        
+        # Generate report content
+        report_content = "\n".join(report_lines)
+        
+        # Create filename with timestamp
+        timestamp = datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')
+        filename = f"fotoexpres_logs_{timestamp}.txt"
+        
+        logging.info(f"System logs report generated: {len(report_lines)} lines")
+        
+        # Return as downloadable file
+        from fastapi.responses import Response
+        return Response(
+            content=report_content,
+            media_type="text/plain; charset=utf-8",
+            headers={
+                "Content-Disposition": f"attachment; filename={filename}"
+            }
+        )
+        
+    except Exception as e:
+        logging.error(f"Error generating logs report: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate logs: {str(e)}")
+
 # Get Prices (Admin Only)
 @api_router.get("/admin/prices")
 async def get_prices(admin = Depends(verify_admin_token)):
