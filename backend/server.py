@@ -203,15 +203,22 @@ async def create_order(
             # Save to MongoDB only if not already exists
             existing_order = await db.orders.find_one({"orderNumber": order_number})
             if not existing_order:
-                order = Order(
-                    orderNumber=order_number,
-                    contactInfo=order_details_obj.contactInfo,
-                    photoSettings=order_details_obj.photoSettings,
-                    zipFilePath=str(zip_path),
-                    totalPhotos=total_photos
-                )
-                
-                await db.orders.insert_one(order.model_dump())
+                try:
+                    order = Order(
+                        orderNumber=order_number,
+                        contactInfo=order_details_obj.contactInfo,
+                        photoSettings=order_details_obj.photoSettings,
+                        zipFilePath=str(zip_path),
+                        totalPhotos=total_photos
+                    )
+                    
+                    result = await db.orders.insert_one(order.model_dump())
+                    logging.info(f"Order {order_number} saved to MongoDB with ID: {result.inserted_id}")
+                except Exception as db_error:
+                    logging.error(f"CRITICAL: Failed to save order {order_number} to MongoDB: {str(db_error)}")
+                    raise HTTPException(status_code=500, detail=f"Database error: {str(db_error)}")
+            else:
+                logging.info(f"Order {order_number} already exists in MongoDB, skipping insertion")
             
             # Send email notification to admin
             try:
