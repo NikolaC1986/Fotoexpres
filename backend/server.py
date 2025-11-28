@@ -96,7 +96,13 @@ async def create_order(
     photos: List[UploadFile] = File(...),
     order_details: str = Form(...)
 ):
+    order_number = None
+    order_dir = None
+    
     try:
+        logging.info("=" * 80)
+        logging.info(f"NEW ORDER REQUEST RECEIVED - Timestamp: {datetime.now(timezone.utc).isoformat()}")
+        
         # SECURITY: Validate file uploads
         ALLOWED_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.heic', '.heif'}
         ALLOWED_MIME_TYPES = {
@@ -105,10 +111,12 @@ async def create_order(
         }
         MAX_FILE_SIZE = 50 * 1024 * 1024  # 50MB per file
         
-        for photo in photos:
+        logging.info(f"Step 1: Validating {len(photos)} photo files...")
+        for i, photo in enumerate(photos):
             # Check file extension
             file_ext = os.path.splitext(photo.filename)[1].lower()
             if file_ext not in ALLOWED_EXTENSIONS:
+                logging.error(f"Invalid file extension: {file_ext} for file {photo.filename}")
                 raise HTTPException(
                     status_code=400, 
                     detail=f"Nedozvoljen tip fajla: {file_ext}. Dozvoljeni: {', '.join(ALLOWED_EXTENSIONS)}"
@@ -116,6 +124,7 @@ async def create_order(
             
             # Check MIME type
             if photo.content_type not in ALLOWED_MIME_TYPES:
+                logging.error(f"Invalid MIME type: {photo.content_type} for file {photo.filename}")
                 raise HTTPException(
                     status_code=400,
                     detail=f"Nedozvoljen MIME tip: {photo.content_type}"
@@ -124,8 +133,10 @@ async def create_order(
             # Check file size (read first chunk to verify it's not empty)
             content = await photo.read(MAX_FILE_SIZE + 1)
             if len(content) == 0:
+                logging.error(f"Empty file: {photo.filename}")
                 raise HTTPException(status_code=400, detail=f"Fajl je prazan: {photo.filename}")
             if len(content) > MAX_FILE_SIZE:
+                logging.error(f"File too large: {photo.filename} ({len(content)} bytes)")
                 raise HTTPException(
                     status_code=400,
                     detail=f"Fajl je prevelik: {photo.filename} (max 50MB)"
@@ -133,9 +144,13 @@ async def create_order(
             # Reset file pointer
             await photo.seek(0)
         
+        logging.info(f"Step 1: ✅ All {len(photos)} files validated successfully")
+        
         # Parse order details
+        logging.info("Step 2: Parsing order details...")
         order_data = json.loads(order_details)
         order_details_obj = OrderDetails(**order_data)
+        logging.info(f"Step 2: ✅ Order details parsed - Customer: {order_details_obj.contactInfo.fullName}")
         
         # Check if this is a chunked upload
         is_chunked = 'chunkIndex' in order_data
@@ -147,20 +162,10 @@ async def create_order(
         # Generate or use existing order number
         if existing_order_number:
             order_number = existing_order_number
+            logging.info(f"Step 3: Using existing order number: {order_number} (chunk {chunk_index + 1}/{total_chunks})")
         else:
             order_number = generate_order_number()
-        
-        # Create order directory
-        order_dir = ORDERS_DIR / order_number
-        order_dir.mkdir(exist_ok=True)
-        
-        # Save photos
-        saved_files = []
-        for photo in photos:
-            file_path = order_dir / photo.filename
-            with open(file_path, "wb") as buffer:
-                shutil.copyfileobj(photo.file, buffer)
-            saved_files.append(photo.filename)
+            logging.info(f"Step 3: ✅ Generated new order number: {order_number}")
         
         # Calculate total photos
         total_photos = sum(p.quantity for p in order_details_obj.photoSettings)
@@ -182,12 +187,94 @@ async def create_order(
             'prices': order_data.get('prices', {})
         }
         
-        # Only create ZIP and save to MongoDB on last chunk (or if not chunked)
-        if is_last_chunk:
-            # Create ZIP file
-            zip_file_name = f"order-{order_number}.zip"
-            zip_path = ORDERS_ZIPS_DIR / zip_file_name
+        # For chunked uploads (not last chunk), just save files and return
+        if is_chunked and not is_last_chunk:
+            logging.info(f"Step 4: Processing chunk {chunk_index + 1}/{total_chunks} (NOT final chunk)")
             
+            # Create order directory
+            order_dir = ORDERS_DIR / order_number
+            order_dir.mkdir(exist_ok=True)
+            
+            # Save photos from this chunk
+            saved_files = []
+            for photo in photos:
+                file_path = order_dir / photo.filename
+                with open(file_path, "wb") as buffer:
+                    shutil.copyfileobj(photo.file, buffer)
+                saved_files.append(photo.filename)
+            
+            logging.info(f"Step 4: ✅ Chunk {chunk_index + 1}/{total_chunks} saved - {len(saved_files)} files")
+            
+            return OrderResponse(
+                success=True,
+                orderNumber=order_number,
+                message=f"Chunk {chunk_index + 1}/{total_chunks} uploaded successfully",
+                zipFilePath=""
+            )
+        
+        # LAST CHUNK OR NON-CHUNKED: Complete the order
+        logging.info(f"Step 4: Processing FINAL {'chunk' if is_chunked else 'upload'} - Creating complete order...")
+        
+        # ===== CRITICAL SECTION START =====
+        # STEP A: First, create DB record with "processing" status to claim this order number
+        logging.info(f"Step 4A: Creating database record for order {order_number}...")
+        
+        # Check if order already exists
+        existing_order = await db.orders.find_one({"orderNumber": order_number})
+        if existing_order:
+            logging.warning(f"Order {order_number} already exists in database - likely duplicate submission")
+            # Return the existing order info
+            return OrderResponse(
+                success=True,
+                orderNumber=order_number,
+                message="Order already exists",
+                zipFilePath=existing_order.get('zipFilePath', '')
+            )
+        
+        # Create initial order record with "processing" status
+        try:
+            order_doc = {
+                "orderNumber": order_number,
+                "contactInfo": order_details_obj.contactInfo.model_dump(),
+                "photoSettings": [p.model_dump() for p in order_details_obj.photoSettings],
+                "totalPhotos": total_photos,
+                "status": "processing",  # Mark as processing
+                "zipFilePath": "",  # Will be updated after ZIP creation
+                "createdAt": datetime.now(timezone.utc).isoformat()
+            }
+            
+            result = await db.orders.insert_one(order_doc)
+            logging.info(f"Step 4A: ✅ Database record created with ID: {result.inserted_id} - Status: PROCESSING")
+        except Exception as db_error:
+            logging.error(f"Step 4A: ❌ CRITICAL - Failed to create database record: {str(db_error)}")
+            raise HTTPException(status_code=500, detail=f"Database error: {str(db_error)}")
+        
+        # STEP B: Save photo files
+        logging.info(f"Step 4B: Saving {len(photos)} photo files to disk...")
+        order_dir = ORDERS_DIR / order_number
+        order_dir.mkdir(exist_ok=True)
+        
+        saved_files = []
+        try:
+            for photo in photos:
+                file_path = order_dir / photo.filename
+                with open(file_path, "wb") as buffer:
+                    shutil.copyfileobj(photo.file, buffer)
+                saved_files.append(photo.filename)
+            logging.info(f"Step 4B: ✅ All {len(saved_files)} photo files saved to {order_dir}")
+        except Exception as file_error:
+            logging.error(f"Step 4B: ❌ Failed to save files: {str(file_error)}")
+            # Cleanup: delete the database record
+            await db.orders.delete_one({"orderNumber": order_number})
+            logging.info(f"Step 4B: Cleaned up database record for failed order {order_number}")
+            raise HTTPException(status_code=500, detail=f"Failed to save files: {str(file_error)}")
+        
+        # STEP C: Create ZIP file
+        logging.info(f"Step 4C: Creating ZIP archive...")
+        zip_file_name = f"order-{order_number}.zip"
+        zip_path = ORDERS_ZIPS_DIR / zip_file_name
+        
+        try:
             create_order_zip(
                 str(order_dir),
                 str(zip_path),
@@ -199,63 +286,95 @@ async def create_order(
                 fill_white_option,
                 price_info
             )
-            
-            # Save to MongoDB only if not already exists
-            existing_order = await db.orders.find_one({"orderNumber": order_number})
-            if not existing_order:
-                try:
-                    order = Order(
-                        orderNumber=order_number,
-                        contactInfo=order_details_obj.contactInfo,
-                        photoSettings=order_details_obj.photoSettings,
-                        zipFilePath=str(zip_path),
-                        totalPhotos=total_photos
-                    )
-                    
-                    result = await db.orders.insert_one(order.model_dump())
-                    logging.info(f"Order {order_number} saved to MongoDB with ID: {result.inserted_id}")
-                except Exception as db_error:
-                    logging.error(f"CRITICAL: Failed to save order {order_number} to MongoDB: {str(db_error)}")
-                    raise HTTPException(status_code=500, detail=f"Database error: {str(db_error)}")
-            else:
-                logging.info(f"Order {order_number} already exists in MongoDB, skipping insertion")
-            
-            # Send email notification to admin
-            try:
-                send_order_notification(
-                    order_number,
-                    order_details_obj.contactInfo.model_dump(),
-                    [p.model_dump() for p in order_details_obj.photoSettings],
-                    total_photos,
-                    str(zip_path)
-                )
-                logging.info(f"Email notification sent for order {order_number}")
-            except Exception as email_error:
-                logging.error(f"Failed to send email for order {order_number}: {str(email_error)}")
-                # Don't fail the order creation if email fails
-        else:
-            logging.info(f"Received chunk {chunk_index + 1}/{total_chunks} for order {order_number}")
+            logging.info(f"Step 4C: ✅ ZIP archive created at {zip_path}")
+        except Exception as zip_error:
+            logging.error(f"Step 4C: ❌ Failed to create ZIP: {str(zip_error)}")
+            # Cleanup: delete the database record
+            await db.orders.delete_one({"orderNumber": order_number})
+            logging.info(f"Step 4C: Cleaned up database record for failed order {order_number}")
+            raise HTTPException(status_code=500, detail=f"Failed to create ZIP: {str(zip_error)}")
         
-        # Return response
-        if is_last_chunk:
-            return OrderResponse(
-                success=True,
-                orderNumber=order_number,
-                message="Order created successfully",
-                zipFilePath=str(zip_path)
+        # STEP D: Update database record to "completed" with ZIP path
+        logging.info(f"Step 4D: Updating database record to COMPLETED status...")
+        try:
+            update_result = await db.orders.update_one(
+                {"orderNumber": order_number},
+                {
+                    "$set": {
+                        "status": "completed",
+                        "zipFilePath": str(zip_path),
+                        "completedAt": datetime.now(timezone.utc).isoformat()
+                    }
+                }
             )
-        else:
-            return OrderResponse(
-                success=True,
-                orderNumber=order_number,
-                message=f"Chunk {chunk_index + 1}/{total_chunks} uploaded successfully",
-                zipFilePath=""
-            )
+            
+            if update_result.modified_count == 0:
+                logging.error(f"Step 4D: ❌ Failed to update order status - no document modified")
+                raise HTTPException(status_code=500, detail="Failed to complete order")
+            
+            logging.info(f"Step 4D: ✅ Order {order_number} status updated to COMPLETED")
+        except Exception as update_error:
+            logging.error(f"Step 4D: ❌ Failed to update order status: {str(update_error)}")
+            # Order is partially created - log the issue but don't fail completely
+            logging.error(f"Step 4D: WARNING - Order {order_number} may be in inconsistent state")
         
-    except json.JSONDecodeError:
+        # ===== CRITICAL SECTION END =====
+        
+        # STEP E: Send email notification (non-critical - don't fail if this errors)
+        logging.info(f"Step 4E: Sending email notification...")
+        try:
+            send_order_notification(
+                order_number,
+                order_details_obj.contactInfo.model_dump(),
+                [p.model_dump() for p in order_details_obj.photoSettings],
+                total_photos,
+                str(zip_path)
+            )
+            logging.info(f"Step 4E: ✅ Email notification sent successfully")
+        except Exception as email_error:
+            logging.error(f"Step 4E: ⚠️  Email notification failed (non-critical): {str(email_error)}")
+            # Don't fail the order creation if email fails
+        
+        # FINAL: Verify order exists in database before returning success
+        logging.info(f"Step 5: Final verification - checking order {order_number} exists in database...")
+        final_check = await db.orders.find_one({"orderNumber": order_number})
+        
+        if not final_check:
+            logging.error(f"Step 5: ❌ CRITICAL - Order {order_number} NOT FOUND in database after creation!")
+            raise HTTPException(status_code=500, detail="Order creation verification failed")
+        
+        logging.info(f"Step 5: ✅ Order {order_number} verified in database - Status: {final_check.get('status')}")
+        logging.info("=" * 80)
+        logging.info(f"ORDER {order_number} COMPLETED SUCCESSFULLY ✅")
+        logging.info("=" * 80)
+        
+        # Return success response
+        return OrderResponse(
+            success=True,
+            orderNumber=order_number,
+            message="Order created successfully",
+            zipFilePath=str(zip_path)
+        )
+        
+    except json.JSONDecodeError as json_err:
+        logging.error(f"JSON parsing error: {str(json_err)}")
         raise HTTPException(status_code=400, detail="Invalid order details format")
+    except HTTPException:
+        # Re-raise HTTP exceptions as-is
+        raise
     except Exception as e:
-        logging.error(f"Error creating order: {str(e)}")
+        logging.error(f"UNEXPECTED ERROR creating order {order_number if order_number else 'UNKNOWN'}: {str(e)}")
+        logging.error(f"Exception type: {type(e).__name__}")
+        logging.error(f"Exception details: {str(e)}")
+        
+        # Cleanup on unexpected error
+        if order_number:
+            try:
+                await db.orders.delete_one({"orderNumber": order_number})
+                logging.info(f"Cleaned up database record for failed order {order_number}")
+            except Exception as cleanup_err:
+                logging.error(f"Failed to cleanup order {order_number}: {str(cleanup_err)}")
+        
         raise HTTPException(status_code=500, detail=f"Failed to create order: {str(e)}")
 
 @api_router.get("/orders/{order_number}")
