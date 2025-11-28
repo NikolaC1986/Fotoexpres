@@ -17,7 +17,7 @@ import base64
 from datetime import datetime
 
 # Configuration
-BACKEND_URL = "https://print-admin-panel.preview.emergentagent.com/api"
+BACKEND_URL = "https://photo-orders.preview.emergentagent.com/api"
 
 class RoleBasedAuthTester:
     def __init__(self):
