@@ -51,6 +51,62 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleDownloadLogs = async () => {
+    try {
+      const token = localStorage.getItem('adminToken');
+      
+      toast({
+        title: "Generisanje logova...",
+        description: "Molimo sačekajte dok se kreira izveštaj"
+      });
+      
+      const downloadUrl = `${API}/admin/download-logs`;
+      
+      const response = await axios.get(downloadUrl, {
+        headers: { 'Authorization': `Bearer ${token}` },
+        responseType: 'blob'
+      });
+      
+      // Create blob URL and download
+      const blob = new Blob([response.data], { type: 'text/plain' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      
+      // Extract filename from Content-Disposition header or use default
+      const contentDisposition = response.headers['content-disposition'];
+      let filename = 'fotoexpres_logs.txt';
+      if (contentDisposition) {
+        const filenameMatch = contentDisposition.match(/filename="?(.+)"?/i);
+        if (filenameMatch) {
+          filename = filenameMatch[1];
+        }
+      }
+      
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      
+      // Cleanup
+      setTimeout(() => {
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      }, 100);
+      
+      toast({
+        title: "Logovi preuzeti!",
+        description: "Izveštaj je uspešno preuzet"
+      });
+    } catch (error) {
+      console.error('Error downloading logs:', error);
+      toast({
+        title: "Greška",
+        description: "Nije moguće preuzeti logove",
+        variant: "destructive"
+      });
+    }
+  };
+
   const handleDownload = async (orderNumber, zipFilePath) => {
     try {
       const token = localStorage.getItem('adminToken');
