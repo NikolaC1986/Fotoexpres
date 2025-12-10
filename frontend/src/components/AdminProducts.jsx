@@ -707,10 +707,10 @@ const AdminProducts = () => {
                     />
                     <div className="flex-1">
                       <Label htmlFor="isFeatured" className="text-sm font-bold block mb-1">
-                        ⭐ Istakni proizvod na početnoj strani (NOVO U PONUDI)
+                        ⭐ Istakni proizvod na početnoj strani (Izdvajamo iz ponude)
                       </Label>
                       <p className="text-xs text-gray-600">
-                        Označite ovo ako želite da ovaj proizvod bude prikazan kao <strong>"NOVO U PONUDI"</strong> na početnoj strani.
+                        Označite ovo ako želite da ovaj proizvod bude prikazan kao <strong>"Izdvajamo iz ponude"</strong> na početnoj strani.
                         <br/>
                         <em>Napomena: Samo jedan proizvod može biti istaknut istovremeno.</em>
                       </p>
