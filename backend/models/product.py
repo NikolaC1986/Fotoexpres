@@ -93,6 +93,7 @@ class ProductCreate(BaseModel):
     maxPhotos: int = 1
     allowCustomText: bool = False
     requiresPhotoUpload: bool = False
+    isFeatured: bool = False
 
 class ProductUpdate(BaseModel):
     """Model za update proizvoda"""
@@ -106,3 +107,4 @@ class ProductUpdate(BaseModel):
     maxPhotos: Optional[int] = None
     allowCustomText: Optional[bool] = None
     requiresPhotoUpload: Optional[bool] = None
+    isFeatured: Optional[bool] = None
