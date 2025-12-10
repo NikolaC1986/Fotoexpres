@@ -28,6 +28,8 @@ class Product(BaseModel):
     allowCustomText: bool = False  # Da li dozvoljava custom tekst
     requiresPhotoUpload: bool = False  # Da li proizvod zahteva upload fotografije od korisnika (za šolje, privezke, itd)
     isFeatured: bool = False  # Da li je proizvod istaknut na početnoj strani (NOVO U PONUDI)
+    isExternalProduct: bool = False  # Da li proizvod vodi ka eksternom linku (ne ide na upload page)
+    externalLink: str = ''  # Eksterni link ka drugom sajtu (ako je isExternalProduct = True)
     createdAt: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     updatedAt: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
