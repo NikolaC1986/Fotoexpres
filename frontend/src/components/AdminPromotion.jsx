@@ -215,6 +215,48 @@ const AdminPromotion = () => {
               </p>
             </div>
 
+            {/* Apply Discount Checkbox */}
+            <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="applyDiscount"
+                  checked={promotion.applyDiscount}
+                  onChange={(e) => updatePromotion('applyDiscount', e.target.checked)}
+                  className="w-5 h-5 mt-1"
+                />
+                <div className="flex-1">
+                  <Label htmlFor="applyDiscount" className="text-base font-bold block mb-1">
+                    💰 Primeni popust na cenu
+                  </Label>
+                  <p className="text-sm text-gray-600">
+                    Otkačite ovo ako želite samo da prikažete reklamnu poruku <strong>BEZ</strong> popusta na cenu.
+                    <br/>
+                    (npr. "Album na poklon", "Besplatna dostava", itd.)
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Custom Display Text - only if discount is NOT applied */}
+            {!promotion.applyDiscount && (
+              <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <Label className="text-base font-semibold mb-3 block">
+                  🎨 Custom Tekst za Badge (umesto "X% OFF")
+                </Label>
+                <Input
+                  value={promotion.customDisplayText}
+                  onChange={(e) => updatePromotion('customDisplayText', e.target.value)}
+                  placeholder="Npr: Album na poklon, Besplatna dostava, Specijalna ponuda..."
+                  className="text-lg border-2"
+                  maxLength={50}
+                />
+                <p className="text-sm text-gray-500 mt-2">
+                  Ovaj tekst će se prikazati na badge-u umesto "10% OFF"
+                </p>
+              </div>
+            )}
+
             {/* Preview */}
             {promotion.isActive && (
               <div className="mt-8 p-6 bg-gradient-to-r from-orange-100 to-red-100 rounded-lg border-2 border-orange-300">
