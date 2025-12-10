@@ -153,6 +153,75 @@ const AdminProducts = () => {
     }
   };
 
+  const openAddModal = () => {
+    setAddFormData({
+      name: '',
+      type: '',
+      description: '',
+      imageUrl: '',
+      minPhotos: 1,
+      maxPhotos: 1,
+      allowCustomText: false,
+      variants: [
+        { name: 'Opcija 1', description: 'Dimenzije: 10x15cm', price: 0, available: true },
+        { name: 'Opcija 2', description: 'Dimenzije: 20x30cm', price: 0, available: true }
+      ]
+    });
+    setShowAddModal(true);
+  };
+
+  const closeAddModal = () => {
+    setShowAddModal(false);
+  };
+
+  const handleAddFormChange = (field, value) => {
+    setAddFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleAddVariantChange = (variantIndex, field, value) => {
+    setAddFormData(prev => ({
+      ...prev,
+      variants: prev.variants.map((v, idx) => 
+        idx === variantIndex ? { ...v, [field]: value } : v
+      )
+    }));
+  };
+
+  const addNewProduct = async () => {
+    // Validation
+    if (!addFormData.name || !addFormData.type || !addFormData.description || !addFormData.imageUrl) {
+      toast({
+        title: "Greška",
+        description: "Morate popuniti sva obavezna polja",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('adminToken');
+      await axios.post(
+        `${API}/admin/products`,
+        addFormData,
+        { headers: { 'Authorization': `Bearer ${token}` } }
+      );
+      
+      toast({
+        title: "Uspešno!",
+        description: "Novi proizvod je dodat",
+      });
+      
+      closeAddModal();
+      fetchProducts();
+    } catch (error) {
+      toast({
+        title: "Greška",
+        description: "Nije moguće dodati proizvod",
+        variant: "destructive"
+      });
+    }
+  };
+
   const updateProductImage = async (productId, imageUrl) => {
     try {
       const token = localStorage.getItem('adminToken');
