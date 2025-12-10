@@ -196,12 +196,26 @@ const HomePage = () => {
                   </div>
                   
                   {/* CTA */}
-                  <Link to={`/upload?product=${featuredProduct.id}`}>
-                    <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white gap-2 py-6 text-lg font-bold">
-                      Naruči Sada
-                      <ArrowRight size={20} />
-                    </Button>
-                  </Link>
+                  {featuredProduct.isExternalProduct ? (
+                    <a 
+                      href={featuredProduct.externalLink} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="block"
+                    >
+                      <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white gap-2 py-6 text-lg font-bold">
+                        Posetite Sajt
+                        <ArrowRight size={20} />
+                      </Button>
+                    </a>
+                  ) : (
+                    <Link to={`/upload?product=${featuredProduct.id}`}>
+                      <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white gap-2 py-6 text-lg font-bold">
+                        Naruči Sada
+                        <ArrowRight size={20} />
+                      </Button>
+                    </Link>
+                  )}
                 </div>
               </div>
             </Card>
