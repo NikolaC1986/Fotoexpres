@@ -15,11 +15,25 @@ const AdminProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [editFormData, setEditFormData] = useState({
     name: '',
     description: '',
     variants: []
+  });
+  const [addFormData, setAddFormData] = useState({
+    name: '',
+    type: '',
+    description: '',
+    imageUrl: '',
+    minPhotos: 1,
+    maxPhotos: 1,
+    allowCustomText: false,
+    variants: [
+      { name: 'Opcija 1', description: 'Dimenzije: 10x15cm', price: 0, available: true },
+      { name: 'Opcija 2', description: 'Dimenzije: 20x30cm', price: 0, available: true }
+    ]
   });
 
   useEffect(() => {
