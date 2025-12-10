@@ -546,20 +546,61 @@ const AdminProducts = () => {
                   />
                 </div>
 
-                {/* Image URL */}
+                {/* Image Upload or URL */}
                 <div>
-                  <Label htmlFor="addImageUrl" className="text-sm font-bold mb-2 block">
-                    URL Fotografije *
+                  <Label className="text-sm font-bold mb-2 block">
+                    Fotografija Proizvoda * (Upload ili URL)
                   </Label>
+                  
+                  {/* File Upload */}
+                  <div className="mb-3">
+                    <input
+                      type="file"
+                      id="productImageUpload"
+                      accept="image/*"
+                      onChange={handleImageFileUpload}
+                      className="hidden"
+                    />
+                    <Button
+                      type="button"
+                      onClick={() => document.getElementById('productImageUpload').click()}
+                      variant="outline"
+                      className="w-full border-2 gap-2"
+                    >
+                      <Upload size={18} />
+                      {uploadedImageFile ? 'Promeni Fotografiju' : 'Upload Fotografiju'}
+                    </Button>
+                  </div>
+
+                  {/* OR separator */}
+                  <div className="flex items-center gap-2 my-3">
+                    <div className="flex-1 border-t border-gray-300"></div>
+                    <span className="text-xs text-gray-500">ILI</span>
+                    <div className="flex-1 border-t border-gray-300"></div>
+                  </div>
+
+                  {/* URL Input */}
                   <Input
                     id="addImageUrl"
                     value={addFormData.imageUrl}
                     onChange={(e) => handleAddFormChange('imageUrl', e.target.value)}
                     placeholder="https://images.unsplash.com/..."
                     className="w-full"
+                    disabled={!!uploadedImageFile}
                   />
-                  {addFormData.imageUrl && (
-                    <img src={addFormData.imageUrl} alt="Preview" className="mt-2 w-32 h-32 object-cover rounded" />
+                  
+                  {/* Preview */}
+                  {(uploadedImagePreview || addFormData.imageUrl) && (
+                    <div className="mt-3">
+                      <img 
+                        src={uploadedImagePreview || addFormData.imageUrl} 
+                        alt="Preview" 
+                        className="w-32 h-32 object-cover rounded border-2" 
+                      />
+                      {uploadedImageFile && (
+                        <p className="text-xs text-green-600 mt-1">✓ Fotografija uploadovana</p>
+                      )}
+                    </div>
                   )}
                 </div>
 
