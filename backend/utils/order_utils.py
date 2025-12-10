@@ -189,7 +189,7 @@ Dostava: {delivery_fee} RSD
    • Standardna dostava
 """
     
-    grand_total = price_after_discount + delivery_fee
+    grand_total = price_after_discount_with_products + delivery_fee
     
     content += f"""
 ──────────────────────────────
