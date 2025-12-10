@@ -143,13 +143,13 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Featured Product Section - NOVO U PONUDI */}
+      {/* Featured Product Section - Izdvajamo iz ponude */}
       {featuredProduct && (
         <section className="py-12 md:py-16 bg-gradient-to-br from-orange-50 via-pink-50 to-purple-50">
           <div className="max-w-7xl mx-auto px-4 md:px-6">
             <div className="text-center mb-8">
               <div className="inline-block bg-orange-600 text-white px-4 py-2 rounded-full font-bold text-sm mb-4 animate-pulse">
-                🎉 NOVO U PONUDI
+                ⭐ Izdvajamo iz ponude
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 {featuredProduct.name}
@@ -165,9 +165,6 @@ const HomePage = () => {
                     alt={featuredProduct.name}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute top-4 right-4 bg-white px-4 py-2 rounded-full shadow-lg">
-                    <span className="text-orange-600 font-bold">⭐ NOVO</span>
-                  </div>
                 </div>
                 
                 {/* Content */}
