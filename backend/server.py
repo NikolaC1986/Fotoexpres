@@ -1199,6 +1199,396 @@ async def get_public_promotion():
         logging.error(f"Error fetching promotion: {str(e)}")
         return {"promotion": {'isActive': False, 'format': 'all', 'discountPercent': 10, 'validUntil': '', 'message': ''}}
 
+# ============================================================================
+# PRODUCTS MANAGEMENT
+# ============================================================================
+
+from models.product import (
+    Product, ProductCreate, ProductUpdate, ProductVariant,
+    ProductOrder, ProductOrderItem, ProductOrderResponse
+)
+
+# Get all products (public)
+@api_router.get("/products")
+async def get_products():
+    """Get all available products"""
+    try:
+        products = await db.products.find({"available": True}, {"_id": 0}).to_list(1000)
+        return {"success": True, "products": products}
+    except Exception as e:
+        logging.error(f"Error fetching products: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch products")
+
+# Get single product by ID (public)
+@api_router.get("/products/{product_id}")
+async def get_product(product_id: str):
+    """Get single product by ID"""
+    try:
+        product = await db.products.find_one({"id": product_id}, {"_id": 0})
+        if not product:
+            raise HTTPException(status_code=404, detail="Product not found")
+        return {"success": True, "product": product}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Error fetching product: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch product")
+
+# Create product order (public)
+@api_router.post("/product-orders/create", response_model=ProductOrderResponse)
+async def create_product_order(
+    photos: List[UploadFile] = File(...),
+    order_details: str = Form(...)
+):
+    """Create a new product order"""
+    order_number = None
+    
+    try:
+        logging.info("=" * 80)
+        logging.info(f"NEW PRODUCT ORDER REQUEST - Timestamp: {datetime.now(timezone.utc).isoformat()}")
+        
+        # Validate files
+        ALLOWED_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.heic', '.heif'}
+        ALLOWED_MIME_TYPES = {
+            'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 
+            'image/bmp', 'image/webp', 'image/heic', 'image/heif'
+        }
+        MAX_FILE_SIZE = 50 * 1024 * 1024  # 50MB
+        
+        logging.info(f"Step 1: Validating {len(photos)} photo files...")
+        for photo in photos:
+            file_ext = os.path.splitext(photo.filename)[1].lower()
+            if file_ext not in ALLOWED_EXTENSIONS:
+                raise HTTPException(status_code=400, detail=f"Nedozvoljen tip fajla: {file_ext}")
+            if photo.content_type not in ALLOWED_MIME_TYPES:
+                raise HTTPException(status_code=400, detail=f"Nedozvoljen MIME tip: {photo.content_type}")
+            
+            content = await photo.read(MAX_FILE_SIZE + 1)
+            if len(content) == 0:
+                raise HTTPException(status_code=400, detail=f"Fajl je prazan: {photo.filename}")
+            if len(content) > MAX_FILE_SIZE:
+                raise HTTPException(status_code=400, detail=f"Fajl je prevelik: {photo.filename}")
+            await photo.seek(0)
+        
+        logging.info(f"Step 1: ✅ All {len(photos)} files validated")
+        
+        # Parse order details
+        logging.info("Step 2: Parsing product order details...")
+        order_data = json.loads(order_details)
+        
+        # Generate order number
+        order_number = generate_order_number()
+        logging.info(f"Step 3: ✅ Generated product order number: {order_number}")
+        
+        # Create order directory
+        order_dir = ORDERS_DIR / f"product_{order_number}"
+        order_dir.mkdir(exist_ok=True)
+        
+        # Save photos
+        logging.info(f"Step 4: Saving photos to disk...")
+        saved_files = []
+        for photo in photos:
+            file_path = order_dir / photo.filename
+            with open(file_path, "wb") as buffer:
+                shutil.copyfileobj(photo.file, buffer)
+            saved_files.append(photo.filename)
+        logging.info(f"Step 4: ✅ Saved {len(saved_files)} photos")
+        
+        # Create product order object
+        from models.product import ContactInfo as ProductContactInfo
+        contact_info = ProductContactInfo(**order_data['contactInfo'])
+        
+        items = []
+        for item_data in order_data['items']:
+            item = ProductOrderItem(**item_data)
+            items.append(item)
+        
+        # Create order document
+        logging.info(f"Step 5: Creating database record...")
+        product_order = {
+            "orderNumber": order_number,
+            "contactInfo": contact_info.model_dump(),
+            "items": [item.model_dump() for item in items],
+            "totalPrice": order_data.get('totalPrice', 0),
+            "deliveryFee": order_data.get('deliveryFee', 0),
+            "grandTotal": order_data.get('grandTotal', 0),
+            "status": "Na Čekanju",
+            "zipFilePath": "",
+            "createdAt": datetime.now(timezone.utc).isoformat()
+        }
+        
+        result = await db.product_orders.insert_one(product_order)
+        logging.info(f"Step 5: ✅ Product order {order_number} created in database")
+        
+        # Create ZIP file with photos
+        zip_file_name = f"product_order-{order_number}.zip"
+        zip_path = ORDERS_ZIPS_DIR / zip_file_name
+        
+        logging.info(f"Step 6: Creating ZIP archive...")
+        with zipfile.ZipFile(zip_path, 'w') as zipf:
+            # Add photos
+            for photo_file in saved_files:
+                file_path = order_dir / photo_file
+                zipf.write(file_path, photo_file)
+            
+            # Create order details text file
+            order_details_content = f"""FOTOEXPRES - PRODUCT ORDER
+Order Number: {order_number}
+Datum: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')}
+
+KONTAKT INFORMACIJE:
+Ime i Prezime: {contact_info.fullName}
+Email: {contact_info.email}
+Telefon: {contact_info.phone}
+Ulica i broj: {contact_info.street}
+Poštanski broj: {contact_info.postalCode}
+Grad: {contact_info.city}
+Napomene: {contact_info.notes or 'N/A'}
+
+NARUČENI PROIZVODI:
+"""
+            for idx, item in enumerate(items, 1):
+                order_details_content += f"\n{idx}. {item.productName} - {item.variantName}"
+                order_details_content += f"\n   Količina: {item.quantity}"
+                order_details_content += f"\n   Cena: {item.price} RSD"
+                order_details_content += f"\n   Fotografije: {', '.join(item.photoFileNames)}"
+                if item.customText:
+                    order_details_content += f"\n   Custom tekst: {item.customText}"
+                order_details_content += "\n"
+            
+            order_details_content += f"\n\nUKUPNO:\n"
+            order_details_content += f"Proizvodi: {order_data.get('totalPrice', 0)} RSD\n"
+            order_details_content += f"Dostava: {order_data.get('deliveryFee', 0)} RSD\n"
+            order_details_content += f"UKUPNO ZA PLAĆANJE: {order_data.get('grandTotal', 0)} RSD\n"
+            
+            # Add order details to ZIP
+            zipf.writestr('order_details.txt', order_details_content.encode('utf-8'))
+        
+        logging.info(f"Step 6: ✅ ZIP created at {zip_path}")
+        
+        # Update order with ZIP path
+        await db.product_orders.update_one(
+            {"orderNumber": order_number},
+            {"$set": {"zipFilePath": str(zip_path)}}
+        )
+        
+        logging.info("=" * 80)
+        logging.info(f"PRODUCT ORDER {order_number} COMPLETED SUCCESSFULLY ✅")
+        logging.info("=" * 80)
+        
+        return ProductOrderResponse(
+            success=True,
+            orderNumber=order_number,
+            message="Product order created successfully",
+            zipFilePath=str(zip_path)
+        )
+        
+    except json.JSONDecodeError:
+        logging.error("JSON parsing error in product order")
+        raise HTTPException(status_code=400, detail="Invalid order details format")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Error creating product order: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to create product order: {str(e)}")
+
+# ============================================================================
+# ADMIN: PRODUCTS MANAGEMENT
+# ============================================================================
+
+# Get all products (admin)
+@api_router.get("/admin/products")
+async def admin_get_products(admin = Depends(verify_admin_token)):
+    """Get all products (including unavailable) for admin"""
+    try:
+        products = await db.products.find({}, {"_id": 0}).to_list(1000)
+        return {"success": True, "products": products}
+    except Exception as e:
+        logging.error(f"Error fetching products for admin: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch products")
+
+# Create product (admin only)
+@api_router.post("/admin/products")
+async def admin_create_product(product: ProductCreate, admin = Depends(verify_admin_token)):
+    """Create a new product"""
+    try:
+        import uuid
+        product_id = str(uuid.uuid4())
+        
+        product_doc = {
+            "id": product_id,
+            **product.model_dump(),
+            "createdAt": datetime.now(timezone.utc).isoformat(),
+            "updatedAt": datetime.now(timezone.utc).isoformat()
+        }
+        
+        await db.products.insert_one(product_doc)
+        logging.info(f"Product created: {product_id} - {product.name}")
+        
+        return {"success": True, "message": "Product created successfully", "productId": product_id}
+    except Exception as e:
+        logging.error(f"Error creating product: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to create product")
+
+# Update product (admin only)
+@api_router.put("/admin/products/{product_id}")
+async def admin_update_product(
+    product_id: str,
+    product: ProductUpdate,
+    admin = Depends(verify_admin_token)
+):
+    """Update an existing product"""
+    try:
+        update_data = {k: v for k, v in product.model_dump().items() if v is not None}
+        update_data["updatedAt"] = datetime.now(timezone.utc).isoformat()
+        
+        result = await db.products.update_one(
+            {"id": product_id},
+            {"$set": update_data}
+        )
+        
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="Product not found")
+        
+        logging.info(f"Product updated: {product_id}")
+        return {"success": True, "message": "Product updated successfully"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Error updating product: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to update product")
+
+# Delete product (admin only)
+@api_router.delete("/admin/products/{product_id}")
+async def admin_delete_product(product_id: str, admin = Depends(verify_admin_token)):
+    """Delete a product"""
+    try:
+        result = await db.products.delete_one({"id": product_id})
+        
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Product not found")
+        
+        logging.info(f"Product deleted: {product_id}")
+        return {"success": True, "message": "Product deleted successfully"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Error deleting product: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to delete product")
+
+# Get all product orders (admin)
+@api_router.get("/admin/product-orders")
+async def admin_get_product_orders(admin = Depends(verify_admin_token)):
+    """Get all product orders for admin"""
+    try:
+        orders = await db.product_orders.find({}, {"_id": 0}).to_list(1000)
+        
+        # Calculate stats
+        total = len(orders)
+        pending = len([o for o in orders if o.get('status') == 'Na Čekanju'])
+        in_progress = len([o for o in orders if o.get('status') == 'U Pripremi'])
+        completed = len([o for o in orders if o.get('status') in ['Poslato', 'Završeno']])
+        
+        return {
+            "success": True,
+            "orders": orders,
+            "stats": {
+                "total": total,
+                "pending": pending,
+                "inProgress": in_progress,
+                "completed": completed
+            }
+        }
+    except Exception as e:
+        logging.error(f"Error fetching product orders: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch product orders")
+
+# Update product order status (admin)
+@api_router.put("/admin/product-orders/{order_number}/status")
+async def admin_update_product_order_status(
+    order_number: str,
+    status_data: dict,
+    admin = Depends(verify_admin_token)
+):
+    """Update product order status"""
+    try:
+        new_status = status_data.get('status')
+        if not new_status:
+            raise HTTPException(status_code=400, detail="Status is required")
+        
+        result = await db.product_orders.update_one(
+            {"orderNumber": order_number},
+            {"$set": {
+                "status": new_status,
+                "updatedAt": datetime.now(timezone.utc).isoformat()
+            }}
+        )
+        
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="Product order not found")
+        
+        logging.info(f"Product order {order_number} status updated to: {new_status}")
+        return {"success": True, "message": "Status updated successfully"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Error updating product order status: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to update status")
+
+# Download product order ZIP (admin)
+@api_router.get("/admin/product-orders/{order_number}/download")
+async def admin_download_product_order(order_number: str, admin = Depends(verify_admin_token)):
+    """Download product order ZIP file"""
+    try:
+        order = await db.product_orders.find_one({"orderNumber": order_number})
+        if not order:
+            raise HTTPException(status_code=404, detail="Product order not found")
+        
+        zip_path = order.get('zipFilePath')
+        if not zip_path or not os.path.exists(zip_path):
+            raise HTTPException(status_code=404, detail="ZIP file not found")
+        
+        return FileResponse(
+            path=zip_path,
+            filename=f"product_order-{order_number}.zip",
+            media_type="application/zip"
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Error downloading product order: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to download product order")
+
+# Delete product order (admin)
+@api_router.delete("/admin/product-orders/{order_number}")
+async def admin_delete_product_order(order_number: str, admin = Depends(verify_admin_token)):
+    """Delete a product order"""
+    try:
+        order = await db.product_orders.find_one({"orderNumber": order_number})
+        if not order:
+            raise HTTPException(status_code=404, detail="Product order not found")
+        
+        # Delete ZIP file
+        zip_path = order.get('zipFilePath')
+        if zip_path and os.path.exists(zip_path):
+            os.remove(zip_path)
+        
+        # Delete order directory
+        order_dir = ORDERS_DIR / f"product_{order_number}"
+        if order_dir.exists():
+            shutil.rmtree(order_dir)
+        
+        # Delete from database
+        await db.product_orders.delete_one({"orderNumber": order_number})
+        
+        logging.info(f"Product order deleted: {order_number}")
+        return {"success": True, "message": "Product order deleted successfully"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Error deleting product order: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to delete product order")
+
 # Include the router in the main app
 app.include_router(api_router)
 
