@@ -181,18 +181,81 @@ const ProductSelector = ({ onProductsChange, totalPhotosUploaded }) => {
                   </div>
                 </div>
 
+                {/* Product Photos Upload (for mug and keychain) */}
+                {product.requiresPhotos && (
+                  <div className="mb-4 p-4 bg-orange-50 border-2 border-orange-300 rounded-lg">
+                    <Label className="text-sm font-bold mb-2 block text-orange-900 flex items-center gap-2">
+                      <Info size={16} />
+                      Fotografije za ovaj proizvod * (Obavezno)
+                    </Label>
+                    <p className="text-xs text-gray-600 mb-3">
+                      Uploadujte fotografije koje želite na ovom proizvodu (maksimalno {originalProduct?.maxPhotos || 3})
+                    </p>
+                    
+                    {/* Upload Button */}
+                    <div className="mb-3">
+                      <input
+                        type="file"
+                        id={`productPhoto-${index}`}
+                        accept="image/*"
+                        multiple
+                        onChange={(e) => handleProductPhotoUpload(index, e.target.files)}
+                        className="hidden"
+                      />
+                      <Button
+                        type="button"
+                        onClick={() => document.getElementById(`productPhoto-${index}`).click()}
+                        variant="outline"
+                        size="sm"
+                        className="border-2 border-orange-400 hover:bg-orange-100"
+                      >
+                        <Plus size={16} className="mr-2" />
+                        Dodaj Fotografije
+                      </Button>
+                    </div>
+
+                    {/* Preview uploaded photos */}
+                    {product.productPhotos && product.productPhotos.length > 0 && (
+                      <div className="grid grid-cols-3 gap-2">
+                        {product.productPhotos.map((photo) => (
+                          <div key={photo.id} className="relative group">
+                            <img 
+                              src={photo.preview} 
+                              alt={photo.name}
+                              className="w-full h-24 object-cover rounded border-2 border-gray-300"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => removeProductPhoto(index, photo.id)}
+                              className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                            >
+                              <X size={14} />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {(!product.productPhotos || product.productPhotos.length === 0) && (
+                      <p className="text-xs text-red-600 font-semibold">
+                        ⚠️ Morate dodati bar jednu fotografiju za ovaj proizvod!
+                      </p>
+                    )}
+                  </div>
+                )}
+
                 {/* Custom Text (if allowed) */}
                 {allowCustomText && (
                   <div className="mb-4">
                     <Label htmlFor={`customText-${index}`} className="text-sm font-semibold mb-2 block">
-                      Vaš Tekst (Opciono)
+                      Vaš Tekst ili Napomena (Opciono)
                     </Label>
                     <Textarea 
                       id={`customText-${index}`}
                       value={product.customText}
                       onChange={(e) => updateProductText(index, e.target.value)}
-                      placeholder="Unesite tekst koji želite na proizvodu..."
-                      rows={2}
+                      placeholder="Npr: 'Srećan rođendan!' ili posebne napomene..."
+                      rows={3}
                       className="border-2"
                     />
                   </div>
