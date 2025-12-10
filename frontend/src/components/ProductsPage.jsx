@@ -102,12 +102,13 @@ const ProductsPage = () => {
                 </div>
 
                 {/* CTA Button */}
-                <Link to={`/proizvodi/${product.type}`}>
-                  <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white gap-2">
-                    Naruči sada
-                    <ArrowRight size={18} />
-                  </Button>
-                </Link>
+                <Button 
+                  onClick={() => navigate(`/upload?product=${product.id}`)}
+                  className="w-full bg-orange-600 hover:bg-orange-700 text-white gap-2"
+                >
+                  Naruči sada
+                  <ArrowRight size={18} />
+                </Button>
               </div>
             </Card>
           ))}
