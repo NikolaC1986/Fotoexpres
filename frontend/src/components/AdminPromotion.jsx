@@ -269,7 +269,10 @@ const AdminPromotion = () => {
                     <div className="flex items-center justify-between gap-4">
                       <div className="flex items-center gap-4 flex-1">
                         <div className="bg-white text-orange-600 px-4 py-2 rounded-full font-bold text-xl">
-                          {promotion.discountPercent}% OFF
+                          {promotion.applyDiscount 
+                            ? `${promotion.discountPercent}% OFF`
+                            : (promotion.customDisplayText || 'Custom Tekst')
+                          }
                         </div>
                         <div className="flex-1">
                           <p className="text-lg font-bold">
