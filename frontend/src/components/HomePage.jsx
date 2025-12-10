@@ -143,6 +143,72 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Featured Product Section - NOVO U PONUDI */}
+      {featuredProduct && (
+        <section className="py-12 md:py-16 bg-gradient-to-br from-orange-50 via-pink-50 to-purple-50">
+          <div className="max-w-7xl mx-auto px-4 md:px-6">
+            <div className="text-center mb-8">
+              <div className="inline-block bg-orange-600 text-white px-4 py-2 rounded-full font-bold text-sm mb-4 animate-pulse">
+                🎉 NOVO U PONUDI
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                {featuredProduct.name}
+              </h2>
+            </div>
+            
+            <Card className="overflow-hidden border-4 border-orange-300 shadow-2xl max-w-4xl mx-auto">
+              <div className="grid md:grid-cols-2">
+                {/* Image */}
+                <div className="relative h-64 md:h-auto">
+                  <img 
+                    src={featuredProduct.imageUrl} 
+                    alt={featuredProduct.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-4 right-4 bg-white px-4 py-2 rounded-full shadow-lg">
+                    <span className="text-orange-600 font-bold">⭐ NOVO</span>
+                  </div>
+                </div>
+                
+                {/* Content */}
+                <div className="p-8 flex flex-col justify-center">
+                  <p className="text-gray-600 mb-6 leading-relaxed">
+                    {featuredProduct.description}
+                  </p>
+                  
+                  {/* Variants */}
+                  <div className="mb-6">
+                    <h4 className="font-bold text-gray-900 mb-3">Dostupne Opcije:</h4>
+                    <div className="space-y-2">
+                      {featuredProduct.variants
+                        .filter(v => v.available)
+                        .slice(0, 3)
+                        .map((variant, idx) => (
+                        <div key={idx} className="flex justify-between items-center bg-white p-3 rounded-lg border border-gray-200">
+                          <span className="text-sm font-semibold text-gray-700">{variant.name}</span>
+                          <span className="text-orange-600 font-bold">{variant.price} RSD</span>
+                        </div>
+                      ))}
+                      {featuredProduct.variants.filter(v => v.available).length > 3 && (
+                        <p className="text-xs text-gray-500 italic">+ još opcija...</p>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* CTA */}
+                  <Link to={`/upload?product=${featuredProduct.id}`}>
+                    <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white gap-2 py-6 text-lg font-bold">
+                      Naruči Sada
+                      <ArrowRight size={20} />
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </section>
+      )}
+
       {/* Services Section */}
       <section className="py-12 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
