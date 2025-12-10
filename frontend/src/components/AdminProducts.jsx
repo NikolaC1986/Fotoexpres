@@ -102,7 +102,7 @@ const AdminProducts = () => {
   const closeEditModal = () => {
     setShowEditModal(false);
     setEditingProduct(null);
-    setEditFormData({ name: '', description: '', variants: [] });
+    setEditFormData({ name: '', description: '', requiresPhotoUpload: false, variants: [] });
   };
 
   const handleEditFormChange = (field, value) => {
