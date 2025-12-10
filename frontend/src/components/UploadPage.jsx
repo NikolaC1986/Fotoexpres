@@ -357,6 +357,81 @@ const UploadPage = () => {
       setIsUploading(true);
       setUploadProgress(0);
 
+      // Special case: Products only (no photos)
+      if (photos.length === 0 && selectedProducts.length > 0) {
+        toast({
+          title: "Slanje porudžbine...",
+          description: "Procesiranje proizvoda..."
+        });
+
+        const formData = new FormData();
+        
+        // Add a dummy file to satisfy backend requirement (will create empty photos array)
+        const dummyBlob = new Blob([''], { type: 'text/plain' });
+        formData.append('photos', dummyBlob, 'no_photos.txt');
+
+        // Add product photos to formData
+        selectedProducts.forEach((product, productIndex) => {
+          if (product.productPhotos && product.productPhotos.length > 0) {
+            product.productPhotos.forEach((photo) => {
+              formData.append(`product_photos_${productIndex}`, photo.file);
+            });
+          }
+        });
+
+        // Prepare products data without file objects for JSON
+        const productsForJson = selectedProducts.map((product, idx) => ({
+          ...product,
+          productPhotos: undefined,
+          photoFileNames: product.productPhotos ? product.productPhotos.map(p => p.name) : [],
+          productPhotoFieldName: `product_photos_${idx}`
+        }));
+
+        const orderDetails = {
+          contactInfo,
+          photoSettings: [], // No photos
+          totalPrice: 0,
+          quantityDiscountAmount: 0,
+          promotionDiscountAmount: 0,
+          quantityDiscountPercent: 0,
+          promotionDiscountPercent: 0,
+          deliveryFee: deliveryFee,
+          deliveryPrice: deliveryPrice,
+          freeDeliveryLimit: freeDeliveryLimit,
+          grandTotal: productsPrice + deliveryFee,
+          prices: priceMap,
+          cropOption: false,
+          fillWhiteOption: false,
+          products: productsForJson
+        };
+        formData.append('order_details', JSON.stringify(orderDetails));
+
+        const response = await axios.post(`${API}/orders/create`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+          timeout: 300000
+        });
+
+        if (!response.data.success || !response.data.orderNumber) {
+          throw new Error('Porudžbina nije uspešno kreirana');
+        }
+
+        const { orderNumber } = response.data;
+
+        toast({
+          title: "Porudžbina poslata!",
+          description: `Vaša porudžbina #${orderNumber} je primljena. Uskoro ćemo vas kontaktirati.`,
+          duration: 3000
+        });
+
+        setTimeout(() => {
+          resetForm();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 1500);
+
+        setIsUploading(false);
+        return;
+      }
+
       // For large uploads (>50 photos), use chunked upload
       const CHUNK_SIZE = 50; // Upload 50 photos at a time
       const totalPhotos = photos.length;
