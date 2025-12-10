@@ -806,6 +806,18 @@ const UploadPage = () => {
                 </div>
               </div>
             </Card>
+
+            {/* Product Selector */}
+            <Card className="p-10 bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200">
+              <h2 className="text-3xl font-bold mb-4 text-gray-900">Dodaj Proizvode (Opciono)</h2>
+              <p className="text-gray-600 mb-6">
+                Pored fotografija, možete dodati i personalizovane proizvode poput albuma, šolje ili privezaka.
+              </p>
+              <ProductSelector 
+                onProductsChange={setSelectedProducts}
+                totalPhotosUploaded={totalPhotos}
+              />
+            </Card>
           </div>
         )}
 
