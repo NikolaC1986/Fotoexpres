@@ -49,7 +49,9 @@ const ProductSelector = ({ onProductsChange, totalPhotosUploaded }) => {
       quantity: 1,
       price: variant.price,
       customText: '',
-      dedicatedPhotoCount: 0
+      dedicatedPhotoCount: 0,
+      productPhotos: [], // Photos specifically for this product
+      requiresPhotos: product.type === 'mug' || product.type === 'keychain' // Šolja i Privezak zahtevaju fotografije
     };
     
     setSelectedProducts([...selectedProducts, newProduct]);
