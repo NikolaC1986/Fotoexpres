@@ -12,7 +12,7 @@ from PIL import Image
 import io
 
 # Configuration
-BACKEND_URL = "https://photo-orders.preview.emergentagent.com/api"
+BACKEND_URL = "https://product-dashboard-17.preview.emergentagent.com/api"
 
 # Admin credentials (as specified in review request)
 ADMIN_USERNAME = "Vlasnik"
