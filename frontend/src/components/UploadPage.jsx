@@ -551,17 +551,12 @@ const UploadPage = () => {
         }
 
         // All checks passed - show success
-        toast({
-          title: "Porudžbina poslata!",
-          description: `Vaša porudžbina #${orderNumber} je primljena. Uskoro ćemo vas kontaktirati.`,
-          duration: 3000
-        });
-
-        // Reset form after successful submission
-        setTimeout(() => {
-          resetForm();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 1500);
+        // Show success modal
+        setSuccessOrderNumber(orderNumber);
+        setShowSuccessModal(true);
+        
+        // Reset form
+        resetForm();
 
       } else {
         // Standard upload for smaller batches
@@ -641,17 +636,12 @@ const UploadPage = () => {
         const { orderNumber } = response.data;
         
         // All checks passed - show success
-        toast({
-          title: "Porudžbina poslata!",
-          description: `Vaša porudžbina #${orderNumber} je primljena. Uskoro ćemo vas kontaktirati.`,
-          duration: 3000
-        });
-
-        // Reset form after successful submission
-        setTimeout(() => {
-          resetForm();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 1500);
+        // Show success modal
+        setSuccessOrderNumber(orderNumber);
+        setShowSuccessModal(true);
+        
+        // Reset form
+        resetForm();
       }
       
     } catch (error) {
