@@ -78,6 +78,14 @@ function App() {
             } 
           />
           <Route 
+            path="/logovanje/products" 
+            element={
+              <ProtectedRoute>
+                <AdminProducts />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
             path="/logovanje/password" 
             element={
               <ProtectedRoute>
