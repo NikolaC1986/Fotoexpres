@@ -68,6 +68,40 @@ const UploadPage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Load pre-selected product from URL
+  useEffect(() => {
+    const loadPreSelectedProduct = async () => {
+      const productId = searchParams.get('product');
+      if (productId && !preSelectedProductLoaded) {
+        try {
+          const response = await axios.get(`${API}/products/${productId}`);
+          if (response.data.success && response.data.product) {
+            const product = response.data.product;
+            
+            // Auto-scroll to products section
+            setTimeout(() => {
+              const productsSection = document.getElementById('products-section');
+              if (productsSection) {
+                productsSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+            }, 500);
+
+            toast({
+              title: `${product.name} dodat!`,
+              description: "Izaberite opciju i dodajte fotografije za ovaj proizvod",
+              duration: 5000
+            });
+            
+            setPreSelectedProductLoaded(true);
+          }
+        } catch (error) {
+          console.error('Error loading pre-selected product:', error);
+        }
+      }
+    };
+
+    loadPreSelectedProduct();
+  }, [searchParams, preSelectedProductLoaded]);
   const fetchSettings = async () => {
     try {
       const response = await axios.get(`${API}/settings`);
