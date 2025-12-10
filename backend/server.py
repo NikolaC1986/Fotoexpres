@@ -22,6 +22,11 @@ from models.order import Order, OrderDetails, OrderResponse
 from models.admin import AdminLogin, AdminToken, ChangeCredentials, ChangeViewerPassword, create_access_token, verify_token, verify_admin_credentials, update_env_file
 from utils.order_utils import generate_order_number, create_order_zip
 from utils.email_utils import send_order_notification
+from utils.security_utils import (
+    validate_email, validate_phone, validate_name, 
+    validate_address, validate_city, validate_zip_code,
+    sanitize_filename, validate_price, validate_positive_number
+)
 
 
 ROOT_DIR = Path(__file__).parent
