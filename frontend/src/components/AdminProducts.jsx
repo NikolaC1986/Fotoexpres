@@ -220,6 +220,48 @@ const AdminProducts = () => {
     }));
   };
 
+  const addNewVariantToAddForm = () => {
+    const newVariant = {
+      name: `Opcija ${addFormData.variants.length + 1}`,
+      description: 'Opis opcije',
+      price: 0,
+      available: true
+    };
+    
+    setAddFormData(prev => ({
+      ...prev,
+      variants: [...prev.variants, newVariant]
+    }));
+  };
+
+  const removeVariantFromAddForm = (variantIndex) => {
+    if (addFormData.variants.length <= 1) {
+      toast({
+        title: "Greška",
+        description: "Proizvod mora imati bar jednu varijantu",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setAddFormData(prev => ({
+      ...prev,
+      variants: prev.variants.filter((_, idx) => idx !== variantIndex)
+    }));
+  };
+
+  const handleImageFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setUploadedImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setUploadedImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const addNewProduct = async () => {
     // Validation
     if (!addFormData.name || !addFormData.type || !addFormData.description || !addFormData.imageUrl) {
