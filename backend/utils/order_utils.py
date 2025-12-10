@@ -165,10 +165,13 @@ AKCIJSKI POPUST ({promotion_discount_percent}%): -{promotion_discount_amount} RS
         content += f"""
 ──────────────────────────────
 Ukupan popust: -{total_discount} RSD
-Cena sa popustom: {price_after_discount} RSD
+Cena fotografija sa popustom: {price_after_discount} RSD
 """
     else:
         price_after_discount = subtotal
+    
+    # Add products to price after discount
+    price_after_discount_with_products = price_after_discount + products_subtotal
     
     # Delivery fee - use from price_info or default to 400
     delivery_fee = price_info.get('deliveryFee', 400) if price_info else 400
