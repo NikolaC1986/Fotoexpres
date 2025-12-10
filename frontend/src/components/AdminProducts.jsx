@@ -98,6 +98,8 @@ const AdminProducts = () => {
       description: product.description,
       requiresPhotoUpload: product.requiresPhotoUpload || false,
       isFeatured: product.isFeatured || false,
+      isExternalProduct: product.isExternalProduct || false,
+      externalLink: product.externalLink || '',
       variants: product.variants.map(v => ({ ...v })) // Deep copy
     });
     setShowEditModal(true);
