@@ -102,13 +102,27 @@ const ProductsPage = () => {
                 </div>
 
                 {/* CTA Button */}
-                <Button 
-                  onClick={() => navigate(`/upload?product=${product.id}`)}
-                  className="w-full bg-orange-600 hover:bg-orange-700 text-white gap-2"
-                >
-                  Naruči sada
-                  <ArrowRight size={18} />
-                </Button>
+                {product.isExternalProduct ? (
+                  <a 
+                    href={product.externalLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
+                    <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white gap-2">
+                      Posetite Sajt
+                      <ArrowRight size={18} />
+                    </Button>
+                  </a>
+                ) : (
+                  <Button 
+                    onClick={() => navigate(`/upload?product=${product.id}`)}
+                    className="w-full bg-orange-600 hover:bg-orange-700 text-white gap-2"
+                  >
+                    Naruči sada
+                    <ArrowRight size={18} />
+                  </Button>
+                )}
               </div>
             </Card>
           ))}
