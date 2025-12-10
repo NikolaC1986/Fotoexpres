@@ -176,21 +176,30 @@ async def create_order(
         logging.info("Step 2.1: Validating contact information...")
         if 'contactInfo' in order_data:
             contact = order_data['contactInfo']
+            logging.info(f"Contact info fields: {list(contact.keys())}")
             try:
                 contact['fullName'] = validate_name(contact.get('fullName', ''))
                 contact['email'] = validate_email(contact.get('email', ''))
                 contact['phone'] = validate_phone(contact.get('phone', ''))
                 # Check for both 'street' and 'address' field names
-                if 'street' in contact:
-                    contact['street'] = validate_address(contact.get('street', ''))
-                elif 'address' in contact:
-                    contact['address'] = validate_address(contact.get('address', ''))
+                if 'street' in contact and contact['street']:
+                    contact['street'] = validate_address(contact['street'])
+                elif 'address' in contact and contact['address']:
+                    contact['address'] = validate_address(contact['address'])
+                else:
+                    # If neither field has value, raise error
+                    raise HTTPException(status_code=400, detail="Adresa ne može biti prazna")
+                
                 contact['city'] = validate_city(contact.get('city', ''))
+                
                 # Check for both 'postalCode' and 'zipCode' field names
-                if 'postalCode' in contact:
-                    contact['postalCode'] = validate_zip_code(contact.get('postalCode', ''))
-                elif 'zipCode' in contact:
-                    contact['zipCode'] = validate_zip_code(contact.get('zipCode', ''))
+                if 'postalCode' in contact and contact['postalCode']:
+                    contact['postalCode'] = validate_zip_code(contact['postalCode'])
+                elif 'zipCode' in contact and contact['zipCode']:
+                    contact['zipCode'] = validate_zip_code(contact['zipCode'])
+                else:
+                    # If neither field has value, raise error
+                    raise HTTPException(status_code=400, detail="Poštanski broj ne može biti prazan")
             except HTTPException as e:
                 logging.error(f"Validation error: {e.detail}")
                 raise
