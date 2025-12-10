@@ -14,17 +14,12 @@ const API = `${BACKEND_URL}/api`;
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
-  const [formData, setFormData] = useState({
+  const [editFormData, setEditFormData] = useState({
     name: '',
-    type: '',
     description: '',
-    imageUrl: '',
-    minPhotos: 1,
-    maxPhotos: 1,
-    allowCustomText: false,
-    variants: [{ name: '', description: '', price: 0, available: true }]
+    variants: []
   });
 
   useEffect(() => {
