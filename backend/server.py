@@ -249,10 +249,14 @@ async def create_order(
         
         # Create initial order record with "processing" status
         try:
+            # Get products from order data if any
+            products = order_data.get('products', [])
+            
             order_doc = {
                 "orderNumber": order_number,
                 "contactInfo": order_details_obj.contactInfo.model_dump(),
                 "photoSettings": [p.model_dump() for p in order_details_obj.photoSettings],
+                "products": products,  # Include products
                 "totalPhotos": total_photos,
                 "status": "processing",  # Mark as processing
                 "zipFilePath": "",  # Will be updated after ZIP creation
@@ -260,7 +264,9 @@ async def create_order(
             }
             
             result = await db.orders.insert_one(order_doc)
-            logging.info(f"Step 4A: ✅ Database record created with ID: {result.inserted_id} - Status: PROCESSING")
+            products_count = len(products)
+            logging.info(f"Step 4A: ✅ Database record created with ID: {result.inserted_id} - Status: PROCESSING ({products_count} products)")
+
         except Exception as db_error:
             logging.error(f"Step 4A: ❌ CRITICAL - Failed to create database record: {str(db_error)}")
             raise HTTPException(status_code=500, detail=f"Database error: {str(db_error)}")
