@@ -718,6 +718,49 @@ const AdminProducts = () => {
                   </div>
                 </div>
 
+                {/* External Product */}
+                <div className="p-4 bg-purple-50 border border-purple-200 rounded-lg">
+                  <div className="flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      id="isExternalProduct"
+                      checked={addFormData.isExternalProduct}
+                      onChange={(e) => handleAddFormChange('isExternalProduct', e.target.checked)}
+                      className="w-4 h-4 mt-1"
+                    />
+                    <div className="flex-1">
+                      <Label htmlFor="isExternalProduct" className="text-sm font-bold block mb-1">
+                        🔗 Eksterni Proizvod (vodi ka eksternom sajtu)
+                      </Label>
+                      <p className="text-xs text-gray-600">
+                        Označite ovo ako proizvod vodi ka <strong>eksternom linku</strong> (drugom sajtu) umesto na upload stranicu.
+                        <br/>
+                        <em>Korisno za promociju drugih servisa ili sajtova.</em>
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* External Link Input - only if isExternalProduct is checked */}
+                  {addFormData.isExternalProduct && (
+                    <div className="mt-4">
+                      <Label htmlFor="externalLink" className="text-sm font-bold mb-2 block">
+                        🌐 Eksterni Link (URL)
+                      </Label>
+                      <Input
+                        id="externalLink"
+                        type="url"
+                        value={addFormData.externalLink}
+                        onChange={(e) => handleAddFormChange('externalLink', e.target.value)}
+                        placeholder="https://vas-drugi-sajt.com"
+                        className="w-full"
+                      />
+                      <p className="text-xs text-gray-500 mt-2">
+                        💡 Link će se otvoriti u novom tabu kada korisnik klikne "Naruči Sada"
+                      </p>
+                    </div>
+                  )}
+                </div>
+
                 {/* Variants */}
                 <div>
                   <div className="flex justify-between items-center mb-4">
