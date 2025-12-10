@@ -139,35 +139,6 @@ const AdminProducts = () => {
     }
   };
 
-  const updateVariantPrice = async (productId, variantId, newPrice) => {
-    try {
-      const token = localStorage.getItem('adminToken');
-      const product = products.find(p => p.id === productId);
-      const updatedVariants = product.variants.map(v => 
-        v.id === variantId ? { ...v, price: parseFloat(newPrice) } : v
-      );
-      
-      await axios.put(
-        `${API}/admin/products/${productId}`,
-        { variants: updatedVariants },
-        { headers: { 'Authorization': `Bearer ${token}` } }
-      );
-      
-      toast({
-        title: "Uspešno!",
-        description: "Cena je ažurirana",
-      });
-      
-      fetchProducts();
-    } catch (error) {
-      toast({
-        title: "Greška",
-        description: "Nije moguće ažurirati cenu",
-        variant: "destructive"
-      });
-    }
-  };
-
   const updateProductImage = async (productId, imageUrl) => {
     try {
       const token = localStorage.getItem('adminToken');
