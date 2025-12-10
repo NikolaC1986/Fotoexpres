@@ -96,6 +96,8 @@ class ProductCreate(BaseModel):
     allowCustomText: bool = False
     requiresPhotoUpload: bool = False
     isFeatured: bool = False
+    isExternalProduct: bool = False
+    externalLink: str = ''
 
 class ProductUpdate(BaseModel):
     """Model za update proizvoda"""
@@ -110,3 +112,5 @@ class ProductUpdate(BaseModel):
     allowCustomText: Optional[bool] = None
     requiresPhotoUpload: Optional[bool] = None
     isFeatured: Optional[bool] = None
+    isExternalProduct: Optional[bool] = None
+    externalLink: Optional[str] = None
