@@ -1205,7 +1205,9 @@ async def get_public_promotion():
             'format': 'all',
             'discountPercent': 10,
             'validUntil': '2025-12-31T23:59',
-            'message': '10% popusta na sve porudžbine!'
+            'message': '10% popusta na sve porudžbine!',
+            'customDisplayText': '',
+            'applyDiscount': True
         }
         
         if promotion_doc:
