@@ -739,6 +739,27 @@ const UploadPage = () => {
               })}
             </div>
 
+            {/* Add More Photos Button */}
+            <div className="mt-6">
+              <input
+                type="file"
+                id="addMorePhotos"
+                accept="image/*"
+                multiple
+                onChange={handleFileUpload}
+                className="hidden"
+              />
+              <Button
+                type="button"
+                onClick={() => document.getElementById('addMorePhotos').click()}
+                variant="outline"
+                className="w-full border-2 border-dashed border-blue-400 hover:bg-blue-50 text-blue-700 font-semibold gap-2 py-6"
+              >
+                <Plus size={20} />
+                Dodaj Još Fotografija
+              </Button>
+            </div>
+
             {/* Price Summary */}
             <Card className="p-8 mt-8 bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-300">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">Pregled Cene</h3>
