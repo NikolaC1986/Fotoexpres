@@ -422,16 +422,12 @@ const UploadPage = () => {
 
         const { orderNumber } = response.data;
 
-        toast({
-          title: "Porudžbina poslata!",
-          description: `Vaša porudžbina #${orderNumber} je primljena. Uskoro ćemo vas kontaktirati.`,
-          duration: 3000
-        });
-
-        setTimeout(() => {
-          resetForm();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 1500);
+        // Show success modal
+        setSuccessOrderNumber(orderNumber);
+        setShowSuccessModal(true);
+        
+        // Reset form
+        resetForm();
 
         setIsUploading(false);
         return;
