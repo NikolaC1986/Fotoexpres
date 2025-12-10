@@ -206,6 +206,9 @@ const UploadPage = () => {
   const promotionDiscountPercent = useMemo(() => {
     if (!promotion || !promotion.isActive) return 0;
     
+    // Check if discount should be applied (if applyDiscount is false, it's just a promotional message)
+    if (promotion.applyDiscount === false) return 0;
+    
     // For now, promotion applies to all if format is 'all'
     if (promotion.format === 'all') {
       return promotion.discountPercent || 0;
