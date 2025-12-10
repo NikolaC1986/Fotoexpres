@@ -38,6 +38,8 @@ const UploadPage = () => {
   const [deliveryPrice, setDeliveryPrice] = useState(400);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [preSelectedProductLoaded, setPreSelectedProductLoaded] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successOrderNumber, setSuccessOrderNumber] = useState('');
   const [priceMap, setPriceMap] = useState({
     '9x13': 12,
     '10x15': 18,
