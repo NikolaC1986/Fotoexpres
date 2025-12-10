@@ -431,7 +431,8 @@ const UploadPage = () => {
           grandTotal: grandTotal,
           prices: priceMap,
           cropOption: cropOption,
-          fillWhiteOption: fillWhiteOption
+          fillWhiteOption: fillWhiteOption,
+          products: selectedProducts // Include selected products
         };
         formData.append('order_details', JSON.stringify(orderDetails));
 
