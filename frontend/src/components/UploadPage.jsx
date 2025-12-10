@@ -930,8 +930,20 @@ const UploadPage = () => {
           </div>
         )}
 
+        {/* Product Selector - ALWAYS VISIBLE */}
+        <Card id="products-section" className="p-10 mt-8 bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200">
+          <h2 className="text-3xl font-bold mb-4 text-gray-900">Dodaj Proizvode</h2>
+          <p className="text-gray-600 mb-6">
+            Možete naručiti samo proizvode (bez štampe fotografija) ili ih dodati uz fotografije.
+          </p>
+          <ProductSelector 
+            onProductsChange={setSelectedProducts}
+            totalPhotosUploaded={totalPhotos}
+          />
+        </Card>
+
         {/* Contact Form */}
-        {photos.length > 0 && (
+        {(photos.length > 0 || selectedProducts.length > 0) && (
           <Card className="p-10 bg-white border-2 border-gray-200">
             <h2 className="text-3xl font-bold mb-8 text-gray-900">Informacije za Dostavu</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
