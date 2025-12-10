@@ -63,7 +63,12 @@ const PromotionBanner = () => {
             {/* Discount Badge */}
             <div className="bg-white text-orange-600 px-3 md:px-4 py-1 md:py-2 rounded-full font-bold text-lg md:text-2xl flex-shrink-0 shadow-lg flex items-center gap-2 animate-pulse">
               <Sparkles size={20} className="hidden md:block" />
-              <span>{promotion.discountPercent}% OFF</span>
+              <span>
+                {promotion.applyDiscount 
+                  ? `${promotion.discountPercent}% OFF`
+                  : (promotion.customDisplayText || 'Specijalna Ponuda')
+                }
+              </span>
             </div>
 
             {/* Message */}
