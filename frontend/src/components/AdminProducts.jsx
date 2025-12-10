@@ -72,6 +72,73 @@ const AdminProducts = () => {
     }
   };
 
+  const openEditModal = (product) => {
+    setEditingProduct(product);
+    setEditFormData({
+      name: product.name,
+      description: product.description,
+      variants: product.variants.map(v => ({ ...v })) // Deep copy
+    });
+    setShowEditModal(true);
+  };
+
+  const closeEditModal = () => {
+    setShowEditModal(false);
+    setEditingProduct(null);
+    setEditFormData({ name: '', description: '', variants: [] });
+  };
+
+  const handleEditFormChange = (field, value) => {
+    setEditFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleVariantChange = (variantIndex, field, value) => {
+    setEditFormData(prev => ({
+      ...prev,
+      variants: prev.variants.map((v, idx) => 
+        idx === variantIndex ? { ...v, [field]: value } : v
+      )
+    }));
+  };
+
+  const toggleVariantAvailability = (variantIndex) => {
+    setEditFormData(prev => ({
+      ...prev,
+      variants: prev.variants.map((v, idx) => 
+        idx === variantIndex ? { ...v, available: !v.available } : v
+      )
+    }));
+  };
+
+  const saveProductEdits = async () => {
+    try {
+      const token = localStorage.getItem('adminToken');
+      await axios.put(
+        `${API}/admin/products/${editingProduct.id}`,
+        {
+          name: editFormData.name,
+          description: editFormData.description,
+          variants: editFormData.variants
+        },
+        { headers: { 'Authorization': `Bearer ${token}` } }
+      );
+      
+      toast({
+        title: "Uspešno!",
+        description: "Proizvod je ažuriran",
+      });
+      
+      closeEditModal();
+      fetchProducts();
+    } catch (error) {
+      toast({
+        title: "Greška",
+        description: "Nije moguće ažurirati proizvod",
+        variant: "destructive"
+      });
+    }
+  };
+
   const updateVariantPrice = async (productId, variantId, newPrice) => {
     try {
       const token = localStorage.getItem('adminToken');
