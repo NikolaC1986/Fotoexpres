@@ -95,6 +95,7 @@ const AdminProducts = () => {
       name: product.name,
       description: product.description,
       requiresPhotoUpload: product.requiresPhotoUpload || false,
+      isFeatured: product.isFeatured || false,
       variants: product.variants.map(v => ({ ...v })) // Deep copy
     });
     setShowEditModal(true);
