@@ -38,6 +38,18 @@ const HomePage = () => {
       console.error('Error fetching settings:', error);
     }
   };
+
+  const fetchFeaturedProduct = async () => {
+    try {
+      const response = await axios.get(`${API}/products`);
+      if (response.data.success && response.data.products) {
+        const featured = response.data.products.find(p => p.isFeatured && p.available);
+        setFeaturedProduct(featured || null);
+      }
+    } catch (error) {
+      console.error('Error fetching featured product:', error);
+    }
+  };
   const services = [
     {
       icon: <Camera className="w-8 h-8" />,
