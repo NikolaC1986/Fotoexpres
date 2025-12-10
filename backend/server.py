@@ -1156,7 +1156,9 @@ async def get_promotion(admin = Depends(verify_admin_token)):
             'format': 'all',  # 'all' or specific format like '10x15'
             'discountPercent': 10,
             'validUntil': '',
-            'message': '10% popusta na sve porudžbine!'
+            'message': '10% popusta na sve porudžbine!',
+            'customDisplayText': '',  # Custom tekst za badge (npr. "Album na poklon")
+            'applyDiscount': True  # Da li se primenjuje popust ili je samo reklama
         }
         
         if promotion_doc:
