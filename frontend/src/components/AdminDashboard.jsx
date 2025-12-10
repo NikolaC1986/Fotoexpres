@@ -255,6 +255,15 @@ const AdminDashboard = () => {
                     Promocija
                   </Button>
                 </Link>
+                <Link to="/logovanje/products">
+                  <Button 
+                    variant="outline" 
+                    className="gap-2 border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50"
+                  >
+                    <Package size={18} />
+                    Proizvodi
+                  </Button>
+                </Link>
                 <Link to="/logovanje/settings">
                   <Button 
                     variant="outline" 
