@@ -794,84 +794,8 @@ const UploadPage = () => {
               </Button>
             </div>
 
-            {/* Price Summary */}
-            <Card className="p-8 mt-8 bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-300">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Pregled Cene</h3>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center text-lg">
-                  <span className="text-gray-700">Fotografije ({totalPhotos} kom):</span>
-                  <span className="font-semibold">{totalPrice} RSD</span>
-                </div>
-
-                {/* Quantity Discount */}
-                {quantityDiscountAmount > 0 && (
-                  <div className="flex justify-between items-center text-lg bg-green-100 p-3 rounded-lg border-2 border-green-300">
-                    <span className="text-green-800 font-semibold flex items-center gap-2">
-                      🎉 Popust na količinu ({quantityDiscountPercent}%):
-                    </span>
-                    <span className="font-bold text-green-700">-{quantityDiscountAmount} RSD</span>
-                  </div>
-                )}
-
-                {/* Promotion Discount */}
-                {promotionDiscountAmount > 0 && (
-                  <div className="flex justify-between items-center text-lg bg-purple-100 p-3 rounded-lg border-2 border-purple-300">
-                    <span className="text-purple-800 font-semibold flex items-center gap-2">
-                      🏷️ Akcijski popust ({promotionDiscountPercent}%):
-                    </span>
-                    <span className="font-bold text-purple-700">
-                      -{promotionDiscountAmount} RSD
-                    </span>
-                  </div>
-                )}
-
-                {/* Total Discount */}
-                {totalDiscountAmount > 0 && (
-                  <div className="flex justify-between items-center text-lg">
-                    <span className="text-gray-700">Cena sa popustom:</span>
-                    <span className="font-bold text-green-600">{priceAfterDiscount} RSD</span>
-                  </div>
-                )}
-
-                {/* Products Price */}
-                {productsPrice > 0 && (
-                  <div className="flex justify-between items-center text-lg">
-                    <span className="text-purple-700 font-semibold">Dodatni proizvodi:</span>
-                    <span className="font-semibold text-purple-700">{productsPrice} RSD</span>
-                  </div>
-                )}
-
-                <div className="flex justify-between items-center text-lg">
-                  <span className="text-gray-700">Dostava:</span>
-                  <span className="font-semibold">
-                    {deliveryFee === 0 ? (
-                      <span className="text-green-600">BESPLATNO</span>
-                    ) : (
-                      `${deliveryFee} RSD`
-                    )}
-                  </span>
-                </div>
-                {priceAfterDiscount < freeDeliveryLimit && (
-                  <p className="text-sm text-gray-600 italic">
-                    * Besplatna dostava za porudžbine preko {freeDeliveryLimit} RSD (još {freeDeliveryLimit - priceAfterDiscount} RSD)
-                  </p>
-                )}
-                <div className="border-t-2 border-orange-300 pt-3 mt-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-2xl font-bold text-gray-900">UKUPNO:</span>
-                    <span className="text-3xl font-bold text-orange-600">{grandTotal} RSD</span>
-                  </div>
-                  {totalDiscountAmount > 0 && (
-                    <p className="text-right text-sm text-gray-600 mt-2">
-                      Uštedeli ste: <span className="font-bold text-green-600">{totalDiscountAmount} RSD</span> 🎉
-                    </p>
-                  )}
-                </div>
-              </div>
-            </Card>
-
             {/* Product Selector */}
-            <Card className="p-10 bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200">
+            <Card className="p-10 mt-8 bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200">
               <h2 className="text-3xl font-bold mb-4 text-gray-900">Dodaj Proizvode (Opciono)</h2>
               <p className="text-gray-600 mb-6">
                 Pored fotografija, možete dodati i personalizovane proizvode poput albuma, šolje ili privezaka.
