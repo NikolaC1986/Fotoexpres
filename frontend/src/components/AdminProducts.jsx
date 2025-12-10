@@ -865,6 +865,29 @@ const AdminProducts = () => {
                   </div>
                 </div>
 
+                {/* Featured Product */}
+                <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
+                  <div className="flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      id="editIsFeatured"
+                      checked={editFormData.isFeatured}
+                      onChange={(e) => handleEditFormChange('isFeatured', e.target.checked)}
+                      className="w-4 h-4 mt-1"
+                    />
+                    <div className="flex-1">
+                      <Label htmlFor="editIsFeatured" className="text-sm font-bold block mb-1">
+                        ⭐ Istakni proizvod na početnoj strani (NOVO U PONUDI)
+                      </Label>
+                      <p className="text-xs text-gray-600">
+                        Označite ovo ako želite da ovaj proizvod bude prikazan kao <strong>"NOVO U PONUDI"</strong> na početnoj strani.
+                        <br/>
+                        <em>Napomena: Samo jedan proizvod može biti istaknut istovremeno.</em>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Variants */}
                 <div>
                   <div className="flex justify-between items-center mb-4">
