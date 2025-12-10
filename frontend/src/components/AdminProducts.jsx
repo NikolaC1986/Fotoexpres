@@ -395,6 +395,190 @@ const AdminProducts = () => {
           </Card>
         )}
 
+        {/* Add New Product Modal */}
+        {showAddModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <Card className="max-w-3xl w-full max-h-[90vh] overflow-y-auto p-8 bg-white">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">Dodaj Novi Proizvod</h2>
+                <button onClick={closeAddModal} className="text-gray-500 hover:text-gray-700">
+                  <X size={24} />
+                </button>
+              </div>
+
+              <div className="space-y-6">
+                {/* Product Name */}
+                <div>
+                  <Label htmlFor="addProductName" className="text-sm font-bold mb-2 block">
+                    Naziv Proizvoda *
+                  </Label>
+                  <Input
+                    id="addProductName"
+                    value={addFormData.name}
+                    onChange={(e) => handleAddFormChange('name', e.target.value)}
+                    placeholder="Npr: Premium Album"
+                    className="w-full"
+                  />
+                </div>
+
+                {/* Product Type */}
+                <div>
+                  <Label htmlFor="addProductType" className="text-sm font-bold mb-2 block">
+                    Tip Proizvoda * (lowercase, bez razmaka)
+                  </Label>
+                  <Input
+                    id="addProductType"
+                    value={addFormData.type}
+                    onChange={(e) => handleAddFormChange('type', e.target.value.toLowerCase().replace(/\s/g, ''))}
+                    placeholder="Npr: premium_album"
+                    className="w-full"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Mora biti jedinstveno. Npr: album, mug, keychain, calendar, magnet</p>
+                </div>
+
+                {/* Product Description */}
+                <div>
+                  <Label htmlFor="addProductDescription" className="text-sm font-bold mb-2 block">
+                    Opis Proizvoda *
+                  </Label>
+                  <Textarea
+                    id="addProductDescription"
+                    value={addFormData.description}
+                    onChange={(e) => handleAddFormChange('description', e.target.value)}
+                    placeholder="Detaljan opis proizvoda koji će videti kupci..."
+                    rows={3}
+                    className="w-full"
+                  />
+                </div>
+
+                {/* Image URL */}
+                <div>
+                  <Label htmlFor="addImageUrl" className="text-sm font-bold mb-2 block">
+                    URL Fotografije *
+                  </Label>
+                  <Input
+                    id="addImageUrl"
+                    value={addFormData.imageUrl}
+                    onChange={(e) => handleAddFormChange('imageUrl', e.target.value)}
+                    placeholder="https://images.unsplash.com/..."
+                    className="w-full"
+                  />
+                  {addFormData.imageUrl && (
+                    <img src={addFormData.imageUrl} alt="Preview" className="mt-2 w-32 h-32 object-cover rounded" />
+                  )}
+                </div>
+
+                {/* Min/Max Photos */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="minPhotos" className="text-sm font-bold mb-2 block">
+                      Min Fotografija
+                    </Label>
+                    <Input
+                      id="minPhotos"
+                      type="number"
+                      value={addFormData.minPhotos}
+                      onChange={(e) => handleAddFormChange('minPhotos', parseInt(e.target.value) || 1)}
+                      className="w-full"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="maxPhotos" className="text-sm font-bold mb-2 block">
+                      Max Fotografija
+                    </Label>
+                    <Input
+                      id="maxPhotos"
+                      type="number"
+                      value={addFormData.maxPhotos}
+                      onChange={(e) => handleAddFormChange('maxPhotos', parseInt(e.target.value) || 1)}
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+
+                {/* Allow Custom Text */}
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id="allowCustomText"
+                    checked={addFormData.allowCustomText}
+                    onChange={(e) => handleAddFormChange('allowCustomText', e.target.checked)}
+                    className="w-4 h-4"
+                  />
+                  <Label htmlFor="allowCustomText" className="text-sm">
+                    Dozvoli korisnicima da dodaju custom tekst
+                  </Label>
+                </div>
+
+                {/* Variants */}
+                <div>
+                  <Label className="text-lg font-bold mb-4 block">Varijante (Opcije)</Label>
+                  <div className="space-y-4">
+                    {addFormData.variants.map((variant, index) => (
+                      <Card key={index} className="p-4 bg-gray-50">
+                        <h4 className="font-bold text-gray-900 mb-3">Opcija {index + 1}</h4>
+                        <div className="space-y-3">
+                          {/* Variant Name */}
+                          <div>
+                            <Label className="text-xs font-semibold mb-1 block">Naziv Opcije</Label>
+                            <Input
+                              value={variant.name}
+                              onChange={(e) => handleAddVariantChange(index, 'name', e.target.value)}
+                              placeholder="Npr: Mali format"
+                              className="w-full"
+                            />
+                          </div>
+
+                          {/* Variant Description */}
+                          <div>
+                            <Label className="text-xs font-semibold mb-1 block">Opis (Dimenzije)</Label>
+                            <Input
+                              value={variant.description}
+                              onChange={(e) => handleAddVariantChange(index, 'description', e.target.value)}
+                              placeholder="Npr: Dimenzije: 10x15cm"
+                              className="w-full"
+                            />
+                          </div>
+
+                          {/* Variant Price */}
+                          <div>
+                            <Label className="text-xs font-semibold mb-1 block">Cena (RSD)</Label>
+                            <Input
+                              type="number"
+                              value={variant.price}
+                              onChange={(e) => handleAddVariantChange(index, 'price', parseFloat(e.target.value) || 0)}
+                              placeholder="0"
+                              className="w-full"
+                            />
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="flex gap-3 pt-4 border-t">
+                  <Button
+                    onClick={closeAddModal}
+                    variant="outline"
+                    className="flex-1"
+                  >
+                    Otkaži
+                  </Button>
+                  <Button
+                    onClick={addNewProduct}
+                    className="flex-1 bg-green-600 hover:bg-green-700"
+                  >
+                    <Plus size={18} className="mr-2" />
+                    Dodaj Proizvod
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          </div>
+        )}
+
         {/* Edit Modal */}
         {showEditModal && editingProduct && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
