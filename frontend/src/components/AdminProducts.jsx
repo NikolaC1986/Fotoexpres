@@ -279,20 +279,19 @@ const AdminProducts = () => {
               </div>
 
               {/* Variants */}
-              <div className="space-y-3 mb-4">
-                <Label className="text-sm font-bold">Varijante i Cene:</Label>
+              <div className="space-y-2 mb-4">
+                <Label className="text-sm font-bold">Varijante:</Label>
                 {product.variants.map((variant) => (
                   <div key={variant.id} className="flex items-center gap-2 bg-gray-50 p-2 rounded">
                     <div className="flex-1">
                       <p className="text-sm font-semibold">{variant.name}</p>
+                      <p className="text-xs text-gray-600">{variant.price} RSD</p>
                     </div>
-                    <Input
-                      type="number"
-                      value={variant.price}
-                      onChange={(e) => updateVariantPrice(product.id, variant.id, e.target.value)}
-                      className="w-24 text-sm"
-                    />
-                    <span className="text-sm text-gray-600">RSD</span>
+                    {!variant.available && (
+                      <span className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded">
+                        Neaktivno
+                      </span>
+                    )}
                   </div>
                 ))}
               </div>
@@ -301,20 +300,18 @@ const AdminProducts = () => {
               <div className="flex gap-2">
                 <Button
                   size="sm"
+                  onClick={() => openEditModal(product)}
+                  className="flex-1 bg-blue-500 hover:bg-blue-600"
+                >
+                  <Edit size={16} className="mr-2" />
+                  Izmeni
+                </Button>
+                <Button
+                  size="sm"
                   onClick={() => toggleProductAvailability(product.id, product.available)}
                   className={product.available ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'}
                 >
-                  {product.available ? (
-                    <>
-                      <PowerOff size={16} className="mr-2" />
-                      Deaktiviraj
-                    </>
-                  ) : (
-                    <>
-                      <Power size={16} className="mr-2" />
-                      Aktiviraj
-                    </>
-                  )}
+                  {product.available ? <PowerOff size={16} /> : <Power size={16} />}
                 </Button>
                 <Button
                   size="sm"
