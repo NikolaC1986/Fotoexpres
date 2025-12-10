@@ -429,6 +429,23 @@ const UploadPage = () => {
           formData.append('photos', photo.file);
         });
 
+        // Add product photos to formData
+        selectedProducts.forEach((product, productIndex) => {
+          if (product.productPhotos && product.productPhotos.length > 0) {
+            product.productPhotos.forEach((photo) => {
+              formData.append(`product_photos_${productIndex}`, photo.file);
+            });
+          }
+        });
+
+        // Prepare products data without file objects for JSON
+        const productsForJson = selectedProducts.map((product, idx) => ({
+          ...product,
+          productPhotos: undefined, // Remove file objects
+          photoFileNames: product.productPhotos ? product.productPhotos.map(p => p.name) : [],
+          productPhotoFieldName: `product_photos_${idx}` // Reference to FormData field
+        }));
+
         const orderDetails = {
           contactInfo,
           photoSettings: photos.map(p => ({
@@ -449,7 +466,7 @@ const UploadPage = () => {
           prices: priceMap,
           cropOption: cropOption,
           fillWhiteOption: fillWhiteOption,
-          products: selectedProducts // Include selected products
+          products: productsForJson // Include products with photo references
         };
         formData.append('order_details', JSON.stringify(orderDetails));
 
