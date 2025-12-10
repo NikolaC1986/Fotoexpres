@@ -651,29 +651,48 @@ const AdminProducts = () => {
 
                 {/* Variants */}
                 <div>
-                  <Label className="text-lg font-bold mb-4 block">Varijante</Label>
+                  <div className="flex justify-between items-center mb-4">
+                    <Label className="text-lg font-bold">Varijante</Label>
+                    <Button
+                      size="sm"
+                      onClick={addNewVariant}
+                      className="bg-green-600 hover:bg-green-700 gap-2"
+                    >
+                      <Plus size={16} />
+                      Dodaj Novu Opciju
+                    </Button>
+                  </div>
                   <div className="space-y-4">
                     {editFormData.variants.map((variant, index) => (
                       <Card key={variant.id} className="p-4 bg-gray-50">
                         <div className="flex justify-between items-start mb-3">
                           <h4 className="font-bold text-gray-900">Varijanta {index + 1}</h4>
-                          <Button
-                            size="sm"
-                            onClick={() => toggleVariantAvailability(index)}
-                            className={variant.available ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600'}
-                          >
-                            {variant.available ? (
-                              <>
-                                <Power size={14} className="mr-1" />
-                                Aktivna
-                              </>
-                            ) : (
-                              <>
-                                <PowerOff size={14} className="mr-1" />
-                                Neaktivna
-                              </>
-                            )}
-                          </Button>
+                          <div className="flex gap-2">
+                            <Button
+                              size="sm"
+                              onClick={() => toggleVariantAvailability(index)}
+                              className={variant.available ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600'}
+                            >
+                              {variant.available ? (
+                                <>
+                                  <Power size={14} className="mr-1" />
+                                  Aktivna
+                                </>
+                              ) : (
+                                <>
+                                  <PowerOff size={14} className="mr-1" />
+                                  Neaktivna
+                                </>
+                              )}
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="destructive"
+                              onClick={() => removeVariant(index)}
+                            >
+                              <Trash2 size={14} />
+                            </Button>
+                          </div>
                         </div>
 
                         <div className="space-y-3">
