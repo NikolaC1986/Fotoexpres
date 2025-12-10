@@ -17,9 +17,22 @@ class PhotoSetting(BaseModel):
     quantity: int
     finish: str
 
+class ProductItem(BaseModel):
+    """Proizvod dodat u porudžbinu fotografija"""
+    productId: str
+    productName: str
+    productType: str
+    variantId: str
+    variantName: str
+    quantity: int = 1
+    price: float
+    customText: Optional[str] = ""
+    dedicatedPhotoCount: Optional[int] = 0  # Broj fotografija namenjenih za ovaj proizvod
+
 class OrderDetails(BaseModel):
     contactInfo: ContactInfo
     photoSettings: List[PhotoSetting]
+    products: Optional[List[ProductItem]] = []  # Dodati proizvodi
 
 class Order(BaseModel):
     orderNumber: str
@@ -27,6 +40,7 @@ class Order(BaseModel):
     createdAt: datetime = Field(default_factory=datetime.utcnow)
     contactInfo: ContactInfo
     photoSettings: List[PhotoSetting]
+    products: Optional[List[ProductItem]] = []  # Dodati proizvodi
     zipFilePath: str
     totalPhotos: int
 
