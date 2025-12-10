@@ -291,6 +291,9 @@ async def create_order(
         zip_path = ORDERS_ZIPS_DIR / zip_file_name
         
         try:
+            # Get products from order data
+            products = order_data.get('products', [])
+            
             create_order_zip(
                 str(order_dir),
                 str(zip_path),
@@ -300,7 +303,8 @@ async def create_order(
                 total_photos,
                 crop_option,
                 fill_white_option,
-                price_info
+                price_info,
+                products
             )
             logging.info(f"Step 4C: ✅ ZIP archive created at {zip_path}")
         except Exception as zip_error:
