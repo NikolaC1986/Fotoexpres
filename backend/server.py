@@ -180,9 +180,17 @@ async def create_order(
                 contact['fullName'] = validate_name(contact.get('fullName', ''))
                 contact['email'] = validate_email(contact.get('email', ''))
                 contact['phone'] = validate_phone(contact.get('phone', ''))
-                contact['address'] = validate_address(contact.get('address', ''))
+                # Check for both 'street' and 'address' field names
+                if 'street' in contact:
+                    contact['street'] = validate_address(contact.get('street', ''))
+                elif 'address' in contact:
+                    contact['address'] = validate_address(contact.get('address', ''))
                 contact['city'] = validate_city(contact.get('city', ''))
-                contact['zipCode'] = validate_zip_code(contact.get('zipCode', ''))
+                # Check for both 'postalCode' and 'zipCode' field names
+                if 'postalCode' in contact:
+                    contact['postalCode'] = validate_zip_code(contact.get('postalCode', ''))
+                elif 'zipCode' in contact:
+                    contact['zipCode'] = validate_zip_code(contact.get('zipCode', ''))
             except HTTPException as e:
                 logging.error(f"Validation error: {e.detail}")
                 raise
