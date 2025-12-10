@@ -161,7 +161,7 @@ const AdminProducts = () => {
   };
 
   const saveProductEdits = async () => {
-    try:
+    try {
       const token = localStorage.getItem('adminToken');
       await axios.put(
         `${API}/admin/products/${editingProduct.id}`,
