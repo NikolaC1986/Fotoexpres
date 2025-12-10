@@ -289,6 +289,13 @@ const AdminProducts = () => {
             <h1 className="text-3xl font-bold text-gray-900">Upravljanje Proizvodima</h1>
             <p className="text-gray-600 mt-2">Dodajte, izmenite ili deaktivirajte proizvode</p>
           </div>
+          <Button
+            onClick={openAddModal}
+            className="bg-green-600 hover:bg-green-700 gap-2"
+          >
+            <Plus size={18} />
+            Dodaj Novi Proizvod
+          </Button>
         </div>
 
         {/* Products Grid */}
