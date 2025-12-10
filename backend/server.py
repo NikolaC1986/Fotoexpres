@@ -171,8 +171,30 @@ async def create_order(
         # Parse order details
         logging.info("Step 2: Parsing order details...")
         order_data = json.loads(order_details)
+        
+        # SECURITY: Validate and sanitize contact info
+        logging.info("Step 2.1: Validating contact information...")
+        if 'contactInfo' in order_data:
+            contact = order_data['contactInfo']
+            try:
+                contact['fullName'] = validate_name(contact.get('fullName', ''))
+                contact['email'] = validate_email(contact.get('email', ''))
+                contact['phone'] = validate_phone(contact.get('phone', ''))
+                contact['address'] = validate_address(contact.get('address', ''))
+                contact['city'] = validate_city(contact.get('city', ''))
+                contact['zipCode'] = validate_zip_code(contact.get('zipCode', ''))
+            except HTTPException as e:
+                logging.error(f"Validation error: {e.detail}")
+                raise
+        
+        # SECURITY: Validate prices
+        if 'totalPrice' in order_data:
+            order_data['totalPrice'] = validate_price(order_data['totalPrice'], "Ukupna cena")
+        if 'deliveryFee' in order_data:
+            order_data['deliveryFee'] = validate_price(order_data['deliveryFee'], "Cena dostave")
+        
         order_details_obj = OrderDetails(**order_data)
-        logging.info(f"Step 2: ✅ Order details parsed - Customer: {order_details_obj.contactInfo.fullName}")
+        logging.info(f"Step 2: ✅ Order details validated and parsed - Customer: {order_details_obj.contactInfo.fullName}")
         
         # Check if this is a chunked upload
         is_chunked = 'chunkIndex' in order_data
