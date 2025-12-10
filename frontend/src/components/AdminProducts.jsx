@@ -605,31 +605,40 @@ const AdminProducts = () => {
                 </div>
 
                 {/* Min/Max Photos */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="minPhotos" className="text-sm font-bold mb-2 block">
-                      Min Fotografija
-                    </Label>
-                    <Input
-                      id="minPhotos"
-                      type="number"
-                      value={addFormData.minPhotos}
-                      onChange={(e) => handleAddFormChange('minPhotos', parseInt(e.target.value) || 1)}
-                      className="w-full"
-                    />
+                <div>
+                  <Label className="text-sm font-bold mb-2 block">
+                    Da li proizvod zahteva fotografije od korisnika?
+                  </Label>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="minPhotos" className="text-xs font-semibold mb-1 block text-gray-600">
+                        Min Fotografija
+                      </Label>
+                      <Input
+                        id="minPhotos"
+                        type="number"
+                        value={addFormData.minPhotos}
+                        onChange={(e) => handleAddFormChange('minPhotos', parseInt(e.target.value) || 1)}
+                        className="w-full"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="maxPhotos" className="text-xs font-semibold mb-1 block text-gray-600">
+                        Max Fotografija
+                      </Label>
+                      <Input
+                        id="maxPhotos"
+                        type="number"
+                        value={addFormData.maxPhotos}
+                        onChange={(e) => handleAddFormChange('maxPhotos', parseInt(e.target.value) || 1)}
+                        className="w-full"
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <Label htmlFor="maxPhotos" className="text-sm font-bold mb-2 block">
-                      Max Fotografija
-                    </Label>
-                    <Input
-                      id="maxPhotos"
-                      type="number"
-                      value={addFormData.maxPhotos}
-                      onChange={(e) => handleAddFormChange('maxPhotos', parseInt(e.target.value) || 1)}
-                      className="w-full"
-                    />
-                  </div>
+                  <p className="text-xs text-gray-500 mt-2">
+                    💡 Postavi na 1-1 ako proizvod <strong>ne zahteva</strong> fotografije (npr. privezak bez štampe). 
+                    Ako zahteva fotografije (npr. šolja sa slikom), postavi min/max prema potrebi.
+                  </p>
                 </div>
 
                 {/* Allow Custom Text */}
