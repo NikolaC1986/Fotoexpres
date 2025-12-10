@@ -26,6 +26,7 @@ class Product(BaseModel):
     minPhotos: int = 1  # Minimalan broj fotografija
     maxPhotos: int = 1  # Maksimalan broj fotografija
     allowCustomText: bool = False  # Da li dozvoljava custom tekst
+    requiresPhotoUpload: bool = False  # Da li proizvod zahteva upload fotografije od korisnika (za šolje, privezke, itd)
     createdAt: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     updatedAt: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
