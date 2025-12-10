@@ -778,6 +778,14 @@ const UploadPage = () => {
                   </div>
                 )}
 
+                {/* Products Price */}
+                {productsPrice > 0 && (
+                  <div className="flex justify-between items-center text-lg">
+                    <span className="text-purple-700 font-semibold">Dodatni proizvodi:</span>
+                    <span className="font-semibold text-purple-700">{productsPrice} RSD</span>
+                  </div>
+                )}
+
                 <div className="flex justify-between items-center text-lg">
                   <span className="text-gray-700">Dostava:</span>
                   <span className="font-semibold">
