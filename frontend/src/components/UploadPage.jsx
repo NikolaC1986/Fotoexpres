@@ -335,6 +335,7 @@ const UploadPage = () => {
             prices: priceMap,
             cropOption: cropOption,
             fillWhiteOption: fillWhiteOption,
+            products: selectedProducts, // Include selected products
             chunkIndex: i,
             totalChunks: chunks.length,
             isLastChunk: isLastChunk,
