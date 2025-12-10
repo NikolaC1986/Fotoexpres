@@ -31,6 +31,7 @@ function App() {
           <Route path="/" element={<><Navbar /><HomePage /></>} />
           <Route path="/upload" element={<><Navbar /><UploadPage /></>} />
           <Route path="/prices" element={<><Navbar /><PricesPage /></>} />
+          <Route path="/proizvodi" element={<><Navbar /><ProductsPage /></>} />
           <Route path="/faq" element={<><Navbar /><FAQPage /></>} />
           
           {/* Admin Routes without Navbar */}
