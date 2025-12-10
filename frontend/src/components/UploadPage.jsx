@@ -1182,6 +1182,79 @@ const UploadPage = () => {
           <ArrowUp size={24} />
         </button>
       )}
+
+      {/* Success Modal - Full Screen */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[100] animate-fadeIn">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full mx-4 p-8 md:p-12 text-center animate-scaleIn">
+            {/* Success Icon */}
+            <div className="mb-6">
+              <div className="mx-auto w-24 h-24 bg-green-100 rounded-full flex items-center justify-center animate-bounce">
+                <CheckCircle className="w-16 h-16 text-green-600" />
+              </div>
+            </div>
+
+            {/* Success Message */}
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Porudžbina Uspešno Poslata! 🎉
+            </h2>
+            
+            <div className="mb-6">
+              <p className="text-lg text-gray-600 mb-4">
+                Vaše fotografije su uspešno upload-ovane
+              </p>
+              <div className="bg-orange-50 border-2 border-orange-200 rounded-xl p-6 mb-4">
+                <p className="text-sm text-gray-500 mb-2">Broj Porudžbine:</p>
+                <p className="text-4xl font-bold text-orange-600">
+                  #{successOrderNumber}
+                </p>
+              </div>
+              <p className="text-base text-gray-600">
+                Uskoro ćemo vas kontaktirati putem telefona ili email-a.
+                <br/>
+                Hvala vam što koristite naše usluge!
+              </p>
+            </div>
+
+            {/* CTA Button */}
+            <Button
+              onClick={() => {
+                setShowSuccessModal(false);
+                navigate('/');
+              }}
+              className="w-full md:w-auto bg-orange-600 hover:bg-orange-700 text-white px-12 py-6 text-lg font-bold rounded-xl shadow-lg"
+            >
+              U redu
+            </Button>
+          </div>
+
+          <style jsx>{`
+            @keyframes fadeIn {
+              from { opacity: 0; }
+              to { opacity: 1; }
+            }
+            
+            @keyframes scaleIn {
+              from { 
+                transform: scale(0.9);
+                opacity: 0;
+              }
+              to { 
+                transform: scale(1);
+                opacity: 1;
+              }
+            }
+
+            .animate-fadeIn {
+              animation: fadeIn 0.3s ease-out;
+            }
+
+            .animate-scaleIn {
+              animation: scaleIn 0.3s ease-out;
+            }
+          `}</style>
+        </div>
+      )}
     </div>
   );
 };
