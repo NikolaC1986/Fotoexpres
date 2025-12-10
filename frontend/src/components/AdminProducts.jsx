@@ -93,6 +93,7 @@ const AdminProducts = () => {
     setEditFormData({
       name: product.name,
       description: product.description,
+      requiresPhotoUpload: product.requiresPhotoUpload || false,
       variants: product.variants.map(v => ({ ...v })) // Deep copy
     });
     setShowEditModal(true);
