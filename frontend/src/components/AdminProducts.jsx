@@ -30,6 +30,7 @@ const AdminProducts = () => {
     minPhotos: 1,
     maxPhotos: 1,
     allowCustomText: false,
+    requiresPhotoUpload: false,
     variants: [
       { name: 'Opcija 1', description: 'Opis opcije', price: 0, available: true }
     ]
