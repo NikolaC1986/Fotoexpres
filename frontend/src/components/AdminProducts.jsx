@@ -174,6 +174,8 @@ const AdminProducts = () => {
           description: editFormData.description,
           requiresPhotoUpload: editFormData.requiresPhotoUpload,
           isFeatured: editFormData.isFeatured,
+          isExternalProduct: editFormData.isExternalProduct,
+          externalLink: editFormData.externalLink,
           variants: editFormData.variants
         },
         { headers: { 'Authorization': `Bearer ${token}` } }
