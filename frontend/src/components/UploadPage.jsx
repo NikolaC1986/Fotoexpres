@@ -321,10 +321,24 @@ const UploadPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (photos.length === 0) {
+    // Check if user has either photos or products
+    if (photos.length === 0 && selectedProducts.length === 0) {
       toast({
-        title: "Nema fotografija",
-        description: "Molimo vas da dodate barem jednu fotografiju",
+        title: "Prazna porudžbina",
+        description: "Molimo vas da dodate fotografije ili proizvode",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Check if products that require photos have photos uploaded
+    const productsRequiringPhotos = selectedProducts.filter(p => p.requiresPhotos);
+    const productsWithoutPhotos = productsRequiringPhotos.filter(p => !p.productPhotos || p.productPhotos.length === 0);
+    
+    if (productsWithoutPhotos.length > 0) {
+      toast({
+        title: "Nedostaju fotografije za proizvod",
+        description: `Molimo dodajte fotografije za: ${productsWithoutPhotos.map(p => p.productName).join(', ')}`,
         variant: "destructive"
       });
       return;
