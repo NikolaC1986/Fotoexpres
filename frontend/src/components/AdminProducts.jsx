@@ -814,6 +814,30 @@ const AdminProducts = () => {
                   />
                 </div>
 
+                {/* Requires Photo Upload */}
+                <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                  <div className="flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      id="editRequiresPhotoUpload"
+                      checked={editFormData.requiresPhotoUpload}
+                      onChange={(e) => handleEditFormChange('requiresPhotoUpload', e.target.checked)}
+                      className="w-4 h-4 mt-1"
+                    />
+                    <div className="flex-1">
+                      <Label htmlFor="editRequiresPhotoUpload" className="text-sm font-bold block mb-1">
+                        📸 Proizvod zahteva upload fotografije od korisnika
+                      </Label>
+                      <p className="text-xs text-gray-600">
+                        Označite ovo ako korisnik mora da uploada fotografiju ZA ovaj proizvod 
+                        (npr. šolja sa slikom, privezak sa fotografijom, magnet sa fotografijom).
+                        <br/>
+                        <strong>NE označavajte</strong> za albume gde se štampaju korisničke fotografije.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Variants */}
                 <div>
                   <div className="flex justify-between items-center mb-4">
