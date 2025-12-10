@@ -333,6 +333,130 @@ const AdminProducts = () => {
             <p className="text-gray-600">Dodajte prvi proizvod da biste počeli</p>
           </Card>
         )}
+
+        {/* Edit Modal */}
+        {showEditModal && editingProduct && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <Card className="max-w-3xl w-full max-h-[90vh] overflow-y-auto p-8 bg-white">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">Izmeni Proizvod</h2>
+                <button onClick={closeEditModal} className="text-gray-500 hover:text-gray-700">
+                  <X size={24} />
+                </button>
+              </div>
+
+              <div className="space-y-6">
+                {/* Product Name */}
+                <div>
+                  <Label htmlFor="productName" className="text-sm font-bold mb-2 block">
+                    Naziv Proizvoda
+                  </Label>
+                  <Input
+                    id="productName"
+                    value={editFormData.name}
+                    onChange={(e) => handleEditFormChange('name', e.target.value)}
+                    className="w-full"
+                  />
+                </div>
+
+                {/* Product Description */}
+                <div>
+                  <Label htmlFor="productDescription" className="text-sm font-bold mb-2 block">
+                    Opis Proizvoda
+                  </Label>
+                  <Textarea
+                    id="productDescription"
+                    value={editFormData.description}
+                    onChange={(e) => handleEditFormChange('description', e.target.value)}
+                    rows={3}
+                    className="w-full"
+                  />
+                </div>
+
+                {/* Variants */}
+                <div>
+                  <Label className="text-lg font-bold mb-4 block">Varijante</Label>
+                  <div className="space-y-4">
+                    {editFormData.variants.map((variant, index) => (
+                      <Card key={variant.id} className="p-4 bg-gray-50">
+                        <div className="flex justify-between items-start mb-3">
+                          <h4 className="font-bold text-gray-900">Varijanta {index + 1}</h4>
+                          <Button
+                            size="sm"
+                            onClick={() => toggleVariantAvailability(index)}
+                            className={variant.available ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600'}
+                          >
+                            {variant.available ? (
+                              <>
+                                <Power size={14} className="mr-1" />
+                                Aktivna
+                              </>
+                            ) : (
+                              <>
+                                <PowerOff size={14} className="mr-1" />
+                                Neaktivna
+                              </>
+                            )}
+                          </Button>
+                        </div>
+
+                        <div className="space-y-3">
+                          {/* Variant Name */}
+                          <div>
+                            <Label className="text-xs font-semibold mb-1 block">Naziv Varijante</Label>
+                            <Input
+                              value={variant.name}
+                              onChange={(e) => handleVariantChange(index, 'name', e.target.value)}
+                              className="w-full"
+                            />
+                          </div>
+
+                          {/* Variant Description */}
+                          <div>
+                            <Label className="text-xs font-semibold mb-1 block">Opis Varijante</Label>
+                            <Input
+                              value={variant.description}
+                              onChange={(e) => handleVariantChange(index, 'description', e.target.value)}
+                              className="w-full"
+                            />
+                          </div>
+
+                          {/* Variant Price */}
+                          <div>
+                            <Label className="text-xs font-semibold mb-1 block">Cena (RSD)</Label>
+                            <Input
+                              type="number"
+                              value={variant.price}
+                              onChange={(e) => handleVariantChange(index, 'price', parseFloat(e.target.value) || 0)}
+                              className="w-full"
+                            />
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="flex gap-3 pt-4 border-t">
+                  <Button
+                    onClick={closeEditModal}
+                    variant="outline"
+                    className="flex-1"
+                  >
+                    Otkaži
+                  </Button>
+                  <Button
+                    onClick={saveProductEdits}
+                    className="flex-1 bg-blue-600 hover:bg-blue-700"
+                  >
+                    Sačuvaj Izmene
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          </div>
+        )}
       </div>
     </div>
   );
