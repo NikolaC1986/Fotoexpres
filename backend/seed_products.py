@@ -114,6 +114,64 @@ INITIAL_PRODUCTS = [
         "allowCustomText": False,
         "createdAt": datetime.now(timezone.utc).isoformat(),
         "updatedAt": datetime.now(timezone.utc).isoformat()
+    },
+    {
+        "id": str(uuid.uuid4()),
+        "name": "Fotokalendar",
+        "type": "calendar",
+        "description": "Personalizovani kalendar sa vašim fotografijama. Izaberite fotografije, a naš tim će kreirati dizajn i poslati vam na odobrenje pre štampe.",
+        "imageUrl": "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?w=800",
+        "variants": [
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Zidni kalendar A3",
+                "description": "Zidni kalendar formata A3 (12 meseci + naslovnica)",
+                "price": 2500,
+                "available": True
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Stoni kalendar A5",
+                "description": "Stoni kalendar formata A5 (12 meseci)",
+                "price": 1800,
+                "available": True
+            }
+        ],
+        "available": True,
+        "minPhotos": 12,
+        "maxPhotos": 13,
+        "allowCustomText": False,
+        "createdAt": datetime.now(timezone.utc).isoformat(),
+        "updatedAt": datetime.now(timezone.utc).isoformat()
+    },
+    {
+        "id": str(uuid.uuid4()),
+        "name": "Fotomagnet",
+        "type": "magnet",
+        "description": "Personalizovani magnet za frižider sa vašom fotografijom. Naš tim će pripremiti dizajn i poslati vam na odobrenje.",
+        "imageUrl": "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800",
+        "variants": [
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Kvadratni magnet 10x10cm",
+                "description": "Kvadratni magnet 10x10cm",
+                "price": 350,
+                "available": True
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Pravougaoni magnet 15x10cm",
+                "description": "Pravougaoni magnet 15x10cm",
+                "price": 450,
+                "available": True
+            }
+        ],
+        "available": True,
+        "minPhotos": 1,
+        "maxPhotos": 1,
+        "allowCustomText": False,
+        "createdAt": datetime.now(timezone.utc).isoformat(),
+        "updatedAt": datetime.now(timezone.utc).isoformat()
     }
 ]
 
