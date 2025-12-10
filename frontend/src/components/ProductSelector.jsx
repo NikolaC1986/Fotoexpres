@@ -80,6 +80,39 @@ const ProductSelector = ({ onProductsChange, totalPhotosUploaded }) => {
     setSelectedProducts(updated);
   };
 
+  const handleProductPhotoUpload = (index, files) => {
+    const updated = [...selectedProducts];
+    const product = updated[index];
+    const originalProduct = products.find(p => p.id === product.productId);
+    
+    // Convert FileList to Array and create photo objects
+    const newPhotos = Array.from(files).map((file, fileIndex) => ({
+      id: Date.now() + fileIndex,
+      file: file,
+      preview: URL.createObjectURL(file),
+      name: file.name
+    }));
+    
+    // Limit photos based on product type
+    const maxPhotos = originalProduct?.maxPhotos || 3;
+    const currentPhotos = product.productPhotos || [];
+    const totalPhotos = currentPhotos.length + newPhotos.length;
+    
+    if (totalPhotos > maxPhotos) {
+      alert(`Možete dodati maksimalno ${maxPhotos} fotografija za ovaj proizvod.`);
+      return;
+    }
+    
+    updated[index].productPhotos = [...currentPhotos, ...newPhotos];
+    setSelectedProducts(updated);
+  };
+
+  const removeProductPhoto = (productIndex, photoId) => {
+    const updated = [...selectedProducts];
+    updated[productIndex].productPhotos = updated[productIndex].productPhotos.filter(p => p.id !== photoId);
+    setSelectedProducts(updated);
+  };
+
   const getTotalProductsPrice = () => {
     return selectedProducts.reduce((sum, product) => sum + (product.price * product.quantity), 0);
   };
