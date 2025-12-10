@@ -78,6 +78,26 @@ const UploadPage = () => {
           if (response.data.success && response.data.product) {
             const product = response.data.product;
             
+            // Auto-add first variant to cart
+            if (product.variants && product.variants.length > 0) {
+              const firstVariant = product.variants[0];
+              const newProduct = {
+                productId: product.id,
+                productName: product.name,
+                productType: product.type,
+                variantId: firstVariant.id,
+                variantName: firstVariant.name,
+                quantity: 1,
+                price: firstVariant.price,
+                customText: '',
+                dedicatedPhotoCount: 0,
+                productPhotos: [],
+                requiresPhotos: product.type === 'mug' || product.type === 'keychain' || product.type === 'calendar' || product.type === 'magnet'
+              };
+              
+              setSelectedProducts([newProduct]);
+            }
+            
             // Auto-scroll to products section
             setTimeout(() => {
               const productsSection = document.getElementById('products-section');
@@ -87,8 +107,8 @@ const UploadPage = () => {
             }, 500);
 
             toast({
-              title: `${product.name} dodat!`,
-              description: "Izaberite opciju i dodajte fotografije za ovaj proizvod",
+              title: `${product.name} dodat u korpu!`,
+              description: `${product.variants[0]?.name} je dodato. ${product.type === 'mug' || product.type === 'keychain' || product.type === 'calendar' || product.type === 'magnet' ? 'Molimo dodajte fotografije.' : ''}`,
               duration: 5000
             });
             
