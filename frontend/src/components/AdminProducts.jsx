@@ -161,7 +161,7 @@ const AdminProducts = () => {
   };
 
   const saveProductEdits = async () => {
-    try {
+    try:
       const token = localStorage.getItem('adminToken');
       await axios.put(
         `${API}/admin/products/${editingProduct.id}`,
@@ -169,6 +169,7 @@ const AdminProducts = () => {
           name: editFormData.name,
           description: editFormData.description,
           requiresPhotoUpload: editFormData.requiresPhotoUpload,
+          isFeatured: editFormData.isFeatured,
           variants: editFormData.variants
         },
         { headers: { 'Authorization': `Bearer ${token}` } }
