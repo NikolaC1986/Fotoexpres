@@ -218,12 +218,12 @@ Za sva pitanja kontaktirajte nas na: kontakt@fotoexpres.rs
     
     return content
 
-def create_order_zip(order_dir, zip_path, order_number, contact_info, photo_settings, total_photos, crop_option=False, fill_white_option=False, price_info=None):
+def create_order_zip(order_dir, zip_path, order_number, contact_info, photo_settings, total_photos, crop_option=False, fill_white_option=False, price_info=None, products=None):
     """Create ZIP file with photos organized by format and paper type"""
     
     # Create order_details.txt with summary
     order_details_content = create_order_details_txt(
-        order_number, contact_info, photo_settings, total_photos, crop_option, fill_white_option, price_info
+        order_number, contact_info, photo_settings, total_photos, crop_option, fill_white_option, price_info, products
     )
     
     # Add photo count summary by format
