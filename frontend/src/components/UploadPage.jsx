@@ -16,6 +16,7 @@ const API = `${BACKEND_URL}/api`;
 
 const UploadPage = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [photos, setPhotos] = useState([]);
   const [contactInfo, setContactInfo] = useState({
     fullName: '',
@@ -36,6 +37,7 @@ const UploadPage = () => {
   const [promotion, setPromotion] = useState(null);
   const [deliveryPrice, setDeliveryPrice] = useState(400);
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const [preSelectedProductLoaded, setPreSelectedProductLoaded] = useState(false);
   const [priceMap, setPriceMap] = useState({
     '9x13': 12,
     '10x15': 18,
