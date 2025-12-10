@@ -195,10 +195,11 @@ const AdminProducts = () => {
       maxPhotos: 1,
       allowCustomText: false,
       variants: [
-        { name: 'Opcija 1', description: 'Dimenzije: 10x15cm', price: 0, available: true },
-        { name: 'Opcija 2', description: 'Dimenzije: 20x30cm', price: 0, available: true }
+        { name: 'Opcija 1', description: 'Opis opcije', price: 0, available: true }
       ]
     });
+    setUploadedImageFile(null);
+    setUploadedImagePreview('');
     setShowAddModal(true);
   };
 
