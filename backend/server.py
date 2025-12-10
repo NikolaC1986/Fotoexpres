@@ -284,7 +284,35 @@ async def create_order(
                 with open(file_path, "wb") as buffer:
                     shutil.copyfileobj(photo.file, buffer)
                 saved_files.append(photo.filename)
-            logging.info(f"Step 4B: ✅ All {len(saved_files)} photo files saved to {order_dir}")
+            logging.info(f"Step 4B: ✅ All {len(saved_files)} main photo files saved to {order_dir}")
+            
+            # Save product-specific photos if any
+            products = order_data.get('products', [])
+            if products:
+                product_photos_dir = order_dir / "product_photos"
+                product_photos_dir.mkdir(exist_ok=True)
+                
+                # Process product photos from FormData
+                form_data = await request.form()
+                for product_idx, product in enumerate(products):
+                    field_name = f"product_photos_{product_idx}"
+                    if field_name in form_data:
+                        product_files = form_data.getlist(field_name)
+                        product_photo_names = []
+                        
+                        for product_file in product_files:
+                            if hasattr(product_file, 'filename'):
+                                product_file_path = product_photos_dir / f"product_{product_idx}_{product_file.filename}"
+                                with open(product_file_path, "wb") as buffer:
+                                    content = await product_file.read()
+                                    buffer.write(content)
+                                product_photo_names.append(product_file.filename)
+                        
+                        # Update product with actual saved photo names
+                        products[product_idx]['photoFileNames'] = product_photo_names
+                        logging.info(f"Step 4B: ✅ Saved {len(product_photo_names)} photos for product {product_idx}")
+            
+            logging.info(f"Step 4B: ✅ All files saved to {order_dir}")
         except Exception as file_error:
             logging.error(f"Step 4B: ❌ Failed to save files: {str(file_error)}")
             # Cleanup: delete the database record
