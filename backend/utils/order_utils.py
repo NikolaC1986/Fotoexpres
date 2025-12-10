@@ -9,7 +9,7 @@ def generate_order_number():
     return f"ORD-{random.randint(100000, 999999)}"
 
 def create_order_details_txt(order_number, contact_info, photo_settings, total_photos, crop_option=False, fill_white_option=False, 
-                            price_info=None):
+                            price_info=None, products=None):
     """Create formatted order details text file content with pricing details"""
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
