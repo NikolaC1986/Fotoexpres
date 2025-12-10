@@ -6,6 +6,7 @@ import HomePage from './components/HomePage';
 import UploadPage from './components/UploadPage';
 import PricesPage from './components/PricesPage';
 import FAQPage from './components/FAQPage';
+import ProductsPage from './components/ProductsPage';
 import AdminLogin from './components/AdminLogin';
 import AdminDashboard from './components/AdminDashboard';
 import AdminPrices from './components/AdminPrices';
