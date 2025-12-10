@@ -648,11 +648,34 @@ const AdminProducts = () => {
 
                 {/* Variants */}
                 <div>
-                  <Label className="text-lg font-bold mb-4 block">Varijante (Opcije)</Label>
+                  <div className="flex justify-between items-center mb-4">
+                    <Label className="text-lg font-bold">Varijante (Opcije)</Label>
+                    <Button
+                      type="button"
+                      size="sm"
+                      onClick={addNewVariantToAddForm}
+                      className="bg-green-600 hover:bg-green-700 gap-2"
+                    >
+                      <Plus size={16} />
+                      Dodaj Opciju
+                    </Button>
+                  </div>
                   <div className="space-y-4">
                     {addFormData.variants.map((variant, index) => (
                       <Card key={index} className="p-4 bg-gray-50">
-                        <h4 className="font-bold text-gray-900 mb-3">Opcija {index + 1}</h4>
+                        <div className="flex justify-between items-start mb-3">
+                          <h4 className="font-bold text-gray-900">Opcija {index + 1}</h4>
+                          {addFormData.variants.length > 1 && (
+                            <Button
+                              type="button"
+                              size="sm"
+                              variant="destructive"
+                              onClick={() => removeVariantFromAddForm(index)}
+                            >
+                              <Trash2 size={14} />
+                            </Button>
+                          )}
+                        </div>
                         <div className="space-y-3">
                           {/* Variant Name */}
                           <div>
