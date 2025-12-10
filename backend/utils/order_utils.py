@@ -263,5 +263,19 @@ def create_order_zip(order_dir, zip_path, order_number, contact_info, photo_sett
                 # Create folder structure: format/paper_type/quantity/photo.jpg
                 archive_path = f"{photo_format}/{paper_type}/{quantity}/{photo_setting['fileName']}"
                 zipf.write(photo_path, archive_path)
+        
+        # Add product-specific photos if any
+        if products:
+            product_photos_dir = os.path.join(order_dir, 'product_photos')
+            if os.path.exists(product_photos_dir):
+                for product_idx, product in enumerate(products):
+                    if product.get('photoFileNames'):
+                        product_folder_name = f"PROIZVOD_{product_idx + 1}_{product.get('productName', 'Unknown').replace(' ', '_')}"
+                        
+                        for photo_name in product.get('photoFileNames', []):
+                            product_photo_path = os.path.join(product_photos_dir, f"product_{product_idx}_{photo_name}")
+                            if os.path.exists(product_photo_path):
+                                archive_path = f"{product_folder_name}/{photo_name}"
+                                zipf.write(product_photo_path, archive_path)
     
     return zip_path
