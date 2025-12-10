@@ -264,10 +264,20 @@ const AdminProducts = () => {
 
   const addNewProduct = async () => {
     // Validation
-    if (!addFormData.name || !addFormData.type || !addFormData.description || !addFormData.imageUrl) {
+    if (!addFormData.name || !addFormData.type || !addFormData.description) {
       toast({
         title: "Greška",
-        description: "Morate popuniti sva obavezna polja",
+        description: "Morate popuniti ime, tip i opis proizvoda",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Check if user provided image (either URL or file upload)
+    if (!addFormData.imageUrl && !uploadedImageFile) {
+      toast({
+        title: "Greška",
+        description: "Morate dodati fotografiju proizvoda (URL ili upload)",
         variant: "destructive"
       });
       return;
@@ -275,9 +285,19 @@ const AdminProducts = () => {
 
     try {
       const token = localStorage.getItem('adminToken');
+      let imageUrlToUse = addFormData.imageUrl;
+
+      // If user uploaded a file, convert to base64 and use that
+      if (uploadedImageFile) {
+        imageUrlToUse = uploadedImagePreview; // Use the base64 preview
+      }
+
       await axios.post(
         `${API}/admin/products`,
-        addFormData,
+        {
+          ...addFormData,
+          imageUrl: imageUrlToUse
+        },
         { headers: { 'Authorization': `Bearer ${token}` } }
       );
       
