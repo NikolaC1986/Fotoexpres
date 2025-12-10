@@ -178,11 +178,19 @@ const UploadPage = () => {
 
   const priceAfterDiscount = totalPrice - totalDiscountAmount;
 
-  const deliveryFee = useMemo(() => {
-    return priceAfterDiscount >= freeDeliveryLimit ? 0 : deliveryPrice;
-  }, [priceAfterDiscount, freeDeliveryLimit, deliveryPrice]);
+  // Calculate products price
+  const productsPrice = useMemo(() => {
+    return selectedProducts.reduce((sum, product) => sum + (product.price * product.quantity), 0);
+  }, [selectedProducts]);
 
-  const grandTotal = priceAfterDiscount + deliveryFee;
+  // Price after discount + products
+  const priceWithProducts = priceAfterDiscount + productsPrice;
+
+  const deliveryFee = useMemo(() => {
+    return priceWithProducts >= freeDeliveryLimit ? 0 : deliveryPrice;
+  }, [priceWithProducts, freeDeliveryLimit, deliveryPrice]);
+
+  const grandTotal = priceWithProducts + deliveryFee;
 
   const handleFileUpload = (e) => {
     const files = Array.from(e.target.files);
