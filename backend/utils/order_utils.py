@@ -77,6 +77,44 @@ SPECIFIKACIJA FOTOGRAFIJA:
    ───────────────────────────
 """
     
+    # Add products section if any products were ordered
+    if products and len(products) > 0:
+        content += f"""
+═══════════════════════════════════════════════════════════════════
+
+DODATNI PROIZVODI:
+───────────────────────────
+"""
+        products_subtotal = 0
+        for i, product in enumerate(products, 1):
+            product_total = product.get('price', 0) * product.get('quantity', 1)
+            products_subtotal += product_total
+            
+            content += f"""
+{i}. {product.get('productName', '')} - {product.get('variantName', '')}
+   Količina: {product.get('quantity', 1)} kom
+   Cena: {product.get('price', 0)} RSD
+   Ukupno: {product_total} RSD"""
+            
+            if product.get('customText'):
+                content += f"""
+   Custom tekst: {product.get('customText', '')}"""
+            
+            if product.get('dedicatedPhotoCount', 0) > 0:
+                content += f"""
+   Fotografije namenjene za ovaj proizvod: {product.get('dedicatedPhotoCount', 0)} kom"""
+            
+            content += """
+   ───────────────────────────
+"""
+        
+        content += f"""
+Ukupna cena proizvoda: {products_subtotal} RSD
+
+"""
+    else:
+        products_subtotal = 0
+
     content += f"""
 ═══════════════════════════════════════════════════════════════════
 
@@ -99,7 +137,13 @@ OBRAČUN CENE:
     
     content += f"""
 Ukupan broj fotografija: {total_photos} komada
-Osnovna cena fotografija: {subtotal} RSD
+Osnovna cena fotografija: {subtotal} RSD"""
+    
+    if products_subtotal > 0:
+        content += f"""
+Dodatni proizvodi: {products_subtotal} RSD"""
+    
+    content += """
 """
     
     # Add discount details if applicable
