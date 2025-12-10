@@ -204,6 +204,8 @@ const AdminProducts = () => {
       allowCustomText: false,
       requiresPhotoUpload: false,
       isFeatured: false,
+      isExternalProduct: false,
+      externalLink: '',
       variants: [
         { name: 'Opcija 1', description: 'Opis opcije', price: 0, available: true }
       ]
