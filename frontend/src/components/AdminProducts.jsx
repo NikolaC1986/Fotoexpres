@@ -124,6 +124,37 @@ const AdminProducts = () => {
     }));
   };
 
+  const addNewVariant = () => {
+    const newVariant = {
+      id: `new_${Date.now()}`,
+      name: `Nova opcija ${editFormData.variants.length + 1}`,
+      description: 'Opis nove opcije',
+      price: 0,
+      available: true
+    };
+    
+    setEditFormData(prev => ({
+      ...prev,
+      variants: [...prev.variants, newVariant]
+    }));
+  };
+
+  const removeVariant = (variantIndex) => {
+    if (editFormData.variants.length <= 1) {
+      toast({
+        title: "Greška",
+        description: "Proizvod mora imati bar jednu varijantu",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setEditFormData(prev => ({
+      ...prev,
+      variants: prev.variants.filter((_, idx) => idx !== variantIndex)
+    }));
+  };
+
   const saveProductEdits = async () => {
     try {
       const token = localStorage.getItem('adminToken');
