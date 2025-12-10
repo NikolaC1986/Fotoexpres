@@ -15,10 +15,12 @@ const HomePage = () => {
     workingHours: 'Pon-Pet: 09:00-18:00'
   });
   const [heroImageUrl, setHeroImageUrl] = useState('/images/hero-default.jpg');
+  const [featuredProduct, setFeaturedProduct] = useState(null);
 
   useEffect(() => {
     document.title = 'Online izrada fotografija | Fotoexpres';
     fetchSettings();
+    fetchFeaturedProduct();
   }, []);
 
   const fetchSettings = async () => {
