@@ -1138,24 +1138,88 @@ const UploadPage = () => {
                 })}
             </div>
 
-            {/* Current Gift Products */}
+            {/* Current Gift Products with Photo Upload */}
             {giftProducts.length > 0 && (
               <div className="mt-6 p-4 bg-white rounded-lg border-2 border-green-400">
-                <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                  🎉 Vaši Trenutni Pokloni:
+                <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  🎉 Vaši Trenutni Pokloni - Dodajte Fotografije i Tekst:
                 </h3>
-                <div className="space-y-2">
+                <div className="space-y-6">
                   {giftProducts.map((gift, idx) => (
-                    <div key={idx} className="flex items-center justify-between bg-green-50 p-3 rounded-lg">
-                      <div className="flex items-center gap-3">
-                        <span className="text-2xl">🎁</span>
-                        <div>
-                          <p className="font-semibold text-gray-900">{gift.productName}</p>
-                          <p className="text-sm text-gray-600">{gift.variantName}</p>
+                    <Card key={idx} className="p-6 bg-green-50 border-2 border-green-300">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-3">
+                          <span className="text-3xl">🎁</span>
+                          <div>
+                            <p className="font-bold text-xl text-gray-900">{gift.productName}</p>
+                            <p className="text-sm text-gray-600">{gift.variantName}</p>
+                          </div>
                         </div>
+                        <span className="font-bold text-green-600 text-xl px-4 py-2 bg-white rounded-full">
+                          BESPLATNO
+                        </span>
                       </div>
-                      <span className="font-bold text-green-600 text-lg">BESPLATNO</span>
-                    </div>
+
+                      {/* Upload Photos for Gift */}
+                      <div className="mb-4">
+                        <Label className="text-sm font-bold mb-2 block">
+                          📸 Dodaj Fotografiju za Proizvod
+                        </Label>
+                        <label className="cursor-pointer">
+                          <input
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            className="hidden"
+                            onChange={(e) => handleGiftPhotoUpload(idx, e)}
+                          />
+                          <div className="border-2 border-dashed border-green-400 rounded-lg p-4 text-center hover:bg-green-100 transition-colors">
+                            <Upload className="w-8 h-8 mx-auto mb-2 text-green-600" />
+                            <p className="text-sm font-semibold text-gray-700">
+                              Klikni za upload fotografije
+                            </p>
+                            <p className="text-xs text-gray-500 mt-1">
+                              Za najbolje rezultate koristite visokokvalitetnu fotografiju
+                            </p>
+                          </div>
+                        </label>
+
+                        {/* Display uploaded photos */}
+                        {gift.giftPhotos && gift.giftPhotos.length > 0 && (
+                          <div className="mt-3 grid grid-cols-3 gap-3">
+                            {gift.giftPhotos.map(photo => (
+                              <div key={photo.id} className="relative group">
+                                <img
+                                  src={photo.preview}
+                                  alt="Gift product"
+                                  className="w-full h-24 object-contain rounded border-2 border-green-300 bg-white"
+                                />
+                                <button
+                                  onClick={() => removeGiftPhoto(idx, photo.id)}
+                                  className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                                >
+                                  <X size={16} />
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Custom Text */}
+                      <div>
+                        <Label className="text-sm font-bold mb-2 block">
+                          ✍️ Dodaj Napomenu ili Custom Tekst (Opciono)
+                        </Label>
+                        <Textarea
+                          value={gift.customText || ''}
+                          onChange={(e) => updateGiftCustomText(idx, e.target.value)}
+                          placeholder="Npr: 'Srećan rođendan!', 'Za moju najdražu osobu', itd."
+                          className="w-full"
+                          rows={2}
+                        />
+                      </div>
+                    </Card>
                   ))}
                 </div>
               </div>
