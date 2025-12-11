@@ -362,6 +362,32 @@ async def create_order(
                         products[product_idx]['photoFileNames'] = product_photo_names
                         logging.info(f"Step 4B: ✅ Saved {len(product_photo_names)} photos for product {product_idx}")
             
+            # Save gift product photos if any
+            gift_products = order_data.get('giftProducts', [])
+            if gift_products:
+                gift_photos_dir = order_dir / "gift_photos"
+                gift_photos_dir.mkdir(exist_ok=True)
+                
+                # Process gift photos from FormData
+                form_data = await request.form()
+                for gift_idx, gift in enumerate(gift_products):
+                    field_name = f"gift_photos_{gift_idx}"
+                    if field_name in form_data:
+                        gift_files = form_data.getlist(field_name)
+                        gift_photo_names = []
+                        
+                        for gift_file in gift_files:
+                            if hasattr(gift_file, 'filename'):
+                                gift_file_path = gift_photos_dir / f"gift_{gift_idx}_{gift_file.filename}"
+                                with open(gift_file_path, "wb") as buffer:
+                                    content = await gift_file.read()
+                                    buffer.write(content)
+                                gift_photo_names.append(gift_file.filename)
+                        
+                        # Update gift with actual saved photo names
+                        gift_products[gift_idx]['photoFileNames'] = gift_photo_names
+                        logging.info(f"Step 4B: ✅ Saved {len(gift_photo_names)} photos for gift {gift_idx}")
+            
             logging.info(f"Step 4B: ✅ All files saved to {order_dir}")
         except Exception as file_error:
             logging.error(f"Step 4B: ❌ Failed to save files: {str(file_error)}")
