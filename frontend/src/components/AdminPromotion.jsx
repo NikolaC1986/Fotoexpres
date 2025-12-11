@@ -384,6 +384,187 @@ const AdminPromotion = () => {
               </div>
             )}
 
+            {/* Gift Tiers - Only show if type is 'gift' */}
+            {promotion.type === 'gift' && (
+              <div className="p-6 bg-green-50 border-2 border-green-200 rounded-lg">
+                <div className="flex justify-between items-center mb-4">
+                  <Label className="text-lg font-bold text-gray-900">🎁 Gift Tiers (Poklon Proizvodi)</Label>
+                  <Button
+                    type="button"
+                    onClick={addGiftTier}
+                    className="bg-green-600 hover:bg-green-700 gap-2"
+                  >
+                    <Plus size={18} />
+                    Dodaj Tier
+                  </Button>
+                </div>
+
+                <p className="text-sm text-gray-600 mb-4">
+                  Kreirajte nivoe poklona prema broju fotografija. Npr: 100 foto = magnet, 200 foto = šolja + album
+                </p>
+
+                {promotion.giftTiers.length === 0 ? (
+                  <div className="text-center py-8 text-gray-500">
+                    Nema definisanih gift tiers. Kliknite "Dodaj Tier" da započnete.
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {promotion.giftTiers.map((tier, tierIndex) => (
+                      <Card key={tier.id} className="p-4 bg-white border-2 border-green-300">
+                        <div className="flex justify-between items-start mb-4">
+                          <h4 className="font-bold text-gray-900 text-lg">Tier {tierIndex + 1}</h4>
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="destructive"
+                            onClick={() => removeGiftTier(tierIndex)}
+                          >
+                            <Trash2 size={16} />
+                          </Button>
+                        </div>
+
+                        {/* Min Photos */}
+                        <div className="mb-4">
+                          <Label className="text-sm font-semibold mb-2 block">
+                            Minimalan Broj Fotografija
+                          </Label>
+                          <Input
+                            type="number"
+                            min="1"
+                            value={tier.minPhotos}
+                            onChange={(e) => updateGiftTier(tierIndex, 'minPhotos', parseInt(e.target.value) || 0)}
+                            className="w-40"
+                          />
+                          <p className="text-xs text-gray-500 mt-1">
+                            Korisnik mora naručiti bar ovaj broj fotografija
+                          </p>
+                        </div>
+
+                        {/* Gift Products */}
+                        <div className="mb-4">
+                          <Label className="text-sm font-semibold mb-2 block">
+                            Poklon Proizvodi
+                          </Label>
+                          
+                          {tier.gifts.length === 0 ? (
+                            <div className="text-sm text-gray-500 mb-2 italic">
+                              Nema dodanih poklona
+                            </div>
+                          ) : (
+                            <div className="space-y-2 mb-3">
+                              {tier.gifts.map((gift, giftIndex) => (
+                                <div key={giftIndex} className="flex items-center justify-between bg-green-50 p-3 rounded-lg border border-green-200">
+                                  <div className="flex items-center gap-3">
+                                    <div className="bg-white p-2 rounded">
+                                      🎁
+                                    </div>
+                                    <div>
+                                      <p className="font-semibold text-gray-900">{gift.productName}</p>
+                                      <p className="text-sm text-gray-600">{gift.variantName}</p>
+                                    </div>
+                                  </div>
+                                  <Button
+                                    type="button"
+                                    size="sm"
+                                    variant="ghost"
+                                    onClick={() => removeGiftFromTier(tierIndex, giftIndex)}
+                                  >
+                                    <Trash2 size={14} className="text-red-500" />
+                                  </Button>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="outline"
+                            onClick={() => {
+                              setCurrentTierIndex(tierIndex);
+                              setShowProductSelector(true);
+                            }}
+                            className="border-2 border-dashed border-green-400 hover:bg-green-50"
+                          >
+                            <Plus size={16} />
+                            Dodaj Proizvod
+                          </Button>
+                        </div>
+
+                        {/* Message */}
+                        <div>
+                          <Label className="text-sm font-semibold mb-2 block">
+                            Poruka za Korisnika
+                          </Label>
+                          <Textarea
+                            value={tier.message}
+                            onChange={(e) => updateGiftTier(tierIndex, 'message', e.target.value)}
+                            placeholder="Npr: Za 200 fotografija dobijate šolju i album na poklon!"
+                            rows={2}
+                            className="w-full"
+                          />
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Product Selector Modal */}
+            {showProductSelector && (
+              <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                <Card className="max-w-4xl w-full mx-4 max-h-[80vh] overflow-auto">
+                  <div className="p-6">
+                    <div className="flex justify-between items-center mb-4">
+                      <h3 className="text-xl font-bold">Odaberi Proizvod</h3>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        onClick={() => setShowProductSelector(false)}
+                      >
+                        <X size={24} />
+                      </Button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {products.map(product => (
+                        <Card key={product.id} className="p-4 hover:shadow-lg transition-shadow">
+                          <div className="flex gap-3 mb-3">
+                            <img 
+                              src={product.imageUrl} 
+                              alt={product.name}
+                              className="w-20 h-20 object-cover rounded"
+                            />
+                            <div className="flex-1">
+                              <h4 className="font-bold text-gray-900">{product.name}</h4>
+                              <p className="text-sm text-gray-600 line-clamp-2">{product.description}</p>
+                            </div>
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label className="text-xs font-semibold text-gray-600">Varijante:</Label>
+                            {product.variants.filter(v => v.available).map(variant => (
+                              <Button
+                                key={variant.id}
+                                type="button"
+                                onClick={() => addGiftToTier(currentTierIndex, product, variant)}
+                                className="w-full justify-between bg-green-600 hover:bg-green-700"
+                                size="sm"
+                              >
+                                <span>{variant.name}</span>
+                                <span className="text-xs opacity-75">({variant.price} RSD)</span>
+                              </Button>
+                            ))}
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            )}
+
             {/* Preview */}
             {promotion.isActive && (
               <div className="mt-8 p-6 bg-gradient-to-r from-orange-100 to-red-100 rounded-lg border-2 border-orange-300">
