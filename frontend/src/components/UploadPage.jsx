@@ -591,15 +591,18 @@ const UploadPage = () => {
             productPhotoFieldName: `product_photos_${idx}` // Reference to FormData field
           }));
 
-          // Prepare gift products (they don't need photos)
-          const giftProductsForJson = giftProducts.map(gift => ({
+          // Prepare gift products with photos and custom text
+          const giftProductsForJson = giftProducts.map((gift, giftIdx) => ({
             productId: gift.productId,
             variantId: gift.variantId,
             productName: gift.productName,
             variantName: gift.variantName,
             quantity: gift.quantity || 1,
             price: 0, // Free gift
-            isGift: true
+            isGift: true,
+            customText: gift.customText || '',
+            photoFileNames: gift.giftPhotos ? gift.giftPhotos.map(p => p.name) : [],
+            giftPhotoFieldName: `gift_photos_${giftIdx}`
           }));
 
           const orderDetails = {
