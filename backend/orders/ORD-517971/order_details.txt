@@ -1,0 +1,148 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                    FOTOEXPRES - DETALJI PORUDŽBINE                ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+BROJ PORUDŽBINE: ORD-517971
+DATUM: 2025-12-11 16:45:06
+
+═══════════════════════════════════════════════════════════════════
+
+INFORMACIJE O KLIJENTU:
+─────────────────────────
+Ime i prezime: Ana Jovanović
+Email: ana.jovanovic@example.com
+Telefon: +381641234567
+Ulica i broj: Terazije 25
+Poštanski broj: 11000
+Grad: Beograd
+Napomene: 
+
+═══════════════════════════════════════════════════════════════════
+
+OPCIJE OBRADE FOTOGRAFIJA:
+───────────────────────────
+• Kropovati fotografiju kako bi je prilagodili formatu: NE
+• Popuniti belim: NE
+
+═══════════════════════════════════════════════════════════════════
+
+SPECIFIKACIJA FOTOGRAFIJA:
+───────────────────────────
+
+1. no_gift_test_1.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+2. no_gift_test_2.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+3. no_gift_test_3.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+4. no_gift_test_4.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+5. no_gift_test_5.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+6. no_gift_test_6.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+7. no_gift_test_7.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+8. no_gift_test_8.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+9. no_gift_test_9.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+10. no_gift_test_10.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+═══════════════════════════════════════════════════════════════════
+
+OBRAČUN CENE:
+─────────────────────────
+
+Ukupan broj fotografija: 10 komada
+Osnovna cena fotografija: 200 RSD
+
+Dostava: 450 RSD
+   • Standardna dostava
+
+──────────────────────────────
+UKUPNO ZA NAPLATU: 650 RSD
+
+═══════════════════════════════════════════════════════════════════
+
+NAČIN PLAĆANJA: Plaćanje pouzećem (kuriru prilikom isporuke)
+ROK DOSTAVE: 2-7 radnih dana
+
+═══════════════════════════════════════════════════════════════════
+
+Hvala vam što ste odabrali Fotoexpres!
+Za sva pitanja kontaktirajte nas na: kontakt@fotoexpres.rs
+
+═══════════════════════════════════════════════════════════════════
+
+
+═══════════════════════════════════════════════════════════════════
+
+REKAPITULACIJA PO FORMATIMA:
+─────────────────────────────
+Format 10x15 cm: 10 fotografija
+
+──────────────────────────────
+UKUPNO: 10 fotografija
+
+═══════════════════════════════════════════════════════════════════
