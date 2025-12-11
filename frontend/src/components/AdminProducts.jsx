@@ -353,6 +353,60 @@ const AdminProducts = () => {
     }
   };
 
+  const handleProductImageUpload = async (productId, e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      const token = localStorage.getItem('adminToken');
+      
+      // Upload image to backend
+      const formData = new FormData();
+      formData.append('image', file);
+
+      toast({
+        title: "Uploadovanje...",
+        description: "Molimo sačekajte dok se fotografija uploaduje",
+      });
+
+      const uploadResponse = await axios.post(
+        `${API}/admin/products/upload-image`,
+        formData,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      );
+
+      if (uploadResponse.data.success) {
+        const imageUrl = `${BACKEND_URL}${uploadResponse.data.imageUrl}`;
+        
+        // Update product with new image URL
+        await axios.put(
+          `${API}/admin/products/${productId}`,
+          { imageUrl },
+          { headers: { 'Authorization': `Bearer ${token}` } }
+        );
+        
+        toast({
+          title: "Uspešno!",
+          description: "Fotografija je uspešno promenjena",
+        });
+        
+        fetchProducts();
+      }
+    } catch (error) {
+      console.error('Error uploading product image:', error);
+      toast({
+        title: "Greška",
+        description: error.response?.data?.detail || "Nije moguće uploadovati fotografiju",
+        variant: "destructive"
+      });
+    }
+  };
+
   const updateProductImage = async (productId, imageUrl) => {
     try {
       const token = localStorage.getItem('adminToken');
