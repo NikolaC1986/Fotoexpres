@@ -39,7 +39,19 @@ const AdminPromotion = () => {
       return;
     }
     fetchPromotion();
+    fetchProducts();
   }, [navigate]);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(`${API}/products`);
+      if (response.data.success) {
+        setProducts(response.data.products.filter(p => p.available));
+      }
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
 
   const fetchPromotion = async () => {
     try {
