@@ -424,6 +424,17 @@ const UploadPage = () => {
           productPhotoFieldName: `product_photos_${idx}`
         }));
 
+        // Prepare gift products (they don't need photos)
+        const giftProductsForJson = giftProducts.map(gift => ({
+          productId: gift.productId,
+          variantId: gift.variantId,
+          productName: gift.productName,
+          variantName: gift.variantName,
+          quantity: gift.quantity || 1,
+          price: 0, // Free gift
+          isGift: true
+        }));
+
         const orderDetails = {
           contactInfo,
           photoSettings: [], // No photos
@@ -439,7 +450,8 @@ const UploadPage = () => {
           prices: priceMap,
           cropOption: false,
           fillWhiteOption: false,
-          products: productsForJson
+          products: productsForJson,
+          giftProducts: giftProductsForJson // Include gift products
         };
         formData.append('order_details', JSON.stringify(orderDetails));
 
