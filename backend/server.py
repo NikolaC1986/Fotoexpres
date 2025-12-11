@@ -1749,6 +1749,9 @@ async def admin_delete_product_order(order_number: str, admin = Depends(verify_a
 # Include the router in the main app
 app.include_router(api_router)
 
+# Mount static files for product images
+app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
+
 # Add CORS middleware - SECURE: Only allow your domain
 cors_origins = os.environ.get('CORS_ORIGINS', '*').split(',')
 if cors_origins == ['*']:
