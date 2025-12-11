@@ -99,6 +99,64 @@ const AdminPromotion = () => {
     });
   };
 
+  // Gift Tier Functions
+  const addGiftTier = () => {
+    const newTier = {
+      id: `tier_${Date.now()}`,
+      minPhotos: 100,
+      gifts: [],
+      message: ''
+    };
+    setPromotion(prev => ({
+      ...prev,
+      giftTiers: [...prev.giftTiers, newTier]
+    }));
+  };
+
+  const removeGiftTier = (tierIndex) => {
+    setPromotion(prev => ({
+      ...prev,
+      giftTiers: prev.giftTiers.filter((_, idx) => idx !== tierIndex)
+    }));
+  };
+
+  const updateGiftTier = (tierIndex, field, value) => {
+    setPromotion(prev => ({
+      ...prev,
+      giftTiers: prev.giftTiers.map((tier, idx) => 
+        idx === tierIndex ? { ...tier, [field]: value } : tier
+      )
+    }));
+  };
+
+  const addGiftToTier = (tierIndex, product, variant) => {
+    const gift = {
+      productId: product.id,
+      variantId: variant.id,
+      productName: product.name,
+      variantName: variant.name,
+      price: variant.price
+    };
+
+    setPromotion(prev => ({
+      ...prev,
+      giftTiers: prev.giftTiers.map((tier, idx) => 
+        idx === tierIndex ? { ...tier, gifts: [...tier.gifts, gift] } : tier
+      )
+    }));
+
+    setShowProductSelector(false);
+  };
+
+  const removeGiftFromTier = (tierIndex, giftIndex) => {
+    setPromotion(prev => ({
+      ...prev,
+      giftTiers: prev.giftTiers.map((tier, idx) => 
+        idx === tierIndex ? { ...tier, gifts: tier.gifts.filter((_, gIdx) => gIdx !== giftIndex) } : tier
+      )
+    }));
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
