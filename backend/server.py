@@ -1253,7 +1253,9 @@ async def get_public_promotion():
             'validUntil': '2025-12-31T23:59',
             'message': '10% popusta na sve porudžbine!',
             'customDisplayText': '',
-            'applyDiscount': True
+            'applyDiscount': True,
+            'type': 'discount',  # 'discount' or 'gift'
+            'giftTiers': []  # For gift promotions
         }
         
         if promotion_doc:
