@@ -60,13 +60,15 @@ const PromotionBanner = () => {
         <div className="flex items-center justify-between gap-4">
           {/* Left side - Icon and Message */}
           <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
-            {/* Discount Badge */}
+            {/* Discount/Gift Badge */}
             <div className="bg-white text-orange-600 px-3 md:px-4 py-1 md:py-2 rounded-full font-bold text-lg md:text-2xl flex-shrink-0 shadow-lg flex items-center gap-2 animate-pulse">
               <Sparkles size={20} className="hidden md:block" />
               <span>
-                {promotion.applyDiscount 
-                  ? `${promotion.discountPercent}% OFF`
-                  : (promotion.customDisplayText || 'Specijalna Ponuda')
+                {promotion.type === 'gift' 
+                  ? (promotion.customDisplayText || '🎁 Poklon!')
+                  : promotion.applyDiscount 
+                    ? `${promotion.discountPercent}% OFF`
+                    : (promotion.customDisplayText || 'Specijalna Ponuda')
                 }
               </span>
             </div>
