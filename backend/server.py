@@ -386,7 +386,8 @@ async def create_order(
                 crop_option,
                 fill_white_option,
                 price_info,
-                products
+                products,
+                gift_products
             )
             logging.info(f"Step 4C: ✅ ZIP archive created at {zip_path}")
         except Exception as zip_error:
