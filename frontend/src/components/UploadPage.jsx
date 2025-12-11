@@ -200,25 +200,38 @@ const UploadPage = () => {
       return;
     }
 
-    // Find the best tier (highest minPhotos that user qualifies for)
+    // Find ALL qualifying tiers (all tiers where user meets minPhotos)
     const qualifyingTiers = promotion.giftTiers
       .filter(tier => totalPhotos >= tier.minPhotos)
-      .sort((a, b) => b.minPhotos - a.minPhotos);
+      .sort((a, b) => a.minPhotos - b.minPhotos); // Sort by ascending to show progression
 
     if (qualifyingTiers.length === 0) {
       setGiftProducts([]);
       return;
     }
 
-    // Get gifts from the best tier
-    const bestTier = qualifyingTiers[0];
-    const newGiftProducts = bestTier.gifts.map(gift => ({
-      ...gift,
-      isGift: true,
-      quantity: 1
-    }));
+    // Collect gifts from ALL qualifying tiers (user gets all gifts they've unlocked)
+    const allGifts = [];
+    qualifyingTiers.forEach(tier => {
+      if (tier.gifts && tier.gifts.length > 0) {
+        tier.gifts.forEach(gift => {
+          // Check if this gift is already in the list to avoid duplicates
+          const existingGift = allGifts.find(g => 
+            g.productId === gift.productId && g.variantId === gift.variantId
+          );
+          
+          if (!existingGift) {
+            allGifts.push({
+              ...gift,
+              isGift: true,
+              quantity: 1
+            });
+          }
+        });
+      }
+    });
 
-    setGiftProducts(newGiftProducts);
+    setGiftProducts(allGifts);
   }, [totalPhotos, promotion]);
 
   // Calculate quantity discount percentage
