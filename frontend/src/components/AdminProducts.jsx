@@ -451,19 +451,22 @@ const AdminProducts = () => {
                   className="w-full h-48 object-cover rounded"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded flex items-center justify-center">
-                  <Button
-                    size="sm"
-                    onClick={() => {
-                      const newUrl = prompt('Unesite novi URL fotografije:', product.imageUrl);
-                      if (newUrl && newUrl !== product.imageUrl) {
-                        updateProductImage(product.id, newUrl);
-                      }
-                    }}
-                    className="bg-white text-gray-900 hover:bg-gray-200"
-                  >
-                    <Upload size={16} className="mr-2" />
-                    Promeni Sliku
-                  </Button>
+                  <label className="cursor-pointer">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => handleProductImageUpload(product.id, e)}
+                    />
+                    <Button
+                      size="sm"
+                      type="button"
+                      className="bg-white text-gray-900 hover:bg-gray-200 pointer-events-none"
+                    >
+                      <Upload size={16} className="mr-2" />
+                      Promeni Sliku
+                    </Button>
+                  </label>
                 </div>
               </div>
 
