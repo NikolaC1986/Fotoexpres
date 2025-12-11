@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Package, Plus, Edit, Trash2, Power, PowerOff, Upload, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Package, Plus, Edit, Trash2, Power, PowerOff, Upload, X, ArrowLeft } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
@@ -12,6 +13,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 const AdminProducts = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -395,18 +397,28 @@ const AdminProducts = () => {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Upravljanje Proizvodima</h1>
-            <p className="text-gray-600 mt-2">Dodajte, izmenite ili deaktivirajte proizvode</p>
-          </div>
+        <div className="mb-8">
           <Button
-            onClick={openAddModal}
-            className="bg-green-600 hover:bg-green-700 gap-2"
+            onClick={() => navigate('/admin/dashboard')}
+            variant="outline"
+            className="mb-4 gap-2"
           >
-            <Plus size={18} />
-            Dodaj Novi Proizvod
+            <ArrowLeft size={18} />
+            Nazad na Dashboard
           </Button>
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">Upravljanje Proizvodima</h1>
+              <p className="text-gray-600 mt-2">Dodajte, izmenite ili deaktivirajte proizvode</p>
+            </div>
+            <Button
+              onClick={openAddModal}
+              className="bg-green-600 hover:bg-green-700 gap-2"
+            >
+              <Plus size={18} />
+              Dodaj Novi Proizvod
+            </Button>
+          </div>
         </div>
 
         {/* Products Grid */}
