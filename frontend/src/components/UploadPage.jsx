@@ -237,6 +237,9 @@ const UploadPage = () => {
   const promotionDiscountPercent = useMemo(() => {
     if (!promotion || !promotion.isActive) return 0;
     
+    // Gift promotions don't apply discount, they give free products
+    if (promotion.type === 'gift') return 0;
+    
     // Check if discount should be applied (if applyDiscount is false, it's just a promotional message)
     if (promotion.applyDiscount === false) return 0;
     
