@@ -52,9 +52,11 @@ api_router = APIRouter(prefix="/api")
 ORDERS_DIR = ROOT_DIR / "orders"
 ORDERS_ZIPS_DIR = ROOT_DIR / "orders_zips"
 UPLOADS_DIR = ROOT_DIR / "uploads"
+PRODUCT_IMAGES_DIR = UPLOADS_DIR / "products"
 ORDERS_DIR.mkdir(exist_ok=True)
 ORDERS_ZIPS_DIR.mkdir(exist_ok=True)
 UPLOADS_DIR.mkdir(exist_ok=True)
+PRODUCT_IMAGES_DIR.mkdir(exist_ok=True)
 
 # Initialize database indexes on startup
 async def init_db_indexes():
