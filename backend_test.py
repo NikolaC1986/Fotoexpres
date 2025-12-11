@@ -1407,6 +1407,669 @@ class PhotoOrderTester:
                 f"Exception occurred: {str(e)}"
             )
     
+    def test_gift_promotion_setup(self):
+        """Test SETUP: Create a test gift promotion via Admin Panel"""
+        print("\n=== SETUP: Creating Test Gift Promotion ===")
+        
+        if not self.admin_token:
+            login_success = self.admin_login()
+            if not login_success:
+                self.log_result(
+                    "Gift Promotion Setup", 
+                    False, 
+                    "Cannot setup gift promotion - admin login failed"
+                )
+                return False
+        
+        try:
+            # First get available products to use as gifts
+            products_response = requests.get(f"{self.backend_url}/products")
+            if products_response.status_code != 200:
+                self.log_result(
+                    "Gift Promotion Setup", 
+                    False, 
+                    f"Cannot fetch products: HTTP {products_response.status_code}"
+                )
+                return False
+            
+            products_data = products_response.json()
+            if not products_data.get('success') or not products_data.get('products'):
+                self.log_result(
+                    "Gift Promotion Setup", 
+                    False, 
+                    "No products available for gift promotion"
+                )
+                return False
+            
+            products = products_data['products']
+            if len(products) < 2:
+                self.log_result(
+                    "Gift Promotion Setup", 
+                    False, 
+                    f"Need at least 2 products for gift tiers, found {len(products)}"
+                )
+                return False
+            
+            # Create gift promotion with 2 tiers
+            gift_promotion = {
+                "isActive": True,
+                "type": "gift",
+                "customDisplayText": "Pokloni za fotografije! 🎁",
+                "message": "Naručite više fotografija i dobijte besplatne proizvode!",
+                "format": "all",
+                "discountPercent": 0,
+                "applyDiscount": False,
+                "validUntil": "2025-12-31T23:59",
+                "giftTiers": [
+                    {
+                        "id": "tier_1",
+                        "minPhotos": 50,
+                        "message": "Za 50+ fotografija dobijate poklon!",
+                        "gifts": [
+                            {
+                                "productId": products[0]['id'],
+                                "variantId": products[0]['variants'][0]['id'],
+                                "productName": products[0]['name'],
+                                "variantName": products[0]['variants'][0]['name'],
+                                "price": products[0]['variants'][0]['price']
+                            }
+                        ]
+                    },
+                    {
+                        "id": "tier_2", 
+                        "minPhotos": 100,
+                        "message": "Za 100+ fotografija dobijate dodatni poklon!",
+                        "gifts": [
+                            {
+                                "productId": products[1]['id'] if len(products) > 1 else products[0]['id'],
+                                "variantId": products[1]['variants'][0]['id'] if len(products) > 1 else products[0]['variants'][1]['id'] if len(products[0]['variants']) > 1 else products[0]['variants'][0]['id'],
+                                "productName": products[1]['name'] if len(products) > 1 else products[0]['name'],
+                                "variantName": products[1]['variants'][0]['name'] if len(products) > 1 else products[0]['variants'][1]['name'] if len(products[0]['variants']) > 1 else products[0]['variants'][0]['name'],
+                                "price": products[1]['variants'][0]['price'] if len(products) > 1 else products[0]['variants'][1]['price'] if len(products[0]['variants']) > 1 else products[0]['variants'][0]['price']
+                            }
+                        ]
+                    }
+                ]
+            }
+            
+            headers = {"Authorization": f"Bearer {self.admin_token}"}
+            data = {"promotion": gift_promotion}
+            
+            response = requests.put(f"{self.backend_url}/admin/promotion", json=data, headers=headers)
+            
+            if response.status_code == 200:
+                result = response.json()
+                if result.get('success'):
+                    self.log_result(
+                        "Gift Promotion Setup", 
+                        True, 
+                        "Gift promotion created successfully",
+                        {
+                            "tier_1_min_photos": 50,
+                            "tier_2_min_photos": 100,
+                            "tier_1_gift": f"{products[0]['name']} - {products[0]['variants'][0]['name']}",
+                            "tier_2_gift": f"{products[1]['name'] if len(products) > 1 else products[0]['name']} - {products[1]['variants'][0]['name'] if len(products) > 1 else products[0]['variants'][1]['name'] if len(products[0]['variants']) > 1 else products[0]['variants'][0]['name']}"
+                        }
+                    )
+                    return True
+                else:
+                    self.log_result(
+                        "Gift Promotion Setup", 
+                        False, 
+                        "Promotion update response success flag is False"
+                    )
+                    return False
+            else:
+                self.log_result(
+                    "Gift Promotion Setup", 
+                    False, 
+                    f"HTTP {response.status_code}: {response.text}"
+                )
+                return False
+                
+        except Exception as e:
+            self.log_result(
+                "Gift Promotion Setup", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+            return False
+    
+    def test_gift_order_creation_150_photos(self):
+        """Test PHASE 1: Order Creation with 150 photos (should unlock both tiers)"""
+        print("\n=== Testing Gift Order Creation - 150 Photos (Both Tiers) ===")
+        
+        # Test data with 150 photos worth of prints
+        order_details = {
+            "contactInfo": {
+                "fullName": "Gift Test Korisnik",
+                "email": "gift@example.com",
+                "phone": "0641234567",
+                "street": "Knez Mihailova 42",
+                "postalCode": "11000",
+                "city": "Beograd",
+                "notes": "Test gift system - 150 photos"
+            },
+            "photoSettings": [
+                {
+                    "fileName": "gift_photo1.jpg",
+                    "format": "10x15",
+                    "quantity": 75,  # 75 prints
+                    "finish": "sjajni"
+                },
+                {
+                    "fileName": "gift_photo2.jpg", 
+                    "format": "10x15",
+                    "quantity": 75,  # 75 prints = 150 total
+                    "finish": "mat"
+                }
+            ],
+            "giftProducts": [
+                # This should be automatically populated by frontend, but we'll test backend handling
+                {
+                    "productId": "test_product_1",
+                    "variantId": "test_variant_1", 
+                    "productName": "Test Gift 1",
+                    "variantName": "Test Variant 1",
+                    "quantity": 1,
+                    "price": 0,
+                    "isGift": True
+                },
+                {
+                    "productId": "test_product_2",
+                    "variantId": "test_variant_2",
+                    "productName": "Test Gift 2", 
+                    "variantName": "Test Variant 2",
+                    "quantity": 1,
+                    "price": 0,
+                    "isGift": True
+                }
+            ]
+        }
+        
+        try:
+            # Create test images
+            photo1_data, _ = self.create_test_image("gift_photo1.jpg", 2)
+            photo2_data, _ = self.create_test_image("gift_photo2.jpg", 2)
+            
+            files = [
+                ('photos', ('gift_photo1.jpg', photo1_data, 'image/jpeg')),
+                ('photos', ('gift_photo2.jpg', photo2_data, 'image/jpeg'))
+            ]
+            
+            data = {
+                'order_details': json.dumps(order_details)
+            }
+            
+            # Create order
+            response = requests.post(f"{self.backend_url}/orders/create", files=files, data=data)
+            
+            if response.status_code != 200:
+                self.log_result(
+                    "Gift Order Creation 150 Photos", 
+                    False, 
+                    f"Order creation failed: HTTP {response.status_code}: {response.text}"
+                )
+                return None
+            
+            result = response.json()
+            if not result.get('success'):
+                self.log_result(
+                    "Gift Order Creation 150 Photos", 
+                    False, 
+                    "Order creation success flag is False"
+                )
+                return None
+            
+            order_number = result['orderNumber']
+            
+            # Verify order in database contains giftProducts
+            order_response = requests.get(f"{self.backend_url}/orders/{order_number}")
+            if order_response.status_code != 200:
+                self.log_result(
+                    "Gift Order Creation 150 Photos", 
+                    False, 
+                    f"Cannot retrieve order for verification: HTTP {order_response.status_code}"
+                )
+                return None
+            
+            order_data = order_response.json()
+            gift_products = order_data.get('giftProducts', [])
+            
+            if len(gift_products) != 2:
+                self.log_result(
+                    "Gift Order Creation 150 Photos", 
+                    False, 
+                    f"Expected 2 gift products, found {len(gift_products)}"
+                )
+                return None
+            
+            # Verify gift products have correct properties
+            for gift in gift_products:
+                if not gift.get('isGift'):
+                    self.log_result(
+                        "Gift Order Creation 150 Photos", 
+                        False, 
+                        f"Gift product missing isGift flag: {gift}"
+                    )
+                    return None
+                if gift.get('price') != 0:
+                    self.log_result(
+                        "Gift Order Creation 150 Photos", 
+                        False, 
+                        f"Gift product price should be 0, got {gift.get('price')}"
+                    )
+                    return None
+            
+            self.log_result(
+                "Gift Order Creation 150 Photos", 
+                True, 
+                f"Order created successfully with 2 gift products: {order_number}",
+                {
+                    "total_photos": 150,
+                    "gift_products_count": len(gift_products),
+                    "gift_products": [f"{g.get('productName')} - {g.get('variantName')}" for g in gift_products]
+                }
+            )
+            return order_number
+            
+        except Exception as e:
+            self.log_result(
+                "Gift Order Creation 150 Photos", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+            return None
+    
+    def test_gift_order_creation_75_photos(self):
+        """Test PHASE 1: Order Creation with 75 photos (only Tier 1)"""
+        print("\n=== Testing Gift Order Creation - 75 Photos (Tier 1 Only) ===")
+        
+        order_details = {
+            "contactInfo": {
+                "fullName": "Gift Test Tier1",
+                "email": "gift_tier1@example.com", 
+                "phone": "0641234567",
+                "street": "Terazije 10",
+                "postalCode": "11000",
+                "city": "Beograd",
+                "notes": "Test gift system - 75 photos (tier 1 only)"
+            },
+            "photoSettings": [
+                {
+                    "fileName": "tier1_photo.jpg",
+                    "format": "10x15", 
+                    "quantity": 75,  # Exactly 75 prints (above tier 1, below tier 2)
+                    "finish": "sjajni"
+                }
+            ],
+            "giftProducts": [
+                # Only tier 1 gift should be included
+                {
+                    "productId": "test_product_1",
+                    "variantId": "test_variant_1",
+                    "productName": "Test Gift 1",
+                    "variantName": "Test Variant 1", 
+                    "quantity": 1,
+                    "price": 0,
+                    "isGift": True
+                }
+            ]
+        }
+        
+        try:
+            photo_data, _ = self.create_test_image("tier1_photo.jpg", 2)
+            
+            files = [
+                ('photos', ('tier1_photo.jpg', photo_data, 'image/jpeg'))
+            ]
+            
+            data = {
+                'order_details': json.dumps(order_details)
+            }
+            
+            response = requests.post(f"{self.backend_url}/orders/create", files=files, data=data)
+            
+            if response.status_code != 200:
+                self.log_result(
+                    "Gift Order Creation 75 Photos", 
+                    False, 
+                    f"Order creation failed: HTTP {response.status_code}: {response.text}"
+                )
+                return None
+            
+            result = response.json()
+            if not result.get('success'):
+                self.log_result(
+                    "Gift Order Creation 75 Photos", 
+                    False, 
+                    "Order creation success flag is False"
+                )
+                return None
+            
+            order_number = result['orderNumber']
+            
+            # Verify order contains only 1 gift product
+            order_response = requests.get(f"{self.backend_url}/orders/{order_number}")
+            if order_response.status_code != 200:
+                self.log_result(
+                    "Gift Order Creation 75 Photos", 
+                    False, 
+                    f"Cannot retrieve order for verification: HTTP {order_response.status_code}"
+                )
+                return None
+            
+            order_data = order_response.json()
+            gift_products = order_data.get('giftProducts', [])
+            
+            if len(gift_products) != 1:
+                self.log_result(
+                    "Gift Order Creation 75 Photos", 
+                    False, 
+                    f"Expected 1 gift product (tier 1 only), found {len(gift_products)}"
+                )
+                return None
+            
+            self.log_result(
+                "Gift Order Creation 75 Photos", 
+                True, 
+                f"Order created successfully with 1 gift product (tier 1): {order_number}",
+                {
+                    "total_photos": 75,
+                    "gift_products_count": len(gift_products),
+                    "tier_1_gift": f"{gift_products[0].get('productName')} - {gift_products[0].get('variantName')}"
+                }
+            )
+            return order_number
+            
+        except Exception as e:
+            self.log_result(
+                "Gift Order Creation 75 Photos", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+            return None
+    
+    def test_gift_order_creation_25_photos(self):
+        """Test PHASE 1: Order Creation with 25 photos (no tiers)"""
+        print("\n=== Testing Gift Order Creation - 25 Photos (No Tiers) ===")
+        
+        order_details = {
+            "contactInfo": {
+                "fullName": "Gift Test NoTier",
+                "email": "gift_notier@example.com",
+                "phone": "0641234567", 
+                "street": "Makedonska 15",
+                "postalCode": "11000",
+                "city": "Beograd",
+                "notes": "Test gift system - 25 photos (no tiers)"
+            },
+            "photoSettings": [
+                {
+                    "fileName": "notier_photo.jpg",
+                    "format": "10x15",
+                    "quantity": 25,  # Below tier 1 threshold
+                    "finish": "sjajni"
+                }
+            ],
+            "giftProducts": []  # Should be empty
+        }
+        
+        try:
+            photo_data, _ = self.create_test_image("notier_photo.jpg", 2)
+            
+            files = [
+                ('photos', ('notier_photo.jpg', photo_data, 'image/jpeg'))
+            ]
+            
+            data = {
+                'order_details': json.dumps(order_details)
+            }
+            
+            response = requests.post(f"{self.backend_url}/orders/create", files=files, data=data)
+            
+            if response.status_code != 200:
+                self.log_result(
+                    "Gift Order Creation 25 Photos", 
+                    False, 
+                    f"Order creation failed: HTTP {response.status_code}: {response.text}"
+                )
+                return None
+            
+            result = response.json()
+            if not result.get('success'):
+                self.log_result(
+                    "Gift Order Creation 25 Photos", 
+                    False, 
+                    "Order creation success flag is False"
+                )
+                return None
+            
+            order_number = result['orderNumber']
+            
+            # Verify order contains no gift products
+            order_response = requests.get(f"{self.backend_url}/orders/{order_number}")
+            if order_response.status_code != 200:
+                self.log_result(
+                    "Gift Order Creation 25 Photos", 
+                    False, 
+                    f"Cannot retrieve order for verification: HTTP {order_response.status_code}"
+                )
+                return None
+            
+            order_data = order_response.json()
+            gift_products = order_data.get('giftProducts', [])
+            
+            if len(gift_products) != 0:
+                self.log_result(
+                    "Gift Order Creation 25 Photos", 
+                    False, 
+                    f"Expected 0 gift products (no tiers), found {len(gift_products)}"
+                )
+                return None
+            
+            self.log_result(
+                "Gift Order Creation 25 Photos", 
+                True, 
+                f"Order created successfully with no gift products: {order_number}",
+                {
+                    "total_photos": 25,
+                    "gift_products_count": 0,
+                    "message": "Correctly no gifts for orders below tier thresholds"
+                }
+            )
+            return order_number
+            
+        except Exception as e:
+            self.log_result(
+                "Gift Order Creation 25 Photos", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+            return None
+    
+    def test_gift_order_zip_content(self, order_number):
+        """Test that ZIP contains gift section in order_details.txt"""
+        print("\n=== Testing Gift Order ZIP Content ===")
+        
+        if not order_number:
+            self.log_result(
+                "Gift Order ZIP Content", 
+                False, 
+                "No order number provided (previous test failed)"
+            )
+            return
+        
+        if not self.admin_token:
+            login_success = self.admin_login()
+            if not login_success:
+                self.log_result(
+                    "Gift Order ZIP Content", 
+                    False, 
+                    "Cannot test ZIP content - admin login failed"
+                )
+                return
+        
+        try:
+            # Download ZIP file
+            headers = {"Authorization": f"Bearer {self.admin_token}"}
+            zip_response = requests.get(f"{self.backend_url}/admin/orders/{order_number}/download", headers=headers)
+            
+            if zip_response.status_code != 200:
+                self.log_result(
+                    "Gift Order ZIP Content", 
+                    False, 
+                    f"ZIP download failed: HTTP {zip_response.status_code}"
+                )
+                return
+            
+            # Save ZIP to temporary file and analyze content
+            with tempfile.NamedTemporaryFile(suffix='.zip', delete=False) as temp_zip:
+                temp_zip.write(zip_response.content)
+                temp_zip_path = temp_zip.name
+            
+            try:
+                # Analyze ZIP content
+                with zipfile.ZipFile(temp_zip_path, 'r') as zipf:
+                    file_list = zipf.namelist()
+                    
+                    if 'order_details.txt' not in file_list:
+                        self.log_result(
+                            "Gift Order ZIP Content", 
+                            False, 
+                            "order_details.txt not found in ZIP"
+                        )
+                        return
+                    
+                    # Read order details content
+                    order_details_content = zipf.read('order_details.txt').decode('utf-8')
+                    
+                    # Check for gift section
+                    gift_section_present = "🎁 POKLON PROIZVODI (BESPLATNO):" in order_details_content
+                    gift_free_label = "BESPLATNO (🎁 Poklon)" in order_details_content
+                    
+                    if not gift_section_present:
+                        self.log_result(
+                            "Gift Order ZIP Content", 
+                            False, 
+                            "Gift products section not found in order_details.txt"
+                        )
+                        return
+                    
+                    if not gift_free_label:
+                        self.log_result(
+                            "Gift Order ZIP Content", 
+                            False, 
+                            "Gift products not marked as BESPLATNO in order_details.txt"
+                        )
+                        return
+                    
+                    self.log_result(
+                        "Gift Order ZIP Content", 
+                        True, 
+                        f"ZIP contains correct gift section for order {order_number}",
+                        {
+                            "gift_section_found": gift_section_present,
+                            "free_label_found": gift_free_label,
+                            "zip_files": file_list
+                        }
+                    )
+                    
+            finally:
+                # Clean up temp file
+                os.unlink(temp_zip_path)
+                
+        except Exception as e:
+            self.log_result(
+                "Gift Order ZIP Content", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+    
+    def test_gift_promotion_banner_detection(self):
+        """Test PHASE 3: Promotion Banner Detection"""
+        print("\n=== Testing Gift Promotion Banner Detection ===")
+        
+        try:
+            # Get public promotion endpoint (what frontend uses)
+            response = requests.get(f"{self.backend_url}/promotion")
+            
+            if response.status_code != 200:
+                self.log_result(
+                    "Gift Promotion Banner Detection", 
+                    False, 
+                    f"Cannot fetch promotion: HTTP {response.status_code}: {response.text}"
+                )
+                return
+            
+            result = response.json()
+            promotion = result.get('promotion')
+            
+            if not promotion:
+                self.log_result(
+                    "Gift Promotion Banner Detection", 
+                    False, 
+                    "No promotion data returned"
+                )
+                return
+            
+            # Verify gift promotion properties
+            if not promotion.get('isActive'):
+                self.log_result(
+                    "Gift Promotion Banner Detection", 
+                    False, 
+                    "Promotion is not active"
+                )
+                return
+            
+            if promotion.get('type') != 'gift':
+                self.log_result(
+                    "Gift Promotion Banner Detection", 
+                    False, 
+                    f"Expected type 'gift', got '{promotion.get('type')}'"
+                )
+                return
+            
+            if not promotion.get('giftTiers') or len(promotion.get('giftTiers', [])) == 0:
+                self.log_result(
+                    "Gift Promotion Banner Detection", 
+                    False, 
+                    "Gift promotion has no gift tiers"
+                )
+                return
+            
+            # Verify custom display text and message
+            custom_text = promotion.get('customDisplayText', '')
+            message = promotion.get('message', '')
+            
+            if '🎁' not in custom_text and '🎁' not in message:
+                self.log_result(
+                    "Gift Promotion Banner Detection", 
+                    False, 
+                    "Gift promotion missing gift emoji in display text or message"
+                )
+                return
+            
+            self.log_result(
+                "Gift Promotion Banner Detection", 
+                True, 
+                "Gift promotion correctly detected and configured",
+                {
+                    "type": promotion.get('type'),
+                    "isActive": promotion.get('isActive'),
+                    "customDisplayText": custom_text,
+                    "message": message,
+                    "giftTiers_count": len(promotion.get('giftTiers', []))
+                }
+            )
+            
+        except Exception as e:
+            self.log_result(
+                "Gift Promotion Banner Detection", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+
     def run_all_tests(self):
         """Run all tests in sequence"""
         print(f"Starting Photo Order Management System Tests")
@@ -1419,9 +2082,37 @@ class PhotoOrderTester:
         # NEW TESTS - Admin Authentication (needed for other tests)
         admin_login_success = self.admin_login()
         
-        # ===== NEW FEATURES TESTING (PRIORITY) =====
+        # ===== MULTI-TIER GIFT SYSTEM TESTING (PRIORITY) =====
         print("\n" + "=" * 60)
-        print("TESTING NEW FEATURES FROM REVIEW REQUEST")
+        print("TESTING MULTI-TIER GIFT SYSTEM FROM REVIEW REQUEST")
+        print("=" * 60)
+        
+        # SETUP: Create gift promotion
+        gift_setup_success = False
+        if admin_login_success:
+            gift_setup_success = self.test_gift_promotion_setup()
+        
+        # PHASE 1: Backend API Testing
+        if gift_setup_success:
+            print("\n--- PHASE 1: Backend API Testing ---")
+            
+            # Test order creation with different photo counts
+            gift_order_150 = self.test_gift_order_creation_150_photos()  # Both tiers
+            gift_order_75 = self.test_gift_order_creation_75_photos()    # Tier 1 only
+            gift_order_25 = self.test_gift_order_creation_25_photos()    # No tiers
+            
+            # Test ZIP content for gift orders
+            if gift_order_150:
+                self.test_gift_order_zip_content(gift_order_150)
+        
+        # PHASE 3: Promotion Banner Testing
+        if gift_setup_success:
+            print("\n--- PHASE 3: Promotion Banner Testing ---")
+            self.test_gift_promotion_banner_detection()
+        
+        # ===== EXISTING FEATURES TESTING (LOWER PRIORITY) =====
+        print("\n" + "=" * 60)
+        print("TESTING EXISTING FEATURES FROM PREVIOUS REQUESTS")
         print("=" * 60)
         
         # NEW FEATURE 1: ZIP Structure with Quantity Folders
@@ -1440,9 +2131,9 @@ class PhotoOrderTester:
             self.test_working_hours_get_admin_settings()
             self.test_working_hours_update_admin_settings()
         
-        # ===== EXISTING TESTS (LOWER PRIORITY) =====
+        # ===== REGRESSION TESTS (LOWEST PRIORITY) =====
         print("\n" + "=" * 60)
-        print("RUNNING EXISTING TESTS FOR REGRESSION")
+        print("RUNNING REGRESSION TESTS")
         print("=" * 60)
         
         # Test 1: Order creation success case with new address fields
