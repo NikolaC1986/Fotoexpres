@@ -127,7 +127,17 @@ Ukupna cena proizvoda: {products_subtotal} RSD
             content += f"""
 {i}. {gift.get('productName', '')} - {gift.get('variantName', '')}
    Količina: {gift.get('quantity', 1)} kom
-   Cena: BESPLATNO (🎁 Poklon)
+   Cena: BESPLATNO (🎁 Poklon)"""
+            
+            if gift.get('customText'):
+                content += f"""
+   Custom Tekst: {gift.get('customText', '')}"""
+            
+            if gift.get('photoFileNames'):
+                content += f"""
+   Fotografije: {', '.join(gift.get('photoFileNames', []))}"""
+            
+            content += """
    ───────────────────────────
 """
         
