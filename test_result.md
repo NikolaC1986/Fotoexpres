@@ -718,19 +718,66 @@ frontend:
           agent: "main"
           comment: "Removed admin user icon from Navbar. Added subtle 'Admin' text link at bottom of homepage footer with low opacity. Less visible for security. Needs visual verification."
 
+  - task: "Multi-Tier Gift System - Backend Support"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py, /app/backend/utils/order_utils.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Added giftProducts field to order_doc. Modified create_order_details_txt and create_order_zip functions to accept and display gift products. Gift products shown as BESPLATNO (free) in order details. Backend now saves gift products in MongoDB orders collection."
+
+  - task: "Multi-Tier Gift System - Frontend Logic"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/UploadPage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Implemented automatic gift product calculation based on photo count. useEffect hook monitors totalPhotos and promotion, finds ALL qualifying tiers (not just best one), and adds all unlocked gifts. Gift products included in all order submission paths (standard, chunked, products-only). Fixed logic to collect gifts from all qualifying tiers to avoid duplicates."
+
+  - task: "Multi-Tier Gift System - UI Display"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/UploadPage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Completed GiftTiersProgress section showing all tiers with unlock status (✅ unlocked, 🎯 next, 🔒 locked). Shows remaining photos needed for next tier. Displays current unlocked gifts in green section. Gift products shown in Obračun Cene (Price Summary) section marked as BESPLATNO. UI fully responsive with proper styling."
+
+  - task: "Multi-Tier Gift System - Promotion Banner"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/PromotionBanner.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Updated PromotionBanner to detect gift promotions (type === 'gift') and display custom text or '🎁 Poklon!' badge. Shows gift promotion messages correctly. Fixed style jsx to regular style tag."
+
 metadata:
   created_by: "testing_agent"
-  version: "3.0"
-  test_sequence: 3
-  run_ui: false
+  version: "4.0"
+  test_sequence: 4
+  run_ui: true
 
 test_plan:
   current_focus:
-    - "Upload Page - Auto Reset After Submission"
-    - "Upload Page - Progress Bar for Photo Upload"
-    - "Admin Panel - Delete Order Functionality"
-    - "Upload Page - Text Change 'Završetak papira' to 'Tip papira'"
-    - "Homepage - Admin Login Button Moved to Footer"
+    - "Multi-Tier Gift System - Backend Support"
+    - "Multi-Tier Gift System - Frontend Logic"
+    - "Multi-Tier Gift System - UI Display"
+    - "Multi-Tier Gift System - Promotion Banner"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
