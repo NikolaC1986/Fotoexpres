@@ -211,30 +211,56 @@ const UploadPage = () => {
     }
 
     // Collect gifts from ALL qualifying tiers (user gets all gifts they've unlocked)
-    const allGifts = [];
-    qualifyingTiers.forEach(tier => {
-      if (tier.gifts && tier.gifts.length > 0) {
-        tier.gifts.forEach(gift => {
-          // Check if this gift is already in the list to avoid duplicates
-          const existingGift = allGifts.find(g => 
-            g.productId === gift.productId && g.variantId === gift.variantId
-          );
-          
-          if (!existingGift) {
-            allGifts.push({
-              ...gift,
-              isGift: true,
-              quantity: 1,
-              customText: '',
-              giftPhotos: [], // Photos for this gift product
-              requiresPhotos: true // Assume all gifts need photos
-            });
+    const fetchGiftProductDetails = async () => {
+      const allGifts = [];
+      
+      for (const tier of qualifyingTiers) {
+        if (tier.gifts && tier.gifts.length > 0) {
+          for (const gift of tier.gifts) {
+            // Check if this gift is already in the list to avoid duplicates
+            const existingGift = allGifts.find(g => 
+              g.productId === gift.productId && g.variantId === gift.variantId
+            );
+            
+            if (!existingGift) {
+              try {
+                // Fetch product details to get requiresPhotoUpload and allowCustomText
+                const response = await axios.get(`${API}/products/${gift.productId}`);
+                if (response.data.success && response.data.product) {
+                  const productDetails = response.data.product;
+                  
+                  allGifts.push({
+                    ...gift,
+                    isGift: true,
+                    quantity: 1,
+                    customText: '',
+                    giftPhotos: [],
+                    requiresPhotoUpload: productDetails.requiresPhotoUpload || false,
+                    allowCustomText: productDetails.allowCustomText || false
+                  });
+                }
+              } catch (error) {
+                console.error(`Error fetching product details for gift ${gift.productId}:`, error);
+                // Fallback: add gift without attributes
+                allGifts.push({
+                  ...gift,
+                  isGift: true,
+                  quantity: 1,
+                  customText: '',
+                  giftPhotos: [],
+                  requiresPhotoUpload: false,
+                  allowCustomText: false
+                });
+              }
+            }
           }
-        });
+        }
       }
-    });
+      
+      setGiftProducts(allGifts);
+    };
 
-    setGiftProducts(allGifts);
+    fetchGiftProductDetails();
   }, [totalPhotos, promotion]);
 
   // Handle gift product photo upload
