@@ -37,6 +37,7 @@ const UploadPage = () => {
   const [promotion, setPromotion] = useState(null);
   const [deliveryPrice, setDeliveryPrice] = useState(400);
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const [giftProducts, setGiftProducts] = useState([]); // Gift proizvodi iz promocije
   const [preSelectedProductLoaded, setPreSelectedProductLoaded] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [successOrderNumber, setSuccessOrderNumber] = useState('');
