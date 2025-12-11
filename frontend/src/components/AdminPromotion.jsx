@@ -197,6 +197,58 @@ const AdminPromotion = () => {
         {/* Promotion Settings */}
         <Card className="p-8">
           <div className="space-y-6">
+            {/* Promotion Type Selection */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Tip Promocije</Label>
+              <div className="grid grid-cols-2 gap-4">
+                <div 
+                  onClick={() => updatePromotion('type', 'discount')}
+                  className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                    promotion.type === 'discount' 
+                      ? 'border-orange-500 bg-orange-50' 
+                      : 'border-gray-300 hover:border-orange-300'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                      promotion.type === 'discount' ? 'border-orange-500' : 'border-gray-300'
+                    }`}>
+                      {promotion.type === 'discount' && (
+                        <div className="w-3 h-3 rounded-full bg-orange-500"></div>
+                      )}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900">💰 Popust na Cenu</p>
+                      <p className="text-xs text-gray-600">Procenat popusta na fotografije</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div 
+                  onClick={() => updatePromotion('type', 'gift')}
+                  className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                    promotion.type === 'gift' 
+                      ? 'border-green-500 bg-green-50' 
+                      : 'border-gray-300 hover:border-green-300'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                      promotion.type === 'gift' ? 'border-green-500' : 'border-gray-300'
+                    }`}>
+                      {promotion.type === 'gift' && (
+                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                      )}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900">🎁 Poklon Proizvodi</p>
+                      <p className="text-xs text-gray-600">Besplatni proizvodi za broj fotografija</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Active Toggle */}
             <div className="flex items-center justify-between p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border-2 border-purple-300">
               <div className="flex items-center gap-4">
