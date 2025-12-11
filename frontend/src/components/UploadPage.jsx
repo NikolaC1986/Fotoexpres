@@ -965,6 +965,111 @@ const UploadPage = () => {
         )}
 
         {/* Product Selector - ALWAYS VISIBLE */}
+        {/* Gift Tiers Progress - Show if promotion is gift type */}
+        {promotion && promotion.type === 'gift' && promotion.giftTiers && promotion.giftTiers.length > 0 && (
+          <Card className="p-8 mt-8 bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-300">
+            <h2 className="text-3xl font-bold mb-4 text-gray-900 flex items-center gap-3">
+              🎁 Poklon Proizvodi
+            </h2>
+            <p className="text-gray-600 mb-6">
+              Dodajte više fotografija da otključate besplatne proizvode!
+            </p>
+
+            <div className="space-y-4">
+              {promotion.giftTiers
+                .sort((a, b) => a.minPhotos - b.minPhotos)
+                .map((tier, index) => {
+                  const isUnlocked = totalPhotos >= tier.minPhotos;
+                  const isNext = !isUnlocked && (index === 0 || totalPhotos >= promotion.giftTiers[index - 1]?.minPhotos);
+                  const remaining = tier.minPhotos - totalPhotos;
+
+                  return (
+                    <div 
+                      key={tier.id || index} 
+                      className={`p-4 rounded-lg border-2 transition-all ${
+                        isUnlocked 
+                          ? 'bg-green-100 border-green-400' 
+                          : isNext 
+                            ? 'bg-yellow-50 border-yellow-400' 
+                            : 'bg-gray-50 border-gray-300'
+                      }`}
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-2xl ${
+                          isUnlocked ? 'bg-green-500' : isNext ? 'bg-yellow-400' : 'bg-gray-300'
+                        }`}>
+                          {isUnlocked ? '✅' : isNext ? '🎯' : '🔒'}
+                        </div>
+
+                        <div className="flex-1">
+                          <div className="flex justify-between items-start mb-2">
+                            <div>
+                              <p className="font-bold text-lg text-gray-900">
+                                {tier.minPhotos} Fotografija
+                              </p>
+                              <p className="text-sm text-gray-600">
+                                {tier.message || 'Otključajte poklon proizvode!'}
+                              </p>
+                            </div>
+                            {!isUnlocked && isNext && (
+                              <span className="text-sm font-semibold text-yellow-700 bg-yellow-100 px-3 py-1 rounded-full">
+                                još {remaining} foto
+                              </span>
+                            )}
+                          </div>
+
+                          {tier.gifts && tier.gifts.length > 0 && (
+                            <div className="flex flex-wrap gap-2 mt-3">
+                              {tier.gifts.map((gift, gIdx) => (
+                                <div 
+                                  key={gIdx}
+                                  className={`px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-2 ${
+                                    isUnlocked 
+                                      ? 'bg-green-200 text-green-800' 
+                                      : 'bg-gray-200 text-gray-600'
+                                  }`}
+                                >
+                                  <span>🎁</span>
+                                  <span>{gift.productName}</span>
+                                  {gift.variantName && (
+                                    <span className="text-xs opacity-75">({gift.variantName})</span>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+
+            {/* Current Gift Products */}
+            {giftProducts.length > 0 && (
+              <div className="mt-6 p-4 bg-white rounded-lg border-2 border-green-400">
+                <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                  🎉 Vaši Trenutni Pokloni:
+                </h3>
+                <div className="space-y-2">
+                  {giftProducts.map((gift, idx) => (
+                    <div key={idx} className="flex items-center justify-between bg-green-50 p-3 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <span className="text-2xl">🎁</span>
+                        <div>
+                          <p className="font-semibold text-gray-900">{gift.productName}</p>
+                          <p className="text-sm text-gray-600">{gift.variantName}</p>
+                        </div>
+                      </div>
+                      <span className="font-bold text-green-600 text-lg">BESPLATNO</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </Card>
+        )}
+
         <Card id="products-section" className="p-10 mt-8 bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200">
           <h2 className="text-3xl font-bold mb-4 text-gray-900">Dodaj Proizvode</h2>
           <p className="text-gray-600 mb-6">
