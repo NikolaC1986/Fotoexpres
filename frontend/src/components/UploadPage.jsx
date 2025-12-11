@@ -473,6 +473,15 @@ const UploadPage = () => {
           }
         });
 
+        // Add gift photos to formData
+        giftProducts.forEach((gift, giftIndex) => {
+          if (gift.giftPhotos && gift.giftPhotos.length > 0) {
+            gift.giftPhotos.forEach((photo) => {
+              formData.append(`gift_photos_${giftIndex}`, photo.file);
+            });
+          }
+        });
+
         // Prepare products data without file objects for JSON
         const productsForJson = selectedProducts.map((product, idx) => ({
           ...product,
@@ -691,6 +700,15 @@ const UploadPage = () => {
           if (product.productPhotos && product.productPhotos.length > 0) {
             product.productPhotos.forEach((photo) => {
               formData.append(`product_photos_${productIndex}`, photo.file);
+            });
+          }
+        });
+
+        // Add gift photos to formData
+        giftProducts.forEach((gift, giftIndex) => {
+          if (gift.giftPhotos && gift.giftPhotos.length > 0) {
+            gift.giftPhotos.forEach((photo) => {
+              formData.append(`gift_photos_${giftIndex}`, photo.file);
             });
           }
         });
