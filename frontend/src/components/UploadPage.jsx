@@ -193,6 +193,34 @@ const UploadPage = () => {
     return photos.reduce((sum, photo) => sum + photo.quantity, 0);
   }, [photos]);
 
+  // Automatically add/remove gift products based on photo count
+  useEffect(() => {
+    if (!promotion || promotion.type !== 'gift' || !promotion.giftTiers || promotion.giftTiers.length === 0) {
+      setGiftProducts([]);
+      return;
+    }
+
+    // Find the best tier (highest minPhotos that user qualifies for)
+    const qualifyingTiers = promotion.giftTiers
+      .filter(tier => totalPhotos >= tier.minPhotos)
+      .sort((a, b) => b.minPhotos - a.minPhotos);
+
+    if (qualifyingTiers.length === 0) {
+      setGiftProducts([]);
+      return;
+    }
+
+    // Get gifts from the best tier
+    const bestTier = qualifyingTiers[0];
+    const newGiftProducts = bestTier.gifts.map(gift => ({
+      ...gift,
+      isGift: true,
+      quantity: 1
+    }));
+
+    setGiftProducts(newGiftProducts);
+  }, [totalPhotos, promotion]);
+
   // Calculate quantity discount percentage
   const quantityDiscountPercent = useMemo(() => {
     if (totalPhotos >= 200 && quantityDiscounts['200']) {
