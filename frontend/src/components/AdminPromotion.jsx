@@ -22,8 +22,13 @@ const AdminPromotion = () => {
     validUntil: '2025-12-31T23:59',
     message: '10% popusta na sve porudžbine!',
     customDisplayText: '',
-    applyDiscount: true
+    applyDiscount: true,
+    type: 'discount', // 'discount' or 'gift'
+    giftTiers: []
   });
+  const [products, setProducts] = useState([]);
+  const [showProductSelector, setShowProductSelector] = useState(false);
+  const [currentTierIndex, setCurrentTierIndex] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
