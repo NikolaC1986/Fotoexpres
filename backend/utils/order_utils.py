@@ -296,5 +296,19 @@ def create_order_zip(order_dir, zip_path, order_number, contact_info, photo_sett
                             if os.path.exists(product_photo_path):
                                 archive_path = f"{product_folder_name}/{photo_name}"
                                 zipf.write(product_photo_path, archive_path)
+        
+        # Add gift product photos if any
+        if gift_products:
+            gift_photos_dir = os.path.join(order_dir, 'gift_photos')
+            if os.path.exists(gift_photos_dir):
+                for gift_idx, gift in enumerate(gift_products):
+                    if gift.get('photoFileNames'):
+                        gift_folder_name = f"POKLON_{gift_idx + 1}_{gift.get('productName', 'Unknown').replace(' ', '_')}"
+                        
+                        for photo_name in gift.get('photoFileNames', []):
+                            gift_photo_path = os.path.join(gift_photos_dir, f"gift_{gift_idx}_{photo_name}")
+                            if os.path.exists(gift_photo_path):
+                                archive_path = f"{gift_folder_name}/{photo_name}"
+                                zipf.write(gift_photo_path, archive_path)
     
     return zip_path
