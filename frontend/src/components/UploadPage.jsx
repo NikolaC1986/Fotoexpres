@@ -224,7 +224,10 @@ const UploadPage = () => {
             allGifts.push({
               ...gift,
               isGift: true,
-              quantity: 1
+              quantity: 1,
+              customText: '',
+              giftPhotos: [], // Photos for this gift product
+              requiresPhotos: true // Assume all gifts need photos
             });
           }
         });
@@ -233,6 +236,47 @@ const UploadPage = () => {
 
     setGiftProducts(allGifts);
   }, [totalPhotos, promotion]);
+
+  // Handle gift product photo upload
+  const handleGiftPhotoUpload = (giftIndex, e) => {
+    const files = Array.from(e.target.files);
+    const newPhotos = files.map((file, idx) => ({
+      id: Date.now() + idx,
+      file: file,
+      preview: URL.createObjectURL(file),
+      name: file.name
+    }));
+
+    setGiftProducts(prev => 
+      prev.map((gift, idx) => 
+        idx === giftIndex 
+          ? { ...gift, giftPhotos: [...(gift.giftPhotos || []), ...newPhotos] }
+          : gift
+      )
+    );
+  };
+
+  // Remove gift photo
+  const removeGiftPhoto = (giftIndex, photoId) => {
+    setGiftProducts(prev => 
+      prev.map((gift, idx) => 
+        idx === giftIndex 
+          ? { ...gift, giftPhotos: gift.giftPhotos.filter(p => p.id !== photoId) }
+          : gift
+      )
+    );
+  };
+
+  // Update gift custom text
+  const updateGiftCustomText = (giftIndex, text) => {
+    setGiftProducts(prev => 
+      prev.map((gift, idx) => 
+        idx === giftIndex 
+          ? { ...gift, customText: text }
+          : gift
+      )
+    );
+  };
 
   // Calculate quantity discount percentage
   const quantityDiscountPercent = useMemo(() => {
