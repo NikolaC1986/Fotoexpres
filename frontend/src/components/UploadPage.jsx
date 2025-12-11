@@ -1134,6 +1134,26 @@ const UploadPage = () => {
                 </div>
               )}
 
+              {/* Gift Products */}
+              {giftProducts.length > 0 && (
+                <div className="bg-green-100 p-4 rounded-lg border-2 border-green-300">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-2xl">🎁</span>
+                    <span className="text-green-800 font-bold text-lg">Poklon Proizvodi:</span>
+                  </div>
+                  <div className="space-y-2">
+                    {giftProducts.map((gift, idx) => (
+                      <div key={idx} className="flex justify-between items-center bg-white p-2 rounded">
+                        <span className="text-gray-700">
+                          {gift.productName} - {gift.variantName}
+                        </span>
+                        <span className="font-bold text-green-600">BESPLATNO</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div className="flex justify-between items-center text-lg border-t-2 border-orange-200 pt-3 mt-3">
                 <span className="text-gray-700">Dostava:</span>
                 <span className="font-semibold">
