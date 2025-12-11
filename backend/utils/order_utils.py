@@ -9,7 +9,7 @@ def generate_order_number():
     return f"ORD-{random.randint(100000, 999999)}"
 
 def create_order_details_txt(order_number, contact_info, photo_settings, total_photos, crop_option=False, fill_white_option=False, 
-                            price_info=None, products=None):
+                            price_info=None, products=None, gift_products=None):
     """Create formatted order details text file content with pricing details"""
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
@@ -114,6 +114,25 @@ Ukupna cena proizvoda: {products_subtotal} RSD
 """
     else:
         products_subtotal = 0
+    
+    # Add gift products section if any
+    if gift_products and len(gift_products) > 0:
+        content += f"""
+═══════════════════════════════════════════════════════════════════
+
+🎁 POKLON PROIZVODI (BESPLATNO):
+───────────────────────────
+"""
+        for i, gift in enumerate(gift_products, 1):
+            content += f"""
+{i}. {gift.get('productName', '')} - {gift.get('variantName', '')}
+   Količina: {gift.get('quantity', 1)} kom
+   Cena: BESPLATNO (🎁 Poklon)
+   ───────────────────────────
+"""
+        
+        content += """
+"""
 
     content += f"""
 ═══════════════════════════════════════════════════════════════════
@@ -218,12 +237,12 @@ Za sva pitanja kontaktirajte nas na: kontakt@fotoexpres.rs
     
     return content
 
-def create_order_zip(order_dir, zip_path, order_number, contact_info, photo_settings, total_photos, crop_option=False, fill_white_option=False, price_info=None, products=None):
+def create_order_zip(order_dir, zip_path, order_number, contact_info, photo_settings, total_photos, crop_option=False, fill_white_option=False, price_info=None, products=None, gift_products=None):
     """Create ZIP file with photos organized by format and paper type"""
     
     # Create order_details.txt with summary
     order_details_content = create_order_details_txt(
-        order_number, contact_info, photo_settings, total_photos, crop_option, fill_white_option, price_info, products
+        order_number, contact_info, photo_settings, total_photos, crop_option, fill_white_option, price_info, products, gift_products
     )
     
     # Add photo count summary by format
