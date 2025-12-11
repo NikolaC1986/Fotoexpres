@@ -786,10 +786,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Multi-Tier Gift System - Backend Support"
     - "Multi-Tier Gift System - Frontend Logic"
     - "Multi-Tier Gift System - UI Display"
-    - "Multi-Tier Gift System - Promotion Banner"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -797,6 +795,8 @@ test_plan:
     - "ZIP Structure with Quantity Folders"
     - "Change Viewer Password Endpoint"
     - "Working Hours in Settings"
+    - "Multi-Tier Gift System - Backend Support"
+    - "Multi-Tier Gift System - Promotion Banner"
 
 agent_communication:
     - agent: "testing"
