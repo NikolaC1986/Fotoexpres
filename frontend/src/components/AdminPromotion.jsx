@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Save, Bell, AlertCircle, Calendar } from 'lucide-react';
+import { ArrowLeft, Save, Bell, AlertCircle, Calendar, Plus, Trash2, X } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
