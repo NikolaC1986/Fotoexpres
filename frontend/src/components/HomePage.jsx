@@ -159,11 +159,11 @@ const HomePage = () => {
             <Card className="overflow-hidden border-4 border-orange-300 shadow-2xl max-w-4xl mx-auto">
               <div className="grid md:grid-cols-2">
                 {/* Image */}
-                <div className="relative h-64 md:h-auto">
+                <div className="relative h-64 md:h-auto bg-gray-100 flex items-center justify-center">
                   <img 
                     src={featuredProduct.imageUrl} 
                     alt={featuredProduct.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain p-6"
                   />
                 </div>
                 

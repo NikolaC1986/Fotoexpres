@@ -61,11 +61,11 @@ const ProductsPage = () => {
           {products.map((product) => (
             <Card key={product.id} className="overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-gray-200">
               {/* Product Image */}
-              <div className="h-64 bg-gray-200 overflow-hidden">
+              <div className="h-64 bg-gray-100 overflow-hidden flex items-center justify-center">
                 <img 
                   src={product.imageUrl} 
                   alt={product.name}
-                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                  className="w-full h-full object-contain hover:scale-110 transition-transform duration-300 p-4"
                 />
               </div>
 
