@@ -1505,6 +1505,64 @@ async def admin_get_products(admin = Depends(verify_admin_token)):
         logging.error(f"Error fetching products for admin: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to fetch products")
 
+# Upload product image (admin only)
+@api_router.post("/admin/products/upload-image")
+async def upload_product_image(
+    image: UploadFile = File(...),
+    admin = Depends(verify_admin_token)
+):
+    """Upload product image and return URL"""
+    try:
+        # Validate file
+        ALLOWED_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.webp'}
+        ALLOWED_MIME_TYPES = {'image/jpeg', 'image/jpg', 'image/png', 'image/webp'}
+        MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB
+        
+        file_ext = os.path.splitext(image.filename)[1].lower()
+        if file_ext not in ALLOWED_EXTENSIONS:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Nedozvoljen tip fajla. Dozvoljeni: {', '.join(ALLOWED_EXTENSIONS)}"
+            )
+        
+        if image.content_type not in ALLOWED_MIME_TYPES:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Nedozvoljen MIME tip: {image.content_type}"
+            )
+        
+        # Read and validate size
+        content = await image.read()
+        if len(content) > MAX_FILE_SIZE:
+            raise HTTPException(
+                status_code=400,
+                detail="Fajl je prevelik. Maksimalna veličina je 10MB"
+            )
+        
+        # Generate unique filename
+        import uuid
+        unique_filename = f"{uuid.uuid4()}{file_ext}"
+        file_path = PRODUCT_IMAGES_DIR / unique_filename
+        
+        # Save file
+        with open(file_path, "wb") as f:
+            f.write(content)
+        
+        # Return URL path (relative to backend)
+        image_url = f"/uploads/products/{unique_filename}"
+        
+        logging.info(f"Product image uploaded: {unique_filename}")
+        return {
+            "success": True,
+            "imageUrl": image_url,
+            "message": "Fotografija uspešno uploadovana"
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Error uploading product image: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to upload image")
+
 # Create product (admin only)
 @api_router.post("/admin/products")
 async def admin_create_product(product: ProductCreate, admin = Depends(verify_admin_token)):
