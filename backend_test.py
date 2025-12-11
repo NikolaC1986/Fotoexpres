@@ -15,7 +15,7 @@ from PIL import Image
 import io
 
 # Configuration
-BACKEND_URL = "https://product-dashboard-17.preview.emergentagent.com/api"
+BACKEND_URL = "https://photogift-admin.preview.emergentagent.com/api"
 
 class PhotoOrderTester:
     def __init__(self):

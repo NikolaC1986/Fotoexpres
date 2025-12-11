@@ -1,152 +1,147 @@
 <analysis>**original_problem_statement:**
-The user initially reported being unable to log into the admin dashboard. After resolving the login issues, the user requested a series of new features, UI customizations, and bug fixes for the Fotoexpres application.
+The user initially requested to fix a critical Ghost Orders bug, then expanded the scope to include a comprehensive new product management system, UI/UX improvements, an admin log download feature, and several advanced administrative functionalities for products and promotions.
 
 PRODUCT REQUIREMENTS:
-1.  **Critical Bug Fix:** Resolve the Ghost Orders issue where orders appear successful on the frontend but never show up in the admin panel.
-2.  **Admin Log Feature:** Implement a feature in the admin dashboard to download a detailed log of all successful and unsuccessful order attempts.
-3.  **New Product System:**
-    *   Introduce new products: Album za slike, Šolja sa štampom, Privezak, Fotokalendar, and Fotomagnet.
-    *   Products should be orderable with or without standard photo prints.
-    *   For products requiring images (like mugs), users must be able to upload specific photos.
-    *   Integrate products into the existing promotions system (e.g., buy 100 photos, get a free mug).
-4.  **Admin Panel for Products:**
-    *   Create a dedicated section in the admin panel to manage all products.
-    *   Admins must be able to **add** new products from scratch.
-    *   Admins must be able to **edit** existing products, including their names, descriptions, and images.
-    *   Admins must be able to **edit, activate, or deactivate** individual product variants (e.g., make the Magična šolja unavailable while keeping the Keramička šolja active).
-    *   Admins must be able to **add new variants/options** to existing products.
-5.  **UX/UI Improvements:**
-    *   On the main  page, clicking Naruči sada on a product should take the user to the upload page with that product pre-selected and added to their cart.
-    *   On the  page, the product selection area should be visible at all times, even if no photos have been uploaded.
-    *   Move the final price calculation summary to the bottom of the  page, after the product selection area.
-    *   Add a Dodaj još fotografija button to allow users to easily add more files without scrolling to the top.
+1.  **Admin Panel Enhancements:**
+    *   Allow admins to add/remove variants (e.g., sizes, colors) to existing products.
+    *   Allow creating a new product with only one variant (previously required two).
+    *   Support uploading a product image from the local machine instead of only using a URL.
+    *   Add a checkbox to specify if a product requires a user to upload a photo for it (e.g., for a custom mug, but not for a photo album).
+    *   Add a checkbox to mark a product as Featured () to display it on the homepage.
+    *   Add functionality to create External products that link to a different website.
+2.  **Promotions System Overhaul:**
+    *   Allow admins to write custom display text for promotions (e.g., Album na poklon) instead of just a percentage discount.
+    *   Add a toggle to make a promotion purely informational (no discount applied).
+    *   **Multi-Tier Gift System:** Implement a promotion type where customers receive free products (gifts) based on the number of photos they order (e.g., 100 photos -> free magnet; 200 photos -> free mug).
+3.  **UX/UI Improvements:**
+    *   Fix the delivery fee calculation to be included when only products (without photos) are ordered.
+    *   Move the final price calculation summary *above* the customer information form on the upload page.
+    *   Replace the success  notification with a full-screen modal that displays the order number and confirms the order was successful.
+4.  **Security:**
+    *   Conduct a security audit and implement basic hardening measures, such as input sanitization on the backend.
+5.  **Documentation:**
+    *   Create a detailed guide for deploying all the new changes to the live server.
 
 **User's preferred language**: The user's primary language is **Serbian**. The next agent MUST respond in Serbian.
 
 **what currently exists?**
-The application is a full-stack photo printing service with a React frontend and a FastAPI backend. The critical ghost orders bug has been fixed by implementing a transactional order creation process. A new, comprehensive product management system has been built, allowing users to order physical products (mugs, albums, etc.) either standalone or alongside their photo prints. The admin panel now features full CRUD functionality for products and their variants, including adding, editing, and toggling availability. A log download feature for admins has also been implemented.
+The application is a full-stack photo printing service. A comprehensive product management system is in place, allowing admins full CRUD control over products and their variants, including features like Featured Products and External Product links. The promotions engine has been significantly enhanced to support custom display text and informational-only promotions. A security pass was completed, adding input sanitization to the backend. The order success flow now uses a full-screen modal. The implementation of a multi-tier gift with purchase promotion system is currently in progress.
 
 **Last working item**:
-- Last item agent was working: The user requested the ability for an administrator to add new options (variants) to an existing product directly from the admin panel (e.g., adding a new 500 photos option to an existing Album product). The agent acknowledged the request and was about to start implementation.
-- Status: NOT STARTED
+- Last item agent was working: Implementing the **Multi-Tier Gift System (Phase 2 - Frontend)**. The agent was adding the necessary UI and logic to the  component to automatically calculate and display gift rewards to the user based on the number of photos in their cart.
+- Status: IN PROGRESS
 - Agent Testing Done: N
 - Which testing method agent to use? both
 - User Testing Done: N
 
 **All Pending/In progress Issue list**:
-- There are no pending issues. All work is on new feature development.
+- There are no pending issues. The work is focused on completing the new feature.
 
 **In progress Task List**:
--   **Task 1: Implement Add New Variant in Admin Panel (P0)**
-    -   **Description:** This is the immediate next task requested by the user.
-    -   **Where to resume:** The  component needs to be modified. Inside the Edit Product modal, a button like + Dodaj novu opciju should be added. This will trigger a function to append a new, empty variant object to the  state array, which will then render new input fields for the admin to fill out. The  function and the corresponding backend endpoint  will need to handle the updated array of variants.
-    -   **What will be achieved with this?** Admins will have full dynamic control over product offerings without needing developer intervention.
-    -   **Status:** NOT STARTED
+-   **Task 1: Complete Multi-Tier Gift System (P0)**
+    -   **Description:** The user wants to create promotions where customers receive free products (gifts) based on the number of photos they order (e.g., 100 photos = free magnet). This requires frontend logic to track photo count, automatically add gift products to the cart (at a price of 0), and display the rewards to the user.
+    -   **Where to resume:** Resume work in . The agent has already added state (), a  hook to calculate applicable gifts, and updated the price calculation logic. The next steps are to finish and test the UI components for displaying the gift progress ( section) and the gifted items in the final price summary (). The  also needs to be updated to correctly display messages for gift-based promotions.
+    -   **What will be achieved with this?** Admins will be able to create powerful, tiered promotional campaigns, significantly boosting marketing flexibility.
+    -   **Status:** IN PROGRESS
     -   **Should Test frontend/backend/both after fix?** Both
     -   **Blocked on something:** None
 
 **Upcoming and Future Tasks**
-- **Upcoming Tasks:**
-    - **Integrate Products with Promotions (P1):** Implement the logic to allow products to be part of promotional offers, such as buy 100 photos, get a free mug. This requires modifying the promotions logic in the backend () and the price calculation on the frontend ().
 - **Future Tasks:**
-    - **Mobile App Development (P2):** The user previously inquired about creating Android and iOS apps. This can be revisited as a future development phase, potentially starting with a Progressive Web App (PWA).
+    - **Mobile App Development (P2):** The user previously inquired about creating Android and iOS apps. This can be revisited as a future development phase.
 
 **Completed work in this session**
-- **Critical Bug Fix: Ghost Orders Resolved:**
-  - Implemented a transactional order creation flow on the backend () where a database record is created first with a  status.
-  - Added extensive logging for every step of the order process.
-  - Ensured the frontend in  waits for a definitive success response before showing the confirmation message.
-  - Tested rigorously with custom scripts and the testing agent.
-- **Feature: Downloadable Admin Logs:**
-  - Created a new backend endpoint () and a Preuzmi Logove button in  to download a TXT report of all order attempts.
-- **Feature: Comprehensive Product System:**
-  - **Backend:** Developed new models () and a full suite of CRUD APIs in  for managing products and processing product orders. Updated  to include products in the final ZIP archive.
-  - **Frontend (User):** Created a  showcase page () and a  component. Massively overhauled  to allow ordering products with or without photos, handle product-specific file uploads, and manage complex pricing.
-  - **Frontend (Admin):** Built a new  page with modals for adding new products and performing detailed edits (name, description, price, and toggling activation status of individual variants).
-  - **UX Flow:** Implemented direct-to-cart linking from the product page to the upload page and made the product selector always visible.
+- **Feature: Dynamic Product Variants:** Implemented functionality in  for admins to add or remove product variants (options) from both new and existing products.
+- **Feature: Enhanced Product Creation:** Improved the Add Product modal to allow creating a product with only one initial variant and to support direct image uploads for the product's main picture.
+- **Feature: Requires Photo Flag:** Added a backend field () and a corresponding checkbox in the admin panel to control which products require a user to upload a specific image for that item (e.g., a mug).
+- **Feature: Delivery Fee Fix:** Corrected the logic in  to ensure the delivery fee is calculated and displayed even when an order contains only products and no photos. The price summary block's visibility condition was changed from  to .
+- **Feature: Featured Product Section:** Created a system ( flag) for admins to mark a product to be featured in a new Izdvajamo iz ponude section on the homepage ().
+- **Feature: Custom Promotion Text:** Overhauled the promotion system in  and  to allow custom display text (e.g., Album na poklon) and an option to disable the actual discount, making it an informational banner.
+- **Feature: External Product Links:** Added a product type (, ) that functions as a link to an external website instead of an orderable item.
+- **Feature: Order Success Modal:** Replaced the simple  notification with a full-screen success modal on , which shows the user their order number and confirms the submission.
+- **Improvement: Input Sanitization:** Created  and integrated input validation and sanitization into the main order creation endpoint in .
+- **UI/UX:** Moved the Obračun Cene (Price Summary) section above the Informacije za Dostavu (Delivery Info) form in  based on user feedback.
+- **Bug Fix:** Resolved multiple frontend compilation errors, including a  in  caused by incorrect  syntax.
+- **Documentation:** Created comprehensive deployment guides and a changelog for the user.
 
 **Code Architecture**
 
 
 **Key Technical Concepts**
-- **Frontend:** React, Tailwind CSS,  for API calls, ,  for passing state via URL.
+- **Frontend:** React, Tailwind CSS, , . Heavy use of  and  for complex, dynamic forms in , , and .
 - **Backend:** FastAPI, Pydantic for data modeling.
 - **Database:** MongoDB.
-- **Authentication:** JWT for admin panel.
-- **File Handling:** Chunked file uploads for photos, separate form-data handling for product-specific images.
-- **Key Pattern:** Large, complex forms with dynamic state management in React, especially in  and .
+- **Security:** JWT for admin auth, new input sanitization functions for user-submitted data.
 
 **key DB schema**
-- **orders:**  (products field added)
-- **products:** (New Collection) 
+-   **products:** Added fields , , , .
+-   **promotions:** (Part of  collection) Restructured to support , , , and .
 
 **changes in tech stack**
-- None.
+-   None.
 
 **All files of reference**
-- : Heavily modified to fix the ghost order bug, add the log download endpoint, and implement the entire product CRUD API and order processing logic.
-- : Updated to include product details and product-specific photos in the final order ZIP file.
-- : New file defining the Pydantic models for Products and Variants.
-- : Massively refactored to integrate the product selector, handle ordering with or without photos, manage product-specific uploads, and rearrange the UI layout.
-- : New, complex component for full product management with Add/Edit modals.
-- : New reusable component for selecting products on the upload page.
-- : New page to showcase all available products.
-- : Added new routes for the product-related pages.
+-   : Heavily modified to support new fields for products and promotions, and to add input sanitization.
+-   : Updated with new boolean and string fields for enhanced product features.
+-   : New file containing functions for sanitizing user input.
+-   : Massively refactored to fix delivery fee logic, rearrange UI, add the success modal, and begin implementation of the gift system.
+-   : Massively refactored to support image uploads, dynamic variants, and new product flags (, , ).
+-   : Overhauled to support different promotion types ( vs. ) and the multi-tier gift UI.
+-   : Modified to include the Featured Product section.
+-   : Updated to handle external product links.
+-   : Logic updated to display custom promotion text.
 
 **Areas that need refactoring**:
-- ****: This component has grown to an unmanageable size and complexity. It handles photo uploads, product selection, price calculations, multiple API calls, and complex state. It should be broken down into smaller, specialized components and custom hooks (e.g., , ).
-- ****: All API logic resides in this single file. For better organization and scalability, the routes should be split into dedicated router files (e.g., , ).
+-   ****: This component's complexity has increased significantly. It urgently needs to be broken down into smaller components and custom hooks (, , ) to be maintainable.
+-   ****: This component now handles two separate modals (Add and Edit) with complex, differing logic and state. It should be split into smaller, dedicated components for adding, editing, and managing variants.
+-   ****: The file is becoming overly large. API routes should be split into dedicated router files (e.g., , ).
 
 **key api endpoints**
-- : Modified to accept  and product-specific image files.
-- : (New) Downloads a text file log of order attempts.
-- : (New) Fetches all products for display.
-- : (New) Creates a new product.
-- : (New) Updates an existing product and its variants.
+-   : Updated to handle new product flags and variant arrays.
+-   : Updated for new product flags and image uploads.
+-   : Endpoint heavily modified to save the new, complex promotion structure including .
+-   : Now secured with input sanitization.
 
 **Critical Info for New Agent**
-- **Deployment:** Remember that Supervisor on the live server does not load  files. All environment variables must be added directly to the  line in the service's  file.
-- **Database:** The project uses a local MongoDB instance, not a cloud-based one.
-- **Code Complexity:** Be very careful when editing . Due to its size, it is prone to regressions. Consider refactoring it before adding significant new functionality.
+-   The user is technically adept and provides clear, multi-step feature requests.
+-   The most complex components are  and . Edit them with extreme care and consider refactoring before adding more features.
+-   The new input sanitization in  should be used for any new endpoints that process user-submitted data.
 
 **documents created in this job**
-- /app/GHOST_ORDERS_FIX_DOCUMENTATION.md
-- /app/GHOST_ORDERS_LIVE_DEPLOYMENT.md
-- /app/DOWNLOAD_LOGS_FEATURE_DOCUMENTATION.md
+-   /app/ADMIN_ADD_VARIANT_FEATURE_DOCUMENTATION.md
+-   /app/DEPLOYMENT_GUIDE_DECEMBER_2025.md
+-   /app/QUICK_DEPLOYMENT_CHECKLIST.md
+-   /app/CHANGELOG_DECEMBER_2025.md
 
 **Last 10 User Messages and any pending user messages**
-1.  **User:** Add two new products: Fotokalendar and Fotomagnet.
-2.  **Agent:** Completed. Added products and created the base admin panel for them.
-3.  **User:** In the admin panel, I need to be able to deactivate individual product options and edit their names/descriptions.
-4.  **Agent:** Completed. Implemented a detailed Edit modal.
-5.  **User:** I need a way to add completely new products from the admin panel. Also, when I click Order Now on the product page, it should take me to the cart.
-6.  **Agent:** Completed. Added an Add New Product modal and implemented the direct-to-cart link.
-7.  **User:** The product doesn't get added to the cart from the link. Also, the product section should always be visible, even without photos.
-8.  **Agent:** Completed. Fixed the auto-add logic and made the product selector permanently visible on the upload page.
-9.  **User:** When moving the price calculation to the end, please ensure product prices are included.
-10. **Agent:** Completed. The price summary is now at the end and includes all items.
-11. **User (Pending):** Please add a feature so I can add a new option/variant to an existing product (e.g., a new album size).
+1.  **User:** The delivery fee isn't showing when I only order a product. (Fixed)
+2.  **User:** Move the price summary above the customer details form. (Done)
+3.  **User:** Improve the admin product creation: allow one variant and support image upload. (Done)
+4.  **User:** Add a checkbox to mark if a product requires a user photo upload. (Done)
+5.  **User:** Add a Featured Product section to the homepage managed from the admin panel. (Done)
+6.  **User:** Allow custom text for promotions, not just percentages. (Done)
+7.  **User:** Build has an error. (Fixed)
+8.  **User:** Add an External Product type that links to another site. (Done)
+9.  **User:** Change Novo u ponudi to Izdvajamo iz ponude. (Done)
+10. **User (Pending):** Implement a multi-tier gift system where users get free products based on the number of photos ordered. (In Progress)
 
 **Project Health Check:**
-- **Broken:** None.
-- **Mocked:** None.
+-   **Broken:** None.
+-   **Mocked:** None.
 
 **3rd Party Integrations**
-- None.
+-   None.
 
 **Testing status**
-- **Testing agent used after significant changes:** YES (for ghost order fix and log download).
-- **Troubleshoot agent used after agent stuck in loop:** NO.
-- **Test files created:**
-  - 
-  - 
-- **Known regressions:** None.
+-   **Testing agent used after significant changes:** NO
+-   **Troubleshoot agent used after agent stuck in loop:** NO
+-   **Test files created:** []
+-   **Known regressions:** None.
 
 **Credentials to test flow:**
-- **Admin Role (Dev Environment):**
-  - Username: 
-  - Password: 
+-   **Admin Role (Dev Environment):**
+    -   Username: 
+    -   Password: 
 
 **What agent forgot to execute**
-- The agent has not yet implemented the Promotions integration for the new products (e.g., get a free mug with 100 photos), which was part of the initial requirements for the product feature.
-- The agent has not started the latest user request to add a feature for creating new variants for existing products.</analysis>
+-   The agent has been thorough and is actively working on the latest user request. No previously requested tasks were forgotten or overlooked in this session.</analysis>
