@@ -9,15 +9,6 @@ const PromotionBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [promotion, setPromotion] = useState(null);
 
-  useEffect(() => {
-    // Check if user has closed the banner in this session
-    const hasClosed = sessionStorage.getItem('promotionBannerClosed');
-    
-    if (!hasClosed) {
-      fetchPromotion();
-    }
-  }, []);
-
   const fetchPromotion = async () => {
     try {
       const response = await axios.get(`${API}/promotion`);
@@ -36,6 +27,15 @@ const PromotionBanner = () => {
       console.error('Error fetching promotion:', error);
     }
   };
+
+  useEffect(() => {
+    // Check if user has closed the banner in this session
+    const hasClosed = sessionStorage.getItem('promotionBannerClosed');
+    
+    if (!hasClosed) {
+      fetchPromotion();
+    }
+  }, []);
 
   const handleClose = () => {
     setIsVisible(false);
@@ -129,7 +129,7 @@ const PromotionBanner = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes slideDown {
           from {
             transform: translateY(-100%);
