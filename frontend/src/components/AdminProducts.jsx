@@ -305,9 +305,26 @@ const AdminProducts = () => {
       const token = localStorage.getItem('adminToken');
       let imageUrlToUse = addFormData.imageUrl;
 
-      // If user uploaded a file, convert to base64 and use that
+      // If user uploaded a file, upload it to backend first
       if (uploadedImageFile) {
-        imageUrlToUse = uploadedImagePreview; // Use the base64 preview
+        const formData = new FormData();
+        formData.append('image', uploadedImageFile);
+
+        const uploadResponse = await axios.post(
+          `${API}/admin/products/upload-image`,
+          formData,
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'multipart/form-data'
+            }
+          }
+        );
+
+        if (uploadResponse.data.success) {
+          // Use the backend URL (will be served from /uploads/products/...)
+          imageUrlToUse = `${BACKEND_URL}${uploadResponse.data.imageUrl}`;
+        }
       }
 
       await axios.post(
@@ -327,9 +344,10 @@ const AdminProducts = () => {
       closeAddModal();
       fetchProducts();
     } catch (error) {
+      console.error('Error adding product:', error);
       toast({
         title: "Greška",
-        description: "Nije moguće dodati proizvod",
+        description: error.response?.data?.detail || "Nije moguće dodati proizvod",
         variant: "destructive"
       });
     }
