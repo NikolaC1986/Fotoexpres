@@ -502,7 +502,7 @@ const AdminProducts = () => {
                 <img 
                   src={product.imageUrl} 
                   alt={product.name}
-                  className="w-full h-48 object-cover rounded"
+                  className="w-full h-48 object-contain rounded bg-gray-100"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded flex items-center justify-center">
                   <label className="cursor-pointer">
@@ -698,7 +698,7 @@ const AdminProducts = () => {
                       <img 
                         src={uploadedImagePreview || addFormData.imageUrl} 
                         alt="Preview" 
-                        className="w-32 h-32 object-cover rounded border-2" 
+                        className="w-32 h-32 object-contain rounded border-2 bg-gray-100" 
                       />
                       {uploadedImageFile && (
                         <p className="text-xs text-green-600 mt-1">✓ Fotografija uploadovana</p>
