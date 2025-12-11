@@ -1,0 +1,569 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                    FOTOEXPRES - DETALJI PORUDŽBINE                ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+BROJ PORUDŽBINE: ORD-955710
+DATUM: 2025-12-11 16:44:10
+
+═══════════════════════════════════════════════════════════════════
+
+INFORMACIJE O KLIJENTU:
+─────────────────────────
+Ime i prezime: Marko Petrović
+Email: marko.petrovic@example.com
+Telefon: +381691234567
+Ulica i broj: Knez Mihailova 42
+Poštanski broj: 11000
+Grad: Beograd
+Napomene: 
+
+═══════════════════════════════════════════════════════════════════
+
+OPCIJE OBRADE FOTOGRAFIJA:
+───────────────────────────
+• Kropovati fotografiju kako bi je prilagodili formatu: NE
+• Popuniti belim: NE
+
+═══════════════════════════════════════════════════════════════════
+
+SPECIFIKACIJA FOTOGRAFIJA:
+───────────────────────────
+
+1. test_photo_1.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+2. test_photo_2.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+3. test_photo_3.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+4. test_photo_4.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+5. test_photo_5.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+6. test_photo_6.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+7. test_photo_7.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+8. test_photo_8.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+9. test_photo_9.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+10. test_photo_10.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+11. test_photo_11.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+12. test_photo_12.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+13. test_photo_13.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+14. test_photo_14.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+15. test_photo_15.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+16. test_photo_16.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+17. test_photo_17.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+18. test_photo_18.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+19. test_photo_19.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+20. test_photo_20.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+21. test_photo_21.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+22. test_photo_22.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+23. test_photo_23.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+24. test_photo_24.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+25. test_photo_25.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+26. test_photo_26.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+27. test_photo_27.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+28. test_photo_28.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+29. test_photo_29.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+30. test_photo_30.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+31. test_photo_31.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+32. test_photo_32.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+33. test_photo_33.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+34. test_photo_34.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+35. test_photo_35.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+36. test_photo_36.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+37. test_photo_37.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+38. test_photo_38.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+39. test_photo_39.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+40. test_photo_40.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+41. test_photo_41.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+42. test_photo_42.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+43. test_photo_43.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+44. test_photo_44.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+45. test_photo_45.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+46. test_photo_46.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+47. test_photo_47.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+48. test_photo_48.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+49. test_photo_49.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+50. test_photo_50.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+51. test_photo_51.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+52. test_photo_52.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+53. test_photo_53.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+54. test_photo_54.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+55. test_photo_55.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+56. test_photo_56.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+57. test_photo_57.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+58. test_photo_58.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+59. test_photo_59.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+60. test_photo_60.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+═══════════════════════════════════════════════════════════════════
+
+🎁 POKLON PROIZVODI (BESPLATNO):
+───────────────────────────
+
+1. Album za Slike - 50 fotografija
+   Količina: 1 kom
+   Cena: BESPLATNO (🎁 Poklon)
+   ───────────────────────────
+
+
+═══════════════════════════════════════════════════════════════════
+
+OBRAČUN CENE:
+─────────────────────────
+
+Ukupan broj fotografija: 60 komada
+Osnovna cena fotografija: 1200 RSD
+
+POPUST NA KOLIČINU (17%): -204 RSD
+   • Odobren za 60+ fotografija
+
+──────────────────────────────
+Ukupan popust: -204 RSD
+Cena fotografija sa popustom: 996 RSD
+
+Dostava: 450 RSD
+   • Standardna dostava
+
+──────────────────────────────
+UKUPNO ZA NAPLATU: 1446 RSD
+
+──────────────────────────────
+✓ UŠTEDELI STE: 204 RSD
+
+═══════════════════════════════════════════════════════════════════
+
+NAČIN PLAĆANJA: Plaćanje pouzećem (kuriru prilikom isporuke)
+ROK DOSTAVE: 2-7 radnih dana
+
+═══════════════════════════════════════════════════════════════════
+
+Hvala vam što ste odabrali Fotoexpres!
+Za sva pitanja kontaktirajte nas na: kontakt@fotoexpres.rs
+
+═══════════════════════════════════════════════════════════════════
+
+
+═══════════════════════════════════════════════════════════════════
+
+REKAPITULACIJA PO FORMATIMA:
+─────────────────────────────
+Format 10x15 cm: 60 fotografija
+
+──────────────────────────────
+UKUPNO: 60 fotografija
+
+═══════════════════════════════════════════════════════════════════
