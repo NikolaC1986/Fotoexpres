@@ -67,32 +67,34 @@ const CompactProductSelector = ({ onAddProduct }) => {
   }
 
   return (
-    <Card className="p-6 bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-300">
-      <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-        <ShoppingCart size={24} className="text-purple-600" />
-        Dostupni Proizvodi
-      </h3>
-      <p className="text-sm text-gray-600 mb-6">
-        Možete poručiti proizvode i bez štampe fotografija
-      </p>
+    <Card className="p-4 sm:p-6 bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-300">
+      <div className="mb-4">
+        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+          <ShoppingCart size={20} className="sm:w-6 sm:h-6 text-purple-600" />
+          Dostupni Proizvodi
+        </h3>
+        <p className="text-xs sm:text-sm text-gray-600">
+          Možete poručiti proizvode i bez štampe fotografija
+        </p>
+      </div>
 
       {products.length === 0 ? (
         <p className="text-center text-gray-500 py-4 text-sm">Trenutno nema dostupnih proizvoda</p>
       ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {products.map((product) => (
-            <Card key={product.id} className="p-4 bg-white hover:shadow-lg transition-shadow">
-              <h4 className="font-bold text-gray-900 mb-3 text-sm">{product.name}</h4>
-              <div className="space-y-2">
+            <Card key={product.id} className="p-3 sm:p-4 bg-white hover:shadow-lg transition-shadow">
+              <h4 className="font-bold text-gray-900 mb-2 sm:mb-3 text-sm sm:text-base leading-tight">{product.name}</h4>
+              <div className="space-y-1.5 sm:space-y-2">
                 {product.variants.map((variant) => (
                   <Button
                     key={variant.id}
                     onClick={() => handleAddProduct(product, variant)}
                     size="sm"
-                    className="w-full bg-purple-600 hover:bg-purple-700 text-white text-xs justify-between py-2"
+                    className="w-full bg-purple-600 hover:bg-purple-700 text-white text-xs sm:text-sm justify-between py-2 px-2 sm:px-3"
                   >
-                    <span className="truncate">{variant.name}</span>
-                    <span className="font-bold ml-2">{variant.price}</span>
+                    <span className="truncate text-left flex-1 mr-2">{variant.name}</span>
+                    <span className="font-bold whitespace-nowrap">{variant.price} RSD</span>
                   </Button>
                 ))}
               </div>
