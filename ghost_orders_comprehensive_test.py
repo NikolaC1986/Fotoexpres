@@ -28,7 +28,7 @@ from PIL import Image
 from datetime import datetime
 
 # Configuration
-API_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://photogift-admin.preview.emergentagent.com')
+API_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://photogifts-1.preview.emergentagent.com')
 API = f"{API_URL}/api"
 
 class GhostOrdersTester:

@@ -7,7 +7,7 @@ import requests
 import json
 
 # Configuration
-BACKEND_URL = "https://photogift-admin.preview.emergentagent.com/api"
+BACKEND_URL = "https://photogifts-1.preview.emergentagent.com/api"
 
 class RolePermissionsTester:
     def __init__(self):
