@@ -322,8 +322,8 @@ const AdminProducts = () => {
         );
 
         if (uploadResponse.data.success) {
-          // Use the backend URL (will be served from /uploads/products/...)
-          imageUrlToUse = `${BACKEND_URL}${uploadResponse.data.imageUrl}`;
+          // Use only the relative path (will be constructed with BACKEND_URL when displaying)
+          imageUrlToUse = uploadResponse.data.imageUrl;
         }
       }
 
