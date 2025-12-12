@@ -55,7 +55,7 @@ const AdminProducts = () => {
     isExternalProduct: false,
     externalLink: '',
     variants: [
-      { name: 'Opcija 1', description: 'Opis opcije', price: 0, isActive: true }
+      { name: 'Opcija 1', description: 'Opis opcije', price: 0, available: true }
     ]
   });
   const [uploadedImageFile, setUploadedImageFile] = useState(null);
@@ -150,7 +150,7 @@ const AdminProducts = () => {
     setEditFormData(prev => ({
       ...prev,
       variants: prev.variants.map((v, idx) => 
-        idx === variantIndex ? { ...v, isActive: !v.isActive } : v
+        idx === variantIndex ? { ...v, available: !v.available } : v
       )
     }));
   };
@@ -161,7 +161,7 @@ const AdminProducts = () => {
       name: `Nova opcija ${editFormData.variants.length + 1}`,
       description: 'Opis nove opcije',
       price: 0,
-      isActive: true
+      available: true
     };
     
     setEditFormData(prev => ({
@@ -271,7 +271,7 @@ const AdminProducts = () => {
       isExternalProduct: false,
       externalLink: '',
       variants: [
-        { name: 'Opcija 1', description: 'Opis opcije', price: 0, isActive: true }
+        { name: 'Opcija 1', description: 'Opis opcije', price: 0, available: true }
       ]
     });
     setUploadedImageFile(null);
@@ -1229,9 +1229,9 @@ const AdminProducts = () => {
                             <Button
                               size="sm"
                               onClick={() => toggleVariantAvailability(index)}
-                              className={variant.isActive ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600'}
+                              className={variant.available ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600'}
                             >
-                              {variant.isActive ? (
+                              {variant.available ? (
                                 <>
                                   <Power size={14} className="mr-1" />
                                   Aktivna
