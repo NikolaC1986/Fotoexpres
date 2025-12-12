@@ -26,12 +26,6 @@ const HomePage = () => {
     return `${BACKEND_URL}${imageUrl}`;
   };
 
-  useEffect(() => {
-    document.title = 'Online izrada fotografija | Fotoexpres';
-    fetchSettings();
-    fetchFeaturedProduct();
-  }, []);
-
   const fetchSettings = async () => {
     try {
       const response = await axios.get(`${API}/settings`);
@@ -59,6 +53,13 @@ const HomePage = () => {
       console.error('Error fetching featured product:', error);
     }
   };
+
+  useEffect(() => {
+    document.title = 'Online izrada fotografija | Fotoexpres';
+    fetchSettings();
+    fetchFeaturedProduct();
+  }, []);
+
   const services = [
     {
       icon: <Camera className="w-8 h-8" />,
