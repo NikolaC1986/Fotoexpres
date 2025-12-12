@@ -239,6 +239,10 @@ async def create_order(
         fill_white_option = order_data.get('fillWhiteOption', False)
         
         # Get price information from order details
+        # Calculate products subtotal
+        products = order_data.get('products', [])
+        products_subtotal = sum(p.get('price', 0) * p.get('quantity', 1) for p in products)
+        
         price_info = {
             'totalPrice': order_data.get('totalPrice', 0),
             'quantityDiscountAmount': order_data.get('quantityDiscountAmount', 0),
@@ -248,7 +252,9 @@ async def create_order(
             'deliveryFee': order_data.get('deliveryFee', 400),
             'deliveryPrice': order_data.get('deliveryPrice', 400),
             'freeDeliveryLimit': order_data.get('freeDeliveryLimit', 5000),
-            'prices': order_data.get('prices', {})
+            'prices': order_data.get('prices', {}),
+            'productsSubtotal': products_subtotal,
+            'grandTotal': order_data.get('grandTotal', 0)
         }
         
         # For chunked uploads (not last chunk), just save files and return
