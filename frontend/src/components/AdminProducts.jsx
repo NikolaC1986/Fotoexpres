@@ -1044,10 +1044,10 @@ const AdminProducts = () => {
                   </Label>
                   
                   {/* Current Image Preview */}
-                  {editFormData.imageUrl && (
+                  {editFormData.previewImageUrl && (
                     <div className="mb-3">
                       <img 
-                        src={editFormData.imageUrl.startsWith('data:') ? editFormData.imageUrl : getImageUrl(editFormData.imageUrl)} 
+                        src={editFormData.previewImageUrl.startsWith('data:') ? editFormData.previewImageUrl : getImageUrl(editFormData.previewImageUrl)} 
                         alt={editFormData.name}
                         className="w-48 h-48 object-contain rounded border-2 bg-gray-100"
                       />
@@ -1074,7 +1074,7 @@ const AdminProducts = () => {
                           reader.onloadend = () => {
                             setEditFormData(prev => ({
                               ...prev,
-                              imageUrl: reader.result, // Show base64 preview immediately
+                              previewImageUrl: reader.result, // Show base64 preview
                               pendingUpload: file // Store file for later upload
                             }));
                           };
@@ -1117,7 +1117,15 @@ const AdminProducts = () => {
                     <Input
                       id="editImageUrl"
                       value={editFormData.imageUrl || ''}
-                      onChange={(e) => handleEditFormChange('imageUrl', e.target.value)}
+                      onChange={(e) => {
+                        const newUrl = e.target.value;
+                        setEditFormData(prev => ({
+                          ...prev,
+                          imageUrl: newUrl,
+                          previewImageUrl: newUrl, // Update preview immediately
+                          pendingUpload: null // Clear pending upload if URL is changed
+                        }));
+                      }}
                       placeholder="https://images.unsplash.com/..."
                       className="w-full"
                     />
