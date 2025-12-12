@@ -59,6 +59,7 @@ const UploadPage = () => {
     fetchDiscounts();
     fetchPromotion();
     fetchPrices();
+    fetchAvailableProducts();
     
     // Back to Top button visibility
     const handleScroll = () => {
