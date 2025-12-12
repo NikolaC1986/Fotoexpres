@@ -27,7 +27,7 @@ const AddProductModal = ({ isOpen, onClose, onSuccess }) => {
     isExternalProduct: false,
     externalLink: '',
     variants: [
-      { name: 'Opcija 1', description: 'Opis opcije', price: 0, available: true }
+      { id: `new_${Date.now()}`, name: 'Opcija 1', description: 'Opis opcije', price: 0, available: true }
     ]
   });
   
@@ -49,6 +49,7 @@ const AddProductModal = ({ isOpen, onClose, onSuccess }) => {
 
   const addVariant = () => {
     const newVariant = {
+      id: `new_${Date.now()}`,
       name: `Opcija ${formData.variants.length + 1}`,
       description: 'Opis opcije',
       price: 0,
