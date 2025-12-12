@@ -427,15 +427,15 @@ async def create_order(
             raise HTTPException(status_code=500, detail=f"Failed to create ZIP: {str(zip_error)}")
         
         # STEP D: Update database record to "completed" with ZIP path
-        logging.info(f"Step 4D: Updating database record to COMPLETED status...")
+        logging.info(f"Step 4D: Updating database record with ZIP path...")
         try:
             update_result = await db.orders.update_one(
                 {"orderNumber": order_number},
                 {
                     "$set": {
-                        "status": "completed",
+                        "status": "Na Čekanju",  # Set to "Na Čekanju" instead of "completed"
                         "zipFilePath": str(zip_path),
-                        "completedAt": datetime.now(timezone.utc).isoformat()
+                        "createdAt": datetime.now(timezone.utc).isoformat()
                     }
                 }
             )
@@ -444,7 +444,7 @@ async def create_order(
                 logging.error(f"Step 4D: ❌ Failed to update order status - no document modified")
                 raise HTTPException(status_code=500, detail="Failed to complete order")
             
-            logging.info(f"Step 4D: ✅ Order {order_number} status updated to COMPLETED")
+            logging.info(f"Step 4D: ✅ Order {order_number} status updated to Na Čekanju")
         except Exception as update_error:
             logging.error(f"Step 4D: ❌ Failed to update order status: {str(update_error)}")
             # Order is partially created - log the issue but don't fail completely
