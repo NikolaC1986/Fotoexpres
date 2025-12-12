@@ -882,11 +882,6 @@ const UploadPage = () => {
           <p className="text-xl text-gray-600">Izaberite fotografije, formate i količinu, zatim unesite podatke za dostavu.</p>
         </div>
 
-        {/* Available Products - Always Visible at Top */}
-        <div id="products-section" className="mb-12">
-          <CompactProductSelector onAddProduct={handleAddProduct} />
-        </div>
-
         {/* Upload Area */}
         <Card className="p-12 mb-12 border-2 border-dashed border-gray-300 hover:border-orange-500 transition-all bg-white">
           <label className="cursor-pointer block">
@@ -907,6 +902,11 @@ const UploadPage = () => {
             </div>
           </label>
         </Card>
+
+        {/* Available Products - Below Upload Area */}
+        <div id="products-section" className="mb-12">
+          <CompactProductSelector onAddProduct={handleAddProduct} />
+        </div>
 
         {/* Photos Grid */}
         {photos.length > 0 && (
