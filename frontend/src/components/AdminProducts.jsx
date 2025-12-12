@@ -191,6 +191,7 @@ const AdminProducts = () => {
         {
           name: editFormData.name,
           description: editFormData.description,
+          imageUrl: editFormData.imageUrl, // Include imageUrl
           requiresPhotoUpload: editFormData.requiresPhotoUpload,
           isFeatured: editFormData.isFeatured,
           isExternalProduct: editFormData.isExternalProduct,
