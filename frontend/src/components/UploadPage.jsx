@@ -1132,7 +1132,7 @@ const UploadPage = () => {
             </div>
 
             {/* Add More Photos Button */}
-            <div className="mt-6">
+            <div className="mt-6 space-y-4">
               <input
                 type="file"
                 id="addMorePhotos"
@@ -1149,6 +1149,21 @@ const UploadPage = () => {
               >
                 <Plus size={20} />
                 Dodaj Još Fotografija
+              </Button>
+              
+              {/* Add Product Button - Scroll to products section */}
+              <Button
+                type="button"
+                onClick={() => {
+                  const productsSection = document.getElementById('products-section');
+                  if (productsSection) {
+                    productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }}
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold gap-2 py-6"
+              >
+                <Package size={20} />
+                Dodaj Proizvod
               </Button>
             </div>
           </div>
