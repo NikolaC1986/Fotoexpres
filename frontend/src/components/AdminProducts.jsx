@@ -555,31 +555,13 @@ const AdminProducts = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
             <Card key={product.id} className={`p-6 ${!product.available ? 'opacity-60 border-red-300' : 'border-2'}`}>
-              {/* Product Image */}
-              <div className="relative group mb-4">
+              {/* Product Image - No hover upload button, only via Edit dialog */}
+              <div className="mb-4">
                 <img 
                   src={getImageUrl(product.imageUrl)} 
                   alt={product.name}
-                  className="w-full h-48 object-contain rounded bg-gray-100"
+                  className="w-full h-48 object-contain rounded bg-gray-100 border-2"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded flex items-center justify-center">
-                  <label className="cursor-pointer">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={(e) => handleProductImageUpload(product.id, e)}
-                    />
-                    <Button
-                      size="sm"
-                      type="button"
-                      className="bg-white text-gray-900 hover:bg-gray-200 pointer-events-none"
-                    >
-                      <Upload size={16} className="mr-2" />
-                      Promeni Sliku
-                    </Button>
-                  </label>
-                </div>
               </div>
 
               {/* Product Info */}
