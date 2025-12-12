@@ -71,60 +71,19 @@ const UploadPage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Load pre-selected product from URL
+  // Scroll to products section when coming from products page
   useEffect(() => {
-    const loadPreSelectedProduct = async () => {
-      const productId = searchParams.get('product');
-      if (productId && !preSelectedProductLoaded) {
-        try {
-          const response = await axios.get(`${API}/products/${productId}`);
-          if (response.data.success && response.data.product) {
-            const product = response.data.product;
-            
-            // Auto-add first ACTIVE variant to cart
-            const activeVariants = product.variants?.filter(v => v.available !== false) || [];
-            if (activeVariants.length > 0) {
-              const firstVariant = activeVariants[0];
-              const newProduct = {
-                productId: product.id,
-                productName: product.name,
-                productType: product.type,
-                variantId: firstVariant.id,
-                variantName: firstVariant.name,
-                quantity: 1,
-                price: firstVariant.price,
-                customText: '',
-                dedicatedPhotoCount: 0,
-                productPhotos: [],
-                requiresPhotos: product.type === 'mug' || product.type === 'keychain' || product.type === 'calendar' || product.type === 'magnet'
-              };
-              
-              setSelectedProducts([newProduct]);
-            }
-            
-            // Auto-scroll to products section
-            setTimeout(() => {
-              const productsSection = document.getElementById('products-section');
-              if (productsSection) {
-                productsSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              }
-            }, 500);
-
-            toast({
-              title: `${product.name} dodat u korpu!`,
-              description: `${product.variants[0]?.name} je dodato. ${product.type === 'mug' || product.type === 'keychain' || product.type === 'calendar' || product.type === 'magnet' ? 'Molimo dodajte fotografije.' : ''}`,
-              duration: 5000
-            });
-            
-            setPreSelectedProductLoaded(true);
-          }
-        } catch (error) {
-          console.error('Error loading pre-selected product:', error);
+    const productId = searchParams.get('product');
+    if (productId && !preSelectedProductLoaded) {
+      // Just scroll to products section, don't auto-add to cart
+      setTimeout(() => {
+        const productsSection = document.getElementById('products-section');
+        if (productsSection) {
+          productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-      }
-    };
-
-    loadPreSelectedProduct();
+      }, 500);
+      setPreSelectedProductLoaded(true);
+    }
   }, [searchParams, preSelectedProductLoaded]);
   const fetchSettings = async () => {
     try {
