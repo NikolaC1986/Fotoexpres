@@ -356,10 +356,12 @@ class PhotoPrintingFixesTester:
                     "productId": "solja_001",
                     "variantId": "solja_variant_1",
                     "productName": "Šolja",
+                    "productType": "mug",
                     "variantName": "Bela šolja 350ml",
                     "quantity": 1,
                     "price": 1500,
-                    "isGift": False
+                    "customText": "",
+                    "dedicatedPhotoCount": 0
                 }
             ],
             "giftProducts": [
@@ -367,10 +369,12 @@ class PhotoPrintingFixesTester:
                     "productId": "album_001",
                     "variantId": "album_variant_1",
                     "productName": "Album za Slike",
+                    "productType": "album",
                     "variantName": "Album 20x30cm",
                     "quantity": 1,
                     "price": 0,
-                    "isGift": True
+                    "customText": "",
+                    "dedicatedPhotoCount": 0
                 }
             ],
             "totalPrice": 900,  # 50 photos * 18 RSD
