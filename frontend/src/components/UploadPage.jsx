@@ -896,8 +896,8 @@ const UploadPage = () => {
               <div className="bg-orange-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Upload className="w-12 h-12 text-orange-600" />
               </div>
-              <h3 className="text-2xl font-bold mb-3 text-gray-900">Kliknite za slanje fotografija</h3>
-              <p className="text-gray-500 text-lg">ili prevucite vaše slike ovde</p>
+              <h3 className="text-2xl font-bold mb-3 text-gray-900">Kliknite da dodate vaše fotografije</h3>
+              <p className="text-gray-500 text-lg">ili prevucite vaše fotografije ovde</p>
               <p className="text-sm text-gray-400 mt-4">Podržani formati: JPG, PNG, HEIC (Maksimalno 10MB po fajlu)</p>
             </div>
           </label>
