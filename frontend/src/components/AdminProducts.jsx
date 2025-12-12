@@ -1014,40 +1014,65 @@ const AdminProducts = () => {
                   )}
 
                   {/* Upload New Image Button */}
-                  <label className="cursor-pointer inline-block">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={(e) => {
-                        const file = e.target.files[0];
-                        if (file) {
-                          handleProductImageUpload(editingProduct.id, e);
-                          // Also update the preview immediately
-                          const reader = new FileReader();
-                          reader.onloadend = () => {
-                            setEditFormData(prev => ({
-                              ...prev,
-                              imageUrl: reader.result
-                            }));
-                          };
-                          reader.readAsDataURL(file);
-                        }
-                      }}
+                  <div className="mb-3">
+                    <label className="cursor-pointer inline-block">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        id="editProductImageUpload"
+                        onChange={(e) => {
+                          const file = e.target.files[0];
+                          if (file) {
+                            handleProductImageUpload(editingProduct.id, e);
+                            // Also update the preview immediately
+                            const reader = new FileReader();
+                            reader.onloadend = () => {
+                              setEditFormData(prev => ({
+                                ...prev,
+                                imageUrl: reader.result
+                              }));
+                            };
+                            reader.readAsDataURL(file);
+                          }
+                        }}
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="gap-2"
+                        onClick={() => document.getElementById('editProductImageUpload').click()}
+                      >
+                        <Upload size={16} />
+                        Upload Fotografiju
+                      </Button>
+                    </label>
+                  </div>
+
+                  {/* OR separator */}
+                  <div className="flex items-center gap-2 my-3">
+                    <div className="flex-1 border-t border-gray-300"></div>
+                    <span className="text-xs text-gray-500">ILI</span>
+                    <div className="flex-1 border-t border-gray-300"></div>
+                  </div>
+
+                  {/* URL Input */}
+                  <div>
+                    <Label htmlFor="editImageUrl" className="text-sm mb-2 block">
+                      URL Fotografije
+                    </Label>
+                    <Input
+                      id="editImageUrl"
+                      value={editFormData.imageUrl || ''}
+                      onChange={(e) => handleEditFormChange('imageUrl', e.target.value)}
+                      placeholder="https://images.unsplash.com/..."
+                      className="w-full"
                     />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      className="gap-2 pointer-events-none"
-                    >
-                      <Upload size={16} />
-                      Promeni Fotografiju
-                    </Button>
-                  </label>
-                  <p className="text-xs text-gray-500 mt-2">
-                    Klikni da uploduješ novu fotografiju proizvoda
-                  </p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Unesi URL fotografije ili uploadu fajl iznad
+                    </p>
+                  </div>
                 </div>
 
                 {/* Requires Photo Upload */}
