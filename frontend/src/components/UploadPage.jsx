@@ -143,6 +143,73 @@ const UploadPage = () => {
     }
   };
 
+  const fetchAvailableProducts = async () => {
+    try {
+      const response = await axios.get(`${API}/products`);
+      if (response.data.success) {
+        setAvailableProducts(response.data.products);
+      }
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  // Product management functions
+  const handleAddProduct = (product) => {
+    setSelectedProducts([...selectedProducts, product]);
+  };
+
+  const handleRemoveProduct = (index) => {
+    setSelectedProducts(selectedProducts.filter((_, i) => i !== index));
+  };
+
+  const handleUpdateQuantity = (index, increment) => {
+    const updated = [...selectedProducts];
+    updated[index].quantity = Math.max(1, updated[index].quantity + increment);
+    setSelectedProducts(updated);
+  };
+
+  const handleUpdateText = (index, text) => {
+    const updated = [...selectedProducts];
+    updated[index].customText = text;
+    setSelectedProducts(updated);
+  };
+
+  const handleProductPhotoUpload = (index, files) => {
+    const updated = [...selectedProducts];
+    const product = updated[index];
+    const originalProduct = availableProducts.find(p => p.id === product.productId);
+    
+    const newPhotos = Array.from(files).map((file, fileIndex) => ({
+      id: Date.now() + fileIndex,
+      file: file,
+      preview: URL.createObjectURL(file),
+      name: file.name
+    }));
+    
+    const maxPhotos = originalProduct?.maxPhotos || 3;
+    const currentPhotos = product.productPhotos || [];
+    const totalPhotos = currentPhotos.length + newPhotos.length;
+    
+    if (totalPhotos > maxPhotos) {
+      toast({
+        title: "Previše fotografija",
+        description: `Možete dodati maksimalno ${maxPhotos} fotografija za ovaj proizvod.`,
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    updated[index].productPhotos = [...currentPhotos, ...newPhotos];
+    setSelectedProducts(updated);
+  };
+
+  const handleRemoveProductPhoto = (productIndex, photoId) => {
+    const updated = [...selectedProducts];
+    updated[productIndex].productPhotos = updated[productIndex].productPhotos.filter(p => p.id !== photoId);
+    setSelectedProducts(updated);
+  };
+
   // Dinamički izračunaj totalnu cenu
   const totalPrice = useMemo(() => {
     return photos.reduce((sum, photo) => {
