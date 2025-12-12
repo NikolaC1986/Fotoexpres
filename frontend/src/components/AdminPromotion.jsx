@@ -385,8 +385,32 @@ const AdminPromotion = () => {
               </div>
             )}
 
-            {/* Gift Tiers - Only show if type is 'gift' */}
-            {promotion.type === 'gift' && (
+            {/* Multi-Tier System Toggle */}
+            <div className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-300 rounded-lg">
+              <div className="flex items-start gap-4">
+                <input
+                  type="checkbox"
+                  id="tiersEnabled"
+                  checked={promotion.tiersEnabled}
+                  onChange={(e) => updatePromotion('tiersEnabled', e.target.checked)}
+                  className="w-5 h-5 mt-1 cursor-pointer"
+                />
+                <div className="flex-1">
+                  <Label htmlFor="tiersEnabled" className="text-lg font-bold text-gray-900 block mb-2 cursor-pointer">
+                    🎁 Aktiviraj Multi-Tier Gift Sistem
+                  </Label>
+                  <p className="text-sm text-gray-600 mb-2">
+                    Omogućava korisnicima da osvoje besplatne proizvode na osnovu broja fotografija koje naruče.
+                  </p>
+                  <p className="text-xs text-orange-700 font-semibold bg-orange-100 p-2 rounded">
+                    ⚠️ Napomena: Isključite ovu opciju ako koristite format popuste (10% OFF, 20% OFF) da izbegnete da obe promocije budu aktivne istovremeno.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Gift Tiers - Only show if type is 'gift' AND tiersEnabled */}
+            {promotion.type === 'gift' && promotion.tiersEnabled && (
               <div className="p-6 bg-green-50 border-2 border-green-200 rounded-lg">
                 <div className="flex justify-between items-center mb-4">
                   <Label className="text-lg font-bold text-gray-900">🎁 Gift Tiers (Poklon Proizvodi)</Label>
