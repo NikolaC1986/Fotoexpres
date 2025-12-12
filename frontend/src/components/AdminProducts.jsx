@@ -55,7 +55,7 @@ const AdminProducts = () => {
     isExternalProduct: false,
     externalLink: '',
     variants: [
-      { name: 'Opcija 1', description: 'Opis opcije', price: 0, available: true }
+      { name: 'Opcija 1', description: 'Opis opcije', price: 0, isActive: true }
     ]
   });
   const [uploadedImageFile, setUploadedImageFile] = useState(null);
@@ -271,7 +271,7 @@ const AdminProducts = () => {
       isExternalProduct: false,
       externalLink: '',
       variants: [
-        { name: 'Opcija 1', description: 'Opis opcije', price: 0, available: true }
+        { name: 'Opcija 1', description: 'Opis opcije', price: 0, isActive: true }
       ]
     });
     setUploadedImageFile(null);
