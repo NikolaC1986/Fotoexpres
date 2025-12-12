@@ -1257,7 +1257,8 @@ async def get_promotion(admin = Depends(verify_admin_token)):
             'customDisplayText': '',  # Custom tekst za badge (npr. "Album na poklon")
             'applyDiscount': True,  # Da li se primenjuje popust ili je samo reklama
             'type': 'discount',  # 'discount' or 'gift'
-            'giftTiers': []  # For gift promotions
+            'giftTiers': [],  # For gift promotions
+            'tiersEnabled': True  # Enable/Disable multi-tier gift system
         }
         
         if promotion_doc:
@@ -1308,7 +1309,8 @@ async def get_public_promotion():
             'customDisplayText': '',
             'applyDiscount': True,
             'type': 'discount',  # 'discount' or 'gift'
-            'giftTiers': []  # For gift promotions
+            'giftTiers': [],  # For gift promotions
+            'tiersEnabled': True  # Enable/Disable multi-tier gift system
         }
         
         if promotion_doc:
