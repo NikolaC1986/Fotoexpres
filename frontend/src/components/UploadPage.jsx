@@ -225,7 +225,7 @@ const UploadPage = () => {
 
   // Automatically add/remove gift products based on photo count
   useEffect(() => {
-    if (!promotion || promotion.type !== 'gift' || !promotion.giftTiers || promotion.giftTiers.length === 0) {
+    if (!promotion || promotion.type !== 'gift' || !promotion.tiersEnabled || !promotion.giftTiers || promotion.giftTiers.length === 0) {
       setGiftProducts([]);
       return;
     }
