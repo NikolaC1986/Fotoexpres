@@ -81,9 +81,10 @@ const UploadPage = () => {
           if (response.data.success && response.data.product) {
             const product = response.data.product;
             
-            // Auto-add first variant to cart
-            if (product.variants && product.variants.length > 0) {
-              const firstVariant = product.variants[0];
+            // Auto-add first ACTIVE variant to cart
+            const activeVariants = product.variants?.filter(v => v.isActive !== false) || [];
+            if (activeVariants.length > 0) {
+              const firstVariant = activeVariants[0];
               const newProduct = {
                 productId: product.id,
                 productName: product.name,
