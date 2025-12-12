@@ -673,16 +673,18 @@ async def get_all_orders(admin = Depends(verify_admin_token)):
         for order in orders:
             order["_id"] = str(order["_id"])
         
-        # Calculate stats
+        # Calculate stats (support both English and Serbian statuses)
         total = len(orders)
-        pending = sum(1 for order in orders if order.get("status") == "pending")
-        completed = sum(1 for order in orders if order.get("status") == "completed")
+        pending = sum(1 for order in orders if order.get("status") in ["pending", "Na Čekanju"])
+        processing = sum(1 for order in orders if order.get("status") in ["processing", "U Obradi"])
+        completed = sum(1 for order in orders if order.get("status") in ["completed", "Završeno"])
         
         return {
             "orders": orders,
             "stats": {
                 "total": total,
                 "pending": pending,
+                "processing": processing,
                 "completed": completed
             }
         }
