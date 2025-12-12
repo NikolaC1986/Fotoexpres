@@ -67,33 +67,36 @@ const CompactProductSelector = ({ onAddProduct }) => {
   }
 
   return (
-    <Card className="p-4 bg-white border-2 border-purple-300">
-      <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-        <ShoppingCart size={20} className="text-purple-600" />
+    <Card className="p-6 bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-300">
+      <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+        <ShoppingCart size={24} className="text-purple-600" />
         Dostupni Proizvodi
       </h3>
+      <p className="text-sm text-gray-600 mb-6">
+        Možete poručiti proizvode i bez štampe fotografija
+      </p>
 
       {products.length === 0 ? (
         <p className="text-center text-gray-500 py-4 text-sm">Trenutno nema dostupnih proizvoda</p>
       ) : (
-        <div className="space-y-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {products.map((product) => (
-            <div key={product.id} className="border-b pb-3 last:border-b-0">
-              <h4 className="font-semibold text-gray-900 mb-2 text-sm">{product.name}</h4>
-              <div className="space-y-1">
+            <Card key={product.id} className="p-4 bg-white hover:shadow-lg transition-shadow">
+              <h4 className="font-bold text-gray-900 mb-3 text-sm">{product.name}</h4>
+              <div className="space-y-2">
                 {product.variants.map((variant) => (
                   <Button
                     key={variant.id}
                     onClick={() => handleAddProduct(product, variant)}
                     size="sm"
-                    className="w-full bg-purple-600 hover:bg-purple-700 text-white text-xs justify-between"
+                    className="w-full bg-purple-600 hover:bg-purple-700 text-white text-xs justify-between py-2"
                   >
-                    <span>{variant.name}</span>
-                    <span className="font-bold">{variant.price} RSD</span>
+                    <span className="truncate">{variant.name}</span>
+                    <span className="font-bold ml-2">{variant.price}</span>
                   </Button>
                 ))}
               </div>
-            </div>
+            </Card>
           ))}
         </div>
       )}
