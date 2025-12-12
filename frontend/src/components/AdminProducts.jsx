@@ -1014,41 +1014,47 @@ const AdminProducts = () => {
                     </div>
                   )}
 
-                  {/* Upload New Image Button */}
+                  {/* Upload New Image Button with instant preview */}
                   <div className="mb-3">
-                    <label className="cursor-pointer inline-block">
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        id="editProductImageUpload"
-                        onChange={(e) => {
-                          const file = e.target.files[0];
-                          if (file) {
-                            handleProductImageUpload(editingProduct.id, e);
-                            // Also update the preview immediately
-                            const reader = new FileReader();
-                            reader.onloadend = () => {
-                              setEditFormData(prev => ({
-                                ...prev,
-                                imageUrl: reader.result
-                              }));
-                            };
-                            reader.readAsDataURL(file);
-                          }
-                        }}
-                      />
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="gap-2"
-                        onClick={() => document.getElementById('editProductImageUpload').click()}
-                      >
-                        <Upload size={16} />
-                        Upload Fotografiju
-                      </Button>
-                    </label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      id="editProductImageUpload"
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                          // Create instant preview
+                          const reader = new FileReader();
+                          reader.onloadend = () => {
+                            setEditFormData(prev => ({
+                              ...prev,
+                              imageUrl: reader.result, // Show base64 preview immediately
+                              pendingUpload: file // Store file for later upload
+                            }));
+                          };
+                          reader.readAsDataURL(file);
+                          
+                          toast({
+                            title: "Fotografija izabrana",
+                            description: "Preview je prikazan. Klikni 'Sačuvaj' da uploduješ.",
+                          });
+                        }
+                      }}
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="gap-2"
+                      onClick={() => document.getElementById('editProductImageUpload').click()}
+                    >
+                      <Upload size={16} />
+                      Upload Fotografiju
+                    </Button>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Izaberi fajl - preview će se prikazati odmah
+                    </p>
                   </div>
 
                   {/* OR separator */}
