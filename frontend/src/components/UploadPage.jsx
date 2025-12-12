@@ -1155,8 +1155,8 @@ const UploadPage = () => {
         )}
 
         {/* Product Selector - ALWAYS VISIBLE */}
-        {/* Gift Tiers Progress - Show if promotion is gift type */}
-        {promotion && promotion.type === 'gift' && promotion.giftTiers && promotion.giftTiers.length > 0 && (
+        {/* Gift Tiers Progress - Show if promotion is gift type AND tiers are enabled */}
+        {promotion && promotion.type === 'gift' && promotion.tiersEnabled && promotion.giftTiers && promotion.giftTiers.length > 0 && (
           <Card className="p-8 mt-8 bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-300">
             <h2 className="text-3xl font-bold mb-4 text-gray-900 flex items-center gap-3">
               🎁 Poklon Proizvodi
