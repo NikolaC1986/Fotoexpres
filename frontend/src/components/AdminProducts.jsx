@@ -707,7 +707,7 @@ const AdminProducts = () => {
                   {(uploadedImagePreview || addFormData.imageUrl) && (
                     <div className="mt-3">
                       <img 
-                        src={uploadedImagePreview || addFormData.imageUrl} 
+                        src={uploadedImagePreview || getImageUrl(addFormData.imageUrl)} 
                         alt="Preview" 
                         className="w-32 h-32 object-contain rounded border-2 bg-gray-100" 
                       />
