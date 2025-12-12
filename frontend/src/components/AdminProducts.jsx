@@ -150,7 +150,7 @@ const AdminProducts = () => {
     setEditFormData(prev => ({
       ...prev,
       variants: prev.variants.map((v, idx) => 
-        idx === variantIndex ? { ...v, available: !v.available } : v
+        idx === variantIndex ? { ...v, isActive: !v.isActive } : v
       )
     }));
   };
@@ -161,7 +161,7 @@ const AdminProducts = () => {
       name: `Nova opcija ${editFormData.variants.length + 1}`,
       description: 'Opis nove opcije',
       price: 0,
-      available: true
+      isActive: true
     };
     
     setEditFormData(prev => ({
