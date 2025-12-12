@@ -538,6 +538,54 @@ backend:
           comment: "✅ GHOST ORDERS BUG FIX COMPREHENSIVE TESTING COMPLETE - ALL CRITICAL SCENARIOS PASSED (83.3% success rate, 5/6 tests). PRIORITY 1 TESTS: 1) Single Photo Upload (3 photos, different formats 9x13/10x15/13x18) - Order ORD-372551 created successfully, verified in database with status='completed', ZIP file exists, new contact info structure (street/postalCode/city) working correctly. 2) Medium Upload (15 photos) - Order ORD-970811 created successfully, all 15 photos processed, ZIP structure correct. 3) Chunked Upload (60 photos in 3 chunks) - Order ORD-443461 created successfully, ONE order from 3 chunks, all 60 photos accounted for, no duplicate orders. PRIORITY 2 TESTS: 4) Duplicate Order Prevention - System handles duplicate submissions correctly by creating new orders (ORD-121786, ORD-105189). 5) Order Retrieval - ALL 5 created orders successfully retrieved from database with complete data. PRIORITY 3 TESTS: 6) Backend Logging - Step-by-step logging verified in /var/log/supervisor/backend.err.log showing complete transactional process: 'NEW ORDER REQUEST RECEIVED', 'Step 1: ✅ All X files validated', 'Step 4A: ✅ Database record created', 'Step 4D: ✅ Order XXX status updated to COMPLETED', 'Step 5: ✅ Order XXX verified in database', 'ORDER XXX COMPLETED SUCCESSFULLY ✅'. CRITICAL RESULT: NO GHOST ORDERS DETECTED - All orders exist in database with status='completed'. Ghost Orders bug is FIXED. Additional verification: New address structure (street, postalCode, city) working perfectly, ZIP files created correctly, MongoDB unique index preventing duplicates, transactional approach ensuring data consistency."
 
 frontend:
+  - task: "Inactive Product Variants Filtering - Frontend Display"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/components/ProductsPage.jsx"
+    stuck_count: 1
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "❌ CRITICAL ISSUE CONFIRMED - Inactive product variants are still visible on frontend Products page. Backend shows Album za Slike has 4 variants: '40 fotografija' (available=False), '100 fotografija' (available=False), '200 fotografija' (available=True), '300 fotografija' (available=True). However, frontend displays '40 fotografija', '100 fotografija', and '+2 još' - showing ALL variants including inactive ones. The filtering logic in ProductsPage.jsx line 88 uses 'v.isActive !== false' but backend variants use 'available' field, not 'isActive'. This is a field mapping issue between frontend and backend."
+
+  - task: "Inactive Product Variants Filtering - Order Prevention"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/components/UploadPage.jsx"
+    stuck_count: 1
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "❌ CRITICAL ISSUE CONFIRMED - Inactive variants can still be ordered. Since frontend ProductsPage shows inactive variants, users can click 'Naruči sada' and potentially order inactive variants. The UploadPage.jsx filtering logic also uses 'isActive' field but backend uses 'available' field. This creates a security/business logic issue where customers can order products that should not be available."
+
+  - task: "Admin Panel Variant Toggle Functionality"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/components/AdminProducts.jsx"
+    stuck_count: 1
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "❌ CRITICAL ISSUE CONFIRMED - Admin panel variant toggle functionality has field mapping issue. AdminProducts.jsx uses 'isActive' field for variant status (lines 153-155) but backend API stores variant status in 'available' field. When admin tries to toggle variant status, the frontend sends 'isActive' but backend expects 'available'. This causes disconnect between admin interface and actual data storage. Backend verification shows variants still use 'available' field, not 'isActive'."
+
+  - task: "Product Image Editing in Admin Panel"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/AdminProducts.jsx"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ PRODUCT IMAGE EDITING WORKING CORRECTLY - Successfully tested image editing functionality in admin panel. Admin can access edit modal for products, change image URL in the input field (tested with Unsplash URL), preview updates instantly, and changes save successfully. The image URL input field is functional, preview mechanism works, and save operation completes without errors. Image editing feature is production-ready."
+
   - task: "Download Logs Feature (Admin Dashboard)"
     implemented: true
     working: true
