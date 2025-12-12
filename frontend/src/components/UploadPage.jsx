@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Upload, X, Plus, Minus, Image as ImageIcon, CheckCircle, DollarSign, ArrowUp, Package } from 'lucide-react';
+import { Upload, X, Plus, Minus, Image as ImageIcon, CheckCircle, DollarSign, ArrowUp, Package, Coins } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
@@ -1354,6 +1354,102 @@ const UploadPage = () => {
                 </div>
               </div>
             )}
+          </Card>
+        )}
+
+        {/* Order Summary - Rekapitulacija */}
+        {(photos.length > 0 || selectedProducts.length > 0) && (
+          <Card className="p-8 mt-8 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-300">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+              📋 Rekapitulacija Narudžbine
+            </h3>
+
+            <div className="grid md:grid-cols-2 gap-4 mb-6">
+              {/* Photos Summary Box */}
+              {photos.length > 0 && (
+                <Card className="p-6 bg-white border-2 border-blue-200 hover:shadow-lg transition-shadow">
+                  <div className="flex items-start gap-4">
+                    <div className="bg-blue-100 p-3 rounded-full">
+                      <ImageIcon className="w-8 h-8 text-blue-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-lg font-bold text-gray-900 mb-1">Fotografije</h4>
+                      <p className="text-sm text-gray-600 mb-3">Ukupno fotografija za štampu</p>
+                      <div className="flex justify-between items-baseline">
+                        <span className="text-3xl font-bold text-blue-600">{totalPhotos}</span>
+                        <div className="text-right">
+                          <p className="text-xs text-gray-500">Cena:</p>
+                          <p className="text-xl font-bold text-gray-900">{totalPrice} RSD</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              )}
+
+              {/* Products Summary Box */}
+              {selectedProducts.length > 0 && (
+                <Card className="p-6 bg-white border-2 border-purple-200 hover:shadow-lg transition-shadow">
+                  <div className="flex items-start gap-4">
+                    <div className="bg-purple-100 p-3 rounded-full">
+                      <Package className="w-8 h-8 text-purple-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-lg font-bold text-gray-900 mb-1">Proizvodi</h4>
+                      <p className="text-sm text-gray-600 mb-3">Dodatni proizvodi u korpi</p>
+                      <div className="flex justify-between items-baseline">
+                        <span className="text-3xl font-bold text-purple-600">{selectedProducts.length}</span>
+                        <div className="text-right">
+                          <p className="text-xs text-gray-500">Cena:</p>
+                          <p className="text-xl font-bold text-gray-900">
+                            {selectedProducts.reduce((sum, p) => sum + (p.price * p.quantity), 0)} RSD
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              )}
+
+              {/* Gift Products Summary Box */}
+              {giftProducts.length > 0 && (
+                <Card className="p-6 bg-white border-2 border-green-200 hover:shadow-lg transition-shadow">
+                  <div className="flex items-start gap-4">
+                    <div className="bg-green-100 p-3 rounded-full">
+                      <span className="text-3xl">🎁</span>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-lg font-bold text-gray-900 mb-1">Poklon Proizvodi</h4>
+                      <p className="text-sm text-gray-600 mb-3">Besplatni proizvodi</p>
+                      <div className="flex justify-between items-baseline">
+                        <span className="text-3xl font-bold text-green-600">{giftProducts.length}</span>
+                        <div className="text-right">
+                          <p className="text-xs text-gray-500">Cena:</p>
+                          <p className="text-xl font-bold text-green-600">BESPLATNO</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              )}
+
+              {/* Total Price Box */}
+              <Card className="p-6 bg-gradient-to-br from-orange-400 to-orange-500 border-2 border-orange-600 hover:shadow-xl transition-shadow">
+                <div className="flex items-start gap-4">
+                  <div className="bg-white/20 p-3 rounded-full">
+                    <Coins className="w-8 h-8 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-lg font-bold text-white mb-1">Ukupna Cena</h4>
+                    <p className="text-sm text-orange-100 mb-3">Sa svim popustima</p>
+                    <div className="flex justify-between items-baseline">
+                      <span className="text-4xl font-bold text-white">{finalPrice}</span>
+                      <span className="text-2xl font-bold text-white">RSD</span>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </div>
           </Card>
         )}
 
