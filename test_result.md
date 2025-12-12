@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the photo printing order management system with comprehensive API testing including order creation, validation, retrieval, and file upload scenarios."
+user_problem_statement: "Test inactive product variants filtering and product image editing in admin panel. Two critical issues reported: 1) Product image editing in admin panel doesn't work, 2) Inactive product variants still show on Products page and can be ordered."
 
 backend:
   - task: "Order Creation API - Success Case"
