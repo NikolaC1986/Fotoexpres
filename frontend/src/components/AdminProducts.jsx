@@ -1229,9 +1229,9 @@ const AdminProducts = () => {
                             <Button
                               size="sm"
                               onClick={() => toggleVariantAvailability(index)}
-                              className={variant.available ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600'}
+                              className={variant.isActive ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600'}
                             >
-                              {variant.available ? (
+                              {variant.isActive ? (
                                 <>
                                   <Power size={14} className="mr-1" />
                                   Aktivna
