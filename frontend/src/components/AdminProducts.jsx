@@ -1038,10 +1038,15 @@ const AdminProducts = () => {
                   {editFormData.imageUrl && (
                     <div className="mb-3">
                       <img 
-                        src={getImageUrl(editFormData.imageUrl)} 
+                        src={editFormData.imageUrl.startsWith('data:') ? editFormData.imageUrl : getImageUrl(editFormData.imageUrl)} 
                         alt={editFormData.name}
                         className="w-48 h-48 object-contain rounded border-2 bg-gray-100"
                       />
+                      {editFormData.pendingUpload && (
+                        <p className="text-xs text-orange-600 mt-2 font-semibold">
+                          ⚠️ Nova fotografija izabrana - klikni "Sačuvaj" da uploduješ
+                        </p>
+                      )}
                     </div>
                   )}
 
