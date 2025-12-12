@@ -109,6 +109,7 @@ const AdminProducts = () => {
     setEditFormData({
       name: product.name,
       description: product.description,
+      imageUrl: product.imageUrl || '', // Include imageUrl
       requiresPhotoUpload: product.requiresPhotoUpload || false,
       isFeatured: product.isFeatured || false,
       isExternalProduct: product.isExternalProduct || false,
