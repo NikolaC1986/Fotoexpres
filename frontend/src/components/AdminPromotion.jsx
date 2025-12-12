@@ -24,7 +24,8 @@ const AdminPromotion = () => {
     customDisplayText: '',
     applyDiscount: true,
     type: 'discount', // 'discount' or 'gift'
-    giftTiers: []
+    giftTiers: [],
+    tiersEnabled: true // Enable/Disable multi-tier gift system
   });
   const [products, setProducts] = useState([]);
   const [showProductSelector, setShowProductSelector] = useState(false);
