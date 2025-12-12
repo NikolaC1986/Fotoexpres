@@ -381,7 +381,7 @@ const AdminProducts = () => {
       );
 
       if (uploadResponse.data.success) {
-        const imageUrl = `${BACKEND_URL}${uploadResponse.data.imageUrl}`;
+        const imageUrl = uploadResponse.data.imageUrl; // Store only relative path
         
         // Update product with new image URL
         await axios.put(
