@@ -990,6 +990,60 @@ const AdminProducts = () => {
                   />
                 </div>
 
+                {/* Product Image Preview and Edit */}
+                <div>
+                  <Label className="text-sm font-bold mb-2 block">
+                    Fotografija Proizvoda
+                  </Label>
+                  
+                  {/* Current Image Preview */}
+                  {editFormData.imageUrl && (
+                    <div className="mb-3">
+                      <img 
+                        src={getImageUrl(editFormData.imageUrl)} 
+                        alt={editFormData.name}
+                        className="w-48 h-48 object-contain rounded border-2 bg-gray-100"
+                      />
+                    </div>
+                  )}
+
+                  {/* Upload New Image Button */}
+                  <label className="cursor-pointer inline-block">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                          handleProductImageUpload(editingProduct.id, e);
+                          // Also update the preview immediately
+                          const reader = new FileReader();
+                          reader.onloadend = () => {
+                            setEditFormData(prev => ({
+                              ...prev,
+                              imageUrl: reader.result
+                            }));
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="gap-2 pointer-events-none"
+                    >
+                      <Upload size={16} />
+                      Promeni Fotografiju
+                    </Button>
+                  </label>
+                  <p className="text-xs text-gray-500 mt-2">
+                    Klikni da uploduješ novu fotografiju proizvoda
+                  </p>
+                </div>
+
                 {/* Requires Photo Upload */}
                 <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
                   <div className="flex items-start gap-3">
