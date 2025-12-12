@@ -1348,22 +1348,19 @@ const UploadPage = () => {
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Obračun Cene</h3>
             
             {/* Selected Products Section */}
-            <div className="mb-8">
-              <SelectedProductsList
-                products={selectedProducts}
-                onRemove={handleRemoveProduct}
-                onUpdateQuantity={handleUpdateQuantity}
-                onUpdateText={handleUpdateText}
-                onPhotoUpload={handleProductPhotoUpload}
-                onRemovePhoto={handleRemoveProductPhoto}
-                availableProducts={availableProducts}
-              />
-              
-              {/* Compact Add Product Selector */}
-              <div id="products-section" className="mt-6">
-                <CompactProductSelector onAddProduct={handleAddProduct} />
+            {selectedProducts.length > 0 && (
+              <div className="mb-8">
+                <SelectedProductsList
+                  products={selectedProducts}
+                  onRemove={handleRemoveProduct}
+                  onUpdateQuantity={handleUpdateQuantity}
+                  onUpdateText={handleUpdateText}
+                  onPhotoUpload={handleProductPhotoUpload}
+                  onRemovePhoto={handleRemoveProductPhoto}
+                  availableProducts={availableProducts}
+                />
               </div>
-            </div>
+            )}
 
             {/* Price Breakdown */}
             <div className="space-y-3 border-t-2 border-orange-200 pt-6">
