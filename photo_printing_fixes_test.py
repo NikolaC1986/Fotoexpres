@@ -227,7 +227,7 @@ class PhotoPrintingFixesTester:
         
         created_orders = []
         
-        for i in range(3):
+        for i in range(2):  # Reduce to 2 orders to avoid rate limiting
             order_details = {
                 "contactInfo": {
                     "fullName": f"Test User {i+1}",
