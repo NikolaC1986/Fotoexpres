@@ -1337,22 +1337,31 @@ const UploadPage = () => {
           </Card>
         )}
 
-        <Card id="products-section" className="p-10 mt-8 bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200">
-          <h2 className="text-3xl font-bold mb-4 text-gray-900">Dodaj Proizvode</h2>
-          <p className="text-gray-600 mb-6">
-            Možete naručiti samo proizvode (bez štampe fotografija) ili ih dodati uz fotografije.
-          </p>
-          <ProductSelector 
-            onProductsChange={setSelectedProducts}
-            totalPhotosUploaded={totalPhotos}
-          />
-        </Card>
-
-        {/* Price Summary - ABOVE Contact Form */}
+        {/* Price Summary with Products - ABOVE Contact Form */}
         {(photos.length > 0 || selectedProducts.length > 0) && (
           <Card className="p-8 mt-8 bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-300">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Obračun Cene</h3>
-            <div className="space-y-3">
+            
+            {/* Selected Products Section */}
+            <div className="mb-8">
+              <SelectedProductsList
+                products={selectedProducts}
+                onRemove={handleRemoveProduct}
+                onUpdateQuantity={handleUpdateQuantity}
+                onUpdateText={handleUpdateText}
+                onPhotoUpload={handleProductPhotoUpload}
+                onRemovePhoto={handleRemoveProductPhoto}
+                availableProducts={availableProducts}
+              />
+              
+              {/* Compact Add Product Selector */}
+              <div id="products-section" className="mt-6">
+                <CompactProductSelector onAddProduct={handleAddProduct} />
+              </div>
+            </div>
+
+            {/* Price Breakdown */}
+            <div className="space-y-3 border-t-2 border-orange-200 pt-6">
               {/* Photos Price - only show if there are photos */}
               {photos.length > 0 && (
                 <div className="flex justify-between items-center text-lg">
