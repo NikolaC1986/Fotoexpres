@@ -839,9 +839,7 @@ metadata:
   run_ui: true
 
 test_plan:
-  current_focus:
-    - "Multi-Tier Gift System - Frontend Logic"
-    - "Multi-Tier Gift System - UI Display"
+  current_focus: []
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -851,6 +849,9 @@ test_plan:
     - "Working Hours in Settings"
     - "Multi-Tier Gift System - Backend Support"
     - "Multi-Tier Gift System - Promotion Banner"
+    - "Photo Printing Service - Order Status Fix"
+    - "Photo Printing Service - Products in TXT Fix"
+    - "Photo Printing Service - Image Display Fix"
 
 agent_communication:
     - agent: "testing"
