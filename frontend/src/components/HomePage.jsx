@@ -17,6 +17,15 @@ const HomePage = () => {
   const [heroImageUrl, setHeroImageUrl] = useState('/images/hero-default.jpg');
   const [featuredProduct, setFeaturedProduct] = useState(null);
 
+  // Helper function to construct full image URL
+  const getImageUrl = (imageUrl) => {
+    if (!imageUrl) return '';
+    if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+      return imageUrl;
+    }
+    return `${BACKEND_URL}${imageUrl}`;
+  };
+
   useEffect(() => {
     document.title = 'Online izrada fotografija | Fotoexpres';
     fetchSettings();
@@ -161,7 +170,7 @@ const HomePage = () => {
                 {/* Image */}
                 <div className="relative h-64 md:h-auto bg-gray-100 flex items-center justify-center">
                   <img 
-                    src={featuredProduct.imageUrl} 
+                    src={getImageUrl(featuredProduct.imageUrl)} 
                     alt={featuredProduct.name}
                     className="w-full h-full object-contain p-6"
                   />
