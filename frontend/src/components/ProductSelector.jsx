@@ -30,7 +30,16 @@ const ProductSelector = ({ onProductsChange, totalPhotosUploaded }) => {
     try {
       const response = await axios.get(`${API}/products`);
       if (response.data.success) {
-        setProducts(response.data.products);
+        // Filter only ACTIVE products with at least one ACTIVE variant
+        const activeProducts = response.data.products
+          .filter(product => product.available !== false)
+          .map(product => ({
+            ...product,
+            variants: product.variants.filter(v => v.available !== false)
+          }))
+          .filter(product => product.variants.length > 0); // Only products with active variants
+        
+        setProducts(activeProducts);
       }
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -295,58 +304,59 @@ const ProductSelector = ({ onProductsChange, totalPhotosUploaded }) => {
         </div>
       )}
 
-      {/* Add Product Button/Section */}
-      {!showAddProduct && (
-        <Button 
-          onClick={() => setShowAddProduct(true)}
-          variant="outline"
-          className="w-full border-2 border-dashed border-purple-400 hover:bg-purple-50 gap-2"
-        >
-          <Plus size={18} />
-          Dodaj Proizvod (Album, Šolja, Privezak)
-        </Button>
-      )}
+      {/* Available Products - Always Visible */}
+      <Card className="p-6 border-2 border-purple-300 bg-purple-50">
+        <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+          <Package size={24} className="text-purple-600" />
+          Dostupni Proizvodi
+        </h3>
 
-      {/* Product Selection */}
-      {showAddProduct && (
-        <Card className="p-6 border-2 border-purple-300 bg-purple-50">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-bold text-gray-900">Izaberite Proizvod</h3>
-            <button onClick={() => setShowAddProduct(false)}>
-              <X size={20} className="text-gray-500 hover:text-gray-700" />
-            </button>
-          </div>
+        {products.length === 0 ? (
+          <p className="text-center text-gray-500 py-8">Trenutno nema dostupnih proizvoda</p>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products.map((product) => {
+              const getImageUrl = (imageUrl) => {
+                if (!imageUrl) return '';
+                if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+                  return imageUrl;
+                }
+                return `${BACKEND_URL}${imageUrl}`;
+              };
 
-          <div className="grid md:grid-cols-3 gap-4">
-            {products.map((product) => (
-              <Card key={product.id} className="p-4 hover:shadow-lg transition-shadow bg-white">
-                <div className="h-32 bg-gray-200 rounded mb-3 overflow-hidden">
-                  <img 
-                    src={product.imageUrl} 
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <h4 className="font-bold text-gray-900 mb-2">{product.name}</h4>
-                <p className="text-xs text-gray-600 mb-3 line-clamp-2">{product.description}</p>
-                
-                <div className="space-y-2">
-                  {product.variants.map((variant) => (
-                    <Button
-                      key={variant.id}
-                      onClick={() => addProductToOrder(product, variant)}
-                      size="sm"
-                      className="w-full bg-purple-600 hover:bg-purple-700 text-white text-xs"
-                    >
-                      {variant.name} - {variant.price} RSD
-                    </Button>
-                  ))}
-                </div>
-              </Card>
-            ))}
+              return (
+                <Card key={product.id} className="p-4 hover:shadow-xl transition-all duration-300 bg-white border-2 hover:border-purple-400">
+                  <div className="h-40 bg-gray-100 rounded mb-3 overflow-hidden flex items-center justify-center">
+                    <img 
+                      src={getImageUrl(product.imageUrl)} 
+                      alt={product.name}
+                      className="w-full h-full object-contain p-2"
+                    />
+                  </div>
+                  <h4 className="font-bold text-gray-900 mb-2 text-lg">{product.name}</h4>
+                  <p className="text-xs text-gray-600 mb-4 line-clamp-2">{product.description}</p>
+                  
+                  <div className="space-y-2">
+                    <Label className="text-xs font-semibold text-gray-700 block mb-2">
+                      Izaberite opciju:
+                    </Label>
+                    {product.variants.map((variant) => (
+                      <Button
+                        key={variant.id}
+                        onClick={() => addProductToOrder(product, variant)}
+                        size="sm"
+                        className="w-full bg-purple-600 hover:bg-purple-700 text-white text-sm font-semibold py-3"
+                      >
+                        {variant.name} - {variant.price} RSD
+                      </Button>
+                    ))}
+                  </div>
+                </Card>
+              );
+            })}
           </div>
-        </Card>
-      )}
+        )}
+      </Card>
     </div>
   );
 };
