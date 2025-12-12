@@ -396,12 +396,13 @@ const AdminDashboard = () => {
                       </td>
                       <td className="py-4 px-4">
                         <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                          order.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                          order.status === 'completed' ? 'bg-green-100 text-green-700' :
+                          order.status === 'pending' || order.status === 'Na Čekanju' ? 'bg-yellow-100 text-yellow-700' :
+                          order.status === 'completed' || order.status === 'Završeno' ? 'bg-green-100 text-green-700' :
                           'bg-blue-100 text-blue-700'
                         }`}>
-                          {order.status === 'pending' ? 'Na Čekanju' : 
-                           order.status === 'completed' ? 'Završeno' : 'Obrađuje se'}
+                          {order.status === 'pending' || order.status === 'Na Čekanju' ? 'Na Čekanju' : 
+                           order.status === 'completed' || order.status === 'Završeno' ? 'Završeno' : 
+                           order.status === 'U Obradi' ? 'U Obradi' : 'Obrađuje se'}
                         </span>
                       </td>
                       <td className="py-4 px-4">
@@ -414,12 +415,12 @@ const AdminDashboard = () => {
                             <Download size={16} />
                             Preuzmi
                           </Button>
-                          {order.status === 'pending' && (
+                          {(order.status === 'pending' || order.status === 'Na Čekanju' || order.status === 'U Obradi') && (
                             <Button 
                               size="sm"
                               variant="outline"
                               onClick={() => handleStatusUpdate(order.orderNumber, 'completed')}
-                              className="gap-1 border-2"
+                              className="gap-1 border-2 bg-green-50 hover:bg-green-100"
                             >
                               <CheckCircle size={16} />
                               Završi
