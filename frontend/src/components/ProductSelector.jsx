@@ -15,7 +15,6 @@ const ProductSelector = ({ onProductsChange, totalPhotosUploaded }) => {
   const [products, setProducts] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showAddProduct, setShowAddProduct] = useState(false);
 
   useEffect(() => {
     fetchProducts();
@@ -60,11 +59,18 @@ const ProductSelector = ({ onProductsChange, totalPhotosUploaded }) => {
       customText: '',
       dedicatedPhotoCount: 0,
       productPhotos: [], // Photos specifically for this product
-      requiresPhotos: product.type === 'mug' || product.type === 'keychain' // Šolja i Privezak zahtevaju fotografije
+      requiresPhotos: product.type === 'mug' || product.type === 'keychain' || product.type === 'calendar' || product.type === 'magnet' // Proizvodi koji zahtevaju fotografije
     };
     
     setSelectedProducts([...selectedProducts, newProduct]);
-    setShowAddProduct(false);
+    
+    // Scroll to selected products section
+    setTimeout(() => {
+      const selectedSection = document.querySelector('.border-purple-200');
+      if (selectedSection) {
+        selectedSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
   };
 
   const removeProduct = (index) => {
