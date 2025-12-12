@@ -83,32 +83,45 @@ const ProductsPage = () => {
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">{product.name}</h3>
                 <p className="text-gray-600 mb-4 line-clamp-3">{product.description}</p>
 
-                {/* Variants Info */}
-                <div className="mb-4">
-                  <p className="text-sm text-gray-500 mb-2">
-                    {product.variants.length} {product.variants.length === 1 ? 'opcija' : 'opcije'}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {product.variants.slice(0, 2).map((variant) => (
-                      <span key={variant.id} className="text-xs bg-gray-100 px-3 py-1 rounded-full text-gray-700">
-                        {variant.name}
-                      </span>
-                    ))}
-                    {product.variants.length > 2 && (
-                      <span className="text-xs bg-gray-100 px-3 py-1 rounded-full text-gray-700">
-                        +{product.variants.length - 2} još
-                      </span>
-                    )}
-                  </div>
-                </div>
+                {/* Variants Info - Show only active variants */}
+                {(() => {
+                  const activeVariants = product.variants.filter(v => v.isActive !== false);
+                  return (
+                    <div className="mb-4">
+                      <p className="text-sm text-gray-500 mb-2">
+                        {activeVariants.length} {activeVariants.length === 1 ? 'opcija' : 'opcije'}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {activeVariants.slice(0, 2).map((variant) => (
+                          <span key={variant.id} className="text-xs bg-gray-100 px-3 py-1 rounded-full text-gray-700">
+                            {variant.name}
+                          </span>
+                        ))}
+                        {activeVariants.length > 2 && (
+                          <span className="text-xs bg-gray-100 px-3 py-1 rounded-full text-gray-700">
+                            +{activeVariants.length - 2} još
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })()}
 
-                {/* Price Range */}
-                <div className="mb-6">
-                  <p className="text-sm text-gray-500">Od</p>
-                  <p className="text-3xl font-bold text-orange-600">
-                    {Math.min(...product.variants.map(v => v.price))} RSD
-                  </p>
-                </div>
+                {/* Price Range - Only from active variants */}
+                {(() => {
+                  const activeVariants = product.variants.filter(v => v.isActive !== false);
+                  const minPrice = activeVariants.length > 0 
+                    ? Math.min(...activeVariants.map(v => v.price))
+                    : 0;
+                  return (
+                    <div className="mb-6">
+                      <p className="text-sm text-gray-500">Od</p>
+                      <p className="text-3xl font-bold text-orange-600">
+                        {minPrice} RSD
+                      </p>
+                    </div>
+                  );
+                })()}
 
                 {/* CTA Button */}
                 {product.isExternalProduct ? (
