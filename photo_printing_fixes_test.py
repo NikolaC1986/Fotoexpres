@@ -547,7 +547,7 @@ class PhotoPrintingFixesTester:
             test_image_data, _ = self.create_test_image("test_product.jpg", 1)
             
             files = {
-                'file': ('test_product.jpg', test_image_data, 'image/jpeg')
+                'image': ('test_product.jpg', test_image_data, 'image/jpeg')
             }
             
             headers = {"Authorization": f"Bearer {self.admin_token}"}
