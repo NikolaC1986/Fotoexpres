@@ -186,12 +186,41 @@ const AdminProducts = () => {
   const saveProductEdits = async () => {
     try {
       const token = localStorage.getItem('adminToken');
+      let finalImageUrl = editFormData.imageUrl;
+      
+      // If there's a pending file upload, upload it first
+      if (editFormData.pendingUpload) {
+        toast({
+          title: "Uploadovanje...",
+          description: "Uploadujem fotografiju na server...",
+        });
+        
+        const formData = new FormData();
+        formData.append('image', editFormData.pendingUpload);
+        
+        const uploadResponse = await axios.post(
+          `${API}/admin/products/upload-image`,
+          formData,
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'multipart/form-data'
+            }
+          }
+        );
+        
+        if (uploadResponse.data.success) {
+          finalImageUrl = uploadResponse.data.imageUrl; // Use backend path
+        }
+      }
+      
+      // Update product with final image URL
       await axios.put(
         `${API}/admin/products/${editingProduct.id}`,
         {
           name: editFormData.name,
           description: editFormData.description,
-          imageUrl: editFormData.imageUrl, // Include imageUrl
+          imageUrl: finalImageUrl,
           requiresPhotoUpload: editFormData.requiresPhotoUpload,
           isFeatured: editFormData.isFeatured,
           isExternalProduct: editFormData.isExternalProduct,
@@ -209,9 +238,10 @@ const AdminProducts = () => {
       closeEditModal();
       fetchProducts();
     } catch (error) {
+      console.error('Error updating product:', error);
       toast({
         title: "Greška",
-        description: "Nije moguće ažurirati proizvod",
+        description: error.response?.data?.detail || "Nije moguće ažurirati proizvod",
         variant: "destructive"
       });
     }
