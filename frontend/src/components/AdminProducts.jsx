@@ -403,9 +403,10 @@ const AdminProducts = () => {
       fetchProducts();
     } catch (error) {
       console.error('Error adding product:', error);
+      const errorMessage = error.response?.data?.detail || error.message || "Nije moguće dodati proizvod";
       toast({
         title: "Greška",
-        description: error.response?.data?.detail || "Nije moguće dodati proizvod",
+        description: typeof errorMessage === 'string' ? errorMessage : "Došlo je do greške prilikom dodavanja proizvoda",
         variant: "destructive"
       });
     }
