@@ -8,7 +8,8 @@ import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { toast } from '../hooks/use-toast';
-import ProductSelector from './ProductSelector';
+import CompactProductSelector from './products/CompactProductSelector';
+import SelectedProductsList from './products/SelectedProductsList';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -39,6 +40,7 @@ const UploadPage = () => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [giftProducts, setGiftProducts] = useState([]); // Gift proizvodi iz promocije
   const [preSelectedProductLoaded, setPreSelectedProductLoaded] = useState(false);
+  const [availableProducts, setAvailableProducts] = useState([]); // For product metadata
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [successOrderNumber, setSuccessOrderNumber] = useState('');
   const [priceMap, setPriceMap] = useState({
