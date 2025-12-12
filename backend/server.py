@@ -815,14 +815,16 @@ async def download_logs(admin = Depends(verify_admin_token)):
         all_orders = await db.orders.find({}, {"_id": 0}).to_list(10000)
         
         total_orders = len(all_orders)
-        completed_orders = len([o for o in all_orders if o.get('status') == 'completed'])
-        processing_orders = len([o for o in all_orders if o.get('status') == 'processing'])
+        completed_orders = len([o for o in all_orders if o.get('status') in ['completed', 'Završeno']])
+        processing_orders = len([o for o in all_orders if o.get('status') in ['processing', 'U Obradi']])
+        pending_orders = len([o for o in all_orders if o.get('status') in ['pending', 'Na Čekanju']])
         total_photos = sum(o.get('totalPhotos', 0) for o in all_orders)
         
         report_lines.append("--- STATISTIKA ---")
         report_lines.append(f"Ukupan broj porudžbina u bazi: {total_orders}")
-        report_lines.append(f"  - Završene (completed): {completed_orders}")
-        report_lines.append(f"  - U obradi (processing): {processing_orders}")
+        report_lines.append(f"  - Završene: {completed_orders}")
+        report_lines.append(f"  - U obradi: {processing_orders}")
+        report_lines.append(f"  - Na čekanju: {pending_orders}")
         report_lines.append(f"Ukupan broj fotografija: {total_photos}")
         report_lines.append("")
         
