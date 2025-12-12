@@ -158,6 +158,13 @@ const UploadPage = () => {
   // Product management functions
   const handleAddProduct = (product) => {
     setSelectedProducts([...selectedProducts, product]);
+    
+    // Show success notification
+    toast({
+      title: "✅ Proizvod Dodat!",
+      description: `${product.productName} - ${product.variantName} je dodat u korpu (${product.price} RSD)`,
+      duration: 3000,
+    });
   };
 
   const handleRemoveProduct = (index) => {
