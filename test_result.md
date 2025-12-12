@@ -796,6 +796,42 @@ frontend:
           agent: "testing"
           comment: "✅ CONDITIONAL GIFT PRODUCT ATTRIBUTES TESTING COMPLETE - FEATURE VERIFIED AND WORKING CORRECTLY. COMPREHENSIVE TESTING RESULTS: ✅ SETUP VERIFICATION: Confirmed gift promotion active with 3 tiers (50 photos = Album za Slike, 100 photos = Šolja sa Štampom, 300 photos = Multiple gifts). Product attributes verified via API: Album (requiresPhotoUpload: false, allowCustomText: false), Šolja (requiresPhotoUpload: true, allowCustomText: true). ✅ UI DISPLAY: Gift promotion banner 'Pokloni za fotografije! 🎁' visible on upload page. Gift tiers section '🎁 Poklon Proizvodi' displays correctly with tier progression (50/100/300 photos). Initial state correctly shows no unlocked gifts. ✅ CONDITIONAL RENDERING LOGIC: Frontend code analysis confirms proper implementation - useEffect monitors totalPhotos and fetches product details via API to get requiresPhotoUpload/allowCustomText attributes. Conditional rendering implemented: needsPhoto && needsText sections show/hide based on product attributes. Ready message displays when both attributes are false. ✅ BACKEND API INTEGRATION: Product endpoints return correct attributes - Album has both false (shows ready message), Šolja has both true (shows upload/text sections). Gift system fetches product details dynamically and applies conditional rendering. ✅ VALIDATION CRITERIA MET: All specified requirements verified - Album shows 'Ovaj proizvod je spreman!' message with no upload/text sections, products with requiresPhotoUpload show upload section, products with allowCustomText show textarea, dynamic API fetching working. Conditional gift product attributes feature is production-ready and fully functional."
 
+  - task: "Photo Printing Service - Order Status Fix"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ ORDER STATUS FIX VERIFIED - Orders are correctly created with status 'Na Čekanju' instead of 'completed'. Tested order creation and verified order ORD-821336 has correct status 'Na Čekanju' as expected. Fix implemented on line 442 of server.py is working correctly. This addresses user reported issue where new orders were incorrectly showing as 'završena' (completed) instead of 'Na Čekanju' (pending)."
+
+  - task: "Photo Printing Service - Products in TXT Fix"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py, /app/backend/utils/order_utils.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ PRODUCTS IN TXT FIX VERIFIED - order_details.txt now correctly contains products and prices. Comprehensive testing with order ORD-786970 confirmed all required sections present: 'PROIZVODI:' section with product names and prices (Šolja - 1500 RSD), 'Ukupna cena proizvoda:', 'OBRAČUN CENE' with 'Dodatni proizvodi:' and 'UKUPNO ZA NAPLATU:', and '🎁 POKLON PROIZVODI (BESPLATNO):' section for gift items. All 9/9 validation checks passed. Fix includes productsSubtotal and grandTotal in price_info (lines 256-257) and proper product handling in ZIP generation."
+
+  - task: "Photo Printing Service - Image Display Fix"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ IMAGE DISPLAY FIX VERIFIED - Product image upload and display working correctly. Successfully uploaded test image via /api/admin/products/upload-image endpoint, received correct relative URL format '/uploads/products/UUID.jpg', and verified image is accessible via production URL https://photogift-admin.preview.emergentagent.com/uploads/products/. getImageUrl helper function correctly handles both relative and absolute URLs. This addresses user reported issue where product images were not displaying on frontend/admin panel after upload."
+
 metadata:
   created_by: "testing_agent"
   version: "4.0"
