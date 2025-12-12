@@ -482,7 +482,7 @@ const AdminProducts = () => {
         {/* Header */}
         <div className="mb-8">
           <Button
-            onClick={() => navigate('/admin/dashboard')}
+            onClick={() => navigate('/logovanje/dashboard')}
             variant="outline"
             className="mb-4 gap-2"
           >
