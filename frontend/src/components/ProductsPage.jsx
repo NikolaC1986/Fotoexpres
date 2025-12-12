@@ -13,6 +13,15 @@ const ProductsPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Helper function to construct full image URL
+  const getImageUrl = (imageUrl) => {
+    if (!imageUrl) return '';
+    if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+      return imageUrl;
+    }
+    return `${BACKEND_URL}${imageUrl}`;
+  };
+
   useEffect(() => {
     document.title = 'Proizvodi | Fotoexpres';
     fetchProducts();
@@ -63,7 +72,7 @@ const ProductsPage = () => {
               {/* Product Image */}
               <div className="h-64 bg-gray-100 overflow-hidden flex items-center justify-center">
                 <img 
-                  src={product.imageUrl} 
+                  src={getImageUrl(product.imageUrl)} 
                   alt={product.name}
                   className="w-full h-full object-contain hover:scale-110 transition-transform duration-300 p-4"
                 />
