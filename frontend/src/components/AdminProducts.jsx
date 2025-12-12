@@ -19,6 +19,17 @@ const AdminProducts = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
+
+  // Helper function to construct full image URL
+  const getImageUrl = (imageUrl) => {
+    if (!imageUrl) return '';
+    // If it's already a full URL, return as-is
+    if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+      return imageUrl;
+    }
+    // If it's a relative path, prepend BACKEND_URL
+    return `${BACKEND_URL}${imageUrl}`;
+  };
   const [editFormData, setEditFormData] = useState({
     name: '',
     description: '',
