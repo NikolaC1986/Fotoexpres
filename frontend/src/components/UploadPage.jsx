@@ -1441,9 +1441,9 @@ const UploadPage = () => {
                   </div>
                   <div className="flex-1">
                     <h4 className="text-lg font-bold text-white mb-1">Ukupna Cena</h4>
-                    <p className="text-sm text-orange-100 mb-3">Sa svim popustima</p>
+                    <p className="text-sm text-orange-100 mb-3">Sa svim popustima i dostavom</p>
                     <div className="flex justify-between items-baseline">
-                      <span className="text-4xl font-bold text-white">{finalPrice}</span>
+                      <span className="text-4xl font-bold text-white">{grandTotal}</span>
                       <span className="text-2xl font-bold text-white">RSD</span>
                     </div>
                   </div>
