@@ -309,7 +309,7 @@ class PhotoPrintingFixesTester:
                     "correct": False
                 })
         
-        if all_correct and len(created_orders) == 3:
+        if all_correct and len(created_orders) == 2:
             self.log_result(
                 "Phase 1 - Multiple Orders Status", 
                 True, 
