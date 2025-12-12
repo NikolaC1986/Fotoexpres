@@ -82,7 +82,7 @@ const UploadPage = () => {
             const product = response.data.product;
             
             // Auto-add first ACTIVE variant to cart
-            const activeVariants = product.variants?.filter(v => v.isActive !== false) || [];
+            const activeVariants = product.variants?.filter(v => v.available !== false) || [];
             if (activeVariants.length > 0) {
               const firstVariant = activeVariants[0];
               const newProduct = {

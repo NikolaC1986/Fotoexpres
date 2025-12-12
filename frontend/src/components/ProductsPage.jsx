@@ -85,7 +85,7 @@ const ProductsPage = () => {
 
                 {/* Variants Info - Show only active variants */}
                 {(() => {
-                  const activeVariants = product.variants.filter(v => v.isActive !== false);
+                  const activeVariants = product.variants.filter(v => v.available !== false);
                   return (
                     <div className="mb-4">
                       <p className="text-sm text-gray-500 mb-2">
@@ -109,7 +109,7 @@ const ProductsPage = () => {
 
                 {/* Price Range - Only from active variants */}
                 {(() => {
-                  const activeVariants = product.variants.filter(v => v.isActive !== false);
+                  const activeVariants = product.variants.filter(v => v.available !== false);
                   const minPrice = activeVariants.length > 0 
                     ? Math.min(...activeVariants.map(v => v.price))
                     : 0;
