@@ -1,0 +1,816 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                    FOTOEXPRES - DETALJI PORUDŽBINE                ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+BROJ PORUDŽBINE: ORD-779441
+DATUM: 2025-12-12 14:29:29
+
+═══════════════════════════════════════════════════════════════════
+
+INFORMACIJE O KLIJENTU:
+─────────────────────────
+Ime i prezime: Nikola Cvetkovic
+Email: cvetkovic.nikola.kp@gmail.com
+Telefon: 0653807900
+Ulica i broj: Hadzi Prodanova
+Poštanski broj: 17501
+Grad: Vranje
+Napomene: 
+
+═══════════════════════════════════════════════════════════════════
+
+OPCIJE OBRADE FOTOGRAFIJA:
+───────────────────────────
+• Kropovati fotografiju kako bi je prilagodili formatu: NE
+• Popuniti belim: NE
+
+═══════════════════════════════════════════════════════════════════
+
+SPECIFIKACIJA FOTOGRAFIJA:
+───────────────────────────
+
+1. CHEERS_TO_LOVE_-_Amazon_-_Black.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+2. CHEERS_TO_LOVE_-_Amazon_-_Blue.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+3. CHEERS_TO_LOVE_-_Amazon_-_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+4. CHEERS_TO_LOVE_-_Amazon_-_Green.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+5. CHEERS_TO_LOVE_-_Amazon_-_Pink.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+6. CHEERS_TO_LOVE_-_Amazon_-_Purple.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+7. CHEERS_TO_LOVE_-_Amazon_-_Red.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+8. CHEERS_TO_LOVE_-_Amazon_-_Rose_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+9. CHEERS_TO_LOVE_-_Amazon_-_Silver.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+10. CHEERS_TO_LOVE_-_Amazon_-_White.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+11. CHEERS_TO_LOVE_-_Etsy_-_Black.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+12. CHEERS_TO_LOVE_-_Etsy_-_Blue.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+13. CHEERS_TO_LOVE_-_Etsy_-_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+14. CHEERS_TO_LOVE_-_Etsy_-_Green.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+15. CHEERS_TO_LOVE_-_Etsy_-_Pink.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+16. CHEERS_TO_LOVE_-_Etsy_-_Purple.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+17. CHEERS_TO_LOVE_-_Etsy_-_Red.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+18. CHEERS_TO_LOVE_-_Etsy_-_Rose_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+19. CHEERS_TO_LOVE_-_Etsy_-_Silver.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+20. CHEERS_TO_LOVE_-_Etsy_-_White.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+21. BRIDES_NIGHT_OUT_-_Amazon_-_Black.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+22. BRIDES_NIGHT_OUT_-_Amazon_-_Blue.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+23. BRIDES_NIGHT_OUT_-_Amazon_-_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+24. BRIDES_NIGHT_OUT_-_Amazon_-_Green.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+25. BRIDES_NIGHT_OUT_-_Amazon_-_Pink.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+26. BRIDES_NIGHT_OUT_-_Amazon_-_Purple.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+27. BRIDES_NIGHT_OUT_-_Amazon_-_Red.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+28. BRIDES_NIGHT_OUT_-_Amazon_-_Rose_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+29. BRIDES_NIGHT_OUT_-_Amazon_-_Silver.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+30. BRIDES_NIGHT_OUT_-_Amazon_-_White.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+31. BRIDES_NIGHT_OUT_-_Etsy_-_Black.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+32. BRIDES_NIGHT_OUT_-_Etsy_-_Blue.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+33. BRIDES_NIGHT_OUT_-_Etsy_-_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+34. BRIDES_NIGHT_OUT_-_Etsy_-_Green.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+35. BRIDES_NIGHT_OUT_-_Etsy_-_Pink.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+36. BRIDES_NIGHT_OUT_-_Etsy_-_Purple.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+37. BRIDES_NIGHT_OUT_-_Etsy_-_Red.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+38. BRIDES_NIGHT_OUT_-_Etsy_-_Rose_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+39. BRIDES_NIGHT_OUT_-_Etsy_-_Silver.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+40. BRIDES_NIGHT_OUT_-_Etsy_-_White.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+41. CHAMPAGNE_CAMPAIGN_-_Amazon_-_Black.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+42. CHAMPAGNE_CAMPAIGN_-_Amazon_-_Blue.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+43. CHAMPAGNE_CAMPAIGN_-_Amazon_-_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+44. CHAMPAGNE_CAMPAIGN_-_Amazon_-_Green.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+45. CHAMPAGNE_CAMPAIGN_-_Amazon_-_Pink.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+46. CHAMPAGNE_CAMPAIGN_-_Amazon_-_Purple.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+47. CHAMPAGNE_CAMPAIGN_-_Amazon_-_Red.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+48. CHAMPAGNE_CAMPAIGN_-_Amazon_-_Rose_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+49. CHAMPAGNE_CAMPAIGN_-_Amazon_-_Silver.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+50. CHAMPAGNE_CAMPAIGN_-_Amazon_-_White.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+51. CHEERS_BRIDE_-_Etsy_-_Black.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+52. CHEERS_BRIDE_-_Etsy_-_Blue.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+53. CHEERS_BRIDE_-_Etsy_-_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+54. CHEERS_BRIDE_-_Etsy_-_Green.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+55. CHEERS_BRIDE_-_Etsy_-_PInk.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+56. CHEERS_BRIDE_-_Etsy_-_Purple.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+57. CHEERS_BRIDE_-_Etsy_-_Red.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+58. CHEERS_BRIDE_-_Etsy_-_Rose_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+59. CHEERS_BRIDE_-_Etsy_-_Silver.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 17 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 340 RSD
+   ───────────────────────────
+
+60. CHEERS_BRIDE_-_Etsy_-_White.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+61. CHAMPAGNE_CAMPAIGN_-_Amazon_-_Black.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+62. CHAMPAGNE_CAMPAIGN_-_Amazon_-_Blue.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+63. CHAMPAGNE_CAMPAIGN_-_Amazon_-_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+64. CHAMPAGNE_CAMPAIGN_-_Amazon_-_Green.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+65. CHAMPAGNE_CAMPAIGN_-_Amazon_-_Pink.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+66. CHAMPAGNE_CAMPAIGN_-_Amazon_-_Purple.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+67. CHAMPAGNE_CAMPAIGN_-_Amazon_-_Red.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+68. CHAMPAGNE_CAMPAIGN_-_Amazon_-_Rose_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+69. CHAMPAGNE_CAMPAIGN_-_Amazon_-_Silver.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+70. CHAMPAGNE_CAMPAIGN_-_Amazon_-_White.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+71. CHAMPAGNE_CAMPAIGN_-_Etsy_-_Black.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+72. CHAMPAGNE_CAMPAIGN_-_Etsy_-_Blue.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+73. CHAMPAGNE_CAMPAIGN_-_Etsy_-_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+74. CHAMPAGNE_CAMPAIGN_-_Etsy_-_Green.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+75. CHAMPAGNE_CAMPAIGN_-_Etsy_-_Pink.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+76. CHAMPAGNE_CAMPAIGN_-_Etsy_-_Purple.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+77. CHAMPAGNE_CAMPAIGN_-_Etsy_-_Red.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+78. CHAMPAGNE_CAMPAIGN_-_Etsy_-_Rose_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+79. CHAMPAGNE_CAMPAIGN_-_Etsy_-_Silver.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+80. CHAMPAGNE_CAMPAIGN_-_Etsy_-_White.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+81. BRIDES_LAST_FLING_-_Amazon_-_Black.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+82. BRIDES_LAST_FLING_-_Amazon_-_Blue.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+83. BRIDES_LAST_FLING_-_Amazon_-_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+84. BRIDES_LAST_FLING_-_Amazon_-_Green.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+85. BRIDES_LAST_FLING_-_Amazon_-_Pink.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+86. BRIDES_LAST_FLING_-_Amazon_-_Purple.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+87. BRIDES_LAST_FLING_-_Amazon_-_Red.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+88. BRIDES_LAST_FLING_-_Amazon_-_Rose_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+89. BRIDES_LAST_FLING_-_Amazon_-_Silver.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+90. BRIDES_LAST_FLING_-_Amazon_-_White.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 20 RSD
+   Ukupno za ovu fotografiju: 20 RSD
+   ───────────────────────────
+
+═══════════════════════════════════════════════════════════════════
+
+🎁 POKLON PROIZVODI (BESPLATNO):
+───────────────────────────
+
+1. Album za Slike - 50 fotografija
+   Količina: 1 kom
+   Cena: BESPLATNO (🎁 Poklon)
+   ───────────────────────────
+
+2. Šolja sa Štampom - Keramička šolja
+   Količina: 1 kom
+   Cena: BESPLATNO (🎁 Poklon)
+   Custom Tekst: Za BUDJOKU!
+   Fotografije: BRIDES_LAST_FLING_-_Etsy_-_Black.jpg, BRIDES_LAST_FLING_-_Etsy_-_Blue.jpg, BRIDES_LAST_FLING_-_Etsy_-_Gold.jpg
+   ───────────────────────────
+
+
+═══════════════════════════════════════════════════════════════════
+
+OBRAČUN CENE:
+─────────────────────────
+
+Ukupan broj fotografija: 106 komada
+Osnovna cena fotografija: 2120 RSD
+
+POPUST NA KOLIČINU (10%): -212 RSD
+   • Odobren za 106+ fotografija
+
+──────────────────────────────
+Ukupan popust: -212 RSD
+Cena fotografija sa popustom: 1908 RSD
+
+Dostava: 450 RSD
+   • Standardna dostava
+
+──────────────────────────────
+UKUPNO ZA NAPLATU: 2358 RSD
+
+──────────────────────────────
+✓ UŠTEDELI STE: 212 RSD
+
+═══════════════════════════════════════════════════════════════════
+
+NAČIN PLAĆANJA: Plaćanje pouzećem (kuriru prilikom isporuke)
+ROK DOSTAVE: 2-7 radnih dana
+
+═══════════════════════════════════════════════════════════════════
+
+Hvala vam što ste odabrali Fotoexpres!
+Za sva pitanja kontaktirajte nas na: kontakt@fotoexpres.rs
+
+═══════════════════════════════════════════════════════════════════
+
+
+═══════════════════════════════════════════════════════════════════
+
+REKAPITULACIJA PO FORMATIMA:
+─────────────────────────────
+Format 10x15 cm: 106 fotografija
+
+──────────────────────────────
+UKUPNO: 106 fotografija
+
+═══════════════════════════════════════════════════════════════════
