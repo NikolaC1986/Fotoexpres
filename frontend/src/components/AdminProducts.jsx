@@ -187,7 +187,7 @@ const AdminProducts = () => {
   const saveProductEdits = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      let finalImageUrl = editFormData.imageUrl;
+      let finalImageUrl = editingProduct.imageUrl; // Start with original URL
       
       // If there's a pending file upload, upload it first
       if (editFormData.pendingUpload) {
@@ -211,9 +211,16 @@ const AdminProducts = () => {
         );
         
         if (uploadResponse.data.success) {
-          finalImageUrl = uploadResponse.data.imageUrl; // Use backend path
+          finalImageUrl = uploadResponse.data.imageUrl; // Use uploaded path
+          console.log('Uploaded image URL:', finalImageUrl);
         }
+      } else if (editFormData.imageUrl && !editFormData.imageUrl.startsWith('data:')) {
+        // If URL was changed (not base64 preview), use the new URL
+        finalImageUrl = editFormData.imageUrl;
+        console.log('Using URL from input:', finalImageUrl);
       }
+      
+      console.log('Final image URL to save:', finalImageUrl);
       
       // Update product with final image URL
       await axios.put(
@@ -233,7 +240,7 @@ const AdminProducts = () => {
       
       toast({
         title: "Uspešno!",
-        description: "Proizvod je ažuriran",
+        description: "Proizvod je ažuriran sa novom fotografijom",
       });
       
       closeEditModal();
