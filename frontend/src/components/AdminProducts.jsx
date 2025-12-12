@@ -33,6 +33,11 @@ const AdminProducts = () => {
   const [editFormData, setEditFormData] = useState({
     name: '',
     description: '',
+    imageUrl: '',
+    requiresPhotoUpload: false,
+    isFeatured: false,
+    isExternalProduct: false,
+    externalLink: '',
     variants: []
   });
   const [addFormData, setAddFormData] = useState({
@@ -122,7 +127,7 @@ const AdminProducts = () => {
   const closeEditModal = () => {
     setShowEditModal(false);
     setEditingProduct(null);
-    setEditFormData({ name: '', description: '', requiresPhotoUpload: false, isFeatured: false, isExternalProduct: false, externalLink: '', variants: [] });
+    setEditFormData({ name: '', description: '', imageUrl: '', requiresPhotoUpload: false, isFeatured: false, isExternalProduct: false, externalLink: '', variants: [] });
   };
 
   const handleEditFormChange = (field, value) => {
