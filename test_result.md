@@ -899,10 +899,16 @@ metadata:
   run_ui: true
 
 test_plan:
-  current_focus: []
-  stuck_tasks: []
+  current_focus:
+    - "Inactive Product Variants Filtering - Frontend Display"
+    - "Inactive Product Variants Filtering - Order Prevention"
+    - "Admin Panel Variant Toggle Functionality"
+  stuck_tasks:
+    - "Inactive Product Variants Filtering - Frontend Display"
+    - "Inactive Product Variants Filtering - Order Prevention"
+    - "Admin Panel Variant Toggle Functionality"
   test_all: false
-  test_priority: "high_first"
+  test_priority: "critical_first"
   completed_new_features:
     - "ZIP Structure with Quantity Folders"
     - "Change Viewer Password Endpoint"
@@ -912,6 +918,7 @@ test_plan:
     - "Photo Printing Service - Order Status Fix"
     - "Photo Printing Service - Products in TXT Fix"
     - "Photo Printing Service - Image Display Fix"
+    - "Product Image Editing in Admin Panel"
 
 agent_communication:
     - agent: "testing"
