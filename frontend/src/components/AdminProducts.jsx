@@ -34,6 +34,7 @@ const AdminProducts = () => {
     name: '',
     description: '',
     imageUrl: '',
+    previewImageUrl: '', // Separate preview for display
     pendingUpload: null,
     requiresPhotoUpload: false,
     isFeatured: false,
@@ -115,7 +116,8 @@ const AdminProducts = () => {
     setEditFormData({
       name: product.name,
       description: product.description,
-      imageUrl: product.imageUrl || '', // Include imageUrl
+      imageUrl: product.imageUrl || '',
+      previewImageUrl: product.imageUrl || '', // Set initial preview
       requiresPhotoUpload: product.requiresPhotoUpload || false,
       isFeatured: product.isFeatured || false,
       isExternalProduct: product.isExternalProduct || false,
@@ -128,7 +130,7 @@ const AdminProducts = () => {
   const closeEditModal = () => {
     setShowEditModal(false);
     setEditingProduct(null);
-    setEditFormData({ name: '', description: '', imageUrl: '', pendingUpload: null, requiresPhotoUpload: false, isFeatured: false, isExternalProduct: false, externalLink: '', variants: [] });
+    setEditFormData({ name: '', description: '', imageUrl: '', previewImageUrl: '', pendingUpload: null, requiresPhotoUpload: false, isFeatured: false, isExternalProduct: false, externalLink: '', variants: [] });
   };
 
   const handleEditFormChange = (field, value) => {
