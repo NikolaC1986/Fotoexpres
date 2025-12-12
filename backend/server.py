@@ -718,7 +718,17 @@ async def update_order_status(
 ):
     new_status = status_update.get("status")
     
-    if new_status not in ["pending", "processing", "completed"]:
+    # Map English statuses to Serbian for backward compatibility
+    status_map = {
+        "pending": "Na Čekanju",
+        "processing": "U Obradi",
+        "completed": "Završeno"
+    }
+    
+    # Allow both English and Serbian statuses
+    if new_status in status_map:
+        new_status = status_map[new_status]
+    elif new_status not in ["Na Čekanju", "U Obradi", "Završeno"]:
         raise HTTPException(status_code=400, detail="Invalid status")
     
     result = await db.orders.update_one(
