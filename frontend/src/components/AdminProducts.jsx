@@ -34,6 +34,7 @@ const AdminProducts = () => {
     name: '',
     description: '',
     imageUrl: '',
+    pendingUpload: null,
     requiresPhotoUpload: false,
     isFeatured: false,
     isExternalProduct: false,
@@ -127,7 +128,7 @@ const AdminProducts = () => {
   const closeEditModal = () => {
     setShowEditModal(false);
     setEditingProduct(null);
-    setEditFormData({ name: '', description: '', imageUrl: '', requiresPhotoUpload: false, isFeatured: false, isExternalProduct: false, externalLink: '', variants: [] });
+    setEditFormData({ name: '', description: '', imageUrl: '', pendingUpload: null, requiresPhotoUpload: false, isFeatured: false, isExternalProduct: false, externalLink: '', variants: [] });
   };
 
   const handleEditFormChange = (field, value) => {
