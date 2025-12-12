@@ -314,7 +314,7 @@ async def create_order(
                 "products": products,  # Include products
                 "giftProducts": gift_products,  # Include gift products
                 "totalPhotos": total_photos,
-                "status": "processing",  # Mark as processing
+                "status": "Na Čekanju",  # Mark as pending (waiting for processing)
                 "zipFilePath": "",  # Will be updated after ZIP creation
                 "createdAt": datetime.now(timezone.utc).isoformat()
             }
