@@ -511,7 +511,7 @@ const AdminProducts = () => {
               {/* Product Image */}
               <div className="relative group mb-4">
                 <img 
-                  src={product.imageUrl} 
+                  src={getImageUrl(product.imageUrl)} 
                   alt={product.name}
                   className="w-full h-48 object-contain rounded bg-gray-100"
                 />
