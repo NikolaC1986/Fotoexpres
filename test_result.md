@@ -784,6 +784,18 @@ frontend:
           agent: "testing"
           comment: "✅ PROMOTION BANNER BACKEND INTEGRATION WORKING - GET /api/promotion endpoint correctly returns gift promotion data: type='gift', isActive=true, customDisplayText='Pokloni za fotografije! 🎁', message='Naručite više fotografija i dobijte besplatne proizvode!', giftTiers_count=2. Backend provides all necessary data for frontend banner to detect and display gift promotions correctly. API integration verified."
 
+  - task: "Admin Products Panel - Image Upload and URL Change"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/AdminProducts.jsx"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ PRODUCT IMAGE UPLOAD AND URL CHANGE FUNCTIONALITY VERIFIED - Comprehensive testing completed successfully. Admin panel accessible with credentials 'Vlasnik/$ta$Graca25'. All 5 products (Album za Slike, Šolja sa Štampom, Privezak za Ključeve, Fotokalendar, Fotomagnet) display correctly with proper image previews. Backend verification confirms correct URL storage: Album za Slike has uploaded image '/uploads/products/c1b22657-c8ba-40e9-8009-086b8bd60c4f.jpg', Šolja sa Štampom has external URL. All product images load correctly with no broken images. Backend correctly stores both relative paths for uploaded files and external URLs for URL changes. No base64 strings in database. All validation criteria met: URL change functionality accessible, file upload functionality accessible, images display after save operations, images persist after refresh, all images visible on admin panel, no console errors. Feature is production-ready and working as specified in review request."
+
   - task: "Conditional Gift Product Attributes Feature"
     implemented: true
     working: true
