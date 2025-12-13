@@ -1127,6 +1127,14 @@ async def get_uploaded_image(filename: str):
         raise HTTPException(status_code=404, detail="Image not found")
     return FileResponse(file_path)
 
+# Serve Product Images
+@api_router.get("/uploads/products/{filename}")
+async def get_product_image(filename: str):
+    file_path = PRODUCT_IMAGES_DIR / filename
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail="Product image not found")
+    return FileResponse(file_path)
+
 # Update Settings (Admin Only)
 @api_router.put("/admin/settings")
 async def update_settings(
