@@ -20,9 +20,15 @@ const HomePage = () => {
   // Helper function to construct full image URL
   const getImageUrl = (imageUrl) => {
     if (!imageUrl) return '';
+    // External URLs
     if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
       return imageUrl;
     }
+    // Local public folder images
+    if (imageUrl.startsWith('/images/')) {
+      return imageUrl;
+    }
+    // Backend uploaded images
     return `${BACKEND_URL}${imageUrl}`;
   };
 
