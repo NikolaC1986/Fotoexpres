@@ -141,7 +141,7 @@ const HomePage = () => {
             <div className="relative w-full">
               <div className="relative z-10">
                 <img 
-                  src={heroImageUrl}
+                  src={getImageUrl(heroImageUrl)}
                   alt="Štampane fotografije" 
                   className="rounded-xl md:rounded-2xl shadow-2xl w-full h-auto"
                 />
