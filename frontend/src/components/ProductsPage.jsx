@@ -19,6 +19,10 @@ const ProductsPage = () => {
     if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
       return imageUrl;
     }
+    // Add /api prefix for backend routes
+    if (imageUrl.startsWith('/uploads/')) {
+      return `${BACKEND_URL}/api${imageUrl}`;
+    }
     return `${BACKEND_URL}${imageUrl}`;
   };
 
