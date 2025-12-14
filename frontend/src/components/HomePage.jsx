@@ -28,6 +28,10 @@ const HomePage = () => {
     if (imageUrl.startsWith('/images/')) {
       return imageUrl;
     }
+    // Add /api prefix for backend routes
+    if (imageUrl.startsWith('/uploads/')) {
+      return `${BACKEND_URL}/api${imageUrl}`;
+    }
     // Backend uploaded images
     return `${BACKEND_URL}${imageUrl}`;
   };
