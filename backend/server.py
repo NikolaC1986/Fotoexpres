@@ -216,6 +216,16 @@ async def create_order(
         order_details_obj = OrderDetails(**order_data)
         logging.info(f"Step 2: ✅ Order details validated and parsed - Customer: {order_details_obj.contactInfo.fullName}")
         
+        # Validate that order has either photos or products
+        products = order_data.get('products', [])
+        if len(photos) == 0 and len(products) == 0:
+            logging.error("Order has neither photos nor products")
+            raise HTTPException(
+                status_code=400,
+                detail="Porudžbina mora da sadrži ili fotografije ili proizvode"
+            )
+        logging.info(f"Step 2.2: ✅ Order validation - Photos: {len(photos)}, Products: {len(products)}")
+        
         # Check if this is a chunked upload
         is_chunked = 'chunkIndex' in order_data
         chunk_index = order_data.get('chunkIndex', 0)
