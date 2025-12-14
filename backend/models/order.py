@@ -39,7 +39,7 @@ class Order(BaseModel):
     status: str = "pending"
     createdAt: datetime = Field(default_factory=datetime.utcnow)
     contactInfo: ContactInfo
-    photoSettings: List[PhotoSetting]
+    photoSettings: Optional[List[PhotoSetting]] = []
     products: Optional[List[ProductItem]] = []  # Dodati proizvodi
     zipFilePath: str
     totalPhotos: int
