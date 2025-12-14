@@ -19,6 +19,10 @@ const ProductImageUploader = ({
     if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
       return url;
     }
+    // Add /api prefix for backend routes
+    if (url.startsWith('/uploads/')) {
+      return `${BACKEND_URL}/api${url}`;
+    }
     return `${BACKEND_URL}${url}`;
   };
 
