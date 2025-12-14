@@ -523,9 +523,7 @@ const UploadPage = () => {
 
         const formData = new FormData();
         
-        // Add a dummy file to satisfy backend requirement (will create empty photos array)
-        const dummyBlob = new Blob([''], { type: 'text/plain' });
-        formData.append('photos', dummyBlob, 'no_photos.txt');
+        // No photos needed - backend now accepts empty photos array
 
         // Add product photos to formData
         selectedProducts.forEach((product, productIndex) => {
