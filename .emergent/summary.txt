@@ -1,141 +1,142 @@
 <analysis>**original_problem_statement:**
-The user initially requested to complete the Multi-Tier Gift System. Subsequently, a series of feature requests and bug fixes were addressed, including:
-1.  Adding a Back to Dashboard button in the admin products section.
-2.  Implementing a local file upload system for product images, as an alternative to URL links.
-3.  Allowing users to add custom photos and text for gift products they receive.
-4.  Conditionally showing these customization options based on the product's attributes (, ).
-5.  Fixing numerous bugs related to product image uploads, where images would not display correctly after saving. This involved standardizing URL paths (relative vs. absolute) and implementing a real-time preview feature.
-6.  Correcting the default status of new orders from completed or processing to Na Čekanju (On Hold).
-7.  Implementing logic to mark orders as Završeno (Completed) from the admin panel.
-8.  Ensuring that deactivated product variants are not visible or orderable on the public-facing pages.
-9.  Investigating and confirming that the application is not vulnerable to the reported React Server Components CVEs.
-10. A runtime error occurred when the user tried to add a new product, which is the current issue to be resolved.
+The user's initial problem statement from the previous fork was to fix a runtime error when adding a new product. Throughout this session, the user guided the agent through a series of significant UI/UX improvements and bug fixes, primarily focused on the product ordering page ().
+
+The latest requests and issues that have emerged are:
+1.  **Critical Bug:** Users cannot place an order if they only select a customizable product (e.g., a mug with a photo) without also ordering standard photo prints. The system incorrectly throws an error demanding photo prints.
+2.  **UI/UX Refinements:** The user continuously requested layout changes on the  page, including the placement and styling of the product list, order summary, and price breakdowns.
+3.  **Image Display Bugs:** The agent fixed multiple issues where product images, hero images, and user-uploaded photos for products were not displaying correctly or were improperly scaled.
+4.  **Admin Panel Features:** The user requested a feature to toggle the multi-tier gift system on and off.
+5.  **Feedback Mechanisms:** The user asked for better feedback, such as toast notifications when adding products to the cart and a loading state for the order download button in the admin panel.
 
 **User's preferred language**: The user's primary language is **Serbian**. The next agent MUST respond in Serbian.
 
 **what currently exists?**
-The application is a full-stack photo printing service with a comprehensive admin panel. The multi-tier gift system is fully implemented. The product management feature allows for both URL-based and direct upload of images, with a real-time preview in the admin modal. The order status management system is in place, and product variants can be deactivated. However, the Add Product functionality is currently broken due to a frontend runtime error.
+The application is a full-stack photo printing service with a React frontend and FastAPI backend.
+- The Add Product functionality, which was previously broken, has been fixed and the admin component for it has been completely refactored into smaller, modular components.
+- The product ordering page () has been extensively redesigned to improve user experience. It now features a compact, responsive grid of available products, a clear section for selected products (the cart), and a detailed order summary section placed logically above the customer information form.
+- A toggle switch now exists in the admin panel to enable or disable the multi-tier gift promotion system.
+- Multiple bugs related to image pathing and display have been resolved, ensuring that product and hero images render correctly on the live site.
+- User-uploaded photos for custom products are now correctly scaled using  to ensure the full image is visible.
 
 **Last working item**:
-- Last item agent was working: The user reported a runtime error when trying to add a new product: . The agent correctly identified that the frontend is trying to render a complex error object returned from the backend directly into a toast notification, which is causing the application to crash. The fix has not yet been implemented.
-- Status: IN PROGRESS
+- Last item agent was working: The user reported a critical bug preventing checkout. When a user tries to order *only* a customizable product (like a mug) with its own uploaded photo, but without adding any standard photo prints, the system shows an error: Morate dodati bar jednu fotografiju za štampu (You must add at least one photo for printing). This blocks a valid purchase scenario.
+- Status: NOT STARTED
 - Agent Testing Done: N
-- Which testing method agent to use? Frontend testing agent
-- User Testing Done: N
+- Which testing method agent to use? Frontend testing agent. The test should specifically cover the scenario of ordering a product without any main photo prints.
+- User Testing Done: Y (The user reported the bug with a screenshot).
 
 **All Pending/In progress Issue list**:
--   **Issue 1: Add Product functionality crashes the app (P0)**
--   **Issue 2: Photo upload for customized products on the order page may be broken (P1)**
+-   **Issue 1: Cannot order a product without ordering standard photos (P0)**
+-   **Issue 2: Photo replacement for products might be broken (P2)**
 
 **Issues Detail:**
--   **Issue 1: Add Product functionality crashes the app (P0)**
-    -   **Description:** When an error occurs while adding a new product, the backend returns an error object. The frontend toast notification attempts to render this object directly, causing a React error: Objects are not valid as a React child.
-    -   **Attempted fixes:** None yet. The agent identified the cause.
+-   **Issue 1: Cannot order a product without ordering standard photos (P0)**
+    -   **Description:** The order submission logic in  incorrectly requires the main photo list to be non-empty, even when a user is only ordering a customizable product that has its own photo. This blocks the sale.
+    -   **Attempted fixes:** None. The agent has just been informed of the issue.
     -   **Next debug checklist:**
-        1.  Locate the  block for the  function in .
-        2.  Modify the  notification call to display only the error message string from the response object (e.g.,  or a default message) instead of the entire  object.
-        3.  Manually test the Add Product flow by attempting to create a product that triggers a backend validation error.
-    -   **Why fix this issue and what will be achieved with the fix?** This is a critical bug preventing administrators from adding any new products to the store. Fixing it will restore core admin functionality.
-    -   **Status:** IN PROGRESS
-    -   **Is recurring issue?** N
-    -   **Should Test frontend/backend/both after fix?** Frontend
-    -   **Blocked on other issue:** None
-
--   **Issue 2: Photo upload for customized products on the order page may be broken (P1)**
-    -   **Description:** In message #531, the user stated, fotografije koje su vezane za proizvod i dalje ne mogu da se zamene uploadovanjem (photos related to the product still can't be replaced by uploading). This likely refers to the photo upload functionality for customizable products (e.g., mugs, keychains) on the  page. This issue was not explicitly addressed as focus shifted to the variant deactivation bug.
-    -   **Attempted fixes:** None.
-    -   **Next debug checklist:**
-        1.  Ask the user for clarification and steps to reproduce the issue.
-        2.  Test the flow of ordering a product that requires a photo upload (e.g., a mug).
-        3.  Test the flow of receiving a gift product that requires a photo upload.
-        4.  Inspect the state management and form submission logic in .
-    -   **Why fix this issue and what will be achieved with the fix?** This functionality is essential for customers ordering personalized products.
+        1.  Locate the  function in .
+        2.  Find the validation logic that checks for .
+        3.  Modify the condition to allow submission if  is not empty and all product-specific photo requirements are met. The validation should only fail if **both** the main photo list and the product list are empty.
+        4.  Test the flow by adding only a product (e.g., a mug), uploading a photo for it, and submitting the order.
+    -   **Why fix this issue and what will be achieved with the fix?** This is a critical bug blocking a primary sales channel. Fixing it will allow users to purchase products without being forced to also order photo prints.
     -   **Status:** NOT STARTED
     -   **Is recurring issue?** N
     -   **Should Test frontend/backend/both after fix?** Frontend
     -   **Blocked on other issue:** None
 
+-   **Issue 2: Photo replacement for products might be broken (P2)**
+    -   **Description:** An issue was reported in a previous session stating, fotografije koje su vezane za proizvod i dalje ne mogu da se zamene uploadovanjem (photos related to the product still can't be replaced by uploading). This was never investigated or resolved.
+    -   **Attempted fixes:** None.
+    -   **Next debug checklist:**
+        1.  Ask the user for clarification and steps to reproduce. For example: Da li i dalje postoji problem sa zamenom fotografija za proizvode? Ako da, možete li mi opisati kako da ga ponovim?
+        2.  If the issue is confirmed, test the flow of adding a photo to a product in the cart, and then attempting to change that photo.
+    -   **Why fix this issue and what will be achieved with the fix?** It affects the user's ability to correct mistakes when ordering personalized items.
+    -   **Status:** NOT STARTED
+    -   **Is recurring issue?** Y (Carried over from a previous session, but was forgotten).
+    -   **Should Test frontend/backend/both after fix?** Frontend
+    -   **Blocked on other issue:** None
+
 **In progress Task List**:
--   There are no in-progress tasks, only bug fixes.
+-   None.
 
 **Upcoming and Future Tasks**
 - **Future Tasks:**
     - **Mobile App Development (P2):** The user previously inquired about creating Android and iOS apps. This can be revisited as a future development phase.
 
 **Completed work in this session**
-- **Feature: Multi-Tier Gift System:** Completed the entire backend and frontend logic for a system that rewards users with free products based on the number of photos ordered.
-- **Feature: Customizable Gift Products:** Implemented the ability for users to add custom photos and text to the gift products they earn, based on the base product's attributes.
-- **Feature: Product Image Upload:** Implemented and repeatedly debugged a system allowing admins to upload product images directly, in addition to using URLs. This included fixing issues with saving, previewing, and displaying the images.
-- **Feature: Real-Time Image Preview:** In the admin product edit modal, the image preview now updates instantly when a new file is selected or a new URL is typed.
-- **Bug Fix: Order Status Logic:** Corrected the initial status of new orders to Na Čekanju (On Hold) and implemented the logic for admins to mark them as Završeno (Completed).
-- **Bug Fix: Deactivated Variant Filtering:** Ensured that product variants marked as inactive in the admin panel are not visible or orderable on the public-facing product pages.
-- **UI/UX: Admin Panel Improvements:** Added a Back to Dashboard button and removed a confusing hover-to-edit image button.
-- **Security: Vulnerability Assessment:** Investigated a user-reported security concern (CVE-2025-55184, CVE-2025-55183) and confirmed the application is not affected as it does not use Next.js or React Server Components.
+- **Bug Fix:** Fixed the critical crash on the Add Product admin page.
+- **Refactor:**  was completely refactored into smaller components for better maintainability.
+- **UX Overhaul:** The product ordering page () was redesigned multiple times based on user feedback to improve usability, responsiveness, and flow.
+- **Feature:** Implemented a toggle in the admin panel to enable/disable the multi-tier gift system.
+- **Bug Fix:** Resolved multiple issues with product and hero images not appearing on the live site by standardizing static file serving.
+- **Bug Fix:** Corrected the scaling of user-uploaded photos for custom products to prevent unwanted cropping.
+- **UX Improvement:** Added toast notifications for adding products and a loading state for the admin order download button.
+
+**Earlier issues found/mentioned but not fixed**
+-   **Issue 1: Photo replacement for products might be broken**
+    -   This issue was mentioned in the previous fork's summary (originating from message #531) but was not addressed or investigated during this session. It needs to be clarified with the user.
+    -   **Debug checklist:** Ask the user if the issue persists and for steps to reproduce.
+    -   **Why to solve this issue and what will be achieved with this?** Improves the user experience for ordering personalized items.
+    -   **Should Test frontend/backend/both after fix:** Frontend
+    -   **Is recurring issue?** Y
 
 **Code Architecture**
 
 
 **Key Technical Concepts**
-- **Frontend:** React, Tailwind CSS. The session heavily focused on complex state management in , involving multiple modals, data states (), preview states (), and pending file upload states ().
-- **Backend:** FastAPI, Pydantic, MongoDB.
-- **Data Consistency:** A major challenge was ensuring consistency between frontend state property names (e.g., ) and backend model fields. A mismatch caused significant bugs.
-- **Image Handling:** The solution for image display involves saving relative paths (e.g., ) in the database and using a frontend helper function  to prepend the  for rendering.
+-   **Component Refactoring:** The large  was successfully broken down into smaller, single-responsibility components, improving code quality. The  also uses new child components (, ).
+-   **Static File Serving:** A recurring issue with image paths was solved by standardizing all static assets to be served through a single, prefixed API route () and modifying the frontend  helper to handle both absolute (from backend) and relative (from ) paths correctly.
+-   **Complex State Management:** The  component manages a large and complex state, including photo lists, selected products, pricing calculations, and promotion logic, making it prone to bugs and difficult to maintain.
 
 **key DB schema**
--   **products.variants**: The agent standardized on using  to control the active status of a product variant.
-
-**changes in tech stack**
--   None.
+-   **promotions:** Added a new field  to allow toggling the gift system.
 
 **All files of reference**
--   : This was the most heavily modified file, dealing with product creation/editing, image uploads (both file and URL), real-time previews, and variant management. It is the source of the current critical bug.
--   : Modified to implement gift customization and filter out inactive product variants.
--   : Modified to filter out inactive product variants.
--   : Modified to handle the new order status logic (Na Čekanju) and to serve static product images from the  directory.
--   : Updated to correctly include gift products and their details in the order summary text file.
+-   : The most heavily modified file, central to the latest bug and all recent UX improvements.
+-   : New component that displays items in the cart on the upload page. The  fix was applied here.
+-   : New component that displays the grid of available products.
+-   : The  function was modified to correctly handle different types of image paths.
+-   : Modified to add user feedback to the order download button.
+-   : Modified to add the  toggle checkbox.
+-   : Modified to add the  field to the promotion model and to correctly serve all static files under the  path.
 
 **Areas that need refactoring**:
--   ****: This component is extremely large and complex, handling two modals, multiple data states, and convoluted logic for image handling. It is highly brittle and should be broken down into smaller, specialized components (e.g., , , ).
--   ****: This component's complexity has also grown significantly and would benefit from being refactored into smaller components and custom hooks.
+-   : This component remains extremely large and handles too many responsibilities (photo uploads, product selection, cart management, price calculation, gift logic, order form). It is a prime candidate for being broken down into smaller components and custom hooks (e.g., , ) to improve readability and reduce complexity.
 
 **key api endpoints**
--   : New endpoint for uploading product images.
--   : The endpoint for creating a new product. An error response from this endpoint is causing the current frontend crash.
--   : The endpoint for updating products.
--    & : Used to fetch product data on the frontend.
--   : Used to update the status of an order.
-
-**Critical Info for New Agent**
--   The immediate priority is fixing the crash in the Add Product modal.
--   Pay close attention to data consistency between frontend state and backend models. The  property for product variants was a major source of bugs.
--   The image handling logic in  is delicate. It uses a separate  for the UI preview and  for the actual URL to be saved, which is populated either from user input or the result of a file upload.
+-   : The standardized endpoint for serving static assets like product images.
 
 **documents created in this job**
--   None new in this session.
+-   /app/PRODUCT_COMPONENTS_ARCHITECTURE.md
+-   /app/BUG_FIX_SUMMARY.md
+-   /app/PRODUCT_ORDERING_IMPROVEMENTS.md
+-   /app/PRODUCT_UX_IMPROVEMENTS_V2.md
+-   /app/RESPONSIVE_PRODUCT_LAYOUT.md
+-   /app/TIER_SYSTEM_TOGGLE.md
 
 **Last 10 User Messages and any pending user messages**
-1.  **User (Msg 519):** Asked if the app was vulnerable to specific CVEs. (Resolved: No)
-2.  **User (Msg 531):** Reported that deactivated variants were still orderable, and product-related photo uploads weren't working. Asked to remove the hover-edit button. (Partially resolved: Variant filtering and button removal done, photo upload issue is pending investigation).
-3.  **User (Msg 532):** The agent acknowledged the three issues.
-4.  **User (Msg 550):** The agent confirmed the hover button was removed and inactive variants were now marked in the admin panel.
-5.  **User (Msg 552):** Clarified that inactive variants are STILL visible for ordering and the image change is still not working. (This led to the root cause discovery of the  property mismatch).
-6.  **User (Msg 553):** The agent began a detailed test of the image change and variant visibility.
-7.  **User (Msg 578):** The testing agent reported a critical error due to the / mismatch.
-8.  **User (Msg 590):** The agent reports having fixed the mismatch and is re-testing.
-9.  **User (Msg 591):** Reported the critical crash: Uncaught runtime errors... Objects are not valid as a React child when adding a new product. (Current high-priority issue).
-10. **User (Msg 592):** The agent acknowledged the error and identified the cause.
+1.  **User (Msg 288):** Requested the order summary be 4 small boxes. (Completed)
+2.  **User (Msg 296):** Requested to move the summary section and add a toast notification when a product is added. (Completed)
+3.  **User (Msg 316):** Reported that hero and product photos were not visible on the preview site. (Completed)
+4.  **User (Msg 343):** Provided screenshots confirming the image visibility issue. (Used for debugging)
+5.  **User (Msg 362):** Reported that uploaded photos for products are too zoomed-in and that the admin download button needs feedback. (Completed)
+6.  **User (Msg 384):** Reported a new critical bug: cannot place an order for *only* a product without also ordering standard photo prints. Provided a screenshot. (This is the current high-priority issue).
+7.  **User (Msg 182):** Requested an option to disable the multi-tier gift system. (Completed)
+8.  **User (Msg 232):** Requested a text change on the photo upload component. (Completed)
+9.  **User (Msg 239):** Requested an Add Product button to be added below the photo gallery. (Completed)
+10. **User (Msg 263):** Requested another redesign of the order summary section with a coin icon. (Completed)
 
 **Project Health Check:**
--   **Broken:** The Add Product functionality in the admin panel is currently non-functional and crashes the app.
+-   **Broken:** The checkout flow is non-functional for users who wish to order only a customizable product without also purchasing standard photo prints.
 
 **3rd Party Integrations**
 -   None.
 
 **Testing status**
--   **Testing agent used after significant changes:** YES. It was crucial in identifying a data model mismatch between the frontend and backend.
+-   **Testing agent used after significant changes:** NO
 -   **Troubleshoot agent used after agent stuck in loop:** NO
 -   **Test files created:** []
--   **Known regressions:** The Add Product functionality was broken during recent changes.
+-   **Known regressions:** The checkout validation introduced a regression that blocks a valid user purchase flow.
 
 **Credentials to test flow:**
 -   **Admin Role (Dev Environment):**
@@ -143,4 +144,4 @@ The application is a full-stack photo printing service with a comprehensive admi
     -   Password: 
 
 **What agent forgot to execute**
--   The agent did not fully investigate the user's report from message #531 about fotografije koje su vezane za proizvod (photos related to the product) not being replaceable via upload. This issue remains pending and requires user clarification.</analysis>
+-   The agent did not investigate or clarify the user's previously reported issue from an earlier session about being unable to *replace* a photo that was already assigned to a product in the cart. This issue remains unresolved and unverified.</analysis>
