@@ -261,22 +261,23 @@ def create_order_zip(order_dir, zip_path, order_number, contact_info, photo_sett
         order_number, contact_info, photo_settings, total_photos, crop_option, fill_white_option, price_info, products, gift_products
     )
     
-    # Add photo count summary by format
-    format_counts = {}
-    for photo in photo_settings:
-        photo_format = photo['format']
-        format_counts[photo_format] = format_counts.get(photo_format, 0) + photo['quantity']
-    
-    summary = "\n\n═══════════════════════════════════════════════════════════════════\n\n"
-    summary += "REKAPITULACIJA PO FORMATIMA:\n"
-    summary += "─────────────────────────────\n"
-    for fmt, count in sorted(format_counts.items()):
-        summary += f"Format {fmt} cm: {count} fotografija\n"
-    summary += f"\n──────────────────────────────\n"
-    summary += f"UKUPNO: {total_photos} fotografija\n"
-    summary += "\n═══════════════════════════════════════════════════════════════════\n"
-    
-    order_details_content += summary
+    # Add photo count summary by format (only if there are photos)
+    if photo_settings and len(photo_settings) > 0:
+        format_counts = {}
+        for photo in photo_settings:
+            photo_format = photo['format']
+            format_counts[photo_format] = format_counts.get(photo_format, 0) + photo['quantity']
+        
+        summary = "\n\n═══════════════════════════════════════════════════════════════════\n\n"
+        summary += "REKAPITULACIJA PO FORMATIMA:\n"
+        summary += "─────────────────────────────\n"
+        for fmt, count in sorted(format_counts.items()):
+            summary += f"Format {fmt} cm: {count} fotografija\n"
+        summary += f"\n──────────────────────────────\n"
+        summary += f"UKUPNO: {total_photos} fotografija\n"
+        summary += "\n═══════════════════════════════════════════════════════════════════\n"
+        
+        order_details_content += summary
     
     order_details_path = os.path.join(order_dir, 'order_details.txt')
     with open(order_details_path, 'w', encoding='utf-8') as f:
