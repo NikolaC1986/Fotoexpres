@@ -31,7 +31,7 @@ class ProductItem(BaseModel):
 
 class OrderDetails(BaseModel):
     contactInfo: ContactInfo
-    photoSettings: List[PhotoSetting]
+    photoSettings: Optional[List[PhotoSetting]] = []
     products: Optional[List[ProductItem]] = []  # Dodati proizvodi
 
 class Order(BaseModel):
