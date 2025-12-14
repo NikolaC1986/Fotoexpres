@@ -70,10 +70,10 @@ const Navbar = () => {
       
       <nav className="bg-white shadow-md sticky top-0 z-50 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-2 md:py-3">
-          {/* Mobile Layout - 2 rows */}
+          {/* Mobile Layout */}
           <div className="md:hidden">
-            {/* First Row - Logo */}
-            <div className="flex justify-center mb-2">
+            {/* Mobile Header - Logo + Menu Button */}
+            <div className="flex items-center justify-between">
               <Link to="/" className="flex items-center">
                 <div className="bg-orange-600 px-2 py-1 rounded-lg">
                   <img 
@@ -83,16 +83,63 @@ const Navbar = () => {
                   />
                 </div>
               </Link>
+              
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? (
+                  <X size={24} className="text-gray-700" />
+                ) : (
+                  <Menu size={24} className="text-gray-700" />
+                )}
+              </button>
             </div>
-            {/* Second Row - Actions */}
-            <div className="flex items-center justify-center gap-3">
-              <Link to="/upload">
-                <Button className="bg-orange-600 hover:bg-orange-700 text-white gap-2 font-medium text-sm px-6 py-2">
-                  <Upload size={16} />
-                  Pošalji Fotografije
-                </Button>
-              </Link>
-            </div>
+
+            {/* Mobile Menu Dropdown */}
+            {mobileMenuOpen && (
+              <div className="absolute left-0 right-0 top-full bg-white border-b border-gray-200 shadow-lg">
+                <div className="flex flex-col py-2">
+                  <Link 
+                    to="/" 
+                    className="px-4 py-3 hover:bg-gray-50 text-gray-700 font-medium border-b border-gray-100"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Početna
+                  </Link>
+                  <Link 
+                    to="/proizvodi" 
+                    className="px-4 py-3 hover:bg-gray-50 text-gray-700 font-medium border-b border-gray-100"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Proizvodi
+                  </Link>
+                  <Link 
+                    to="/prices" 
+                    className="px-4 py-3 hover:bg-gray-50 text-gray-700 font-medium border-b border-gray-100"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Cenovnik
+                  </Link>
+                  <Link 
+                    to="/faq" 
+                    className="px-4 py-3 hover:bg-gray-50 text-gray-700 font-medium border-b border-gray-100"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    FAQ
+                  </Link>
+                  <div className="px-4 py-3">
+                    <Link to="/upload" onClick={() => setMobileMenuOpen(false)}>
+                      <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white gap-2 font-medium">
+                        <Upload size={16} />
+                        Pošalji Fotografije
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Desktop Layout */}
