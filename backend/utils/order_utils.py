@@ -60,20 +60,26 @@ SPECIFIKACIJA FOTOGRAFIJA:
         price_map.update(price_info['prices'])
     
     subtotal = 0
-    for i, photo in enumerate(photo_settings, 1):
-        photo_format = photo['format']
-        quantity = photo['quantity']
-        unit_price = price_map.get(photo_format, 0)
-        line_total = unit_price * quantity
-        subtotal += line_total
-        
-        content += f"""
+    if photo_settings and len(photo_settings) > 0:
+        for i, photo in enumerate(photo_settings, 1):
+            photo_format = photo['format']
+            quantity = photo['quantity']
+            unit_price = price_map.get(photo_format, 0)
+            line_total = unit_price * quantity
+            subtotal += line_total
+            
+            content += f"""
 {i}. {photo['fileName']}
    Format: {photo_format} cm
    Tip papira: {photo['finish'].capitalize()}
    Količina: {quantity} kom
    Cena po komadu: {unit_price} RSD
    Ukupno za ovu fotografiju: {line_total} RSD
+   ───────────────────────────
+"""
+    else:
+        content += """
+(Nema fotografija za štampu - samo proizvodi)
    ───────────────────────────
 """
     
