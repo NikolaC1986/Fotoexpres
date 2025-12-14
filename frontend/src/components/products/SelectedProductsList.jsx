@@ -124,7 +124,7 @@ const SelectedProductsList = ({
                         <img 
                           src={photo.preview} 
                           alt={photo.name}
-                          className="w-full h-24 object-cover rounded border-2 border-gray-300"
+                          className="w-full h-24 object-contain bg-gray-100 rounded border-2 border-gray-300"
                         />
                         <button
                           type="button"
