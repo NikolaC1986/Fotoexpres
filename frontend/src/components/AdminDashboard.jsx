@@ -111,6 +111,12 @@ const AdminDashboard = () => {
     try {
       const token = localStorage.getItem('adminToken');
       
+      // Show initial loading toast
+      toast({
+        title: "⏳ Priprema preuzimanja...",
+        description: `Porudžbina #${orderNumber} se priprema`,
+      });
+      
       // Create download URL
       const downloadUrl = `${API}/admin/orders/${orderNumber}/download`;
       
@@ -138,16 +144,19 @@ const AdminDashboard = () => {
         link.remove();
       }, 100);
       
+      // Show success toast
       toast({
-        title: "Preuzimanje započeto",
-        description: `Porudžbina ${orderNumber} se preuzima`
+        title: "✅ Preuzimanje započeto!",
+        description: `Porudžbina #${orderNumber} se preuzima. Proverite folder za preuzimanja.`,
+        duration: 5000,
       });
     } catch (error) {
       console.error('Download error:', error);
       toast({
-        title: "Greška",
-        description: error.response?.data?.detail || "Nije moguće preuzeti ZIP fajl. Proverite da li porudžbina postoji.",
-        variant: "destructive"
+        title: "❌ Greška pri preuzimanju",
+        description: error.response?.data?.detail || "ZIP fajl nije dostupan. Molimo sačekajte da se obrada završi ili osvežite stranicu.",
+        variant: "destructive",
+        duration: 6000,
       });
     }
   };
