@@ -921,6 +921,8 @@ test_plan:
     - "Admin Panel Variant Toggle Functionality"
   test_all: false
   test_priority: "critical_first"
+  completed_testing:
+    - "Product-Only Order Flow Testing"
   completed_new_features:
     - "ZIP Structure with Quantity Folders"
     - "Change Viewer Password Endpoint"
