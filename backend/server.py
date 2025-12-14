@@ -117,7 +117,7 @@ async def get_status_checks():
 
 @api_router.post("/orders/create", response_model=OrderResponse)
 async def create_order(
-    photos: List[UploadFile] = File(...),
+    photos: List[UploadFile] = File(default=[]),
     order_details: str = Form(...),
     request: Request = None
 ):
