@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Upload, Phone } from 'lucide-react';
+import { Upload, Phone, Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
 import PromotionBanner from './PromotionBanner';
 import axios from 'axios';
@@ -15,6 +15,7 @@ const Navbar = () => {
     workingHours: 'Pon-Pet: 09:00-18:00'
   });
   const [freeDeliveryLimit, setFreeDeliveryLimit] = useState(5000);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     fetchSettings();
