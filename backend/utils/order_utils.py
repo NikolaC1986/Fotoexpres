@@ -307,7 +307,12 @@ def create_order_zip(order_dir, zip_path, order_number, contact_info, photo_sett
             if os.path.exists(product_photos_dir):
                 for product_idx, product in enumerate(products):
                     if product.get('photoFileNames'):
-                        product_folder_name = f"PROIZVOD_{product_idx + 1}_{product.get('productName', 'Unknown').replace(' ', '_')}"
+                        # Get product name and quantity
+                        product_name = product.get('productName', 'Unknown').replace(' ', '_')
+                        quantity = product.get('quantity', 1)
+                        
+                        # Create folder structure: ProductName/Quantity/photo.jpg
+                        product_folder_name = f"{product_name}/{quantity}"
                         
                         for photo_name in product.get('photoFileNames', []):
                             product_photo_path = os.path.join(product_photos_dir, f"product_{product_idx}_{photo_name}")
