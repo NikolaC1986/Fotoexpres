@@ -1814,6 +1814,140 @@ async def admin_delete_product_order(order_number: str, admin = Depends(verify_a
         logging.error(f"Error deleting product order: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to delete product order")
 
+# ==================== PROMO BANNER ENDPOINTS ====================
+
+# Get promo banner (public)
+@api_router.get("/promo-banner")
+async def get_promo_banner():
+    """Get active promo banner for display on homepage"""
+    try:
+        banner = await db.promo_banner.find_one({}, {"_id": 0})
+        if not banner:
+            return {"success": True, "banner": None}
+        return {"success": True, "banner": banner}
+    except Exception as e:
+        logging.error(f"Error fetching promo banner: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch promo banner")
+
+# Get promo banner (admin)
+@api_router.get("/admin/promo-banner")
+async def get_admin_promo_banner(admin = Depends(verify_admin_token)):
+    """Get promo banner configuration for admin panel"""
+    try:
+        banner = await db.promo_banner.find_one({}, {"_id": 0})
+        if not banner:
+            # Return default empty banner
+            banner = {
+                "isActive": False,
+                "desktopImage": "",
+                "tabletImage": "",
+                "mobileImage": "",
+                "linkUrl": ""
+            }
+        return {"success": True, "banner": banner}
+    except Exception as e:
+        logging.error(f"Error fetching promo banner: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch promo banner")
+
+# Upload promo banner image (admin)
+@api_router.post("/admin/promo-banner/upload-image")
+async def upload_promo_banner_image(
+    image: UploadFile = File(...),
+    admin = Depends(verify_admin_token)
+):
+    """Upload promo banner image and return URL"""
+    try:
+        # Validate file
+        ALLOWED_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.webp', '.gif'}
+        ALLOWED_MIME_TYPES = {'image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'}
+        MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB
+        
+        file_ext = os.path.splitext(image.filename)[1].lower()
+        if file_ext not in ALLOWED_EXTENSIONS:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Nedozvoljen tip fajla. Dozvoljeni: {', '.join(ALLOWED_EXTENSIONS)}"
+            )
+        
+        if image.content_type not in ALLOWED_MIME_TYPES:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Nedozvoljen MIME tip: {image.content_type}"
+            )
+        
+        # Read and validate size
+        content = await image.read()
+        if len(content) > MAX_FILE_SIZE:
+            raise HTTPException(
+                status_code=400,
+                detail="Fajl je prevelik. Maksimalna veličina je 10MB"
+            )
+        
+        # Generate unique filename
+        import uuid
+        unique_filename = f"{uuid.uuid4()}{file_ext}"
+        file_path = PROMO_BANNERS_DIR / unique_filename
+        
+        # Save file
+        with open(file_path, "wb") as f:
+            f.write(content)
+        
+        # Return URL path (relative to backend)
+        image_url = f"/uploads/promo_banners/{unique_filename}"
+        
+        logging.info(f"Promo banner image uploaded: {unique_filename}")
+        return {
+            "success": True,
+            "imageUrl": image_url,
+            "message": "Fotografija uspešno uploadovana"
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Error uploading promo banner image: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to upload image")
+
+# Update promo banner (admin)
+@api_router.put("/admin/promo-banner")
+async def update_promo_banner(
+    banner_data: dict,
+    admin = Depends(verify_admin_token)
+):
+    """Update promo banner configuration"""
+    try:
+        # Validate required fields
+        is_active = banner_data.get('isActive', False)
+        desktop_image = banner_data.get('desktopImage', '')
+        tablet_image = banner_data.get('tabletImage', '')
+        mobile_image = banner_data.get('mobileImage', '')
+        link_url = banner_data.get('linkUrl', '')
+        
+        banner = {
+            "isActive": is_active,
+            "desktopImage": desktop_image,
+            "tabletImage": tablet_image,
+            "mobileImage": mobile_image,
+            "linkUrl": link_url,
+            "updatedAt": datetime.now(timezone.utc).isoformat()
+        }
+        
+        # Upsert banner (update or insert)
+        await db.promo_banner.update_one(
+            {},  # Match any document (we only have one banner)
+            {"$set": banner},
+            upsert=True
+        )
+        
+        logging.info(f"Promo banner updated - Active: {is_active}")
+        return {
+            "success": True,
+            "message": "Reklamni baner je uspešno ažuriran",
+            "banner": banner
+        }
+    except Exception as e:
+        logging.error(f"Error updating promo banner: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to update promo banner")
+
 # Include the router in the main app
 app.include_router(api_router)
 
