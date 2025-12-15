@@ -163,6 +163,9 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Promo Banner - Before Featured Product */}
+      <PromoBanner />
+
       {/* Featured Product Section - Izdvajamo iz ponude */}
       {featuredProduct && (
         <section className="py-12 md:py-16 bg-gradient-to-br from-orange-50 via-pink-50 to-purple-50">
