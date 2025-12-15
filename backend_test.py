@@ -2070,6 +2070,270 @@ class PhotoOrderTester:
                 f"Exception occurred: {str(e)}"
             )
 
+    def test_product_order_zip_structure(self):
+        """Test REVIEW REQUEST: Complete order flow with products to verify ZIP file structure organization"""
+        print("\n=== Testing Product Order ZIP Structure Organization ===")
+        
+        # Test scenario as specified in review request:
+        # Create an order with multiple products (same product with different quantities)
+        # Product 1: Fotokalendar, quantity: 1
+        # Product 2: Fotokalendar, quantity: 2
+        # Each product should have its own photo
+        # NO regular photo prints (just products)
+        
+        # First, get available products to find Fotokalendar or similar
+        try:
+            products_response = requests.get(f"{self.backend_url}/products")
+            if products_response.status_code != 200:
+                self.log_result(
+                    "Product Order ZIP Structure", 
+                    False, 
+                    f"Cannot fetch products: HTTP {products_response.status_code}"
+                )
+                return None
+            
+            products_data = products_response.json()
+            if not products_data.get('success') or not products_data.get('products'):
+                self.log_result(
+                    "Product Order ZIP Structure", 
+                    False, 
+                    "No products available for testing"
+                )
+                return None
+            
+            products = products_data['products']
+            
+            # Find Fotokalendar or use first available product
+            target_product = None
+            for product in products:
+                if 'fotokalendar' in product['name'].lower() or 'kalendar' in product['name'].lower():
+                    target_product = product
+                    break
+            
+            if not target_product:
+                # Use first available product if Fotokalendar not found
+                target_product = products[0]
+                print(f"   Note: Using {target_product['name']} instead of Fotokalendar")
+            
+            # Ensure product has at least one variant
+            if not target_product.get('variants') or len(target_product['variants']) == 0:
+                self.log_result(
+                    "Product Order ZIP Structure", 
+                    False, 
+                    f"Product {target_product['name']} has no variants"
+                )
+                return None
+            
+            variant = target_product['variants'][0]
+            
+            # Create order with 2 products of same type with different quantities
+            order_details = {
+                "contactInfo": {
+                    "fullName": "Test Korisnik Proizvodi",
+                    "email": "test.proizvodi@example.com",
+                    "phone": "0641234567",
+                    "street": "Testna ulica 123",
+                    "postalCode": "11000",
+                    "city": "Beograd",
+                    "notes": "Test ZIP strukture za proizvode"
+                },
+                "photoSettings": [],  # NO regular photo prints as specified
+                "products": [
+                    {
+                        "productId": target_product['id'],
+                        "variantId": variant['id'],
+                        "productName": target_product['name'],
+                        "variantName": variant['name'],
+                        "quantity": 1,
+                        "price": variant['price'],
+                        "isGift": False
+                    },
+                    {
+                        "productId": target_product['id'],
+                        "variantId": variant['id'],
+                        "productName": target_product['name'],
+                        "variantName": variant['name'],
+                        "quantity": 2,
+                        "price": variant['price'],
+                        "isGift": False
+                    }
+                ]
+            }
+            
+            # Create test images for each product
+            photo1_data, _ = self.create_test_image("product1_photo.jpg", 2)
+            photo2_data, _ = self.create_test_image("product2_photo.jpg", 2)
+            
+            # Prepare multipart form data with product photos
+            files = []
+            data = {
+                'order_details': json.dumps(order_details)
+            }
+            
+            # Add product photos using the expected field names
+            files.append(('product_photos_0', ('product1_photo.jpg', photo1_data, 'image/jpeg')))
+            files.append(('product_photos_1', ('product2_photo.jpg', photo2_data, 'image/jpeg')))
+            
+            # Create order
+            print(f"   Creating order with 2x {target_product['name']} (quantities: 1, 2)")
+            response = requests.post(f"{self.backend_url}/orders/create", files=files, data=data)
+            
+            if response.status_code != 200:
+                self.log_result(
+                    "Product Order ZIP Structure", 
+                    False, 
+                    f"Order creation failed: HTTP {response.status_code}: {response.text}"
+                )
+                return None
+            
+            result = response.json()
+            if not result.get('success'):
+                self.log_result(
+                    "Product Order ZIP Structure", 
+                    False, 
+                    "Order creation success flag is False"
+                )
+                return None
+            
+            order_number = result['orderNumber']
+            print(f"   Order created successfully: {order_number}")
+            
+            # Login as admin to download ZIP
+            if not self.admin_token:
+                login_success = self.admin_login()
+                if not login_success:
+                    self.log_result(
+                        "Product Order ZIP Structure", 
+                        False, 
+                        "Cannot test ZIP structure - admin login failed"
+                    )
+                    return None
+            
+            # Download ZIP file
+            headers = {"Authorization": f"Bearer {self.admin_token}"}
+            zip_response = requests.get(f"{self.backend_url}/admin/orders/{order_number}/download", headers=headers)
+            
+            if zip_response.status_code != 200:
+                self.log_result(
+                    "Product Order ZIP Structure", 
+                    False, 
+                    f"ZIP download failed: HTTP {zip_response.status_code}"
+                )
+                return None
+            
+            # Save ZIP to temporary file and analyze structure
+            with tempfile.NamedTemporaryFile(suffix='.zip', delete=False) as temp_zip:
+                temp_zip.write(zip_response.content)
+                temp_zip_path = temp_zip.name
+            
+            try:
+                # Analyze ZIP structure
+                with zipfile.ZipFile(temp_zip_path, 'r') as zipf:
+                    file_list = zipf.namelist()
+                    print(f"   ZIP contents: {file_list}")
+                    
+                    # Expected structure for products:
+                    # order_details.txt
+                    # ProductName/1/photo1.jpg
+                    # ProductName/2/photo2.jpg
+                    # NOT: PROIZVOD_1_ProductName/photo1.jpg (old structure)
+                    
+                    # Sanitize product name for folder structure
+                    sanitized_product_name = target_product['name'].replace(' ', '_').replace('/', '_')
+                    
+                    expected_files = [
+                        'order_details.txt',
+                        f'{sanitized_product_name}/1/product1_photo.jpg',
+                        f'{sanitized_product_name}/2/product2_photo.jpg'
+                    ]
+                    
+                    # Check for new structure
+                    structure_correct = True
+                    missing_files = []
+                    old_structure_found = False
+                    
+                    for expected_file in expected_files:
+                        if expected_file not in file_list:
+                            missing_files.append(expected_file)
+                            structure_correct = False
+                    
+                    # Check if old structure is present (should NOT be)
+                    for file_name in file_list:
+                        if file_name.startswith('PROIZVOD_'):
+                            old_structure_found = True
+                            break
+                    
+                    if old_structure_found:
+                        self.log_result(
+                            "Product Order ZIP Structure", 
+                            False, 
+                            "Old ZIP structure detected (PROIZVOD_X_ProductName format)",
+                            {"actual_files": file_list, "old_structure_files": [f for f in file_list if f.startswith('PROIZVOD_')]}
+                        )
+                        return None
+                    
+                    if not structure_correct:
+                        self.log_result(
+                            "Product Order ZIP Structure", 
+                            False, 
+                            f"New ZIP structure incorrect. Missing files: {missing_files}",
+                            {"actual_files": file_list, "expected_files": expected_files}
+                        )
+                        return None
+                    
+                    # Verify order_details.txt contains product information
+                    order_details_content = zipf.read('order_details.txt').decode('utf-8')
+                    
+                    # Check for product information in order details
+                    product_info_checks = [
+                        target_product['name'],  # Product name should be present
+                        "PROIZVODI:",  # Products section should exist
+                        "Ukupna cena proizvoda:"  # Product total should be present
+                    ]
+                    
+                    product_info_correct = True
+                    missing_product_info = []
+                    
+                    for check in product_info_checks:
+                        if check not in order_details_content:
+                            missing_product_info.append(check)
+                            product_info_correct = False
+                    
+                    if not product_info_correct:
+                        self.log_result(
+                            "Product Order ZIP Structure", 
+                            False, 
+                            f"Product information missing from order_details.txt: {missing_product_info}"
+                        )
+                        return None
+                    
+                    self.log_result(
+                        "Product Order ZIP Structure", 
+                        True, 
+                        f"✅ Product order ZIP structure correct for order {order_number}",
+                        {
+                            "zip_files": file_list,
+                            "structure": f"{sanitized_product_name}/quantity/photo.jpg verified",
+                            "product_used": target_product['name'],
+                            "quantities": [1, 2],
+                            "no_old_structure": "PROIZVOD_X format not found",
+                            "order_details_has_products": "Product information present"
+                        }
+                    )
+                    return order_number
+                    
+            finally:
+                # Clean up temp file
+                os.unlink(temp_zip_path)
+                
+        except Exception as e:
+            self.log_result(
+                "Product Order ZIP Structure", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+            return None
+
     def run_all_tests(self):
         """Run all tests in sequence"""
         print(f"Starting Photo Order Management System Tests")
