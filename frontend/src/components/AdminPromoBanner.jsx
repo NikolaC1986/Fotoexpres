@@ -267,12 +267,16 @@ const AdminPromoBanner = () => {
           <Input
             value={banner.linkUrl}
             onChange={(e) => setBanner(prev => ({ ...prev, linkUrl: e.target.value }))}
-            placeholder="https://example.com/promocija"
+            placeholder="https://example.com/promocija ili www.google.com"
             className="w-full"
           />
           <p className="text-sm text-gray-500 mt-2">
-            Kada korisnici kliknu na baner, biće preusmereni na ovaj URL
+            💡 <strong>Savet:</strong> Možete uneti URL sa ili bez protokola. Primeri:
           </p>
+          <ul className="text-sm text-gray-500 mt-1 ml-4 list-disc">
+            <li>https://www.example.com/promocija</li>
+            <li>www.example.com (automatski će biti dodato https://)</li>
+          </ul>
         </Card>
 
         {/* Desktop Banner */}
