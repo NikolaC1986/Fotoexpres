@@ -326,7 +326,12 @@ def create_order_zip(order_dir, zip_path, order_number, contact_info, photo_sett
             if os.path.exists(gift_photos_dir):
                 for gift_idx, gift in enumerate(gift_products):
                     if gift.get('photoFileNames'):
-                        gift_folder_name = f"POKLON_{gift_idx + 1}_{gift.get('productName', 'Unknown').replace(' ', '_')}"
+                        # Get gift product name and quantity
+                        gift_name = gift.get('productName', 'Unknown').replace(' ', '_')
+                        quantity = gift.get('quantity', 1)
+                        
+                        # Create folder structure: POKLON_ProductName/Quantity/photo.jpg
+                        gift_folder_name = f"POKLON_{gift_name}/{quantity}"
                         
                         for photo_name in gift.get('photoFileNames', []):
                             gift_photo_path = os.path.join(gift_photos_dir, f"gift_{gift_idx}_{photo_name}")
