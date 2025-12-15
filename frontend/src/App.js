@@ -15,6 +15,7 @@ import AdminDiscounts from './components/AdminDiscounts';
 import AdminPromotion from './components/AdminPromotion';
 import AdminPassword from './components/AdminPassword';
 import AdminProducts from './components/AdminProducts';
+import AdminPromoBanner from './components/AdminPromoBanner';
 import { Toaster } from './components/ui/toaster';
 
 // Protected Route Component
@@ -90,6 +91,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <AdminPassword />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/logovanje/promo-banner" 
+            element={
+              <ProtectedRoute>
+                <AdminPromoBanner />
               </ProtectedRoute>
             } 
           />
