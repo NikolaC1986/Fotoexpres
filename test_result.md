@@ -904,6 +904,18 @@ frontend:
           agent: "testing"
           comment: "✅ IMAGE DISPLAY FIX VERIFIED - Product image upload and display working correctly. Successfully uploaded test image via /api/admin/products/upload-image endpoint, received correct relative URL format '/uploads/products/UUID.jpg', and verified image is accessible via production URL https://snapprint-9.preview.emergentagent.com/uploads/products/. getImageUrl helper function correctly handles both relative and absolute URLs. This addresses user reported issue where product images were not displaying on frontend/admin panel after upload."
 
+  - task: "Product Order ZIP Structure Organization"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py, /app/backend/utils/order_utils.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ PRODUCT ORDER ZIP STRUCTURE TESTING COMPLETE - Successfully tested complete order flow with products to verify ZIP file structure organization as specified in review request. CRITICAL FUNCTIONALITY VERIFIED: 1) Order Creation: Successfully created order with 2x Fotokalendar products (quantities: 1, 2) with separate photos for each product, NO regular photo prints (products-only order). 2) ZIP Structure: Verified correct new structure 'ProductName/quantity/photo.jpg' format - Fotokalendar/1/product1_photo.jpg and Fotokalendar/2/product2_photo.jpg. 3) Old Structure Eliminated: Confirmed old 'PROIZVOD_X_ProductName/photo.jpg' format is NOT present. 4) Name Sanitization: Tested with 'Privezak za Ključeve' (spaces in name) - correctly sanitized to 'Privezak_za_Ključeve' folder structure. 5) Order Details: Verified order_details.txt contains product information with 'PROIZVODI:' section and 'Ukupna cena proizvoda:' totals. 6) API Integration: Product order creation via /api/orders/create endpoint working correctly with productType field validation. ZIP structure organization meets all requirements specified in review request."
+
 metadata:
   created_by: "testing_agent"
   version: "4.0"
