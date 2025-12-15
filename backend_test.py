@@ -2346,6 +2346,14 @@ class PhotoOrderTester:
         # NEW TESTS - Admin Authentication (needed for other tests)
         admin_login_success = self.admin_login()
         
+        # ===== REVIEW REQUEST: PRODUCT ORDER ZIP STRUCTURE TESTING =====
+        print("\n" + "=" * 60)
+        print("TESTING PRODUCT ORDER ZIP STRUCTURE FROM REVIEW REQUEST")
+        print("=" * 60)
+        
+        if admin_login_success:
+            self.test_product_order_zip_structure()
+        
         # ===== MULTI-TIER GIFT SYSTEM TESTING (PRIORITY) =====
         print("\n" + "=" * 60)
         print("TESTING MULTI-TIER GIFT SYSTEM FROM REVIEW REQUEST")
