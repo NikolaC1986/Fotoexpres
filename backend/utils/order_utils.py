@@ -307,12 +307,13 @@ def create_order_zip(order_dir, zip_path, order_number, contact_info, photo_sett
             if os.path.exists(product_photos_dir):
                 for product_idx, product in enumerate(products):
                     if product.get('photoFileNames'):
-                        # Get product name and quantity
+                        # Get product name, variant, and quantity
                         product_name = product.get('productName', 'Unknown').replace(' ', '_')
+                        variant_name = product.get('variantName', 'Default').replace(' ', '_')
                         quantity = product.get('quantity', 1)
                         
-                        # Create folder structure: ProductName/Quantity/photo.jpg
-                        product_folder_name = f"{product_name}/{quantity}"
+                        # Create folder structure: ProductName/VariantName/Quantity/photo.jpg
+                        product_folder_name = f"{product_name}/{variant_name}/{quantity}"
                         
                         for photo_name in product.get('photoFileNames', []):
                             product_photo_path = os.path.join(product_photos_dir, f"product_{product_idx}_{photo_name}")
@@ -326,12 +327,13 @@ def create_order_zip(order_dir, zip_path, order_number, contact_info, photo_sett
             if os.path.exists(gift_photos_dir):
                 for gift_idx, gift in enumerate(gift_products):
                     if gift.get('photoFileNames'):
-                        # Get gift product name and quantity
+                        # Get gift product name, variant, and quantity
                         gift_name = gift.get('productName', 'Unknown').replace(' ', '_')
+                        variant_name = gift.get('variantName', 'Default').replace(' ', '_')
                         quantity = gift.get('quantity', 1)
                         
-                        # Create folder structure: POKLON_ProductName/Quantity/photo.jpg
-                        gift_folder_name = f"POKLON_{gift_name}/{quantity}"
+                        # Create folder structure: POKLON_ProductName/VariantName/Quantity/photo.jpg
+                        gift_folder_name = f"POKLON_{gift_name}/{variant_name}/{quantity}"
                         
                         for photo_name in gift.get('photoFileNames', []):
                             gift_photo_path = os.path.join(gift_photos_dir, f"gift_{gift_idx}_{photo_name}")
