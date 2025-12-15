@@ -73,12 +73,12 @@ const ProductsPage = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {products.map((product) => (
             <Card key={product.id} className="overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-gray-200">
-              {/* Product Image */}
-              <div className="h-64 bg-gray-100 overflow-hidden flex items-center justify-center">
+              {/* Product Image - Larger on mobile for better visibility */}
+              <div className="h-72 md:h-64 bg-gray-100 overflow-hidden flex items-center justify-center">
                 <img 
                   src={getImageUrl(product.imageUrl)} 
                   alt={product.name}
-                  className="w-full h-full object-contain hover:scale-110 transition-transform duration-300 p-4"
+                  className="w-full h-full object-contain hover:scale-110 transition-transform duration-300 p-2 md:p-4"
                 />
               </div>
 
