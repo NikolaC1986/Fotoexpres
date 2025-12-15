@@ -1147,6 +1147,14 @@ async def get_product_image(filename: str):
         raise HTTPException(status_code=404, detail="Product image not found")
     return FileResponse(file_path)
 
+# Serve Promo Banner Images
+@api_router.get("/uploads/promo_banners/{filename}")
+async def get_promo_banner_image(filename: str):
+    file_path = PROMO_BANNERS_DIR / filename
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail="Promo banner image not found")
+    return FileResponse(file_path)
+
 # Update Settings (Admin Only)
 @api_router.put("/admin/settings")
 async def update_settings(
