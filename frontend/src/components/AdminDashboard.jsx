@@ -378,7 +378,7 @@ const AdminDashboard = () => {
                     <th className="text-left py-4 px-4 font-semibold text-gray-700">Datum i Vreme</th>
                     <th className="text-left py-4 px-4 font-semibold text-gray-700">Kupac</th>
                     <th className="text-left py-4 px-4 font-semibold text-gray-700">Kontakt</th>
-                    <th className="text-left py-4 px-4 font-semibold text-gray-700">Fotografija</th>
+                    <th className="text-left py-4 px-4 font-semibold text-gray-700">Fotografije / Proizvodi</th>
                     <th className="text-left py-4 px-4 font-semibold text-gray-700">Status</th>
                     <th className="text-left py-4 px-4 font-semibold text-gray-700">Akcije</th>
                   </tr>
@@ -409,8 +409,18 @@ const AdminDashboard = () => {
                         </div>
                       </td>
                       <td className="py-4 px-4">
-                        <span className="font-semibold text-gray-900">{order.totalPhotos}</span>
-                        <span className="text-gray-500 text-sm ml-1">kom</span>
+                        <div className="flex flex-col gap-1">
+                          <div>
+                            <span className="font-semibold text-gray-900">{order.totalPhotos}</span>
+                            <span className="text-gray-500 text-sm ml-1">fotografija</span>
+                          </div>
+                          {order.products && order.products.length > 0 && (
+                            <div>
+                              <span className="font-semibold text-orange-600">{order.products.length}</span>
+                              <span className="text-gray-500 text-sm ml-1">proizvoda</span>
+                            </div>
+                          )}
+                        </div>
                       </td>
                       <td className="py-4 px-4">
                         <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
