@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Upload, Camera, Award, Clock, Shield, ArrowRight, Star } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
+import PromoBanner from './PromoBanner';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
