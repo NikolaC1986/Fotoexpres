@@ -104,11 +104,17 @@ const PromoBanner = () => {
 
   // If has link, wrap in anchor tag
   if (banner.linkUrl) {
+    // Ensure URL has protocol (add https:// if missing)
+    let fullUrl = banner.linkUrl;
+    if (!fullUrl.startsWith('http://') && !fullUrl.startsWith('https://')) {
+      fullUrl = `https://${fullUrl}`;
+    }
+    
     return (
       <section className="py-6 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           <a
-            href={banner.linkUrl}
+            href={fullUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="block hover:opacity-90 transition-opacity cursor-pointer"
