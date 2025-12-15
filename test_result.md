@@ -945,6 +945,7 @@ test_plan:
     - "Photo Printing Service - Products in TXT Fix"
     - "Photo Printing Service - Image Display Fix"
     - "Product Image Editing in Admin Panel"
+    - "Product Order ZIP Structure Organization"
 
 agent_communication:
     - agent: "testing"
