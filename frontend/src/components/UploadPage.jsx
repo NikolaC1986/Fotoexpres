@@ -43,6 +43,10 @@ const UploadPage = () => {
   const [availableProducts, setAvailableProducts] = useState([]); // For product metadata
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [successOrderNumber, setSuccessOrderNumber] = useState('');
+  const [promoCode, setPromoCode] = useState('');
+  const [promoDiscount, setPromoDiscount] = useState(0);
+  const [promoValidating, setPromoValidating] = useState(false);
+  const [appliedPromoCode, setAppliedPromoCode] = useState('');
   const [priceMap, setPriceMap] = useState({
     '9x13': 12,
     '10x15': 18,
