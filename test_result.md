@@ -916,6 +916,54 @@ frontend:
           agent: "testing"
           comment: "✅ PRODUCT ORDER ZIP STRUCTURE TESTING COMPLETE - Successfully tested complete order flow with products to verify ZIP file structure organization as specified in review request. CRITICAL FUNCTIONALITY VERIFIED: 1) Order Creation: Successfully created order with 2x Fotokalendar products (quantities: 1, 2) with separate photos for each product, NO regular photo prints (products-only order). 2) ZIP Structure: Verified correct new structure 'ProductName/quantity/photo.jpg' format - Fotokalendar/1/product1_photo.jpg and Fotokalendar/2/product2_photo.jpg. 3) Old Structure Eliminated: Confirmed old 'PROIZVOD_X_ProductName/photo.jpg' format is NOT present. 4) Name Sanitization: Tested with 'Privezak za Ključeve' (spaces in name) - correctly sanitized to 'Privezak_za_Ključeve' folder structure. 5) Order Details: Verified order_details.txt contains product information with 'PROIZVODI:' section and 'Ukupna cena proizvoda:' totals. 6) API Integration: Product order creation via /api/orders/create endpoint working correctly with productType field validation. ZIP structure organization meets all requirements specified in review request."
 
+  - task: "Promo Code Validation API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ PROMO CODE VALIDATION API WORKING - POST /api/promo-codes/validate endpoint fully functional. Successfully tested: 1) Valid Code (TEST1): Returns success=true, discount=15, message='Promo kod primenjen! Popust: 15%' as expected. 2) Invalid Code (WRONG): Returns success=false, message='Nevalidan promo kod' correctly rejecting invalid codes. 3) Short Code Validation: Returns success=false with message 'Promo kod mora imati 5 karaktera' for codes under 5 characters (minor: returns 200 instead of 400 but validation logic works correctly). All core validation functionality working as specified in review request."
+
+  - task: "Promo Code Usage Increment API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ PROMO CODE USAGE INCREMENT API WORKING - POST /api/promo-codes/use endpoint fully functional. Successfully tested usage increment for TEST1 promo code: initial usage 0 → 1 after API call. Verified increment by checking GET /api/admin/promo-codes endpoint before and after usage. Returns success=true when usage is incremented. Usage tracking working correctly for order analytics."
+
+  - task: "Promo Code Admin Log API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ PROMO CODE ADMIN LOG API WORKING - GET /api/admin/promo-codes/log endpoint fully functional with admin token authentication. Returns correct response structure: success=true, log array with order details, total count. Successfully retrieved 1 order with promo code usage. Response includes orderNumber, customerName, promoCode, promoCodeDiscount, promoCodeDiscountAmount, and createdAt fields as expected. Admin log functionality working for promo code analytics."
+
+  - task: "Order Creation with Promo Code Integration"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ ORDER CREATION WITH PROMO CODE INTEGRATION WORKING - Successfully tested complete order flow with promo code TEST1. Order ORD-134487 created with: promoCode='TEST1', promoCodeDiscount=15, promoCodeDiscountAmount=13.5. All promo code fields correctly saved to MongoDB orders collection. Order retrieval API returns all promo code data. Integration between promo code system and order creation working perfectly for discount application and tracking."
+
 metadata:
   created_by: "testing_agent"
   version: "4.0"
