@@ -1605,15 +1605,15 @@ const UploadPage = () => {
                     <Input
                       type="text"
                       value={promoCode}
-                      onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
-                      placeholder="Unesite promo kod (5 karaktera)"
-                      maxLength={5}
+                      onChange={(e) => setPromoCode(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 10))}
+                      placeholder="Unesite promo kod"
+                      maxLength={10}
                       className="flex-1 text-lg font-bold tracking-wider uppercase border-2 border-blue-300"
                     />
                     <Button
                       type="button"
                       onClick={handleApplyPromoCode}
-                      disabled={promoValidating || promoCode.length !== 5}
+                      disabled={promoValidating || promoCode.length < 3}
                       className="bg-blue-600 hover:bg-blue-700 px-6"
                     >
                       {promoValidating ? (
