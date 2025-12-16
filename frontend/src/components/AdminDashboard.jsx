@@ -282,6 +282,15 @@ const AdminDashboard = () => {
                     Reklamni Baner
                   </Button>
                 </Link>
+                <Link to="/logovanje/promo-codes">
+                  <Button 
+                    variant="outline" 
+                    className="gap-2 border-2 border-purple-600 text-purple-600 hover:bg-purple-50"
+                  >
+                    <Tag size={18} />
+                    Promo Kodovi
+                  </Button>
+                </Link>
                 <Link to="/logovanje/settings">
                   <Button 
                     variant="outline" 
