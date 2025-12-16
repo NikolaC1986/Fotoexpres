@@ -972,17 +972,16 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Inactive Product Variants Filtering - Frontend Display"
-    - "Inactive Product Variants Filtering - Order Prevention"
-    - "Admin Panel Variant Toggle Functionality"
-  stuck_tasks:
-    - "Inactive Product Variants Filtering - Frontend Display"
-    - "Inactive Product Variants Filtering - Order Prevention"
-    - "Admin Panel Variant Toggle Functionality"
+    - "Promo Code System Testing Complete"
+  stuck_tasks: []
   test_all: false
   test_priority: "critical_first"
   completed_testing:
     - "Product-Only Order Flow Testing"
+    - "Promo Code Validation API"
+    - "Promo Code Usage Increment API" 
+    - "Promo Code Admin Log API"
+    - "Order Creation with Promo Code Integration"
   completed_new_features:
     - "ZIP Structure with Quantity Folders"
     - "Change Viewer Password Endpoint"
@@ -994,6 +993,7 @@ test_plan:
     - "Photo Printing Service - Image Display Fix"
     - "Product Image Editing in Admin Panel"
     - "Product Order ZIP Structure Organization"
+    - "Promo Code System - Backend APIs"
 
 agent_communication:
     - agent: "testing"
