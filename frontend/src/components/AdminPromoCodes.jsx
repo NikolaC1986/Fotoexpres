@@ -148,6 +148,64 @@ const AdminPromoCodes = () => {
     setNewCode(prev => ({ ...prev, code }));
   };
 
+  const handleDownloadLog = async () => {
+    try {
+      const token = localStorage.getItem('adminToken');
+      const response = await axios.get(`${API}/admin/promo-codes/log`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (response.data.success && response.data.log.length > 0) {
+        // Create CSV content
+        const headers = ['Broj Porudžbine', 'Promo Kod', 'Popust (%)', 'Iznos Popusta (RSD)', 'Ime Kupca', 'Email', 'Status', 'Datum'];
+        const rows = response.data.log.map(entry => [
+          entry.orderNumber,
+          entry.promoCode,
+          entry.promoCodeDiscount,
+          entry.promoCodeDiscountAmount,
+          entry.customerName,
+          entry.customerEmail,
+          entry.status,
+          new Date(entry.createdAt).toLocaleDateString('sr-RS')
+        ]);
+
+        const csvContent = [
+          headers.join(','),
+          ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+        ].join('\n');
+
+        // Download the CSV
+        const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `promo_kodovi_log_${new Date().toISOString().split('T')[0]}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+
+        toast({
+          title: "Uspešno!",
+          description: `Preuzeto ${response.data.log.length} zapisa`
+        });
+      } else {
+        toast({
+          title: "Nema podataka",
+          description: "Nema porudžbina sa promo kodovima",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      console.error('Error downloading log:', error);
+      toast({
+        title: "Greška",
+        description: "Nije moguće preuzeti log",
+        variant: "destructive"
+      });
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
