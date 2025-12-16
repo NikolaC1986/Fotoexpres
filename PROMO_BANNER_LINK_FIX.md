@@ -3,7 +3,7 @@
 ## Problem
 Kada korisnik unese URL bez protokola (npr. `www.google.com`), klik na baner ne vodi na eksterni sajt. Umesto toga, browser tretira URL kao relativan i kreira loš link strukture:
 ```
-https://snapprint-9.preview.emergentagent.com/www.google.com
+https://promo-system-3.preview.emergentagent.com/www.google.com
 ```
 
 ## Uzrok

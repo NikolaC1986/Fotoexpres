@@ -15,7 +15,7 @@ import io
 import time
 
 # Configuration
-BACKEND_URL = "https://snapprint-9.preview.emergentagent.com/api"
+BACKEND_URL = "https://promo-system-3.preview.emergentagent.com/api"
 
 class ThreeFixesValidator:
     def __init__(self):
@@ -313,7 +313,7 @@ class ThreeFixesValidator:
                     if image_url and image_url.startswith('/uploads/products/'):
                         # Test production URL access
                         filename = image_url.split('/')[-1]
-                        production_url = f"https://snapprint-9.preview.emergentagent.com/uploads/products/{filename}"
+                        production_url = f"https://promo-system-3.preview.emergentagent.com/uploads/products/{filename}"
                         
                         prod_response = requests.get(production_url)
                         

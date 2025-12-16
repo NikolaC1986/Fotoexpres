@@ -17,7 +17,7 @@ import base64
 from datetime import datetime
 
 # Configuration
-BACKEND_URL = "https://snapprint-9.preview.emergentagent.com/api"
+BACKEND_URL = "https://promo-system-3.preview.emergentagent.com/api"
 
 class RoleBasedAuthTester:
     def __init__(self):

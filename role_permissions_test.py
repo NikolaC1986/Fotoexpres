@@ -7,7 +7,7 @@ import requests
 import json
 
 # Configuration
-BACKEND_URL = "https://snapprint-9.preview.emergentagent.com/api"
+BACKEND_URL = "https://promo-system-3.preview.emergentagent.com/api"
 
 class RolePermissionsTester:
     def __init__(self):
