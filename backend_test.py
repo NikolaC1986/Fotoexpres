@@ -2,7 +2,7 @@
 """
 Backend API Testing for Photo Printing Order Management System
 Tests all endpoints and functionality as specified in the review request.
-UPDATED: Testing new address fields (street, postalCode, city) and ZIP structure
+UPDATED: Testing PROMO CODE SYSTEM as per review request
 """
 
 import requests
