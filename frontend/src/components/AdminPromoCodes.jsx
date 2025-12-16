@@ -53,12 +53,13 @@ const AdminPromoCodes = () => {
     try {
       const code = newCode.code.toUpperCase().trim();
       const discount = parseInt(newCode.discountPercent);
+      const maxUses = newCode.maxUses ? parseInt(newCode.maxUses) : null;
 
       // Validation
-      if (!code || code.length !== 5) {
+      if (!code || code.length < 3 || code.length > 10) {
         toast({
           title: "Greška",
-          description: "Promo kod mora imati tačno 5 karaktera",
+          description: "Promo kod mora imati između 3 i 10 karaktera",
           variant: "destructive"
         });
         return;
@@ -82,12 +83,22 @@ const AdminPromoCodes = () => {
         return;
       }
 
+      if (maxUses !== null && maxUses < 1) {
+        toast({
+          title: "Greška",
+          description: "Maksimalan broj korišćenja mora biti pozitivan broj",
+          variant: "destructive"
+        });
+        return;
+      }
+
       const token = localStorage.getItem('adminToken');
       const response = await axios.post(
         `${API}/admin/promo-codes`,
         {
           code: code,
-          discountPercent: discount
+          discountPercent: discount,
+          maxUses: maxUses
         },
         { headers: { 'Authorization': `Bearer ${token}` } }
       );
@@ -98,7 +109,7 @@ const AdminPromoCodes = () => {
           description: response.data.message
         });
         setShowAddModal(false);
-        setNewCode({ code: '', discountPercent: '' });
+        setNewCode({ code: '', discountPercent: '', maxUses: '' });
         fetchPromoCodes();
       }
     } catch (error) {
