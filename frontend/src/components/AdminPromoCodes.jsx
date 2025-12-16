@@ -153,8 +153,9 @@ const AdminPromoCodes = () => {
 
   const generateRandomCode = () => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const length = Math.floor(Math.random() * 4) + 5; // Random length between 5-8
     let code = '';
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < length; i++) {
       code += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     setNewCode(prev => ({ ...prev, code }));
