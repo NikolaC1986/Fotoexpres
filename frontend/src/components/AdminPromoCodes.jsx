@@ -400,17 +400,17 @@ const AdminPromoCodes = () => {
 
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="code" className="mb-2 block">Promo Kod (5 karaktera)</Label>
+                  <Label htmlFor="code" className="mb-2 block">Promo Kod</Label>
                   <div className="flex gap-2">
                     <Input
                       id="code"
                       value={newCode.code}
                       onChange={(e) => {
-                        const value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 5);
+                        const value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 10);
                         setNewCode(prev => ({ ...prev, code: value }));
                       }}
-                      placeholder="ABCD1"
-                      maxLength={5}
+                      placeholder="Unesite kod"
+                      maxLength={10}
                       className="flex-1 text-lg font-bold tracking-wider"
                     />
                     <Button
@@ -422,9 +422,6 @@ const AdminPromoCodes = () => {
                       Generiši
                     </Button>
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
-                    Samo slova (A-Z) i brojevi (0-9)
-                  </p>
                 </div>
 
                 <div>
@@ -442,8 +439,24 @@ const AdminPromoCodes = () => {
                     max="100"
                     className="text-lg"
                   />
+                </div>
+
+                <div>
+                  <Label htmlFor="maxUses" className="mb-2 block">Maksimalan Broj Korišćenja (opcionalno)</Label>
+                  <Input
+                    id="maxUses"
+                    type="number"
+                    value={newCode.maxUses}
+                    onChange={(e) => {
+                      const value = e.target.value === '' ? '' : Math.max(1, parseInt(e.target.value) || 1);
+                      setNewCode(prev => ({ ...prev, maxUses: value.toString() }));
+                    }}
+                    placeholder="Neograničeno"
+                    min="1"
+                    className="text-lg"
+                  />
                   <p className="text-xs text-gray-500 mt-1">
-                    Između 1% i 100%
+                    Ostavite prazno za neograničeno korišćenje
                   </p>
                 </div>
 
@@ -453,6 +466,9 @@ const AdminPromoCodes = () => {
                     <p className="text-lg">
                       Kod <span className="font-bold text-orange-600">{newCode.code}</span> daje{' '}
                       <span className="font-bold text-green-600">{newCode.discountPercent}%</span> popusta
+                      {newCode.maxUses && (
+                        <span className="text-gray-600"> (max {newCode.maxUses}x)</span>
+                      )}
                     </p>
                   </div>
                 )}
@@ -463,7 +479,7 @@ const AdminPromoCodes = () => {
                   variant="outline"
                   onClick={() => {
                     setShowAddModal(false);
-                    setNewCode({ code: '', discountPercent: '' });
+                    setNewCode({ code: '', discountPercent: '', maxUses: '' });
                   }}
                   className="flex-1"
                 >
@@ -471,7 +487,7 @@ const AdminPromoCodes = () => {
                 </Button>
                 <Button
                   onClick={handleAddCode}
-                  disabled={!newCode.code || newCode.code.length !== 5 || !newCode.discountPercent}
+                  disabled={!newCode.code || newCode.code.length < 3 || !newCode.discountPercent}
                   className="flex-1 bg-orange-600 hover:bg-orange-700"
                 >
                   Kreiraj Kod
