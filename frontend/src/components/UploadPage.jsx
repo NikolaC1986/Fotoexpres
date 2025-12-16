@@ -920,6 +920,9 @@ const UploadPage = () => {
           promotionDiscountAmount: promotionDiscountAmount,
           quantityDiscountPercent: quantityDiscountPercent,
           promotionDiscountPercent: promotionDiscountPercent,
+          promoCode: appliedPromoCode || '',
+          promoCodeDiscount: promoDiscount,
+          promoCodeDiscountAmount: promoCodeDiscountAmount,
           deliveryFee: deliveryFee,
           deliveryPrice: deliveryPrice,
           freeDeliveryLimit: freeDeliveryLimit,
@@ -956,6 +959,15 @@ const UploadPage = () => {
 
         const { orderNumber } = response.data;
         
+        // Increment promo code usage if one was applied
+        if (appliedPromoCode) {
+          try {
+            await axios.post(`${API}/promo-codes/use`, { code: appliedPromoCode });
+          } catch (err) {
+            console.error('Failed to increment promo code usage:', err);
+          }
+        }
+
         // All checks passed - show success
         // Show success modal
         setSuccessOrderNumber(orderNumber);
