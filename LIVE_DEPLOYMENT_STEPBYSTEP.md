@@ -441,7 +441,7 @@ curl http://localhost:8001/api/health
 
 ## ✅ Verifikacija
 
-### 12. Provera Logova
+### 13. Provera Logova
 
 ```bash
 # Backend logovi (zavisi od setup-a)
@@ -456,11 +456,11 @@ tail -50 /var/log/nginx/access.log
 grep -i "error\|critical" /var/log/supervisor/backend.err.log
 ```
 
-✅ **Checkpoint 12:** Nema kritičnih grešaka u logovima
+✅ **Checkpoint 13:** Nema kritičnih grešaka u logovima
 
 ---
 
-### 13. Test API Endpoint-a
+### 14. Test API Endpoint-a
 
 ```bash
 # Test health endpoint
@@ -479,11 +479,11 @@ curl -I https://your-live-site.com/api/admin/orders
 # Očekivano: 401 Unauthorized ✅
 ```
 
-✅ **Checkpoint 13:** API radi pravilno
+✅ **Checkpoint 14:** API radi pravilno
 
 ---
 
-### 14. Test Frontend-a
+### 15. Test Frontend-a
 
 **Browser Testovi:**
 1. Otvori `https://your-live-site.com`
@@ -501,11 +501,11 @@ curl -I https://your-live-site.com/api/admin/orders
 2. Test hamburger meni
 3. Proveri prikaz proizvoda (veće slike)
 
-✅ **Checkpoint 14:** Frontend radi
+✅ **Checkpoint 15:** Frontend radi
 
 ---
 
-### 15. Test Kritičnih Funkcionalnosti
+### 16. Test Kritičnih Funkcionalnosti
 
 **Test 1: Poručivanje Samo Proizvoda**
 1. Idi na `/upload`
@@ -531,13 +531,13 @@ curl -I https://your-live-site.com/api/admin/orders
 2. Hamburger meni
 3. ✅ Navigacija radi
 
-✅ **Checkpoint 15:** Sve funkcionalnosti rade
+✅ **Checkpoint 16:** Sve funkcionalnosti rade
 
 ---
 
 ## 🔐 Post-Deployment Sigurnost
 
-### 16. Sigurnosni Testovi
+### 17. Sigurnosni Testovi
 
 ```bash
 # Test 1: Admin ruta bez tokena
@@ -555,11 +555,11 @@ curl -F "image=@test.txt" https://your-live-site.com/api/admin/promo-banner/uplo
 # Očekivano: 400 ili 401 ✅
 ```
 
-✅ **Checkpoint 16:** Sigurnosni testovi prošli
+✅ **Checkpoint 17:** Sigurnosni testovi prošli
 
 ---
 
-### 17. Sačuvaj Kredencijale na Sigurno Mesto
+### 18. Sačuvaj Kredencijale na Sigurno Mesto
 
 ```bash
 # Kreiraj fajl sa kredencijalima
@@ -588,7 +588,7 @@ gpg -c /secure/location/production_credentials.txt
 # ILI koristi password manager (1Password, LastPass, itd.)
 ```
 
-✅ **Checkpoint 17:** Kredencijali sačuvani sigurno
+✅ **Checkpoint 18:** Kredencijali sačuvani sigurno
 
 ---
 
