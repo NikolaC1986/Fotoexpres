@@ -2133,6 +2133,43 @@ async def delete_promo_code(
         logging.error(f"Error deleting promo code: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to delete promo code")
 
+# Get promo code usage log (admin)
+@api_router.get("/admin/promo-codes/log")
+async def get_promo_codes_log(admin = Depends(verify_admin_token)):
+    """Get all orders that used promo codes"""
+    try:
+        # Find all orders with a promo code
+        orders_with_promo = await db.orders.find(
+            {"promoCode": {"$ne": "", "$exists": True}},
+            {"_id": 0}
+        ).sort("createdAt", -1).to_list(10000)
+        
+        # Format the data for the log
+        log_data = []
+        for order in orders_with_promo:
+            log_entry = {
+                "orderNumber": order.get("orderNumber", ""),
+                "promoCode": order.get("promoCode", ""),
+                "promoCodeDiscount": order.get("promoCodeDiscount", 0),
+                "promoCodeDiscountAmount": order.get("promoCodeDiscountAmount", 0),
+                "customerName": order.get("contactInfo", {}).get("fullName", ""),
+                "customerEmail": order.get("contactInfo", {}).get("email", ""),
+                "grandTotal": order.get("priceInfo", {}).get("grandTotal", 0) if order.get("priceInfo") else 0,
+                "status": order.get("status", ""),
+                "createdAt": order.get("createdAt", "")
+            }
+            log_data.append(log_entry)
+        
+        logging.info(f"Promo code log retrieved: {len(log_data)} orders")
+        return {
+            "success": True,
+            "log": log_data,
+            "total": len(log_data)
+        }
+    except Exception as e:
+        logging.error(f"Error getting promo code log: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to get promo code log")
+
 # Include the router in the main app
 app.include_router(api_router)
 
