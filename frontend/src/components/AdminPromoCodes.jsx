@@ -352,13 +352,26 @@ const AdminPromoCodes = () => {
 
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600">Korišćeno:</span>
-                    <span className="text-lg font-semibold text-gray-900">{code.timesUsed}x</span>
+                    <span className="text-lg font-semibold text-gray-900">
+                      {code.timesUsed}{code.maxUses ? `/${code.maxUses}` : ''}x
+                    </span>
                   </div>
+
+                  {code.maxUses && code.timesUsed >= code.maxUses && (
+                    <div className="bg-red-50 text-red-700 text-sm font-medium px-3 py-1 rounded-full text-center">
+                      Iskorišćen
+                    </div>
+                  )}
 
                   <div className="pt-3 border-t border-gray-200">
                     <p className="text-xs text-gray-500">
                       Kreirano: {new Date(code.createdAt).toLocaleDateString('sr-RS')}
                     </p>
+                    {code.maxUses && (
+                      <p className="text-xs text-gray-500">
+                        Limit: {code.maxUses} korišćenja
+                      </p>
+                    )}
                   </div>
                 </div>
               </Card>
