@@ -2061,12 +2061,13 @@ async def create_promo_code(
     try:
         code = promo_data.get('code', '').upper().strip()
         discount_percent = promo_data.get('discountPercent')
+        max_uses = promo_data.get('maxUses')  # None means unlimited
         
         # Validation
-        if not code or len(code) != 5:
+        if not code or len(code) < 3 or len(code) > 10:
             raise HTTPException(
                 status_code=400,
-                detail="Promo kod mora imati tačno 5 karaktera"
+                detail="Promo kod mora imati između 3 i 10 karaktera"
             )
         
         if not code.isalnum():
@@ -2081,6 +2082,14 @@ async def create_promo_code(
                 detail="Popust mora biti između 1% i 100%"
             )
         
+        # Validate maxUses if provided
+        if max_uses is not None:
+            if not isinstance(max_uses, int) or max_uses < 1:
+                raise HTTPException(
+                    status_code=400,
+                    detail="Maksimalan broj korišćenja mora biti pozitivan broj"
+                )
+        
         # Check if code already exists
         existing = await db.promo_codes.find_one({"code": code})
         if existing:
@@ -2093,6 +2102,7 @@ async def create_promo_code(
         new_code = {
             "code": code,
             "discountPercent": discount_percent,
+            "maxUses": max_uses,  # None = unlimited
             "timesUsed": 0,
             "createdAt": datetime.now(timezone.utc).isoformat(),
             "createdBy": "admin"
@@ -2100,13 +2110,15 @@ async def create_promo_code(
         
         await db.promo_codes.insert_one(new_code)
         
-        logging.info(f"Promo code created: {code} - {discount_percent}%")
+        max_uses_str = f", max uses: {max_uses}" if max_uses else ", unlimited uses"
+        logging.info(f"Promo code created: {code} - {discount_percent}%{max_uses_str}")
         return {
             "success": True,
             "message": "Promo kod uspešno kreiran",
             "code": {
                 "code": code,
                 "discountPercent": discount_percent,
+                "maxUses": max_uses,
                 "timesUsed": 0,
                 "createdAt": new_code["createdAt"]
             }
