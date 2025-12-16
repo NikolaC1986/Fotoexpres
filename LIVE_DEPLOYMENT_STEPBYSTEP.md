@@ -1,9 +1,11 @@
 # 🚀 Korak-po-Korak Uputstvo za Live Deployment
 
 ## ⚠️ VAŽNA NAPOMENA
-**MongoDB baza na live sajtu je skinuta i koristi se samo kao backup.**
+**MongoDB postoji na live serveru, ali baza je prazna (podaci su prethodno downlodovani/skinuti).**
 
-Ovo uputstvo je prilagođeno toj situaciji.
+Ovo uputstvo pokriva:
+- Deployment nove verzije koda
+- Opciono: Restore MongoDB podataka sa backup-a (ako želiš)
 
 ---
 
@@ -23,9 +25,19 @@ mv backup_*.tar.gz /backup/
 
 ---
 
-### 2. MongoDB Backup (Lokalni Dev/Preview)
+### 2. MongoDB Backup & Restore Plan
+
+**Imaš 2 Opcije:**
+
+**Opcija A: Počni sa Praznom Bazom (Nova Početak)**
+- MongoDB će automatski kreirati kolekcije kada budu potrebne
+- Preskočiš ovaj korak
+- Kreiraćeš nove porudžbine od početka
+
+**Opcija B: Vrati Podatke sa Preview/Dev Okruženja**
+
 ```bash
-# Samo na lokalnom ili preview okruženju (gde je MongoDB aktivan)
+# Na preview/dev serveru (gde ima podataka)
 mongodump --uri="mongodb://localhost:27017/photo_print_app" \
           --out=/backup/mongodb_$(date +%Y%m%d_%H%M%S)
 
@@ -33,10 +45,11 @@ mongodump --uri="mongodb://localhost:27017/photo_print_app" \
 cd /backup
 tar -czf mongodb_backup_$(date +%Y%m%d_%H%M%S).tar.gz mongodb_*/
 
-# Čuvaj ovaj backup negde sigurno (external drive, cloud, itd.)
+# Prenesi na live server
+scp mongodb_backup_*.tar.gz user@live-server:/tmp/
 ```
 
-✅ **Checkpoint 2:** MongoDB backup sačuvan
+✅ **Checkpoint 2:** Odlučio šta sa bazom (prazna ili restore)
 
 ---
 
