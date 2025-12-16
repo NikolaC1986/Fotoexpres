@@ -636,6 +636,10 @@ const UploadPage = () => {
           giftPhotoFieldName: `gift_photos_${giftIdx}`
         }));
 
+        // Calculate promo code discount for products only order
+        const promoDiscountForProducts = appliedPromoCode ? Math.round((productsPrice * promoDiscount) / 100) : 0;
+        const grandTotalForProducts = productsPrice - promoDiscountForProducts + deliveryFee;
+
         const orderDetails = {
           contactInfo,
           photoSettings: [], // No photos
@@ -644,10 +648,13 @@ const UploadPage = () => {
           promotionDiscountAmount: 0,
           quantityDiscountPercent: 0,
           promotionDiscountPercent: 0,
+          promoCode: appliedPromoCode || '',
+          promoCodeDiscount: promoDiscount,
+          promoCodeDiscountAmount: promoDiscountForProducts,
           deliveryFee: deliveryFee,
           deliveryPrice: deliveryPrice,
           freeDeliveryLimit: freeDeliveryLimit,
-          grandTotal: productsPrice + deliveryFee,
+          grandTotal: grandTotalForProducts,
           prices: priceMap,
           cropOption: false,
           fillWhiteOption: false,
@@ -666,6 +673,15 @@ const UploadPage = () => {
         }
 
         const { orderNumber } = response.data;
+
+        // Increment promo code usage if one was applied
+        if (appliedPromoCode) {
+          try {
+            await axios.post(`${API}/promo-codes/use`, { code: appliedPromoCode });
+          } catch (err) {
+            console.error('Failed to increment promo code usage:', err);
+          }
+        }
 
         // Show success modal
         setSuccessOrderNumber(orderNumber);
