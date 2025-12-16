@@ -544,6 +544,10 @@ const UploadPage = () => {
     setFillWhiteOption(false);
     setUploadProgress(0);
     setIsUploading(false);
+    setPromoCode('');
+    setPromoDiscount(0);
+    setAppliedPromoCode('');
+    setSelectedProducts([]);
   };
 
   const handleSubmit = async (e) => {
