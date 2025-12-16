@@ -985,4 +985,53 @@ agent_communication:
     - agent: "testing"
       message: "🎯 PHOTO PRINTING SERVICE THREE FIXES TESTING COMPLETE - ALL FIXES VERIFIED AND WORKING! Comprehensive validation of the three user-reported fixes executed with 100% success rate (3/3 fixes working). ✅ FIX 1 - ORDER STATUS: Orders correctly created with status 'Na Čekanju' instead of 'completed' (tested with order ORD-821336). ✅ FIX 2 - PRODUCTS IN TXT: order_details.txt now contains products and correct prices - all 9/9 validation checks passed including 'PROIZVODI:' section, product names/prices (Šolja - 1500 RSD), 'Ukupna cena proizvoda:', 'OBRAČUN CENE' with 'Dodatni proizvodi:' and 'UKUPNO ZA NAPLATU:', and gift products marked 'BESPLATNO' (tested with order ORD-786970). ✅ FIX 3 - IMAGE DISPLAY: Product image upload and display working correctly - images uploaded via admin panel receive correct URL format '/uploads/products/UUID.jpg' and are accessible via production URL. All three critical fixes are production-ready and address the user's reported issues completely."
     - agent: "testing"
-      message: "🖼️ PRODUCT IMAGE UPLOAD AND URL CHANGE TESTING COMPLETE - FUNCTIONALITY VERIFIED AND WORKING! Comprehensive testing of admin products panel image management executed successfully. ✅ ADMIN ACCESS: Successfully logged in with credentials 'Vlasnik/$ta$Graca25' and accessed Products panel at /logovanje/products. ✅ PRODUCTS VISIBLE: All 5 products displayed correctly (Album za Slike, Šolja sa Štampom, Privezak za Ključeve, Fotokalendar, Fotomagnet) with proper image previews. ✅ BACKEND VERIFICATION: API endpoint /api/products returns correct data - Album za Slike has uploaded image '/uploads/products/c1b22657-c8ba-40e9-8009-086b8bd60c4f.jpg', Šolja sa Štampom has external URL 'https://images.unsplash.com/photo-1650959858546-d09833d5317b?...'. ✅ IMAGE DISPLAY: All product images load correctly with no broken images detected. ✅ URL FORMATS: Backend correctly stores both relative paths (/uploads/products/UUID.jpg) for uploaded files and external URLs (https://...) for URL changes. ✅ NO BASE64 STRINGS: Confirmed no base64 data URLs stored in database - all images use proper server URLs. ✅ VALIDATION CRITERIA MET: URL change functionality accessible, file upload functionality accessible, images display correctly after save operations, images persist after page refresh, all product images visible on admin panel, no console errors detected. Product image upload and URL change functionality is production-ready and working as specified in review request."
+      message: "🖼️ PRODUCT IMAGE UPLOAD AND URL CHANGE TESTING COMPLETE - FUNCTIONALITY VERIFIED AND WORKING! Comprehensive testing of admin products panel image management executed successfully. ✅ ADMIN ACCESS: Successfully logged in with credentials 'Vlasnik/$ta$Graca25' and accessed Products panel at /logovanje/products. ✅ PRODUCTS VISIBLE: All 5 products displayed correctly (Album za Slike, Šolja sa Štampom, Privezak za Ključeve, Fotokalendar, Fotomagnet) with proper image previews. ✅ BACKEND VERIFICATION: API endpoint /api/products returns correct data - Album za Slike has uploaded image '/uploads/products/c1b22657-c8ba-40e9-8009-086b8bd60c4f.jpg', Šolja sa Štampom has external URL 'https://images.unsplash.com/photo-1650959858546-d09833d5317b?...'. ✅ IMAGE DISPLAY: All product images load correctly with no broken images detected. ✅ URL FORMATS: Backend correctly stores both relative paths (/uploads/products/UUID.jpg) for uploaded files and external URLs (https://...) for URL changes. ✅ NO BASE64 STRINGS: Confirmed no base64 data URLs stored in database - all images use proper server URLs. ✅ VALIDATION CRITERIA MET: URL change functionality accessible, file upload functionality accessible, images display correctly after save operations, images persist after page refresh, all product images visible on admin panel, no console errors detected. Product image upload and URL change functionality is production-ready and working as specified in review request."    - agent: "main"
+      message: "🏷️ PROMO CODE SYSTEM IMPLEMENTATION COMPLETE - Implemented full promo code functionality for user orders. FEATURES IMPLEMENTED: 1) Frontend UI: Added promo code input section in price summary (UploadPage.jsx) with validation, apply/remove buttons, discount display. 2) Price Calculation: promoCodeDiscountAmount calculated and applied to grandTotal, affects delivery fee threshold. 3) Order Submission: All three order paths (standard, chunked, products-only) now include promoCode, promoCodeDiscount, promoCodeDiscountAmount fields. 4) Backend Storage: order_doc and price_info now store promo code information. 5) Usage Tracking: After successful order, promo code timesUsed counter is incremented. 6) Admin Log Download: New endpoint GET /api/admin/promo-codes/log returns all orders with promo codes. AdminPromoCodes.jsx has 'Preuzmi Log' button that downloads CSV with order details. TESTING NEEDED: Test promo code application flow on /upload page, verify discount calculation, verify order submission with promo code, verify usage counter increment, test admin log download."
+
+  - task: "Promo Code Frontend Integration"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/UploadPage.jsx"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Added promo code UI section in price summary with input field, apply/remove buttons, and discount display. Integrated handleApplyPromoCode function to validate code via /api/promo-codes/validate endpoint. Discount is applied to grandTotal calculation. Needs E2E testing."
+
+  - task: "Promo Code Order Submission"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/UploadPage.jsx"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "All three order submission paths (standard, chunked, products-only) now include promoCode, promoCodeDiscount, promoCodeDiscountAmount in orderDetails. After successful order, calls /api/promo-codes/use to increment usage counter. Needs testing."
+
+  - task: "Promo Code Backend Storage"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Backend order_doc now stores promoCode, promoCodeDiscount, promoCodeDiscountAmount fields. price_info also includes promo code information. Needs verification."
+
+  - task: "Promo Code Admin Log Download"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py, /app/frontend/src/components/AdminPromoCodes.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Added GET /api/admin/promo-codes/log endpoint that returns all orders with promo codes. AdminPromoCodes.jsx has 'Preuzmi Log' button that downloads CSV with order number, promo code, discount, customer info, date. Needs testing."
