@@ -1,0 +1,76 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                    FOTOEXPRES - DETALJI PORUDŽBINE                ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+BROJ PORUDŽBINE: ORD-134487
+DATUM: 2025-12-16 18:38:31
+
+═══════════════════════════════════════════════════════════════════
+
+INFORMACIJE O KLIJENTU:
+─────────────────────────
+Ime i prezime: Test User
+Email: test@test.com
+Telefon: 0601234567
+Ulica i broj: Test Street 1
+Poštanski broj: 11000
+Grad: Belgrade
+Napomene: Test order with promo code
+
+═══════════════════════════════════════════════════════════════════
+
+OPCIJE OBRADE FOTOGRAFIJA:
+───────────────────────────
+• Kropovati fotografiju kako bi je prilagodili formatu: NE
+• Popuniti belim: NE
+
+═══════════════════════════════════════════════════════════════════
+
+SPECIFIKACIJA FOTOGRAFIJA:
+───────────────────────────
+
+1. promo_test1.jpg
+   Format: 10x15 cm
+   Tip papira: Sjajni
+   Količina: 5 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 90 RSD
+   ───────────────────────────
+
+═══════════════════════════════════════════════════════════════════
+
+OBRAČUN CENE:
+─────────────────────────
+
+Ukupan broj fotografija: 5 komada
+Osnovna cena fotografija: 90 RSD
+
+Dostava: 400 RSD
+   • Standardna dostava
+
+──────────────────────────────
+UKUPNO ZA NAPLATU: 490 RSD
+
+═══════════════════════════════════════════════════════════════════
+
+NAČIN PLAĆANJA: Plaćanje pouzećem (kuriru prilikom isporuke)
+ROK DOSTAVE: 2-7 radnih dana
+
+═══════════════════════════════════════════════════════════════════
+
+Hvala vam što ste odabrali Fotoexpres!
+Za sva pitanja kontaktirajte nas na: kontakt@fotoexpres.rs
+
+═══════════════════════════════════════════════════════════════════
+
+
+═══════════════════════════════════════════════════════════════════
+
+REKAPITULACIJA PO FORMATIMA:
+─────────────────────────────
+Format 10x15 cm: 5 fotografija
+
+──────────────────────────────
+UKUPNO: 5 fotografija
+
+═══════════════════════════════════════════════════════════════════
