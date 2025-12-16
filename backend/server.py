@@ -1971,10 +1971,10 @@ async def validate_promo_code(promo_data: dict):
     try:
         code = promo_data.get('code', '').upper().strip()
         
-        if not code or len(code) != 5:
+        if not code:
             return {
                 "success": False,
-                "message": "Promo kod mora imati 5 karaktera",
+                "message": "Nevalidan promo kod",
                 "discount": 0
             }
         
@@ -1985,6 +1985,16 @@ async def validate_promo_code(promo_data: dict):
             return {
                 "success": False,
                 "message": "Nevalidan promo kod",
+                "discount": 0
+            }
+        
+        # Check if max uses limit is reached
+        max_uses = promo_code.get('maxUses')
+        times_used = promo_code.get('timesUsed', 0)
+        if max_uses is not None and times_used >= max_uses:
+            return {
+                "success": False,
+                "message": "Promo kod je istekao (dostignut maksimalan broj korišćenja)",
                 "discount": 0
             }
         
