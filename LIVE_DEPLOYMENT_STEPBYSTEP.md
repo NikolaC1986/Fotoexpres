@@ -357,7 +357,46 @@ sudo systemctl restart apache2
 
 ---
 
-### 11. Restart Backend Service
+### 11. [OPCIONO] Restore MongoDB Podataka
+
+**⚠️ Samo ako si izabrao Opciju B u Checkpoint-u 2 (restore podataka)**
+
+```bash
+# Na live serveru
+
+# 1. Proveri da li MongoDB radi
+sudo systemctl status mongodb
+# ILI
+sudo systemctl status mongod
+
+# 2. Dekompresuj backup
+cd /tmp
+tar -xzf mongodb_backup_*.tar.gz
+
+# 3. Restore bazu
+mongorestore --uri="mongodb://localhost:27017" \
+             --db=photo_print_app \
+             mongodb_*/photo_print_app/
+
+# 4. Proveri da li su podaci tu
+mongosh photo_print_app --eval "db.orders.countDocuments()"
+# Trebalo bi da vidiš broj porudžbina
+
+# 5. Cleanup
+rm -rf /tmp/mongodb_* /tmp/mongodb_backup_*.tar.gz
+```
+
+✅ **Checkpoint 11A:** MongoDB restore završen (ako si radio)
+
+**Ako poručiš sa praznom bazom:**
+- Aplikacija će automatski kreirati kolekcije kad budu potrebne
+- `promo_banner` kolekcija: kreira se pri prvom upload-u banera
+- `orders` kolekcija: kreira se pri prvoj porudžbini
+- `products` kolekcija: već postoji sa proizvodima
+
+---
+
+### 12. Restart Backend Service
 
 **Ako koristiš Supervisor:**
 ```bash
@@ -396,7 +435,7 @@ nohup python -m uvicorn server:app --host 0.0.0.0 --port 8001 &
 curl http://localhost:8001/api/health
 ```
 
-✅ **Checkpoint 11:** Backend restartovan
+✅ **Checkpoint 12:** Backend restartovan
 
 ---
 
