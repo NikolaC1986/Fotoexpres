@@ -1956,6 +1956,177 @@ async def update_promo_banner(
         logging.error(f"Error updating promo banner: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to update promo banner")
 
+# ==================== PROMO CODES ENDPOINTS ====================
+
+# Validate promo code (public)
+@api_router.post("/promo-codes/validate")
+async def validate_promo_code(promo_data: dict):
+    """Validate promo code and return discount"""
+    try:
+        code = promo_data.get('code', '').upper().strip()
+        
+        if not code or len(code) != 5:
+            return {
+                "success": False,
+                "message": "Promo kod mora imati 5 karaktera",
+                "discount": 0
+            }
+        
+        # Find promo code
+        promo_code = await db.promo_codes.find_one({"code": code}, {"_id": 0})
+        
+        if not promo_code:
+            return {
+                "success": False,
+                "message": "Nevalidan promo kod",
+                "discount": 0
+            }
+        
+        logging.info(f"Promo code validated: {code} - {promo_code['discountPercent']}% discount")
+        return {
+            "success": True,
+            "message": f"Promo kod primenjen! Popust: {promo_code['discountPercent']}%",
+            "discount": promo_code['discountPercent']
+        }
+    except Exception as e:
+        logging.error(f"Error validating promo code: {str(e)}")
+        return {
+            "success": False,
+            "message": "Greška pri validaciji koda",
+            "discount": 0
+        }
+
+# Increment promo code usage (internal)
+@api_router.post("/promo-codes/use")
+async def use_promo_code(promo_data: dict):
+    """Increment usage counter for promo code"""
+    try:
+        code = promo_data.get('code', '').upper().strip()
+        
+        if not code:
+            return {"success": False, "message": "Kod nije poslat"}
+        
+        # Increment timesUsed
+        result = await db.promo_codes.update_one(
+            {"code": code},
+            {"$inc": {"timesUsed": 1}}
+        )
+        
+        if result.modified_count > 0:
+            logging.info(f"Promo code used: {code}")
+            return {"success": True, "message": "Promo kod iskorišćen"}
+        else:
+            return {"success": False, "message": "Kod nije pronađen"}
+    except Exception as e:
+        logging.error(f"Error using promo code: {str(e)}")
+        return {"success": False, "message": "Greška"}
+
+# Get all promo codes (admin)
+@api_router.get("/admin/promo-codes")
+async def get_promo_codes(admin = Depends(verify_admin_token)):
+    """Get all promo codes for admin panel"""
+    try:
+        promo_codes = await db.promo_codes.find({}, {"_id": 0}).to_list(1000)
+        return {
+            "success": True,
+            "codes": promo_codes
+        }
+    except Exception as e:
+        logging.error(f"Error fetching promo codes: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch promo codes")
+
+# Create promo code (admin)
+@api_router.post("/admin/promo-codes")
+async def create_promo_code(
+    promo_data: dict,
+    admin = Depends(verify_admin_token)
+):
+    """Create new promo code"""
+    try:
+        code = promo_data.get('code', '').upper().strip()
+        discount_percent = promo_data.get('discountPercent')
+        
+        # Validation
+        if not code or len(code) != 5:
+            raise HTTPException(
+                status_code=400,
+                detail="Promo kod mora imati tačno 5 karaktera"
+            )
+        
+        if not code.isalnum():
+            raise HTTPException(
+                status_code=400,
+                detail="Promo kod može sadržati samo slova i brojeve"
+            )
+        
+        if not discount_percent or discount_percent < 1 or discount_percent > 100:
+            raise HTTPException(
+                status_code=400,
+                detail="Popust mora biti između 1% i 100%"
+            )
+        
+        # Check if code already exists
+        existing = await db.promo_codes.find_one({"code": code})
+        if existing:
+            raise HTTPException(
+                status_code=400,
+                detail="Promo kod već postoji"
+            )
+        
+        # Create promo code
+        new_code = {
+            "code": code,
+            "discountPercent": discount_percent,
+            "timesUsed": 0,
+            "createdAt": datetime.now(timezone.utc).isoformat(),
+            "createdBy": "admin"
+        }
+        
+        await db.promo_codes.insert_one(new_code)
+        
+        logging.info(f"Promo code created: {code} - {discount_percent}%")
+        return {
+            "success": True,
+            "message": "Promo kod uspešno kreiran",
+            "code": {
+                "code": code,
+                "discountPercent": discount_percent,
+                "timesUsed": 0,
+                "createdAt": new_code["createdAt"]
+            }
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Error creating promo code: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to create promo code")
+
+# Delete promo code (admin)
+@api_router.delete("/admin/promo-codes/{code}")
+async def delete_promo_code(
+    code: str,
+    admin = Depends(verify_admin_token)
+):
+    """Delete promo code"""
+    try:
+        code = code.upper().strip()
+        
+        result = await db.promo_codes.delete_one({"code": code})
+        
+        if result.deleted_count > 0:
+            logging.info(f"Promo code deleted: {code}")
+            return {
+                "success": True,
+                "message": "Promo kod obrisan"
+            }
+        else:
+            raise HTTPException(status_code=404, detail="Promo kod nije pronađen")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Error deleting promo code: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to delete promo code")
+
 # Include the router in the main app
 app.include_router(api_router)
 
