@@ -403,11 +403,78 @@ const UploadPage = () => {
   // Price after discount + products
   const priceWithProducts = priceAfterDiscount + productsPrice;
 
-  const deliveryFee = useMemo(() => {
-    return priceWithProducts >= freeDeliveryLimit ? 0 : deliveryPrice;
-  }, [priceWithProducts, freeDeliveryLimit, deliveryPrice]);
+  // Calculate promo code discount amount (applies to priceWithProducts)
+  const promoCodeDiscountAmount = useMemo(() => {
+    if (promoDiscount > 0 && appliedPromoCode) {
+      return Math.round((priceWithProducts * promoDiscount) / 100);
+    }
+    return 0;
+  }, [priceWithProducts, promoDiscount, appliedPromoCode]);
 
-  const grandTotal = priceWithProducts + deliveryFee;
+  // Price after promo code
+  const priceAfterPromoCode = priceWithProducts - promoCodeDiscountAmount;
+
+  const deliveryFee = useMemo(() => {
+    return priceAfterPromoCode >= freeDeliveryLimit ? 0 : deliveryPrice;
+  }, [priceAfterPromoCode, freeDeliveryLimit, deliveryPrice]);
+
+  const grandTotal = priceAfterPromoCode + deliveryFee;
+
+  // Handle promo code validation
+  const handleApplyPromoCode = async () => {
+    if (!promoCode.trim()) {
+      toast({
+        title: "Greška",
+        description: "Molimo unesite promo kod",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setPromoValidating(true);
+    try {
+      const response = await axios.post(`${API}/promo-codes/validate`, {
+        code: promoCode.trim()
+      });
+
+      if (response.data.success) {
+        setPromoDiscount(response.data.discount);
+        setAppliedPromoCode(promoCode.trim().toUpperCase());
+        toast({
+          title: "✅ Promo kod primenjen!",
+          description: response.data.message
+        });
+      } else {
+        toast({
+          title: "Nevalidan kod",
+          description: response.data.message,
+          variant: "destructive"
+        });
+        setPromoDiscount(0);
+        setAppliedPromoCode('');
+      }
+    } catch (error) {
+      console.error('Error validating promo code:', error);
+      toast({
+        title: "Greška",
+        description: "Nije moguće proveriti promo kod",
+        variant: "destructive"
+      });
+    } finally {
+      setPromoValidating(false);
+    }
+  };
+
+  // Remove applied promo code
+  const handleRemovePromoCode = () => {
+    setPromoCode('');
+    setPromoDiscount(0);
+    setAppliedPromoCode('');
+    toast({
+      title: "Promo kod uklonjen",
+      description: "Promo kod je uklonjen sa vaše porudžbine"
+    });
+  };
 
   const handleFileUpload = (e) => {
     const files = Array.from(e.target.files);
