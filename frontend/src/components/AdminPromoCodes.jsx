@@ -233,13 +233,23 @@ const AdminPromoCodes = () => {
             </Button>
             <h1 className="text-2xl font-bold text-gray-900">Promo Kodovi</h1>
           </div>
-          <Button
-            onClick={() => setShowAddModal(true)}
-            className="bg-orange-600 hover:bg-orange-700 gap-2"
-          >
-            <Plus size={18} />
-            Dodaj Kod
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button
+              onClick={handleDownloadLog}
+              variant="outline"
+              className="gap-2"
+            >
+              <Download size={18} />
+              Preuzmi Log
+            </Button>
+            <Button
+              onClick={() => setShowAddModal(true)}
+              className="bg-orange-600 hover:bg-orange-700 gap-2"
+            >
+              <Plus size={18} />
+              Dodaj Kod
+            </Button>
+          </div>
         </div>
       </div>
 
