@@ -326,6 +326,9 @@ async def create_order(
                 "products": products,  # Include products
                 "giftProducts": gift_products,  # Include gift products
                 "totalPhotos": total_photos,
+                "promoCode": order_data.get('promoCode', ''),
+                "promoCodeDiscount": order_data.get('promoCodeDiscount', 0),
+                "promoCodeDiscountAmount": order_data.get('promoCodeDiscountAmount', 0),
                 "status": "Na Čekanju",  # Mark as pending (waiting for processing)
                 "zipFilePath": "",  # Will be updated after ZIP creation
                 "createdAt": datetime.now(timezone.utc).isoformat()
