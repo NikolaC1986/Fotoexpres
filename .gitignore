@@ -144,3 +144,7 @@ backend/orders_zips/order-ORD-336670.zip
 backend/orders_zips/order-ORD-779441.zip
 backend/orders_zips/order-ORD-944860.zip
 backend/orders_zips/order-ORD-819238.zip
+-e 
+# Environment files
+*.env
+*.env.*
