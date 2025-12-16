@@ -1523,6 +1523,78 @@ const UploadPage = () => {
                 </div>
               )}
 
+              {/* Promo Code Section */}
+              <div className="bg-blue-50 p-4 rounded-lg border-2 border-blue-300 mt-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <Tag className="w-5 h-5 text-blue-600" />
+                  <span className="text-blue-800 font-bold text-lg">Promo Kod</span>
+                </div>
+                
+                {appliedPromoCode ? (
+                  <div className="bg-green-100 p-4 rounded-lg border-2 border-green-400">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <CheckCircle className="w-6 h-6 text-green-600" />
+                        <div>
+                          <p className="font-bold text-green-800">Kod primenjen: {appliedPromoCode}</p>
+                          <p className="text-sm text-green-700">Popust: {promoDiscount}%</p>
+                        </div>
+                      </div>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={handleRemovePromoCode}
+                        className="text-red-600 border-red-300 hover:bg-red-50"
+                      >
+                        <X size={16} className="mr-1" />
+                        Ukloni
+                      </Button>
+                    </div>
+                    <div className="mt-3 flex justify-between items-center bg-white p-3 rounded">
+                      <span className="text-green-800 font-semibold">Ušteda sa promo kodom:</span>
+                      <span className="font-bold text-green-700 text-lg">-{promoCodeDiscountAmount} RSD</span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex gap-2">
+                    <Input
+                      type="text"
+                      value={promoCode}
+                      onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
+                      placeholder="Unesite promo kod (5 karaktera)"
+                      maxLength={5}
+                      className="flex-1 text-lg font-bold tracking-wider uppercase border-2 border-blue-300"
+                    />
+                    <Button
+                      type="button"
+                      onClick={handleApplyPromoCode}
+                      disabled={promoValidating || promoCode.length !== 5}
+                      className="bg-blue-600 hover:bg-blue-700 px-6"
+                    >
+                      {promoValidating ? (
+                        <span className="flex items-center gap-2">
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                          Provera...
+                        </span>
+                      ) : (
+                        'Primeni'
+                      )}
+                    </Button>
+                  </div>
+                )}
+              </div>
+
+              {/* Promo Code Discount Display */}
+              {promoCodeDiscountAmount > 0 && (
+                <div className="flex justify-between items-center text-lg bg-blue-100 p-3 rounded-lg border-2 border-blue-300">
+                  <span className="text-blue-800 font-semibold flex items-center gap-2">
+                    🏷️ Promo kod popust ({promoDiscount}%):
+                  </span>
+                  <span className="font-bold text-blue-700">-{promoCodeDiscountAmount} RSD</span>
+                </div>
+              )}
+
               <div className="flex justify-between items-center text-lg border-t-2 border-orange-200 pt-3 mt-3">
                 <span className="text-gray-700">Dostava:</span>
                 <span className="font-semibold">
@@ -1533,9 +1605,9 @@ const UploadPage = () => {
                   )}
                 </span>
               </div>
-              {priceWithProducts < freeDeliveryLimit && deliveryFee > 0 && (
+              {priceAfterPromoCode < freeDeliveryLimit && deliveryFee > 0 && (
                 <p className="text-sm text-gray-600 italic">
-                  * Besplatna dostava za porudžbine preko {freeDeliveryLimit} RSD (još {freeDeliveryLimit - priceWithProducts} RSD)
+                  * Besplatna dostava za porudžbine preko {freeDeliveryLimit} RSD (još {freeDeliveryLimit - priceAfterPromoCode} RSD)
                 </p>
               )}
               <div className="border-t-2 border-orange-300 pt-4 mt-4">
