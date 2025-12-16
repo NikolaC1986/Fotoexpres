@@ -18,7 +18,8 @@ const AdminPromoCodes = () => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [newCode, setNewCode] = useState({
     code: '',
-    discountPercent: ''
+    discountPercent: '',
+    maxUses: ''
   });
 
   useEffect(() => {
