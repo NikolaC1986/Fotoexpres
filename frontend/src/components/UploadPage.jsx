@@ -838,6 +838,15 @@ const UploadPage = () => {
           throw new Error('Greška u potvrdi porudžbine - neslaganje order number-a');
         }
 
+        // Increment promo code usage if one was applied
+        if (appliedPromoCode) {
+          try {
+            await axios.post(`${API}/promo-codes/use`, { code: appliedPromoCode });
+          } catch (err) {
+            console.error('Failed to increment promo code usage:', err);
+          }
+        }
+
         // All checks passed - show success
         // Show success modal
         setSuccessOrderNumber(orderNumber);
