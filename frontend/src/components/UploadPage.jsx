@@ -1497,45 +1497,64 @@ const UploadPage = () => {
               </div>
             )}
 
-            {/* Price Breakdown */}
-            <div className="space-y-3 border-t-2 border-orange-200 pt-6">
-              {/* Photos Price - only show if there are photos */}
-              {photos.length > 0 && (
-                <div className="flex justify-between items-center text-lg">
-                  <span className="text-gray-700">Fotografije ({totalPhotos} kom):</span>
-                  <span className="font-semibold">{totalPrice} RSD</span>
-                </div>
-              )}
+            {/* Price Breakdown - Clear Structure */}
+            <div className="space-y-4 border-t-2 border-orange-200 pt-6">
+              
+              {/* SECTION 1: Subtotals */}
+              <div className="bg-gray-50 p-4 rounded-lg space-y-3">
+                <h4 className="font-bold text-gray-700 mb-3 border-b pb-2">Pregled stavki:</h4>
+                
+                {/* Photos subtotal */}
+                {photos.length > 0 && (
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-700">📷 Ukupno fotografije ({totalPhotos} kom):</span>
+                    <span className="font-semibold">{totalPrice} RSD</span>
+                  </div>
+                )}
 
-              {/* Quantity Discount */}
-              {quantityDiscountAmount > 0 && (
-                <div className="flex justify-between items-center text-lg bg-green-100 p-3 rounded-lg border-2 border-green-300">
-                  <span className="text-green-800 font-semibold flex items-center gap-2">
-                    🎉 Popust na količinu ({quantityDiscountPercent}%):
-                  </span>
-                  <span className="font-bold text-green-700">-{quantityDiscountAmount} RSD</span>
-                </div>
-              )}
+                {/* Products subtotal */}
+                {productsPrice > 0 && (
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-700">📦 Ukupno proizvodi ({selectedProducts.length} kom):</span>
+                    <span className="font-semibold">{productsPrice} RSD</span>
+                  </div>
+                )}
+              </div>
 
-              {/* Promotion Discount */}
-              {promotionDiscountAmount > 0 && (
-                <div className="flex justify-between items-center text-lg bg-amber-100 p-3 rounded-lg border-2 border-amber-300">
-                  <span className="text-amber-800 font-semibold flex items-center gap-2">
-                    🏷️ Akcijski popust ({promotionDiscountPercent}%):
-                  </span>
-                  <span className="font-bold text-amber-700">
-                    -{promotionDiscountAmount} RSD
-                  </span>
-                </div>
-              )}
+              {/* SECTION 2: Discounts */}
+              {(quantityDiscountAmount > 0 || promotionDiscountAmount > 0 || promoCodeDiscountAmount > 0) && (
+                <div className="bg-green-50 p-4 rounded-lg space-y-3 border-2 border-green-200">
+                  <h4 className="font-bold text-green-800 mb-3 border-b border-green-300 pb-2">Popusti:</h4>
+                  
+                  {/* Quantity Discount */}
+                  {quantityDiscountAmount > 0 && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-green-700">🎉 Popust na količinu ({quantityDiscountPercent}%):</span>
+                      <span className="font-bold text-green-700">-{quantityDiscountAmount} RSD</span>
+                    </div>
+                  )}
 
-              {/* Products Price */}
-              {productsPrice > 0 && (
-                <div className="flex justify-between items-center text-lg bg-teal-50 p-3 rounded-lg border-2 border-teal-200">
-                  <span className="text-teal-800 font-bold flex items-center gap-2">
-                    📦 Ukupno proizvodi:
-                  </span>
-                  <span className="font-bold text-teal-800">{productsPrice} RSD</span>
+                  {/* Promotion Discount */}
+                  {promotionDiscountAmount > 0 && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-green-700">🏷️ Akcijski popust ({promotionDiscountPercent}%):</span>
+                      <span className="font-bold text-green-700">-{promotionDiscountAmount} RSD</span>
+                    </div>
+                  )}
+
+                  {/* Promo Code Discount */}
+                  {promoCodeDiscountAmount > 0 && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-green-700">🎫 Promo kod "{appliedPromoCode}" ({promoDiscount}%):</span>
+                      <span className="font-bold text-green-700">-{promoCodeDiscountAmount} RSD</span>
+                    </div>
+                  )}
+
+                  {/* Total Savings */}
+                  <div className="flex justify-between items-center pt-2 border-t border-green-300">
+                    <span className="font-bold text-green-800">Ukupna ušteda:</span>
+                    <span className="font-bold text-green-800">-{totalDiscountAmount + promoCodeDiscountAmount} RSD</span>
+                  </div>
                 </div>
               )}
 
@@ -1560,7 +1579,7 @@ const UploadPage = () => {
               )}
 
               {/* Promo Code Section */}
-              <div className="bg-blue-50 p-4 rounded-lg border-2 border-blue-300 mt-4">
+              <div className="bg-blue-50 p-4 rounded-lg border-2 border-blue-300">
                 <div className="flex items-center gap-2 mb-3">
                   <Tag className="w-5 h-5 text-blue-600" />
                   <span className="text-blue-800 font-bold text-lg">Promo Kod</span>
@@ -1586,10 +1605,6 @@ const UploadPage = () => {
                         <X size={16} className="mr-1" />
                         Ukloni
                       </Button>
-                    </div>
-                    <div className="mt-3 flex justify-between items-center bg-white p-3 rounded">
-                      <span className="text-green-800 font-semibold">Ušteda sa promo kodom:</span>
-                      <span className="font-bold text-green-700 text-lg">-{promoCodeDiscountAmount} RSD</span>
                     </div>
                   </div>
                 ) : (
@@ -1621,18 +1636,9 @@ const UploadPage = () => {
                 )}
               </div>
 
-              {/* Promo Code Discount Display */}
-              {promoCodeDiscountAmount > 0 && (
-                <div className="flex justify-between items-center text-lg bg-blue-100 p-3 rounded-lg border-2 border-blue-300">
-                  <span className="text-blue-800 font-semibold flex items-center gap-2">
-                    🏷️ Promo kod popust ({promoDiscount}%):
-                  </span>
-                  <span className="font-bold text-blue-700">-{promoCodeDiscountAmount} RSD</span>
-                </div>
-              )}
-
-              <div className="flex justify-between items-center text-lg border-t-2 border-orange-200 pt-3 mt-3">
-                <span className="text-gray-700">Dostava:</span>
+              {/* SECTION 3: Delivery */}
+              <div className="flex justify-between items-center text-lg bg-gray-50 p-3 rounded-lg">
+                <span className="text-gray-700">🚚 Dostava:</span>
                 <span className="font-semibold">
                   {deliveryFee === 0 ? (
                     <span className="text-green-600">BESPLATNO</span>
@@ -1642,20 +1648,17 @@ const UploadPage = () => {
                 </span>
               </div>
               {priceAfterPromoCode < freeDeliveryLimit && deliveryFee > 0 && (
-                <p className="text-sm text-gray-600 italic">
+                <p className="text-sm text-gray-600 italic text-center">
                   * Besplatna dostava za porudžbine preko {freeDeliveryLimit} RSD (još {freeDeliveryLimit - priceAfterPromoCode} RSD)
                 </p>
               )}
-              <div className="border-t-2 border-orange-300 pt-4 mt-4">
+
+              {/* SECTION 4: Grand Total */}
+              <div className="bg-orange-100 p-4 rounded-lg border-2 border-orange-400 mt-4">
                 <div className="flex justify-between items-center">
                   <span className="text-2xl font-bold text-gray-900">UKUPNO ZA PLAĆANJE:</span>
                   <span className="text-4xl font-bold text-orange-600">{grandTotal} RSD</span>
                 </div>
-                {totalDiscountAmount > 0 && (
-                  <p className="text-right text-sm text-gray-600 mt-2">
-                    Uštedeli ste: <span className="font-bold text-green-600">{totalDiscountAmount} RSD</span> 🎉
-                  </p>
-                )}
               </div>
             </div>
           </Card>
