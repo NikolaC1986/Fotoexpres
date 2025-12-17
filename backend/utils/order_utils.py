@@ -242,10 +242,11 @@ Dostava: {delivery_fee} RSD
 UKUPNO ZA NAPLATU: {grand_total} RSD
 """
     
-    if total_discount > 0:
+    total_savings = quantity_discount_amount + promotion_discount_amount + promo_code_discount_amount
+    if total_savings > 0:
         content += f"""
 ──────────────────────────────
-✓ UŠTEDELI STE: {total_discount} RSD
+✓ UŠTEDELI STE: {total_savings} RSD
 """
     
     content += f"""
