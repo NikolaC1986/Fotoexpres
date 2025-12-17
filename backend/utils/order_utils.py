@@ -194,9 +194,20 @@ AKCIJSKI POPUST ({promotion_discount_percent}%): -{promotion_discount_amount} RS
    • Specijalna akcija
 """
     
-    total_discount = quantity_discount_amount + promotion_discount_amount
+    # Promo code discount
+    promo_code = price_info.get('promoCode', '') if price_info else ''
+    promo_code_discount = price_info.get('promoCodeDiscount', 0) if price_info else 0
+    promo_code_discount_amount = price_info.get('promoCodeDiscountAmount', 0) if price_info else 0
+    
+    if promo_code and promo_code_discount_amount > 0:
+        content += f"""
+PROMO KOD "{promo_code}" ({promo_code_discount}%): -{promo_code_discount_amount} RSD
+   • Primenjen promo kod
+"""
+    
+    total_discount = quantity_discount_amount + promotion_discount_amount + promo_code_discount_amount
     if total_discount > 0:
-        price_after_discount = subtotal - total_discount
+        price_after_discount = subtotal - (quantity_discount_amount + promotion_discount_amount)
         content += f"""
 ──────────────────────────────
 Ukupan popust: -{total_discount} RSD
