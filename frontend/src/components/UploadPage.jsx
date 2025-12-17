@@ -347,8 +347,10 @@ const UploadPage = () => {
     );
   };
 
-  // Calculate quantity discount percentage
+  // Calculate quantity discount percentage (only if enabled)
   const quantityDiscountPercent = useMemo(() => {
+    if (!quantityDiscountsEnabled) return 0;
+    
     if (totalPhotos >= 200 && quantityDiscounts['200']) {
       return quantityDiscounts['200'];
     } else if (totalPhotos >= 100 && quantityDiscounts['100']) {
@@ -357,7 +359,7 @@ const UploadPage = () => {
       return quantityDiscounts['50'];
     }
     return 0;
-  }, [totalPhotos, quantityDiscounts]);
+  }, [totalPhotos, quantityDiscounts, quantityDiscountsEnabled]);
 
   // Calculate promotion discount percentage
   const promotionDiscountPercent = useMemo(() => {
