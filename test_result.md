@@ -1020,7 +1020,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Promo Code System Testing Complete"
+    - "Photo Printing Service Specific Features Testing Complete"
   stuck_tasks: []
   test_all: false
   test_priority: "critical_first"
@@ -1030,6 +1030,10 @@ test_plan:
     - "Promo Code Usage Increment API" 
     - "Promo Code Admin Log API"
     - "Order Creation with Promo Code Integration"
+    - "Photo Printing Service - Admin Login with Provided Credentials"
+    - "Photo Printing Service - Quantity Discounts Settings API"
+    - "Photo Printing Service - Promo Code UNLIMITED Order Creation"
+    - "Photo Printing Service - Order Text File Promo Code Content"
   completed_new_features:
     - "ZIP Structure with Quantity Folders"
     - "Change Viewer Password Endpoint"
@@ -1042,6 +1046,7 @@ test_plan:
     - "Product Image Editing in Admin Panel"
     - "Product Order ZIP Structure Organization"
     - "Promo Code System - Backend APIs"
+    - "Photo Printing Service - Specific Features Backend APIs"
 
 agent_communication:
     - agent: "testing"
