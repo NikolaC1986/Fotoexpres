@@ -35,6 +35,7 @@ const UploadPage = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [quantityDiscounts, setQuantityDiscounts] = useState({ '50': 5, '100': 10, '200': 15 });
+  const [quantityDiscountsEnabled, setQuantityDiscountsEnabled] = useState(true);
   const [promotion, setPromotion] = useState(null);
   const [deliveryPrice, setDeliveryPrice] = useState(400);
   const [selectedProducts, setSelectedProducts] = useState([]);
