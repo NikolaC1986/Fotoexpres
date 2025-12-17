@@ -1,0 +1,268 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║                    FOTOEXPRES - DETALJI PORUDŽBINE                ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+BROJ PORUDŽBINE: ORD-723969
+DATUM: 2025-12-17 10:01:26
+
+═══════════════════════════════════════════════════════════════════
+
+INFORMACIJE O KLIJENTU:
+─────────────────────────
+Ime i prezime: dd Cvetkovic
+Email: cvetkovic.nikola.kp@gmail.com
+Telefon: 0653807900
+Ulica i broj: Hadzi Prodanova
+Poštanski broj: 17501
+Grad: Vranje
+Napomene: 
+
+═══════════════════════════════════════════════════════════════════
+
+OPCIJE OBRADE FOTOGRAFIJA:
+───────────────────────────
+• Kropovati fotografiju kako bi je prilagodili formatu: NE
+• Popuniti belim: NE
+
+═══════════════════════════════════════════════════════════════════
+
+SPECIFIKACIJA FOTOGRAFIJA:
+───────────────────────────
+
+1. LAST_BASH_-_Amazon_-_Black.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+2. LAST_BASH_-_Amazon_-_Blue.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+3. LAST_BASH_-_Amazon_-_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+4. LAST_BASH_-_Amazon_-_Green.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+5. LAST_BASH_-_Amazon_-_Pink.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+6. LAST_BASH_-_Amazon_-_Purple.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 21 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 378 RSD
+   ───────────────────────────
+
+7. LAST_BASH_-_Amazon_-_Red.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 23 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 414 RSD
+   ───────────────────────────
+
+8. LAST_BASH_-_Amazon_-_Rose_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+9. LAST_BASH_-_Amazon_-_Silver.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+10. LAST_BASH_-_Amazon_-_White.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+11. LAST_BASH_-_Etsy_-_Black.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+12. LAST_BASH_-_Etsy_-_Blue.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+13. LAST_BASH_-_Etsy_-_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+14. LAST_BASH_-_Etsy_-_Green.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+15. LAST_BASH_-_Etsy_-_Pink.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+16. LAST_BASH_-_Etsy_-_Purple.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+17. LAST_BASH_-_Etsy_-_Red.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+18. LAST_BASH_-_Etsy_-_Rose_Gold.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+19. LAST_BASH_-_Etsy_-_Silver.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+20. LAST_BASH_-_Etsy_-_White.jpg
+   Format: 10x15 cm
+   Tip papira: Glossy
+   Količina: 1 kom
+   Cena po komadu: 18 RSD
+   Ukupno za ovu fotografiju: 18 RSD
+   ───────────────────────────
+
+═══════════════════════════════════════════════════════════════════
+
+DODATNI PROIZVODI:
+───────────────────────────
+
+1. Šolja sa Štampom - Keramička šolja sa štampom
+   Količina: 1 kom
+   Cena: 650 RSD
+   Ukupno: 650 RSD
+   ───────────────────────────
+
+2. Fotomagnet - Magnet 7x10cm
+   Količina: 1 kom
+   Cena: 200 RSD
+   Ukupno: 200 RSD
+   ───────────────────────────
+
+3. Fotomagnet - Magnet 10x15 cm
+   Količina: 1 kom
+   Cena: 250 RSD
+   Ukupno: 250 RSD
+   ───────────────────────────
+
+Ukupna cena proizvoda: 1100 RSD
+
+
+═══════════════════════════════════════════════════════════════════
+
+OBRAČUN CENE:
+─────────────────────────
+
+Ukupan broj fotografija: 62 komada
+Osnovna cena fotografija: 1116 RSD
+Dodatni proizvodi: 1100 RSD
+
+POPUST NA KOLIČINU (5%): -56 RSD
+   • Odobren za 62+ fotografija
+
+PROMO KOD "95520" (10%): -216 RSD
+   • Primenjen promo kod
+
+──────────────────────────────
+Ukupan popust: -272 RSD
+Cena fotografija sa popustom: 1060 RSD
+
+Dostava: 400 RSD
+   • Standardna dostava
+
+──────────────────────────────
+UKUPNO ZA NAPLATU: 2560 RSD
+
+──────────────────────────────
+✓ UŠTEDELI STE: 272 RSD
+
+═══════════════════════════════════════════════════════════════════
+
+NAČIN PLAĆANJA: Plaćanje pouzećem (kuriru prilikom isporuke)
+ROK DOSTAVE: 2-7 radnih dana
+
+═══════════════════════════════════════════════════════════════════
+
+Hvala vam što ste odabrali Fotoexpres!
+Za sva pitanja kontaktirajte nas na: kontakt@fotoexpres.rs
+
+═══════════════════════════════════════════════════════════════════
+
+
+═══════════════════════════════════════════════════════════════════
+
+REKAPITULACIJA PO FORMATIMA:
+─────────────────────────────
+Format 10x15 cm: 62 fotografija
+
+──────────────────────────────
+UKUPNO: 62 fotografija
+
+═══════════════════════════════════════════════════════════════════
