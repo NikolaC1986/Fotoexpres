@@ -1098,6 +1098,18 @@ agent_communication:
     stuck_count: 0
     priority: "critical"
     needs_retesting: true
+
+  - task: "Promo Code Discount Calculation in Order Text File"
+    implemented: true
+    working: true
+    file: "/app/backend/utils/order_utils.py, /app/backend/server.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ CRITICAL VERIFICATION PASSED - Promo code discount calculation working correctly in order_details.txt. Successfully tested with order ORD-604769 using promo code UNLIMITED (5% discount). VERIFICATION RESULTS: 1) Photos cost 450 RSD (25 photos × 18 RSD), 2) Promo code discount correctly calculated as 22.5 RSD (5% of 450), 3) Final total correctly reduced to 827.5 RSD (450 - 22.5 + 400 delivery), NOT 850 RSD without discount, 4) Order text file contains proper promo code section 'PROMO KOD UNLIMITED (5%)', 5) Discount amount shown as negative '-22.5 RSD', 6) UKUPNO ZA NAPLATU shows reduced total of 827.5 RSD. All verification checks passed - promo code discount is correctly applied and calculated in the order text file as specified in review request."
     status_history:
         - working: "NA"
           agent: "main"
