@@ -1280,7 +1280,7 @@ const UploadPage = () => {
                     productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }
                 }}
-                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold gap-2 py-6"
+                className="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold gap-2 py-6"
               >
                 <Package size={20} />
                 Dodaj Proizvod
