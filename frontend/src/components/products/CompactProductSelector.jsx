@@ -60,17 +60,17 @@ const CompactProductSelector = ({ onAddProduct }) => {
   if (loading) {
     return (
       <div className="text-center py-4">
-        <Package className="w-8 h-8 text-purple-600 mx-auto mb-2 animate-pulse" />
+        <Package className="w-8 h-8 text-teal-600 mx-auto mb-2 animate-pulse" />
         <p className="text-sm text-gray-600">Učitavanje proizvoda...</p>
       </div>
     );
   }
 
   return (
-    <Card className="p-4 sm:p-6 bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-300">
+    <Card className="p-4 sm:p-6 bg-gradient-to-br from-teal-50 to-cyan-50 border-2 border-teal-300">
       <div className="mb-4">
         <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2">
-          <ShoppingCart size={20} className="sm:w-6 sm:h-6 text-purple-600" />
+          <ShoppingCart size={20} className="sm:w-6 sm:h-6 text-teal-600" />
           Dostupni Proizvodi
         </h3>
         <p className="text-xs sm:text-sm text-gray-600">
@@ -83,7 +83,7 @@ const CompactProductSelector = ({ onAddProduct }) => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {products.map((product) => (
-            <Card key={product.id} className="p-3 sm:p-4 bg-white hover:shadow-lg transition-shadow">
+            <Card key={product.id} className="p-3 sm:p-4 bg-white hover:shadow-lg transition-shadow border border-teal-200">
               <h4 className="font-bold text-gray-900 mb-2 sm:mb-3 text-sm sm:text-base leading-tight">{product.name}</h4>
               <div className="space-y-1.5 sm:space-y-2">
                 {product.variants.map((variant) => (
@@ -91,7 +91,7 @@ const CompactProductSelector = ({ onAddProduct }) => {
                     key={variant.id}
                     onClick={() => handleAddProduct(product, variant)}
                     size="sm"
-                    className="w-full bg-purple-600 hover:bg-purple-700 text-white text-xs sm:text-sm justify-between py-2 px-2 sm:px-3"
+                    className="w-full bg-teal-600 hover:bg-teal-700 text-white text-xs sm:text-sm justify-between py-2 px-2 sm:px-3"
                   >
                     <span className="truncate text-left flex-1 mr-2">{variant.name}</span>
                     <span className="font-bold whitespace-nowrap">{variant.price} RSD</span>
