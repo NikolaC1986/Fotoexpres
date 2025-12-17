@@ -2405,6 +2405,14 @@ class PhotoOrderTester:
             self.test_working_hours_get_admin_settings()
             self.test_working_hours_update_admin_settings()
         
+        # ===== CRITICAL TEST: PROMO CODE DISCOUNT CALCULATION =====
+        print("\n" + "=" * 60)
+        print("CRITICAL TEST: PROMO CODE DISCOUNT CALCULATION FROM REVIEW REQUEST")
+        print("=" * 60)
+        
+        if admin_login_success:
+            self.test_promo_code_discount_calculation_verification()
+        
         # ===== REGRESSION TESTS (LOWEST PRIORITY) =====
         print("\n" + "=" * 60)
         print("RUNNING REGRESSION TESTS")
