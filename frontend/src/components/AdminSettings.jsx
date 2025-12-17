@@ -19,7 +19,8 @@ const AdminSettings = () => {
     contactPhone: '+381 65 46 000 46',
     contactEmail: 'kontakt@fotoexpres.rs',
     workingHours: 'Pon-Pet: 08:00-17:00, Sub: 09:00-14:00',
-    heroImageUrl: '/images/hero-default.jpg'
+    heroImageUrl: '/images/hero-default.jpg',
+    quantityDiscountsEnabled: true
   });
   const [loading, setLoading] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
