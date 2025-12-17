@@ -1198,16 +1198,21 @@ async def get_public_settings():
             'contactPhone': '+381 65 46 000 46',
             'contactEmail': 'kontakt@fotoexpres.rs',
             'workingHours': 'Pon-Pet: 08:00-17:00, Sub: 09:00-14:00',
-            'heroImageUrl': 'https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/1ogmpeji_8%20copy.jpg'
+            'heroImageUrl': 'https://customer-assets.emergentagent.com/job_swift-image-portal/artifacts/1ogmpeji_8%20copy.jpg',
+            'quantityDiscountsEnabled': True
         }
         
         if settings_doc:
-            return {"settings": settings_doc.get("settings", default_settings)}
+            saved_settings = settings_doc.get("settings", default_settings)
+            # Ensure quantityDiscountsEnabled exists
+            if 'quantityDiscountsEnabled' not in saved_settings:
+                saved_settings['quantityDiscountsEnabled'] = True
+            return {"settings": saved_settings}
         else:
             return {"settings": default_settings}
     except Exception as e:
         logging.error(f"Error fetching settings: {str(e)}")
-        return {"settings": {'freeDeliveryLimit': 5000, 'workingHours': 'Pon-Pet: 08:00-17:00, Sub: 09:00-14:00'}}
+        return {"settings": {'freeDeliveryLimit': 5000, 'workingHours': 'Pon-Pet: 08:00-17:00, Sub: 09:00-14:00', 'quantityDiscountsEnabled': True}}
 
 # Get Quantity Discounts (Admin Only)
 @api_router.get("/admin/discounts")
