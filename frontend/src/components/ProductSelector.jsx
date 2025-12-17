@@ -355,7 +355,7 @@ const ProductSelector = ({ onProductsChange, totalPhotosUploaded }) => {
                         key={variant.id}
                         onClick={() => addProductToOrder(product, variant)}
                         size="sm"
-                        className="w-full bg-purple-600 hover:bg-purple-700 text-white text-sm font-semibold py-3"
+                        className="w-full bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold py-3"
                       >
                         {variant.name} - {variant.price} RSD
                       </Button>
