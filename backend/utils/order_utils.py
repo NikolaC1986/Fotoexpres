@@ -207,17 +207,29 @@ PROMO KOD "{promo_code}" ({promo_code_discount}%): -{promo_code_discount_amount}
     
     total_discount = quantity_discount_amount + promotion_discount_amount + promo_code_discount_amount
     if total_discount > 0:
-        price_after_discount = subtotal - (quantity_discount_amount + promotion_discount_amount)
+        # Price after all discounts (including promo code)
+        price_after_all_discounts = subtotal - quantity_discount_amount - promotion_discount_amount
         content += f"""
 ──────────────────────────────
-Ukupan popust: -{total_discount} RSD
-Cena fotografija sa popustom: {price_after_discount} RSD
+Ukupan popust na fotografije: -{quantity_discount_amount + promotion_discount_amount} RSD
+Cena fotografija sa popustom: {price_after_all_discounts} RSD
 """
     else:
-        price_after_discount = subtotal
+        price_after_all_discounts = subtotal
     
     # Add products to price after discount
-    price_after_discount_with_products = price_after_discount + products_subtotal
+    price_with_products = price_after_all_discounts + products_subtotal
+    
+    # Apply promo code discount to the total (photos + products)
+    if promo_code_discount_amount > 0:
+        price_after_promo = price_with_products - promo_code_discount_amount
+        content += f"""
+Ukupno pre promo koda: {price_with_products} RSD
+Promo kod popust: -{promo_code_discount_amount} RSD
+Ukupno posle promo koda: {price_after_promo} RSD
+"""
+    else:
+        price_after_promo = price_with_products
     
     # Delivery fee - use from price_info or default to 400
     delivery_fee = price_info.get('deliveryFee', 400) if price_info else 400
@@ -235,7 +247,8 @@ Dostava: {delivery_fee} RSD
    • Standardna dostava
 """
     
-    grand_total = price_after_discount_with_products + delivery_fee
+    # Grand total = price after all discounts + delivery
+    grand_total = price_after_promo + delivery_fee
     
     content += f"""
 ──────────────────────────────
