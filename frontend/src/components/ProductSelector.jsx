@@ -335,7 +335,7 @@ const ProductSelector = ({ onProductsChange, totalPhotosUploaded }) => {
               };
 
               return (
-                <Card key={product.id} className="p-4 hover:shadow-xl transition-all duration-300 bg-white border-2 hover:border-purple-400">
+                <Card key={product.id} className="p-4 hover:shadow-xl transition-all duration-300 bg-white border-2 hover:border-teal-400">
                   <div className="h-40 bg-gray-100 rounded mb-3 overflow-hidden flex items-center justify-center">
                     <img 
                       src={getImageUrl(product.imageUrl)} 
