@@ -190,7 +190,7 @@ const ProductSelector = ({ onProductsChange, totalPhotosUploaded }) => {
                   {/* Price */}
                   <div>
                     <Label className="text-sm font-semibold mb-2 block">Cena</Label>
-                    <div className="text-2xl font-bold text-purple-600">
+                    <div className="text-2xl font-bold text-teal-600">
                       {productTotal} RSD
                     </div>
                   </div>
