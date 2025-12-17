@@ -1083,3 +1083,53 @@ agent_communication:
         - working: "NA"
           agent: "main"
           comment: "Added GET /api/admin/promo-codes/log endpoint that returns all orders with promo codes. AdminPromoCodes.jsx has 'Preuzmi Log' button that downloads CSV with order number, promo code, discount, customer info, date. Needs testing."
+    - agent: "main"
+      message: "🎨 UI & FEATURE UPDATES COMPLETED - 1) Changed purple colors to teal (complementary to orange) for products section on upload page. 2) Reorganized price breakdown with clear sections: 'Pregled stavki', 'Popusti', 'Dostava', 'UKUPNO ZA PLACANJE'. 3) Added 'Popusti na Količinu' toggle in Admin Settings - when disabled, quantity discounts section hides from /prices page and discounts are not applied on orders. 4) Added promo code info to order_details.txt file (PROMO KOD section with code, discount %, and amount). TEST: Verify teal colors on /upload page, clear price breakdown, admin toggle for quantity discounts at /logovanje/settings, and /prices page responds to toggle setting."
+
+  - task: "Color Change - Purple to Teal"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/UploadPage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Changed bg-purple-*, text-purple-* to bg-teal-*, text-teal-* for product-related elements. Affects: Add Product button, product cards, product statistics boxes, photo processing options card."
+
+  - task: "Clear Price Breakdown Structure"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/UploadPage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Reorganized price summary into clear sections: 1) Pregled stavki (photos subtotal, products subtotal), 2) Popusti (quantity discount, akcijski discount, promo kod discount), 3) Dostava, 4) UKUPNO ZA PLAĆANJE in orange box."
+
+  - task: "Admin Toggle for Quantity Discounts"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/AdminSettings.jsx, /app/frontend/src/components/PricesPage.jsx, /app/frontend/src/components/UploadPage.jsx, /app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Added quantityDiscountsEnabled setting. Admin can toggle at /logovanje/settings. When disabled: 1) Quantity discounts not applied to orders, 2) 'Popusti za vece porudzine' section hidden on /prices page."
+
+  - task: "Promo Code in Order Text File"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/utils/order_utils.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Added PROMO KOD section to order_details.txt showing code name, discount %, and discount amount. Also included promo code discount in total savings calculation."
