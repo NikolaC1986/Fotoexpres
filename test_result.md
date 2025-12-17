@@ -1020,7 +1020,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Photo Printing Service Specific Features Testing Complete"
+    - "Promo Code Discount Calculation Testing Complete"
   stuck_tasks: []
   test_all: false
   test_priority: "critical_first"
