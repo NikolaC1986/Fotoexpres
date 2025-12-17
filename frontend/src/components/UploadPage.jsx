@@ -1113,9 +1113,9 @@ const UploadPage = () => {
             </Card>
 
             {/* Photo Processing Options */}
-            <Card className="p-6 mb-6 bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-300">
+            <Card className="p-6 mb-6 bg-gradient-to-r from-teal-50 to-cyan-50 border-2 border-teal-300">
               <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <ImageIcon size={20} className="text-purple-600" />
+                <ImageIcon size={20} className="text-teal-600" />
                 Opcije Obrade Fotografija (izaberite jednu)
               </h3>
               <div className="space-y-4">
