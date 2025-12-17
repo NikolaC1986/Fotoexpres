@@ -167,10 +167,10 @@ const SelectedProductsList = ({
       })}
 
       {/* Total Products Price */}
-      <Card className="p-4 bg-gradient-to-r from-purple-100 to-pink-100 border-2 border-purple-300">
+      <Card className="p-4 bg-gradient-to-r from-teal-100 to-cyan-100 border-2 border-teal-300">
         <div className="flex justify-between items-center">
           <span className="text-lg font-bold text-gray-900">Ukupno proizvodi:</span>
-          <span className="text-2xl font-bold text-purple-600">{getTotalPrice()} RSD</span>
+          <span className="text-2xl font-bold text-teal-600">{getTotalPrice()} RSD</span>
         </div>
       </Card>
     </div>
