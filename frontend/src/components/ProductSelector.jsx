@@ -147,7 +147,7 @@ const ProductSelector = ({ onProductsChange, totalPhotosUploaded }) => {
             const productTotal = product.price * product.quantity;
             
             return (
-              <Card key={index} className="p-6 border-2 border-purple-200 bg-purple-50">
+              <Card key={index} className="p-6 border-2 border-teal-200 bg-teal-50">
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex-1">
                     <h4 className="text-lg font-bold text-gray-900">{product.productName}</h4>
