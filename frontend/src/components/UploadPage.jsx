@@ -1667,26 +1667,26 @@ const UploadPage = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {/* Box 1: Broj Proizvoda */}
               {selectedProducts.length > 0 && (
-                <Card className="p-4 bg-white border-2 border-purple-300 hover:shadow-lg transition-shadow">
+                <Card className="p-4 bg-white border-2 border-teal-300 hover:shadow-lg transition-shadow">
                   <div className="text-center">
-                    <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <Package className="w-6 h-6 text-purple-600" />
+                    <div className="bg-teal-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <Package className="w-6 h-6 text-teal-600" />
                     </div>
                     <p className="text-xs text-gray-600 mb-2">Proizvodi</p>
-                    <p className="text-3xl font-bold text-purple-600">{selectedProducts.length}</p>
+                    <p className="text-3xl font-bold text-teal-600">{selectedProducts.length}</p>
                   </div>
                 </Card>
               )}
 
               {/* Box 2: Cena Proizvoda */}
               {selectedProducts.length > 0 && (
-                <Card className="p-4 bg-white border-2 border-purple-300 hover:shadow-lg transition-shadow">
+                <Card className="p-4 bg-white border-2 border-teal-300 hover:shadow-lg transition-shadow">
                   <div className="text-center">
-                    <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <Coins className="w-6 h-6 text-purple-600" />
+                    <div className="bg-teal-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <Coins className="w-6 h-6 text-teal-600" />
                     </div>
                     <p className="text-xs text-gray-600 mb-2">Cena Proizvoda</p>
-                    <p className="text-2xl font-bold text-purple-600">
+                    <p className="text-2xl font-bold text-teal-600">
                       {selectedProducts.reduce((sum, p) => sum + (p.price * p.quantity), 0)}
                     </p>
                     <p className="text-xs text-gray-500 mt-1">RSD</p>
