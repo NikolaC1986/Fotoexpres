@@ -20,6 +20,7 @@ const PricesPage = () => {
   const [freeDeliveryLimit, setFreeDeliveryLimit] = useState(5000);
   const [deliveryPrice, setDeliveryPrice] = useState(400);
   const [quantityDiscounts, setQuantityDiscounts] = useState({ '50': 5, '100': 10, '200': 15 });
+  const [quantityDiscountsEnabled, setQuantityDiscountsEnabled] = useState(true);
 
   useEffect(() => {
     document.title = 'Cenovnik | Fotoexpres';
@@ -45,6 +46,7 @@ const PricesPage = () => {
       if (response.data.settings) {
         setFreeDeliveryLimit(response.data.settings.freeDeliveryLimit || 5000);
         setDeliveryPrice(response.data.settings.deliveryPrice || 400);
+        setQuantityDiscountsEnabled(response.data.settings.quantityDiscountsEnabled !== false);
       }
     } catch (error) {
       console.error('Error fetching settings:', error);
