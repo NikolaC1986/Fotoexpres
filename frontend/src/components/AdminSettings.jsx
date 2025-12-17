@@ -199,6 +199,53 @@ const AdminSettings = () => {
           </div>
         </Card>
 
+        {/* Quantity Discounts Settings */}
+        <Card className="p-8 border-2 border-gray-200 mb-6">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center">
+              <span className="text-2xl">🎉</span>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">Popusti na Količinu</h2>
+              <p className="text-gray-600">Uključite ili isključite popuste za veće porudžbine</p>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg max-w-xl">
+            <div>
+              <Label className="text-base font-semibold block">
+                Popusti za veće porudžbine
+              </Label>
+              <p className="text-sm text-gray-500 mt-1">
+                Kada je uključeno, kupci dobijaju popust na osnovu broja fotografija
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setSettings({...settings, quantityDiscountsEnabled: !settings.quantityDiscountsEnabled})}
+              className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 ${
+                settings.quantityDiscountsEnabled ? 'bg-green-600' : 'bg-gray-300'
+              }`}
+            >
+              <span
+                className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                  settings.quantityDiscountsEnabled ? 'translate-x-7' : 'translate-x-1'
+                }`}
+              />
+            </button>
+          </div>
+          {settings.quantityDiscountsEnabled && (
+            <p className="text-sm text-green-600 mt-3 font-medium">
+              ✓ Popusti su aktivni i prikazuju se na stranici cenovnika
+            </p>
+          )}
+          {!settings.quantityDiscountsEnabled && (
+            <p className="text-sm text-gray-500 mt-3">
+              Popusti su isključeni i neće se prikazivati na cenovniku
+            </p>
+          )}
+        </Card>
+
         {/* Contact Settings */}
         <Card className="p-8 border-2 border-gray-200 mb-6">
           <div className="flex items-center gap-3 mb-8">
