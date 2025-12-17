@@ -301,10 +301,10 @@ const ProductSelector = ({ onProductsChange, totalPhotosUploaded }) => {
           })}
 
           {/* Total Products Price */}
-          <Card className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-300">
+          <Card className="p-4 bg-gradient-to-r from-teal-50 to-cyan-50 border-2 border-teal-300">
             <div className="flex justify-between items-center">
               <span className="text-lg font-bold text-gray-900">Ukupno proizvodi:</span>
-              <span className="text-2xl font-bold text-purple-600">{getTotalProductsPrice()} RSD</span>
+              <span className="text-2xl font-bold text-teal-600">{getTotalProductsPrice()} RSD</span>
             </div>
           </Card>
         </div>
