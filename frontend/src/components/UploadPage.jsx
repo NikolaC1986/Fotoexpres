@@ -1519,31 +1519,23 @@ const UploadPage = () => {
 
               {/* Promotion Discount */}
               {promotionDiscountAmount > 0 && (
-                <div className="flex justify-between items-center text-lg bg-purple-100 p-3 rounded-lg border-2 border-purple-300">
-                  <span className="text-purple-800 font-semibold flex items-center gap-2">
+                <div className="flex justify-between items-center text-lg bg-amber-100 p-3 rounded-lg border-2 border-amber-300">
+                  <span className="text-amber-800 font-semibold flex items-center gap-2">
                     🏷️ Akcijski popust ({promotionDiscountPercent}%):
                   </span>
-                  <span className="font-bold text-purple-700">
+                  <span className="font-bold text-amber-700">
                     -{promotionDiscountAmount} RSD
                   </span>
                 </div>
               )}
 
-              {/* Total Discount */}
-              {totalDiscountAmount > 0 && (
-                <div className="flex justify-between items-center text-lg">
-                  <span className="text-gray-700">Cena sa popustom:</span>
-                  <span className="font-bold text-green-600">{priceAfterDiscount} RSD</span>
-                </div>
-              )}
-
               {/* Products Price */}
               {productsPrice > 0 && (
-                <div className="flex justify-between items-center text-lg bg-purple-50 p-3 rounded-lg border-2 border-purple-200">
-                  <span className="text-purple-800 font-bold flex items-center gap-2">
-                    📦 Dodatni proizvodi:
+                <div className="flex justify-between items-center text-lg bg-teal-50 p-3 rounded-lg border-2 border-teal-200">
+                  <span className="text-teal-800 font-bold flex items-center gap-2">
+                    📦 Ukupno proizvodi:
                   </span>
-                  <span className="font-bold text-purple-800">{productsPrice} RSD</span>
+                  <span className="font-bold text-teal-800">{productsPrice} RSD</span>
                 </div>
               )}
 
