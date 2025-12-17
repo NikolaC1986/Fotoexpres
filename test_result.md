@@ -1034,6 +1034,7 @@ test_plan:
     - "Photo Printing Service - Quantity Discounts Settings API"
     - "Photo Printing Service - Promo Code UNLIMITED Order Creation"
     - "Photo Printing Service - Order Text File Promo Code Content"
+    - "Promo Code Discount Calculation in Order Text File"
   completed_new_features:
     - "ZIP Structure with Quantity Folders"
     - "Change Viewer Password Endpoint"
