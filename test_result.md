@@ -964,6 +964,54 @@ frontend:
           agent: "testing"
           comment: "✅ ORDER CREATION WITH PROMO CODE INTEGRATION WORKING - Successfully tested complete order flow with promo code TEST1. Order ORD-134487 created with: promoCode='TEST1', promoCodeDiscount=15, promoCodeDiscountAmount=13.5. All promo code fields correctly saved to MongoDB orders collection. Order retrieval API returns all promo code data. Integration between promo code system and order creation working perfectly for discount application and tracking."
 
+  - task: "Photo Printing Service - Admin Login with Provided Credentials"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py, /app/backend/models/admin.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ ADMIN LOGIN WITH PROVIDED CREDENTIALS WORKING - Successfully authenticated with credentials 'Vlasnik/$ta$Graca25' as specified in review request. JWT token authentication working perfectly with 147-character token. Admin login API returns success=true, proper message, and valid token for accessing protected endpoints."
+
+  - task: "Photo Printing Service - Quantity Discounts Settings API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ QUANTITY DISCOUNTS SETTINGS API WORKING - GET /api/settings correctly returns quantityDiscountsEnabled field (boolean value). PUT /api/admin/settings successfully accepts quantityDiscountsEnabled in settings object and persists changes. Tested toggle functionality from true→false with proper verification. Admin settings API fully supports quantity discounts toggle feature as specified in review request."
+
+  - task: "Photo Printing Service - Promo Code UNLIMITED Order Creation"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ PROMO CODE UNLIMITED ORDER CREATION WORKING - Successfully created order ORD-930497 with promo code 'UNLIMITED' (5% discount). Order contains: promoCode='UNLIMITED', promoCodeDiscount=5, promoCodeDiscountAmount=22.5, totalPhotos=15. All promo code fields correctly saved to MongoDB orders collection. Order creation API properly handles promo code integration as specified in review request."
+
+  - task: "Photo Printing Service - Order Text File Promo Code Content"
+    implemented: true
+    working: true
+    file: "/app/backend/utils/order_utils.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ ORDER TEXT FILE PROMO CODE CONTENT WORKING - Downloaded ZIP file for order ORD-930497 contains order_details.txt with correct promo code information. File includes: 'PROMO KOD \"UNLIMITED\" (5%)' section, negative RSD discount amount (-22.5 RSD), and 'UKUPNO ZA PLAĆANJE' total section. Order text file generation properly includes promo code discount details as specified in review request."
+
 metadata:
   created_by: "testing_agent"
   version: "4.0"
