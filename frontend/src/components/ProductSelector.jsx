@@ -66,7 +66,7 @@ const ProductSelector = ({ onProductsChange, totalPhotosUploaded }) => {
     
     // Scroll to selected products section
     setTimeout(() => {
-      const selectedSection = document.querySelector('.border-purple-200');
+      const selectedSection = document.querySelector('.border-teal-200');
       if (selectedSection) {
         selectedSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
