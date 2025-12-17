@@ -2336,6 +2336,187 @@ class PhotoOrderTester:
             )
             return None
 
+    def test_promo_code_discount_calculation_verification(self):
+        """Test CRITICAL: Promo Code Discount Calculation in order_details.txt"""
+        print("\n=== Testing PROMO CODE DISCOUNT CALCULATION - CRITICAL VERIFICATION ===")
+        
+        if not self.admin_token:
+            login_success = self.admin_login()
+            if not login_success:
+                self.log_result(
+                    "Promo Code Discount Calculation", 
+                    False, 
+                    "Cannot test - admin login failed"
+                )
+                return
+        
+        # Test scenario as specified in review request:
+        # Photos cost 450 RSD, promo code UNLIMITED (5% discount) = 22.5 RSD discount
+        # With 400 RSD delivery, total should be: 450 - 22.5 + 400 = 827.5 RSD (NOT 850 RSD)
+        order_details = {
+            "contactInfo": {
+                "fullName": "Promo Test Korisnik",
+                "email": "promo@example.com", 
+                "phone": "0641234567",
+                "street": "Testna ulica 123",
+                "postalCode": "11000",
+                "city": "Beograd",
+                "notes": "Test promo code discount calculation"
+            },
+            "photoSettings": [
+                {
+                    "fileName": "promo_photo1.jpg",
+                    "format": "10x15",  # 18 RSD per photo
+                    "quantity": 25,     # 25 * 18 = 450 RSD
+                    "finish": "sjajni"
+                }
+            ],
+            "promoCode": "UNLIMITED",
+            "promoCodeDiscount": 5,  # 5% discount
+            "promoCodeDiscountAmount": 22.5,  # 450 * 0.05 = 22.5 RSD
+            "totalPrice": 450,
+            "deliveryFee": 400,
+            "grandTotal": 827.5  # 450 - 22.5 + 400 = 827.5 RSD
+        }
+        
+        try:
+            # Create test image
+            photo_data, _ = self.create_test_image("promo_photo1.jpg", 2)
+            
+            files = [
+                ('photos', ('promo_photo1.jpg', photo_data, 'image/jpeg'))
+            ]
+            
+            data = {
+                'order_details': json.dumps(order_details)
+            }
+            
+            # Create order with promo code
+            response = requests.post(f"{self.backend_url}/orders/create", files=files, data=data)
+            
+            if response.status_code != 200:
+                self.log_result(
+                    "Promo Code Discount Calculation", 
+                    False, 
+                    f"Order creation failed: HTTP {response.status_code}: {response.text}"
+                )
+                return
+            
+            result = response.json()
+            if not result.get('success'):
+                self.log_result(
+                    "Promo Code Discount Calculation", 
+                    False, 
+                    "Order creation success flag is False"
+                )
+                return
+            
+            order_number = result['orderNumber']
+            
+            # Download ZIP file to verify order_details.txt content
+            headers = {"Authorization": f"Bearer {self.admin_token}"}
+            zip_response = requests.get(f"{self.backend_url}/admin/orders/{order_number}/download", headers=headers)
+            
+            if zip_response.status_code != 200:
+                self.log_result(
+                    "Promo Code Discount Calculation", 
+                    False, 
+                    f"ZIP download failed: HTTP {zip_response.status_code}"
+                )
+                return
+            
+            # Save ZIP to temporary file and analyze order_details.txt
+            with tempfile.NamedTemporaryFile(suffix='.zip', delete=False) as temp_zip:
+                temp_zip.write(zip_response.content)
+                temp_zip_path = temp_zip.name
+            
+            try:
+                # Extract and analyze order_details.txt
+                with zipfile.ZipFile(temp_zip_path, 'r') as zipf:
+                    if 'order_details.txt' not in zipf.namelist():
+                        self.log_result(
+                            "Promo Code Discount Calculation", 
+                            False, 
+                            "order_details.txt not found in ZIP file"
+                        )
+                        return
+                    
+                    order_details_content = zipf.read('order_details.txt').decode('utf-8')
+                    
+                    # Critical verification checks as specified in review request
+                    verification_checks = {
+                        "promo_code_section": False,
+                        "discount_amount": False,
+                        "reduced_total": False,
+                        "correct_calculation": False
+                    }
+                    
+                    # Check 1: Promo code section present
+                    if 'PROMO KOD "UNLIMITED" (5%)' in order_details_content or 'UNLIMITED' in order_details_content:
+                        verification_checks["promo_code_section"] = True
+                    
+                    # Check 2: Discount amount shown as negative
+                    if '-22.5 RSD' in order_details_content or '-22,5 RSD' in order_details_content:
+                        verification_checks["discount_amount"] = True
+                    
+                    # Check 3: UKUPNO ZA NAPLATU shows reduced total
+                    import re
+                    total_pattern = r'UKUPNO ZA (?:NAPLATU|PLAĆANJE)[:\s]*(\d+(?:[.,]\d+)?)\s*RSD'
+                    total_matches = re.findall(total_pattern, order_details_content, re.IGNORECASE)
+                    
+                    if total_matches:
+                        # Convert to float, handle both comma and dot as decimal separator
+                        total_amount = float(total_matches[-1].replace(',', '.'))
+                        
+                        # Check if total is reduced (should be 827.5, NOT 850)
+                        if total_amount < 850:  # Must be less than 850 (without discount)
+                            verification_checks["reduced_total"] = True
+                        
+                        # Check if calculation is exactly correct (827.5 RSD)
+                        if abs(total_amount - 827.5) < 0.1:  # Allow small floating point differences
+                            verification_checks["correct_calculation"] = True
+                    
+                    # Determine overall success
+                    all_checks_passed = all(verification_checks.values())
+                    
+                    if all_checks_passed:
+                        self.log_result(
+                            "Promo Code Discount Calculation", 
+                            True, 
+                            f"✅ CRITICAL VERIFICATION PASSED - Promo code discount correctly calculated and applied in order {order_number}",
+                            {
+                                "expected_total": "827.5 RSD (450 - 22.5 + 400)",
+                                "actual_total": f"{total_amount} RSD" if total_matches else "Not found",
+                                "promo_code": "UNLIMITED (5%)",
+                                "discount_applied": "-22.5 RSD",
+                                "verification_checks": verification_checks
+                            }
+                        )
+                    else:
+                        failed_checks = [check for check, passed in verification_checks.items() if not passed]
+                        self.log_result(
+                            "Promo Code Discount Calculation", 
+                            False, 
+                            f"❌ CRITICAL ISSUE - Promo code discount calculation incorrect. Failed checks: {failed_checks}",
+                            {
+                                "expected_total": "827.5 RSD (450 - 22.5 + 400)",
+                                "actual_total": f"{total_amount} RSD" if total_matches else "Not found",
+                                "verification_checks": verification_checks,
+                                "order_details_content": order_details_content[:1000] + "..." if len(order_details_content) > 1000 else order_details_content
+                            }
+                        )
+                    
+            finally:
+                # Clean up temp file
+                os.unlink(temp_zip_path)
+                
+        except Exception as e:
+            self.log_result(
+                "Promo Code Discount Calculation", 
+                False, 
+                f"Exception occurred: {str(e)}"
+            )
+
     def run_all_tests(self):
         """Run all tests in sequence"""
         print(f"Starting Photo Order Management System Tests")
