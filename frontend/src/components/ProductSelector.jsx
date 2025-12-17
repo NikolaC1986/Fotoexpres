@@ -311,9 +311,9 @@ const ProductSelector = ({ onProductsChange, totalPhotosUploaded }) => {
       )}
 
       {/* Available Products - Always Visible */}
-      <Card className="p-6 border-2 border-purple-300 bg-purple-50">
+      <Card className="p-6 border-2 border-teal-300 bg-teal-50">
         <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-          <Package size={24} className="text-purple-600" />
+          <Package size={24} className="text-teal-600" />
           Dostupni Proizvodi
         </h3>
 
