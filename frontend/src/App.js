@@ -18,6 +18,7 @@ import AdminProducts from './components/AdminProducts';
 import AdminPromoBanner from './components/AdminPromoBanner';
 import AdminPromoCodes from './components/AdminPromoCodes';
 import { Toaster } from './components/ui/toaster';
+import GoogleAnalytics from './components/GoogleAnalytics';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -29,6 +30,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <GoogleAnalytics />
         <Routes>
           {/* Public Routes with Navbar */}
           <Route path="/" element={<><Navbar /><HomePage /></>} />

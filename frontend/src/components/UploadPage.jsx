@@ -11,6 +11,7 @@ import { toast } from '../hooks/use-toast';
 import CompactProductSelector from './products/CompactProductSelector';
 import SelectedProductsList from './products/SelectedProductsList';
 import axios from 'axios';
+import { trackAddToCart, trackBeginCheckout, trackPurchase, trackPhotoUpload, trackApplyPromoCode, trackAdsConversion } from '../utils/gtag';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -164,6 +165,9 @@ const UploadPage = () => {
   // Product management functions
   const handleAddProduct = (product) => {
     setSelectedProducts([...selectedProducts, product]);
+    
+    // Google Analytics - add to cart event
+    trackAddToCart(product.productName + ' - ' + product.variantName, product.price);
     
     // Show success notification
     toast({
@@ -444,6 +448,10 @@ const UploadPage = () => {
       if (response.data.success) {
         setPromoDiscount(response.data.discount);
         setAppliedPromoCode(promoCode.trim().toUpperCase());
+        
+        // Google Analytics - promo code applied
+        trackApplyPromoCode(promoCode.trim().toUpperCase(), response.data.discount);
+        
         toast({
           title: "✅ Promo kod primenjen!",
           description: response.data.message
@@ -493,6 +501,9 @@ const UploadPage = () => {
     
     const updatedPhotos = [...photos, ...newPhotos];
     setPhotos(updatedPhotos);
+    
+    // Google Analytics - photo upload event
+    trackPhotoUpload(files.length);
     
     // Show appropriate message based on number of photos
     if (updatedPhotos.length > 100) {
@@ -592,6 +603,9 @@ const UploadPage = () => {
     try {
       setIsUploading(true);
       setUploadProgress(0);
+
+      // Google Analytics - begin checkout
+      trackBeginCheckout(grandTotal, photos.length + selectedProducts.length);
 
       // Special case: Products only (no photos)
       if (photos.length === 0 && selectedProducts.length > 0) {
@@ -694,6 +708,10 @@ const UploadPage = () => {
         // Show success modal
         setSuccessOrderNumber(orderNumber);
         setShowSuccessModal(true);
+        
+        // Google Analytics - purchase conversion (products only)
+        trackPurchase(orderNumber, grandTotalForProducts, appliedPromoCode);
+        trackAdsConversion('purchase', grandTotalForProducts);
         
         // Reset form
         resetForm();
@@ -860,6 +878,10 @@ const UploadPage = () => {
         setSuccessOrderNumber(orderNumber);
         setShowSuccessModal(true);
         
+        // Google Analytics - purchase conversion (chunked upload)
+        trackPurchase(orderNumber, grandTotal, appliedPromoCode);
+        trackAdsConversion('purchase', grandTotal);
+        
         // Reset form
         resetForm();
 
@@ -980,6 +1002,10 @@ const UploadPage = () => {
         // Show success modal
         setSuccessOrderNumber(orderNumber);
         setShowSuccessModal(true);
+        
+        // Google Analytics - purchase conversion (standard upload)
+        trackPurchase(orderNumber, grandTotal, appliedPromoCode);
+        trackAdsConversion('purchase', grandTotal);
         
         // Reset form
         resetForm();
