@@ -223,7 +223,7 @@ backend:
     status_history:
         - working: true
           agent: "testing"
-          comment: "✅ Backend API accessible at https://promo-system-3.preview.emergentagent.com/api. All routes properly prefixed with /api. Basic connectivity test passes."
+          comment: "✅ Backend API accessible at https://promo-checkout-5.preview.emergentagent.com/api. All routes properly prefixed with /api. Basic connectivity test passes."
 
   - task: "Delete Order API (Admin)"
     implemented: true
@@ -716,7 +716,7 @@ frontend:
     status_history:
         - working: true
           agent: "testing"
-          comment: "✅ Frontend-backend API integration working correctly. Form submission makes POST request to https://promo-system-3.preview.emergentagent.com/api/orders/create. Backend responds with 200 status for valid submissions. FormData properly constructed with photos and order details. Environment variable REACT_APP_BACKEND_URL correctly configured and used. Network monitoring confirms successful API communication."
+          comment: "✅ Frontend-backend API integration working correctly. Form submission makes POST request to https://promo-checkout-5.preview.emergentagent.com/api/orders/create. Backend responds with 200 status for valid submissions. FormData properly constructed with photos and order details. Environment variable REACT_APP_BACKEND_URL correctly configured and used. Network monitoring confirms successful API communication."
 
   - task: "Admin Panel - Delete Order Functionality"
     implemented: true
@@ -902,7 +902,7 @@ frontend:
     status_history:
         - working: true
           agent: "testing"
-          comment: "✅ IMAGE DISPLAY FIX VERIFIED - Product image upload and display working correctly. Successfully uploaded test image via /api/admin/products/upload-image endpoint, received correct relative URL format '/uploads/products/UUID.jpg', and verified image is accessible via production URL https://promo-system-3.preview.emergentagent.com/uploads/products/. getImageUrl helper function correctly handles both relative and absolute URLs. This addresses user reported issue where product images were not displaying on frontend/admin panel after upload."
+          comment: "✅ IMAGE DISPLAY FIX VERIFIED - Product image upload and display working correctly. Successfully uploaded test image via /api/admin/products/upload-image endpoint, received correct relative URL format '/uploads/products/UUID.jpg', and verified image is accessible via production URL https://promo-checkout-5.preview.emergentagent.com/uploads/products/. getImageUrl helper function correctly handles both relative and absolute URLs. This addresses user reported issue where product images were not displaying on frontend/admin panel after upload."
 
   - task: "Product Order ZIP Structure Organization"
     implemented: true

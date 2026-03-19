@@ -18,7 +18,7 @@ import io
 import time
 
 # Configuration
-BACKEND_URL = "https://promo-system-3.preview.emergentagent.com/api"
+BACKEND_URL = "https://promo-checkout-5.preview.emergentagent.com/api"
 
 class PhotoPrintingFixesTester:
     def __init__(self):
@@ -631,7 +631,7 @@ class PhotoPrintingFixesTester:
             # Test 3: Test image accessibility via production URL
             print("\n=== Test 3: Test Image Accessibility via Production URL ===")
             
-            production_url = f"https://promo-system-3.preview.emergentagent.com/uploads/products/{filename}"
+            production_url = f"https://promo-checkout-5.preview.emergentagent.com/uploads/products/{filename}"
             prod_response = requests.get(production_url)
             
             if prod_response.status_code == 200:

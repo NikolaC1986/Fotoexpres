@@ -10,7 +10,7 @@ import os
 import io
 from PIL import Image
 
-API_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://promo-system-3.preview.emergentagent.com')
+API_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://promo-checkout-5.preview.emergentagent.com')
 API = f"{API_URL}/api"
 
 def create_test_image(filename="test_photo.jpg"):
