@@ -711,7 +711,7 @@ const UploadPage = () => {
         
         // Google Analytics - purchase conversion (products only)
         trackPurchase(orderNumber, grandTotalForProducts, appliedPromoCode);
-        trackAdsConversion(grandTotalForProducts);
+        trackAdsConversion(grandTotalForProducts, orderNumber);
         
         // Reset form
         resetForm();
@@ -880,7 +880,7 @@ const UploadPage = () => {
         
         // Google Analytics - purchase conversion (chunked upload)
         trackPurchase(orderNumber, grandTotal, appliedPromoCode);
-        trackAdsConversion(grandTotal);
+        trackAdsConversion(grandTotal, orderNumber);
         
         // Reset form
         resetForm();
@@ -1005,7 +1005,7 @@ const UploadPage = () => {
         
         // Google Analytics - purchase conversion (standard upload)
         trackPurchase(orderNumber, grandTotal, appliedPromoCode);
-        trackAdsConversion(grandTotal);
+        trackAdsConversion(grandTotal, orderNumber);
         
         // Reset form
         resetForm();

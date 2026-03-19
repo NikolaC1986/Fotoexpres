@@ -8,12 +8,13 @@ export const trackEvent = (eventName, params = {}) => {
 };
 
 // Track Google Ads conversion (when order is completed)
-export const trackAdsConversion = (value, currency = 'RSD') => {
+export const trackAdsConversion = (value, transactionId, currency = 'RSD') => {
   if (typeof window.gtag !== 'function') return;
   window.gtag('event', 'conversion', {
-    send_to: `${ADS_ID}/TFZFCKfJ7OsbEJzirMY_`,
-    value: value,
-    currency: currency,
+    'send_to': 'AW-17058967836/TFZFCKfJ7OsbEJzirMY_',
+    'value': value,
+    'currency': currency,
+    'transaction_id': transactionId,
   });
 };
 
