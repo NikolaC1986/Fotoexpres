@@ -1,5 +1,5 @@
 // Google Analytics / Google Ads tracking utility
-const GA_MEASUREMENT_ID = 'G-5JYT6NT5ZS';
+const GA_MEASUREMENT_ID = 'G-5JYT6NT52S';
 const ADS_ID = 'AW-17058967836';
 
 // Send page view
