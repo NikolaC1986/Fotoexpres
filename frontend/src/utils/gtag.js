@@ -1,28 +1,17 @@
-// Google Analytics / Google Ads tracking utility
-const GA_MEASUREMENT_ID = 'G-5JYT6NT52S';
+// Google Ads tracking utility
 const ADS_ID = 'AW-17058967836';
 
-// Send page view
-export const trackPageView = (url, title) => {
-  if (typeof window.gtag !== 'function') return;
-  window.gtag('event', 'page_view', {
-    page_path: url,
-    page_title: title,
-    send_to: GA_MEASUREMENT_ID,
-  });
-};
-
-// Track custom events (for GA4)
+// Track custom events
 export const trackEvent = (eventName, params = {}) => {
   if (typeof window.gtag !== 'function') return;
   window.gtag('event', eventName, params);
 };
 
-// Track Google Ads conversion
+// Track Google Ads conversion (when order is completed)
 export const trackAdsConversion = (value, currency = 'RSD') => {
   if (typeof window.gtag !== 'function') return;
   window.gtag('event', 'conversion', {
-    send_to: 'AW-17058967836/TFZFCKfJ7OsbEJzirMY_',
+    send_to: `${ADS_ID}/TFZFCKfJ7OsbEJzirMY_`,
     value: value,
     currency: currency,
   });
